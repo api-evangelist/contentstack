@@ -1,0 +1,593 @@
+openapi: 3.1.0
+info:
+  title: Contentstack SCIM API
+  description: >-
+    The Contentstack SCIM API implements the System for Cross-domain Identity
+    Management (SCIM 2.0) standard to enable automated user lifecycle management
+    within a Contentstack organization. It allows Identity Providers (IdPs) to
+    provision and deprovision users, manage group memberships, and synchronize
+    user attributes between the IdP and Contentstack. This API is primarily used
+    by enterprise organizations that manage Contentstack access through
+    centralized identity management platforms such as Okta, Azure AD, or
+    OneLogin. Group mappings in Contentstack allow IdP-managed groups to control
+    role-based access within the CMS.
+  version: '2.0'
+  contact:
+    name: Contentstack Support
+    url: https://www.contentstack.com/contact
+  termsOfService: https://www.contentstack.com/legal/terms-of-service
+externalDocs:
+  description: Contentstack SCIM API Documentation
+  url: https://www.contentstack.com/docs/developers/apis/scim-api
+servers:
+  - url: https://auth-api.contentstack.com
+    description: AWS North America Production Server
+  - url: https://eu-auth-api.contentstack.com
+    description: AWS Europe Production Server
+  - url: https://au-auth-api.contentstack.com
+    description: AWS Australia Production Server
+  - url: https://azure-na-auth-api.contentstack.com
+    description: Azure North America Production Server
+  - url: https://azure-eu-auth-api.contentstack.com
+    description: Azure Europe Production Server
+  - url: https://gcp-na-auth-api.contentstack.com
+    description: GCP North America Production Server
+  - url: https://gcp-eu-auth-api.contentstack.com
+    description: GCP Europe Production Server
+tags:
+  - name: SCIM Users
+    description: >-
+      SCIM user endpoints enable Identity Providers to provision, update, and
+      deprovision user accounts within a Contentstack organization following
+      the SCIM 2.0 User schema.
+  - name: SCIM Groups
+    description: >-
+      SCIM group endpoints allow Identity Providers to manage group memberships
+      in Contentstack, which map to role-based access control within the CMS.
+  - name: SCIM Schema Discovery
+    description: >-
+      Schema discovery endpoints implement the SCIM 2.0 service provider
+      configuration, returning supported schemas and resource types for
+      IdP compatibility validation.
+security:
+  - bearerAuth: []
+paths:
+  /scim/v2.0/organizations/{organization_uid}/Users:
+    get:
+      operationId: listScimUsers
+      summary: List SCIM users
+      description: >-
+        Retrieves all users in the organization following the SCIM 2.0 ListResponse
+        format. Supports filtering by userName (email address) using the
+        filter query parameter for user lookup during IdP sync operations.
+      tags:
+        - SCIM Users
+      parameters:
+        - $ref: '#/components/parameters/OrganizationUid'
+        - name: filter
+          in: query
+          description: >-
+            SCIM filter expression for searching users. Example:
+            userName eq "user@example.com"
+          schema:
+            type: string
+      responses:
+        '200':
+          description: A SCIM ListResponse containing user resources.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ScimListResponse'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+    post:
+      operationId: createScimUser
+      summary: Create a SCIM user
+      description: >-
+        Provisions a new user in the Contentstack organization via SCIM. The
+        user is created with the attributes provided in the SCIM User resource
+        and assigned to the organization's default role unless group mappings
+        specify otherwise.
+      tags:
+        - SCIM Users
+      parameters:
+        - $ref: '#/components/parameters/OrganizationUid'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ScimUser'
+      responses:
+        '201':
+          description: The newly provisioned SCIM user resource.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ScimUser'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '409':
+          description: A user with this userName already exists.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ScimError'
+  /scim/v2.0/organizations/{organization_uid}/Users/{user_id}:
+    get:
+      operationId: getScimUser
+      summary: Get a SCIM user
+      description: >-
+        Retrieves the SCIM User resource for a specific user by their SCIM
+        user ID within the organization.
+      tags:
+        - SCIM Users
+      parameters:
+        - $ref: '#/components/parameters/OrganizationUid'
+        - $ref: '#/components/parameters/UserId'
+      responses:
+        '200':
+          description: The SCIM user resource.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ScimUser'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+    put:
+      operationId: replaceScimUser
+      summary: Replace a SCIM user
+      description: >-
+        Fully replaces a SCIM user resource with the provided attributes.
+        All attributes not included in the request will be cleared or reset
+        to defaults following SCIM 2.0 PUT semantics.
+      tags:
+        - SCIM Users
+      parameters:
+        - $ref: '#/components/parameters/OrganizationUid'
+        - $ref: '#/components/parameters/UserId'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ScimUser'
+      responses:
+        '200':
+          description: The updated SCIM user resource.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ScimUser'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+    patch:
+      operationId: updateScimUser
+      summary: Update a SCIM user
+      description: >-
+        Partially updates a SCIM user resource using SCIM 2.0 PATCH operations.
+        Commonly used to activate or deactivate users by setting the active
+        attribute, or to update specific profile attributes without replacing
+        the entire resource.
+      tags:
+        - SCIM Users
+      parameters:
+        - $ref: '#/components/parameters/OrganizationUid'
+        - $ref: '#/components/parameters/UserId'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ScimPatchRequest'
+      responses:
+        '200':
+          description: The updated SCIM user resource.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ScimUser'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+  /scim/v2.0/organizations/{organization_uid}/Groups:
+    get:
+      operationId: listScimGroups
+      summary: List SCIM groups
+      description: >-
+        Retrieves all groups in the organization following the SCIM 2.0
+        ListResponse format. Supports filtering by displayName for group
+        lookup during IdP sync operations.
+      tags:
+        - SCIM Groups
+      parameters:
+        - $ref: '#/components/parameters/OrganizationUid'
+        - name: filter
+          in: query
+          description: >-
+            SCIM filter expression for searching groups. Example:
+            displayName eq "Editors"
+          schema:
+            type: string
+      responses:
+        '200':
+          description: A SCIM ListResponse containing group resources.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ScimListResponse'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+    post:
+      operationId: createScimGroup
+      summary: Create a SCIM group
+      description: >-
+        Creates a new group in the Contentstack organization via SCIM. Groups
+        can be mapped to specific roles and stacks in Contentstack to control
+        member access permissions.
+      tags:
+        - SCIM Groups
+      parameters:
+        - $ref: '#/components/parameters/OrganizationUid'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ScimGroup'
+      responses:
+        '201':
+          description: The newly created SCIM group resource.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ScimGroup'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+  /scim/v2.0/organizations/{organization_uid}/Groups/{group_id}:
+    get:
+      operationId: getScimGroup
+      summary: Get a SCIM group
+      description: >-
+        Retrieves the SCIM Group resource for a specific group by its SCIM
+        group ID within the organization.
+      tags:
+        - SCIM Groups
+      parameters:
+        - $ref: '#/components/parameters/OrganizationUid'
+        - $ref: '#/components/parameters/GroupId'
+      responses:
+        '200':
+          description: The SCIM group resource.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ScimGroup'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+    put:
+      operationId: replaceScimGroup
+      summary: Replace a SCIM group
+      description: >-
+        Fully replaces a SCIM group resource including all member assignments.
+        Use this to synchronize the complete group membership from the IdP.
+      tags:
+        - SCIM Groups
+      parameters:
+        - $ref: '#/components/parameters/OrganizationUid'
+        - $ref: '#/components/parameters/GroupId'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ScimGroup'
+      responses:
+        '200':
+          description: The updated SCIM group resource.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ScimGroup'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+    patch:
+      operationId: updateScimGroup
+      summary: Update a SCIM group
+      description: >-
+        Partially updates a SCIM group using SCIM 2.0 PATCH operations.
+        Commonly used to add or remove individual members from the group
+        without replacing the entire membership list.
+      tags:
+        - SCIM Groups
+      parameters:
+        - $ref: '#/components/parameters/OrganizationUid'
+        - $ref: '#/components/parameters/GroupId'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ScimPatchRequest'
+      responses:
+        '200':
+          description: The updated SCIM group resource.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ScimGroup'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+    delete:
+      operationId: deleteScimGroup
+      summary: Delete a SCIM group
+      description: >-
+        Removes a SCIM group from the Contentstack organization. Members of
+        the group retain their individual user accounts but lose the role
+        permissions granted by the group mapping.
+      tags:
+        - SCIM Groups
+      parameters:
+        - $ref: '#/components/parameters/OrganizationUid'
+        - $ref: '#/components/parameters/GroupId'
+      responses:
+        '204':
+          description: Group deleted successfully.
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+  /scim/v2.0/Schemas:
+    get:
+      operationId: getScimSchemas
+      summary: Get SCIM schemas
+      description: >-
+        Returns the SCIM schemas supported by the Contentstack SCIM API,
+        enabling IdP clients to understand the available attributes for
+        User and Group resources.
+      tags:
+        - SCIM Schema Discovery
+      security: []
+      responses:
+        '200':
+          description: A list of SCIM schemas supported by the API.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ScimListResponse'
+  /scim/v2.0/ResourceTypes:
+    get:
+      operationId: getScimResourceTypes
+      summary: Get SCIM resource types
+      description: >-
+        Returns the SCIM resource types supported by the Contentstack SCIM API
+        including Users and Groups, enabling IdP clients to discover available
+        endpoints and their schemas.
+      tags:
+        - SCIM Schema Discovery
+      security: []
+      responses:
+        '200':
+          description: A list of SCIM resource types.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ScimListResponse'
+components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      description: Bearer token from the Identity Provider client for SCIM authentication.
+  parameters:
+    OrganizationUid:
+      name: organization_uid
+      in: path
+      required: true
+      description: The unique identifier of the Contentstack organization.
+      schema:
+        type: string
+    UserId:
+      name: user_id
+      in: path
+      required: true
+      description: The SCIM user ID of the user within the organization.
+      schema:
+        type: string
+    GroupId:
+      name: group_id
+      in: path
+      required: true
+      description: The SCIM group ID of the group within the organization.
+      schema:
+        type: string
+  responses:
+    BadRequest:
+      description: The SCIM request is malformed or contains invalid attribute values.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ScimError'
+    Unauthorized:
+      description: The SCIM bearer token is missing or invalid.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ScimError'
+    NotFound:
+      description: The requested SCIM resource was not found.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ScimError'
+  schemas:
+    ScimListResponse:
+      type: object
+      description: A SCIM 2.0 ListResponse container for multi-resource responses.
+      properties:
+        schemas:
+          type: array
+          description: SCIM schema URNs identifying this as a ListResponse.
+          items:
+            type: string
+          example:
+            - urn:ietf:params:scim:api:messages:2.0:ListResponse
+        totalResults:
+          type: integer
+          description: Total number of resources matching the query.
+        startIndex:
+          type: integer
+          description: 1-based index of the first result in this page.
+        itemsPerPage:
+          type: integer
+          description: Number of results returned in this response.
+        Resources:
+          type: array
+          description: Array of SCIM resource objects (Users or Groups).
+          items:
+            type: object
+    ScimUser:
+      type: object
+      description: A SCIM 2.0 User resource representing a Contentstack user account.
+      properties:
+        schemas:
+          type: array
+          description: SCIM schema URNs for this resource.
+          items:
+            type: string
+          example:
+            - urn:ietf:params:scim:schemas:core:2.0:User
+        id:
+          type: string
+          description: SCIM-assigned unique identifier for the user.
+        userName:
+          type: string
+          format: email
+          description: The user's email address used as the primary unique identifier.
+        name:
+          type: object
+          description: The user's name components.
+          properties:
+            givenName:
+              type: string
+              description: The user's first name.
+            familyName:
+              type: string
+              description: The user's last name.
+        emails:
+          type: array
+          description: List of email addresses for the user.
+          items:
+            type: object
+            properties:
+              value:
+                type: string
+                format: email
+                description: The email address value.
+              primary:
+                type: boolean
+                description: Indicates whether this is the primary email address.
+        active:
+          type: boolean
+          description: >-
+            Indicates whether the user account is active. Set to false to
+            deprovision (deactivate) the user in Contentstack.
+    ScimGroup:
+      type: object
+      description: A SCIM 2.0 Group resource representing a Contentstack user group.
+      properties:
+        schemas:
+          type: array
+          description: SCIM schema URNs for this resource.
+          items:
+            type: string
+          example:
+            - urn:ietf:params:scim:schemas:core:2.0:Group
+        id:
+          type: string
+          description: SCIM-assigned unique identifier for the group.
+        displayName:
+          type: string
+          description: The display name of the group.
+        members:
+          type: array
+          description: List of user members in the group.
+          items:
+            type: object
+            properties:
+              value:
+                type: string
+                description: The SCIM user ID of the group member.
+              display:
+                type: string
+                description: The display name of the group member.
+    ScimPatchRequest:
+      type: object
+      description: A SCIM 2.0 PatchOp request for partial resource updates.
+      properties:
+        schemas:
+          type: array
+          description: SCIM schema URN identifying this as a PatchOp request.
+          items:
+            type: string
+          example:
+            - urn:ietf:params:scim:api:messages:2.0:PatchOp
+        Operations:
+          type: array
+          description: List of PATCH operations to perform.
+          items:
+            $ref: '#/components/schemas/ScimPatchOperation'
+    ScimPatchOperation:
+      type: object
+      description: A single SCIM PATCH operation.
+      required:
+        - op
+      properties:
+        op:
+          type: string
+          description: The operation type.
+          enum:
+            - add
+            - remove
+            - replace
+        path:
+          type: string
+          description: The attribute path to target for the operation.
+        value:
+          description: The value to apply for add or replace operations.
+    ScimError:
+      type: object
+      description: A SCIM 2.0 error response.
+      properties:
+        schemas:
+          type: array
+          description: SCIM schema URN for error responses.
+          items:
+            type: string
+          example:
+            - urn:ietf:params:scim:api:messages:2.0:Error
+        status:
+          type: string
+          description: HTTP status code as a string.
+        detail:
+          type: string
+          description: Human-readable description of the error.

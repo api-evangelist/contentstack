@@ -1,0 +1,573 @@
+openapi: 3.1.0
+info:
+  title: Contentstack Brand Kit Management API
+  description: >-
+    The Contentstack Brand Kit Management API provides programmatic control
+    over Brand Kit resources within a Contentstack organization. Brand Kits
+    serve as centralized hubs for an organization's brand identity, encompassing
+    detailed brand information, writing guidelines, and persona configurations.
+    The API supports full CRUD operations for Brand Kits, Voice Profiles, and
+    custom LLM configuration, enabling developers to manage brand identity
+    data programmatically and integrate it with AI content generation workflows.
+  version: 'v1'
+  contact:
+    name: Contentstack Support
+    url: https://www.contentstack.com/contact
+  termsOfService: https://www.contentstack.com/legal/terms-of-service
+externalDocs:
+  description: Contentstack Brand Kit Management API Documentation
+  url: https://www.contentstack.com/docs/developers/apis/brand-kit-management-api
+servers:
+  - url: https://brand-kits-api.contentstack.com
+    description: AWS North America Production Server
+  - url: https://eu-brand-kits-api.contentstack.com
+    description: AWS Europe Production Server
+  - url: https://au-na-brand-kits-api.contentstack.com
+    description: AWS Australia Production Server
+  - url: https://azure-na-brand-kits-api.contentstack.com
+    description: Azure North America Production Server
+  - url: https://azure-eu-brand-kits-api.contentstack.com
+    description: Azure Europe Production Server
+  - url: https://gcp-na-brand-kits-api.contentstack.com
+    description: GCP North America Production Server
+  - url: https://gcp-eu-brand-kits-api.contentstack.com
+    description: GCP Europe Production Server
+tags:
+  - name: Brand Kits
+    description: >-
+      Brand Kits are centralized repositories for an organization's brand
+      identity assets, guidelines, and AI configuration. They are used to
+      ensure consistent brand voice and style across AI-generated content.
+  - name: Voice Profiles
+    description: >-
+      Voice Profiles define the writing style, tone, and persona characteristics
+      for AI content generation within a Brand Kit. Multiple voice profiles
+      can be created to support different content contexts or audiences.
+  - name: LLM Configuration
+    description: >-
+      LLM Configuration endpoints allow organizations to register custom API
+      credentials for large language model providers, enabling content
+      generation through their own LLM subscriptions.
+security:
+  - bearerAuth: []
+  - authtokenAuth: []
+paths:
+  /v1/brand-kits:
+    get:
+      operationId: getAllBrandKits
+      summary: Get all Brand Kits
+      description: >-
+        Retrieves all Brand Kits in the organization with pagination support
+        and optional filtering. Each Brand Kit contains brand identity
+        information used for AI content generation.
+      tags:
+        - Brand Kits
+      parameters:
+        - $ref: '#/components/parameters/OrganizationUid'
+        - $ref: '#/components/parameters/Skip'
+        - $ref: '#/components/parameters/Limit'
+      responses:
+        '200':
+          description: A list of Brand Kits in the organization.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BrandKitList'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+    post:
+      operationId: createBrandKit
+      summary: Create a Brand Kit
+      description: >-
+        Creates a new Brand Kit in the organization with brand identity
+        configuration including name, description, guidelines, and associated
+        metadata.
+      tags:
+        - Brand Kits
+      parameters:
+        - $ref: '#/components/parameters/OrganizationUid'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateBrandKitRequest'
+      responses:
+        '201':
+          description: The newly created Brand Kit.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BrandKit'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+  /v1/brand-kits/{brand_kit_uid}:
+    get:
+      operationId: getBrandKit
+      summary: Get a Brand Kit
+      description: >-
+        Retrieves the full details of a specific Brand Kit including its brand
+        identity configuration, voice profiles, and associated knowledge vault
+        content.
+      tags:
+        - Brand Kits
+      parameters:
+        - $ref: '#/components/parameters/OrganizationUid'
+        - $ref: '#/components/parameters/BrandKitUid'
+      responses:
+        '200':
+          description: The requested Brand Kit.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BrandKit'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+    put:
+      operationId: updateBrandKit
+      summary: Update a Brand Kit
+      description: >-
+        Updates the configuration and brand identity information for an existing
+        Brand Kit.
+      tags:
+        - Brand Kits
+      parameters:
+        - $ref: '#/components/parameters/OrganizationUid'
+        - $ref: '#/components/parameters/BrandKitUid'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateBrandKitRequest'
+      responses:
+        '200':
+          description: The updated Brand Kit.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BrandKit'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+    delete:
+      operationId: deleteBrandKit
+      summary: Delete a Brand Kit
+      description: >-
+        Permanently removes a Brand Kit from the organization including all
+        associated voice profiles and knowledge vault content.
+      tags:
+        - Brand Kits
+      parameters:
+        - $ref: '#/components/parameters/OrganizationUid'
+        - $ref: '#/components/parameters/BrandKitUid'
+      responses:
+        '200':
+          description: Brand Kit deleted successfully.
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+  /v1/brand-kits/{brand_kit_uid}/voice-profiles:
+    get:
+      operationId: getAllVoiceProfiles
+      summary: Get all Voice Profiles
+      description: >-
+        Retrieves all Voice Profiles associated with a specific Brand Kit.
+        Voice Profiles define the writing style and tone used in AI content
+        generation for that Brand Kit.
+      tags:
+        - Voice Profiles
+      parameters:
+        - $ref: '#/components/parameters/OrganizationUid'
+        - $ref: '#/components/parameters/BrandKitUid'
+      responses:
+        '200':
+          description: A list of Voice Profiles in the Brand Kit.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/VoiceProfileList'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+    post:
+      operationId: createVoiceProfile
+      summary: Create a Voice Profile
+      description: >-
+        Creates a new Voice Profile within a Brand Kit defining the writing
+        style, tone characteristics, persona guidelines, and example content
+        for AI generation.
+      tags:
+        - Voice Profiles
+      parameters:
+        - $ref: '#/components/parameters/OrganizationUid'
+        - $ref: '#/components/parameters/BrandKitUid'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateVoiceProfileRequest'
+      responses:
+        '201':
+          description: The newly created Voice Profile.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/VoiceProfile'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+  /v1/brand-kits/{brand_kit_uid}/voice-profiles/{profile_uid}:
+    get:
+      operationId: getVoiceProfile
+      summary: Get a Voice Profile
+      description: >-
+        Retrieves the full configuration of a specific Voice Profile including
+        style guidelines, tone settings, and example content.
+      tags:
+        - Voice Profiles
+      parameters:
+        - $ref: '#/components/parameters/OrganizationUid'
+        - $ref: '#/components/parameters/BrandKitUid'
+        - $ref: '#/components/parameters/ProfileUid'
+      responses:
+        '200':
+          description: The requested Voice Profile.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/VoiceProfile'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+    put:
+      operationId: updateVoiceProfile
+      summary: Update a Voice Profile
+      description: >-
+        Updates the configuration of an existing Voice Profile including style
+        guidelines and tone characteristics.
+      tags:
+        - Voice Profiles
+      parameters:
+        - $ref: '#/components/parameters/OrganizationUid'
+        - $ref: '#/components/parameters/BrandKitUid'
+        - $ref: '#/components/parameters/ProfileUid'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateVoiceProfileRequest'
+      responses:
+        '200':
+          description: The updated Voice Profile.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/VoiceProfile'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+    delete:
+      operationId: deleteVoiceProfile
+      summary: Delete a Voice Profile
+      description: >-
+        Permanently removes a Voice Profile from the Brand Kit. This action
+        cannot be undone.
+      tags:
+        - Voice Profiles
+      parameters:
+        - $ref: '#/components/parameters/OrganizationUid'
+        - $ref: '#/components/parameters/BrandKitUid'
+        - $ref: '#/components/parameters/ProfileUid'
+      responses:
+        '200':
+          description: Voice Profile deleted successfully.
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+  /v1/brand-kits/{brand_kit_uid}/llm-config:
+    get:
+      operationId: getLlmConfig
+      summary: Get LLM configuration
+      description: >-
+        Retrieves the custom LLM provider credentials configured for a Brand
+        Kit. This allows organizations to use their own LLM API subscriptions
+        for content generation within the Brand Kit.
+      tags:
+        - LLM Configuration
+      parameters:
+        - $ref: '#/components/parameters/OrganizationUid'
+        - $ref: '#/components/parameters/BrandKitUid'
+      responses:
+        '200':
+          description: The LLM configuration for the Brand Kit.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LlmConfig'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+    post:
+      operationId: configureLlm
+      summary: Configure custom LLM credentials
+      description: >-
+        Registers custom API credentials for an LLM provider to enable content
+        generation through the organization's own LLM subscription rather than
+        Contentstack's default AI infrastructure.
+      tags:
+        - LLM Configuration
+      parameters:
+        - $ref: '#/components/parameters/OrganizationUid'
+        - $ref: '#/components/parameters/BrandKitUid'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateLlmConfigRequest'
+      responses:
+        '200':
+          description: LLM configuration saved successfully.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LlmConfig'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      description: OAuth 2.0 Bearer token with brand-kits:manage scope.
+    authtokenAuth:
+      type: apiKey
+      in: header
+      name: authtoken
+      description: Contentstack user authtoken for session-based authentication.
+  parameters:
+    OrganizationUid:
+      name: organization_uid
+      in: header
+      required: true
+      description: The unique identifier of the organization.
+      schema:
+        type: string
+    BrandKitUid:
+      name: brand_kit_uid
+      in: path
+      required: true
+      description: The unique identifier of the Brand Kit.
+      schema:
+        type: string
+    ProfileUid:
+      name: profile_uid
+      in: path
+      required: true
+      description: The unique identifier of the Voice Profile.
+      schema:
+        type: string
+    Skip:
+      name: skip
+      in: query
+      description: Number of records to skip for pagination.
+      schema:
+        type: integer
+        minimum: 0
+        default: 0
+    Limit:
+      name: limit
+      in: query
+      description: Maximum number of records to return.
+      schema:
+        type: integer
+        minimum: 1
+        maximum: 100
+        default: 25
+  responses:
+    BadRequest:
+      description: The request is malformed or contains invalid parameters.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    Unauthorized:
+      description: Authentication credentials are missing or invalid.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    NotFound:
+      description: The requested resource was not found.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+  schemas:
+    BrandKitList:
+      type: object
+      description: A paginated list of Brand Kits.
+      properties:
+        data:
+          type: array
+          description: Array of Brand Kit objects.
+          items:
+            $ref: '#/components/schemas/BrandKit'
+        total:
+          type: integer
+          description: Total count of Brand Kits in the organization.
+    BrandKit:
+      type: object
+      description: A Brand Kit containing centralized brand identity assets and AI configuration.
+      properties:
+        uid:
+          type: string
+          description: Unique identifier of the Brand Kit.
+        name:
+          type: string
+          description: Display name of the Brand Kit.
+        description:
+          type: string
+          description: Description of the Brand Kit's purpose and scope.
+        organization_uid:
+          type: string
+          description: UID of the organization that owns the Brand Kit.
+        created_at:
+          type: string
+          format: date-time
+          description: ISO 8601 timestamp when the Brand Kit was created.
+        updated_at:
+          type: string
+          format: date-time
+          description: ISO 8601 timestamp when the Brand Kit was last updated.
+    CreateBrandKitRequest:
+      type: object
+      description: Parameters for creating or updating a Brand Kit.
+      required:
+        - name
+      properties:
+        name:
+          type: string
+          description: Display name for the Brand Kit.
+        description:
+          type: string
+          description: Description of the Brand Kit's purpose.
+    VoiceProfileList:
+      type: object
+      description: A list of Voice Profiles for a Brand Kit.
+      properties:
+        data:
+          type: array
+          description: Array of Voice Profile objects.
+          items:
+            $ref: '#/components/schemas/VoiceProfile'
+    VoiceProfile:
+      type: object
+      description: A Voice Profile defining writing style and tone for AI content generation.
+      properties:
+        uid:
+          type: string
+          description: Unique identifier of the Voice Profile.
+        name:
+          type: string
+          description: Display name of the Voice Profile.
+        description:
+          type: string
+          description: Description of the voice profile's intended use case.
+        tone:
+          type: string
+          description: >-
+            The tonal characteristics of the voice profile such as formal,
+            conversational, or authoritative.
+        style_guidelines:
+          type: string
+          description: Writing style guidelines that define how content should be structured.
+        brand_kit_uid:
+          type: string
+          description: UID of the Brand Kit this Voice Profile belongs to.
+        created_at:
+          type: string
+          format: date-time
+          description: ISO 8601 timestamp when the Voice Profile was created.
+    CreateVoiceProfileRequest:
+      type: object
+      description: Parameters for creating or updating a Voice Profile.
+      required:
+        - name
+      properties:
+        name:
+          type: string
+          description: Display name for the Voice Profile.
+        description:
+          type: string
+          description: Description of the voice profile's purpose.
+        tone:
+          type: string
+          description: Tonal characteristics for the voice profile.
+        style_guidelines:
+          type: string
+          description: Writing style guidelines for AI content generation.
+    LlmConfig:
+      type: object
+      description: Custom LLM provider configuration for a Brand Kit.
+      properties:
+        provider:
+          type: string
+          description: Name of the LLM provider (e.g., openai, anthropic, azure_openai).
+        model:
+          type: string
+          description: The specific LLM model to use for content generation.
+        api_key_configured:
+          type: boolean
+          description: Indicates whether a valid API key has been configured.
+        created_at:
+          type: string
+          format: date-time
+          description: ISO 8601 timestamp when the LLM configuration was set.
+    CreateLlmConfigRequest:
+      type: object
+      description: Parameters for configuring custom LLM credentials.
+      required:
+        - provider
+        - api_key
+      properties:
+        provider:
+          type: string
+          description: Name of the LLM provider.
+          enum:
+            - openai
+            - anthropic
+            - azure_openai
+        model:
+          type: string
+          description: The LLM model identifier to use.
+        api_key:
+          type: string
+          description: API key for authenticating with the LLM provider.
+        endpoint:
+          type: string
+          format: uri
+          description: Custom endpoint URL for Azure OpenAI or self-hosted deployments.
+    Error:
+      type: object
+      description: Standard error response.
+      properties:
+        message:
+          type: string
+          description: Human-readable description of the error.
+        error_code:
+          type: integer
+          description: Numeric error code.

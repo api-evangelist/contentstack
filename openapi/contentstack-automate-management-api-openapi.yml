@@ -1,0 +1,707 @@
+openapi: 3.1.0
+info:
+  title: Contentstack Automate Management API
+  description: >-
+    The Contentstack Automate Management API allows developers to programmatically
+    manage automation projects and workflows within a Contentstack organization.
+    It supports creating, updating, retrieving, and deleting automations that
+    connect Contentstack content events to third-party services and internal
+    processes. This API is part of the Contentstack Automate product, which
+    provides a no-code/low-code automation layer built on top of the CMS. It
+    is useful for organizations that need to provision or manage automations at
+    scale across multiple stacks or environments. The API also provides access
+    to execution logs, audit logs, and project variables.
+  version: 'v1'
+  contact:
+    name: Contentstack Support
+    url: https://www.contentstack.com/contact
+  termsOfService: https://www.contentstack.com/legal/terms-of-service
+externalDocs:
+  description: Contentstack Automate Management API Documentation
+  url: https://www.contentstack.com/docs/developers/apis/automation-hub-management-api
+servers:
+  - url: https://automations-api.contentstack.com
+    description: AWS North America Production Server
+  - url: https://eu-automations-api.contentstack.com
+    description: AWS Europe Production Server
+  - url: https://au-automations-api.contentstack.com
+    description: AWS Australia Production Server
+tags:
+  - name: Projects
+    description: >-
+      Automation projects are containers for automations within a Contentstack
+      organization. Each project groups related automations and can have
+      its own variables and account connections.
+  - name: Automations
+    description: >-
+      Automations are individual workflow definitions that connect triggers
+      (such as Contentstack content events) to actions (such as sending
+      notifications or updating external systems).
+  - name: Execution Logs
+    description: >-
+      Execution logs record each time an automation runs, including the trigger
+      context, steps executed, and success or failure status.
+  - name: Audit Logs
+    description: >-
+      Audit logs track all administrative actions taken within an automation
+      project, providing a history of configuration changes.
+  - name: Variables
+    description: >-
+      Project variables are reusable key-value pairs that can be referenced
+      across multiple automations within a project.
+  - name: Accounts
+    description: >-
+      Accounts represent authenticated connections to external services and
+      third-party platforms used by automations as action targets.
+security:
+  - bearerAuth: []
+  - authtokenAuth: []
+paths:
+  /v1/organizations/{organization_uid}/projects:
+    get:
+      operationId: getAllProjects
+      summary: Get all projects
+      description: >-
+        Retrieves all automation projects within the specified organization.
+        Each project contains automations, variables, and external service
+        account connections.
+      tags:
+        - Projects
+      parameters:
+        - $ref: '#/components/parameters/OrganizationUid'
+      responses:
+        '200':
+          description: A list of automation projects in the organization.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProjectList'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+    post:
+      operationId: createProject
+      summary: Create a project
+      description: >-
+        Creates a new automation project within the specified organization.
+        Projects serve as organizational containers for automations and
+        shared configuration.
+      tags:
+        - Projects
+      parameters:
+        - $ref: '#/components/parameters/OrganizationUid'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateProjectRequest'
+      responses:
+        '201':
+          description: The newly created project.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Project'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+  /v1/organizations/{organization_uid}/projects/{project_uid}:
+    get:
+      operationId: getProject
+      summary: Get a project
+      description: >-
+        Retrieves details for a specific automation project including its
+        metadata, creation date, and current status.
+      tags:
+        - Projects
+      parameters:
+        - $ref: '#/components/parameters/OrganizationUid'
+        - $ref: '#/components/parameters/ProjectUid'
+      responses:
+        '200':
+          description: The requested project details.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Project'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+    put:
+      operationId: updateProject
+      summary: Update a project
+      description: >-
+        Updates the name or description of an existing automation project.
+      tags:
+        - Projects
+      parameters:
+        - $ref: '#/components/parameters/OrganizationUid'
+        - $ref: '#/components/parameters/ProjectUid'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateProjectRequest'
+      responses:
+        '200':
+          description: The updated project.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Project'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+    delete:
+      operationId: deleteProject
+      summary: Delete a project
+      description: >-
+        Permanently deletes an automation project and all its automations,
+        variables, and configuration. This action is irreversible.
+      tags:
+        - Projects
+      parameters:
+        - $ref: '#/components/parameters/OrganizationUid'
+        - $ref: '#/components/parameters/ProjectUid'
+      responses:
+        '200':
+          description: Project deleted successfully.
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+  /v1/organizations/{organization_uid}/projects/{project_uid}/automations:
+    get:
+      operationId: getAllAutomations
+      summary: Get all automations
+      description: >-
+        Retrieves all automation workflow definitions within a specific project,
+        including their trigger configurations, steps, and activation status.
+      tags:
+        - Automations
+      parameters:
+        - $ref: '#/components/parameters/OrganizationUid'
+        - $ref: '#/components/parameters/ProjectUid'
+      responses:
+        '200':
+          description: A list of automations in the project.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AutomationList'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+  /v1/organizations/{organization_uid}/projects/{project_uid}/automations/{automation_uid}:
+    get:
+      operationId: getAutomation
+      summary: Get an automation
+      description: >-
+        Retrieves the full configuration of a specific automation including
+        trigger settings, action steps, error handling, and activation status.
+      tags:
+        - Automations
+      parameters:
+        - $ref: '#/components/parameters/OrganizationUid'
+        - $ref: '#/components/parameters/ProjectUid'
+        - $ref: '#/components/parameters/AutomationUid'
+      responses:
+        '200':
+          description: The requested automation configuration.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Automation'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+  /v1/organizations/{organization_uid}/projects/{project_uid}/automations/{automation_uid}/activate:
+    put:
+      operationId: activateAutomation
+      summary: Activate an automation
+      description: >-
+        Enables an automation so that it will execute when its configured trigger
+        conditions are met. Only automations in a valid, configured state can
+        be activated.
+      tags:
+        - Automations
+      parameters:
+        - $ref: '#/components/parameters/OrganizationUid'
+        - $ref: '#/components/parameters/ProjectUid'
+        - $ref: '#/components/parameters/AutomationUid'
+      responses:
+        '200':
+          description: Automation activated successfully.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Automation'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+  /v1/organizations/{organization_uid}/projects/{project_uid}/automations/{automation_uid}/deactivate:
+    put:
+      operationId: deactivateAutomation
+      summary: Deactivate an automation
+      description: >-
+        Disables an active automation, preventing it from executing when its
+        trigger conditions are met. Existing in-progress executions will
+        complete before the automation is fully deactivated.
+      tags:
+        - Automations
+      parameters:
+        - $ref: '#/components/parameters/OrganizationUid'
+        - $ref: '#/components/parameters/ProjectUid'
+        - $ref: '#/components/parameters/AutomationUid'
+      responses:
+        '200':
+          description: Automation deactivated successfully.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Automation'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+  /v1/organizations/{organization_uid}/projects/{project_uid}/executions:
+    get:
+      operationId: getAllExecutionLogs
+      summary: Get all execution logs
+      description: >-
+        Retrieves a list of execution log entries for all automations in the
+        project, showing each run with its trigger context, status, and
+        completion time.
+      tags:
+        - Execution Logs
+      parameters:
+        - $ref: '#/components/parameters/OrganizationUid'
+        - $ref: '#/components/parameters/ProjectUid'
+      responses:
+        '200':
+          description: A list of execution log entries.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ExecutionLogList'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+  /v1/organizations/{organization_uid}/projects/{project_uid}/executions/{execution_uid}:
+    get:
+      operationId: getExecutionLog
+      summary: Get an execution log
+      description: >-
+        Retrieves the full details of a specific automation execution log entry,
+        including step-by-step results and any error messages encountered.
+      tags:
+        - Execution Logs
+      parameters:
+        - $ref: '#/components/parameters/OrganizationUid'
+        - $ref: '#/components/parameters/ProjectUid'
+        - $ref: '#/components/parameters/ExecutionUid'
+      responses:
+        '200':
+          description: The requested execution log entry.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ExecutionLog'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+  /v1/organizations/{organization_uid}/projects/{project_uid}/audit-logs:
+    get:
+      operationId: getAllAuditLogs
+      summary: Get all audit logs
+      description: >-
+        Retrieves all audit log entries for administrative actions taken within
+        the project such as creating, updating, or deleting automations and
+        configuration changes.
+      tags:
+        - Audit Logs
+      parameters:
+        - $ref: '#/components/parameters/OrganizationUid'
+        - $ref: '#/components/parameters/ProjectUid'
+      responses:
+        '200':
+          description: A list of audit log entries.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AuditLogList'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+  /v1/organizations/{organization_uid}/projects/{project_uid}/variables:
+    get:
+      operationId: getAllVariables
+      summary: Get all variables
+      description: >-
+        Retrieves all project variables defined for the automation project.
+        Variables are reusable key-value pairs that can be referenced across
+        automation configurations.
+      tags:
+        - Variables
+      parameters:
+        - $ref: '#/components/parameters/OrganizationUid'
+        - $ref: '#/components/parameters/ProjectUid'
+      responses:
+        '200':
+          description: A list of project variables.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/VariableList'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+    post:
+      operationId: createVariable
+      summary: Create a variable
+      description: >-
+        Creates a new project variable that can be referenced in automation
+        configurations. Variables can store API keys, URLs, or other
+        configuration values that are used across multiple automations.
+      tags:
+        - Variables
+      parameters:
+        - $ref: '#/components/parameters/OrganizationUid'
+        - $ref: '#/components/parameters/ProjectUid'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateVariableRequest'
+      responses:
+        '201':
+          description: The newly created variable.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Variable'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+  /v1/organizations/{organization_uid}/projects/{project_uid}/accounts:
+    get:
+      operationId: getAllAccounts
+      summary: Get all accounts
+      description: >-
+        Retrieves all external service account connections configured for the
+        automation project, such as connections to Slack, email services, or
+        other third-party platforms.
+      tags:
+        - Accounts
+      parameters:
+        - $ref: '#/components/parameters/OrganizationUid'
+        - $ref: '#/components/parameters/ProjectUid'
+      responses:
+        '200':
+          description: A list of external service account connections.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AccountList'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      description: OAuth 2.0 Bearer token with appropriate Automate scopes.
+    authtokenAuth:
+      type: apiKey
+      in: header
+      name: authtoken
+      description: Contentstack user authtoken for session-based authentication.
+  parameters:
+    OrganizationUid:
+      name: organization_uid
+      in: path
+      required: true
+      description: The unique identifier of the organization.
+      schema:
+        type: string
+    ProjectUid:
+      name: project_uid
+      in: path
+      required: true
+      description: The unique identifier of the automation project.
+      schema:
+        type: string
+    AutomationUid:
+      name: automation_uid
+      in: path
+      required: true
+      description: The unique identifier of the automation.
+      schema:
+        type: string
+    ExecutionUid:
+      name: execution_uid
+      in: path
+      required: true
+      description: The unique identifier of the execution log entry.
+      schema:
+        type: string
+  responses:
+    BadRequest:
+      description: The request is malformed or contains invalid parameters.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    Unauthorized:
+      description: Authentication credentials are missing or invalid.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    NotFound:
+      description: The requested resource was not found.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+  schemas:
+    ProjectList:
+      type: object
+      description: A list of automation projects.
+      properties:
+        data:
+          type: array
+          description: Array of project objects.
+          items:
+            $ref: '#/components/schemas/Project'
+    Project:
+      type: object
+      description: An automation project within a Contentstack organization.
+      properties:
+        uid:
+          type: string
+          description: Unique identifier of the project.
+        name:
+          type: string
+          description: Display name of the project.
+        description:
+          type: string
+          description: Description of the project's purpose.
+        organization_uid:
+          type: string
+          description: UID of the organization that owns the project.
+        created_at:
+          type: string
+          format: date-time
+          description: ISO 8601 timestamp when the project was created.
+        updated_at:
+          type: string
+          format: date-time
+          description: ISO 8601 timestamp when the project was last updated.
+    CreateProjectRequest:
+      type: object
+      description: Parameters for creating or updating a project.
+      required:
+        - name
+      properties:
+        name:
+          type: string
+          description: Display name for the project.
+        description:
+          type: string
+          description: Description of the project's purpose.
+    AutomationList:
+      type: object
+      description: A list of automations in a project.
+      properties:
+        data:
+          type: array
+          description: Array of automation objects.
+          items:
+            $ref: '#/components/schemas/Automation'
+    Automation:
+      type: object
+      description: An automation workflow that connects a trigger to one or more actions.
+      properties:
+        uid:
+          type: string
+          description: Unique identifier of the automation.
+        name:
+          type: string
+          description: Display name of the automation.
+        status:
+          type: string
+          description: Current status of the automation.
+          enum:
+            - active
+            - inactive
+            - draft
+        trigger:
+          type: object
+          description: Configuration for the automation trigger condition.
+        steps:
+          type: array
+          description: Ordered list of action steps executed when the trigger fires.
+          items:
+            type: object
+        created_at:
+          type: string
+          format: date-time
+          description: ISO 8601 timestamp when the automation was created.
+        updated_at:
+          type: string
+          format: date-time
+          description: ISO 8601 timestamp when the automation was last updated.
+    ExecutionLogList:
+      type: object
+      description: A list of automation execution log entries.
+      properties:
+        data:
+          type: array
+          description: Array of execution log objects.
+          items:
+            $ref: '#/components/schemas/ExecutionLog'
+    ExecutionLog:
+      type: object
+      description: A record of a single automation execution run.
+      properties:
+        uid:
+          type: string
+          description: Unique identifier of the execution log entry.
+        automation_uid:
+          type: string
+          description: UID of the automation that was executed.
+        status:
+          type: string
+          description: Outcome status of the execution.
+          enum:
+            - success
+            - failure
+            - partial
+        started_at:
+          type: string
+          format: date-time
+          description: ISO 8601 timestamp when the execution started.
+        completed_at:
+          type: string
+          format: date-time
+          description: ISO 8601 timestamp when the execution completed.
+        steps:
+          type: array
+          description: Step-by-step execution results.
+          items:
+            type: object
+    AuditLogList:
+      type: object
+      description: A list of audit log entries.
+      properties:
+        data:
+          type: array
+          description: Array of audit log objects.
+          items:
+            $ref: '#/components/schemas/AuditLog'
+    AuditLog:
+      type: object
+      description: An audit log entry recording an administrative action.
+      properties:
+        uid:
+          type: string
+          description: Unique identifier of the audit log entry.
+        action:
+          type: string
+          description: The administrative action that was performed.
+        performed_by:
+          type: string
+          description: UID of the user who performed the action.
+        created_at:
+          type: string
+          format: date-time
+          description: ISO 8601 timestamp when the action was performed.
+    VariableList:
+      type: object
+      description: A list of project variables.
+      properties:
+        data:
+          type: array
+          description: Array of variable objects.
+          items:
+            $ref: '#/components/schemas/Variable'
+    Variable:
+      type: object
+      description: A reusable configuration variable for use across automations.
+      properties:
+        uid:
+          type: string
+          description: Unique identifier of the variable.
+        name:
+          type: string
+          description: Display name of the variable.
+        key:
+          type: string
+          description: Machine-readable key for referencing the variable in automations.
+        value:
+          type: string
+          description: The value stored in the variable. Sensitive values may be masked.
+        is_secret:
+          type: boolean
+          description: Indicates whether the variable value is treated as a secret.
+    CreateVariableRequest:
+      type: object
+      description: Parameters for creating a project variable.
+      required:
+        - name
+        - key
+        - value
+      properties:
+        name:
+          type: string
+          description: Display name for the variable.
+        key:
+          type: string
+          description: Machine-readable key for the variable.
+        value:
+          type: string
+          description: Value to store in the variable.
+        is_secret:
+          type: boolean
+          description: Set to true to mark the variable as a secret.
+          default: false
+    AccountList:
+      type: object
+      description: A list of external service account connections.
+      properties:
+        data:
+          type: array
+          description: Array of account connection objects.
+          items:
+            $ref: '#/components/schemas/Account'
+    Account:
+      type: object
+      description: An authenticated connection to an external service for use in automations.
+      properties:
+        uid:
+          type: string
+          description: Unique identifier of the account connection.
+        name:
+          type: string
+          description: Display name of the account connection.
+        service:
+          type: string
+          description: The name of the external service (e.g., Slack, SendGrid).
+        created_at:
+          type: string
+          format: date-time
+          description: ISO 8601 timestamp when the account connection was created.
+    Error:
+      type: object
+      description: Standard error response.
+      properties:
+        message:
+          type: string
+          description: Human-readable description of the error.
+        error_code:
+          type: integer
+          description: Numeric error code.

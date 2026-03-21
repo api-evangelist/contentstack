@@ -1,0 +1,256 @@
+openapi: 3.1.0
+info:
+  title: Contentstack Knowledge Vault API
+  description: >-
+    The Contentstack Knowledge Vault API provides endpoints for ingesting,
+    updating, and deleting content items stored in a Brand Kit's Knowledge
+    Vault. The Knowledge Vault is a vector database that stores brand-specific
+    knowledge content which is retrieved during AI content generation to
+    provide accurate, brand-aligned responses. Content ingested via this API
+    is vectorized and made available to the Generative AI API for retrieval
+    augmented generation (RAG) workflows.
+  version: 'v1'
+  contact:
+    name: Contentstack Support
+    url: https://www.contentstack.com/contact
+  termsOfService: https://www.contentstack.com/legal/terms-of-service
+externalDocs:
+  description: Contentstack Knowledge Vault API Documentation
+  url: https://www.contentstack.com/docs/developers/apis/knowledge-vault-api
+servers:
+  - url: https://ai.contentstack.com
+    description: AWS North America Production Server
+  - url: https://eu-ai.contentstack.com
+    description: AWS Europe Production Server
+  - url: https://au-ai.contentstack.com
+    description: AWS Australia Production Server
+  - url: https://azure-na-ai.contentstack.com
+    description: Azure North America Production Server
+  - url: https://azure-eu-ai.contentstack.com
+    description: Azure Europe Production Server
+  - url: https://gcp-na-ai.contentstack.com
+    description: GCP North America Production Server
+  - url: https://gcp-eu-ai.contentstack.com
+    description: GCP Europe Production Server
+tags:
+  - name: Knowledge Vault
+    description: >-
+      Knowledge Vault endpoints allow developers to programmatically manage
+      the brand knowledge content stored in a Brand Kit's vector database.
+      Content items are vectorized upon ingestion and used to provide
+      contextually relevant information during AI content generation.
+security:
+  - bearerAuth: []
+  - authtokenAuth: []
+paths:
+  /v1/knowledge-vault/:
+    post:
+      operationId: ingestKnowledgeVaultContent
+      summary: Ingest content into Knowledge Vault
+      description: >-
+        Adds new content to the Knowledge Vault associated with the specified
+        Brand Kit. The content is vectorized and stored in the vector database
+        for retrieval during AI content generation. Rate limited to 10 requests
+        per second per organization.
+      tags:
+        - Knowledge Vault
+      parameters:
+        - $ref: '#/components/parameters/AuthToken'
+        - $ref: '#/components/parameters/BrandKitUid'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/IngestContentRequest'
+      responses:
+        '200':
+          description: Content ingested and vectorized successfully.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/KnowledgeVaultResponse'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '429':
+          $ref: '#/components/responses/TooManyRequests'
+  /v1/knowledge-vault/{content_uid}:
+    put:
+      operationId: updateKnowledgeVaultContent
+      summary: Update Knowledge Vault content
+      description: >-
+        Updates an existing content item in the Knowledge Vault. The content
+        is re-vectorized after update to reflect the changes in the vector
+        database.
+      tags:
+        - Knowledge Vault
+      parameters:
+        - $ref: '#/components/parameters/AuthToken'
+        - $ref: '#/components/parameters/BrandKitUid'
+        - $ref: '#/components/parameters/ContentUid'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/IngestContentRequest'
+      responses:
+        '200':
+          description: Content updated and re-vectorized successfully.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/KnowledgeVaultResponse'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '429':
+          $ref: '#/components/responses/TooManyRequests'
+    delete:
+      operationId: deleteKnowledgeVaultContent
+      summary: Delete Knowledge Vault content
+      description: >-
+        Permanently removes a content item from the Knowledge Vault vector
+        database. Deleted content will no longer be available for retrieval
+        during AI content generation.
+      tags:
+        - Knowledge Vault
+      parameters:
+        - $ref: '#/components/parameters/AuthToken'
+        - $ref: '#/components/parameters/BrandKitUid'
+        - $ref: '#/components/parameters/ContentUid'
+      responses:
+        '200':
+          description: Content deleted from Knowledge Vault successfully.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DeleteResponse'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '429':
+          $ref: '#/components/responses/TooManyRequests'
+components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      description: OAuth 2.0 Bearer token with brand-kits:manage scope.
+    authtokenAuth:
+      type: apiKey
+      in: header
+      name: authtoken
+      description: Contentstack user authtoken for session-based authentication.
+  parameters:
+    AuthToken:
+      name: authtoken
+      in: header
+      required: true
+      description: User authentication token for authorization.
+      schema:
+        type: string
+    BrandKitUid:
+      name: brand_kit_uid
+      in: header
+      required: true
+      description: The unique identifier of the Brand Kit whose Knowledge Vault to access.
+      schema:
+        type: string
+    ContentUid:
+      name: content_uid
+      in: path
+      required: true
+      description: The unique identifier of the Knowledge Vault content item.
+      schema:
+        type: string
+  responses:
+    BadRequest:
+      description: The request is malformed or contains invalid parameters.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    Unauthorized:
+      description: Authentication credentials are missing or invalid.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    NotFound:
+      description: The requested content item was not found.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    TooManyRequests:
+      description: Rate limit exceeded. Maximum 10 requests per second per organization.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+  schemas:
+    IngestContentRequest:
+      type: object
+      description: Parameters for ingesting or updating a Knowledge Vault content item.
+      required:
+        - content
+      properties:
+        content:
+          type: string
+          description: >-
+            The text content to ingest into the Knowledge Vault. This content
+            will be vectorized and stored for retrieval during AI generation.
+        title:
+          type: string
+          description: Optional title or label for the content item.
+        metadata:
+          type: object
+          description: Optional key-value metadata to associate with the content item.
+          additionalProperties:
+            type: string
+    KnowledgeVaultResponse:
+      type: object
+      description: Response returned after a successful Knowledge Vault ingest or update operation.
+      properties:
+        message:
+          type: string
+          description: Confirmation message for the operation.
+        uid:
+          type: string
+          description: Unique identifier assigned to the ingested content item.
+        token_usage:
+          $ref: '#/components/schemas/TokenUsage'
+    DeleteResponse:
+      type: object
+      description: Response returned after a successful Knowledge Vault delete operation.
+      properties:
+        message:
+          type: string
+          description: Confirmation message for the deletion.
+    TokenUsage:
+      type: object
+      description: Token consumption metrics for the vectorization operation.
+      properties:
+        prompt_tokens:
+          type: integer
+          description: Number of tokens consumed in processing the content.
+        total_tokens:
+          type: integer
+          description: Total tokens consumed by the operation.
+    Error:
+      type: object
+      description: Standard error response.
+      properties:
+        message:
+          type: string
+          description: Human-readable description of the error.
+        error_code:
+          type: integer
+          description: Numeric error code identifying the error type.

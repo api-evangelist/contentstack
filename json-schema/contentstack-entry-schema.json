@@ -1,0 +1,203 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://contentstack.com/schemas/contentstack/entry.json",
+  "title": "Contentstack Entry",
+  "description": "Schema representing a Contentstack content entry with its system metadata, localization properties, and workflow state. Entries are instances of content types and hold the actual content data for delivery via the Content Delivery API.",
+  "type": "object",
+  "required": ["uid", "title", "locale"],
+  "properties": {
+    "uid": {
+      "type": "string",
+      "description": "Unique identifier for the entry, assigned by Contentstack.",
+      "pattern": "^[a-zA-Z0-9_-]+$"
+    },
+    "title": {
+      "type": "string",
+      "description": "The primary title or name of the entry, typically mapped to the title field of the content type.",
+      "minLength": 1,
+      "maxLength": 1000
+    },
+    "locale": {
+      "type": "string",
+      "description": "The locale code for this entry (e.g., en-us, fr-fr, de-de). Follows BCP 47 language tag format.",
+      "pattern": "^[a-z]{2}(-[A-Z]{2})?$",
+      "examples": ["en-us", "fr-fr", "de-de", "ja-jp"]
+    },
+    "_version": {
+      "type": "integer",
+      "description": "Version number of the entry. Increments with each save. Published versions may differ from the current draft version.",
+      "minimum": 1
+    },
+    "_in_progress": {
+      "type": "boolean",
+      "description": "Indicates whether the entry is currently being processed (e.g., during a publish operation)."
+    },
+    "created_by": {
+      "type": "string",
+      "description": "UID of the user who originally created this entry."
+    },
+    "updated_by": {
+      "type": "string",
+      "description": "UID of the user who last updated this entry."
+    },
+    "created_at": {
+      "type": "string",
+      "format": "date-time",
+      "description": "ISO 8601 UTC timestamp of when the entry was first created."
+    },
+    "updated_at": {
+      "type": "string",
+      "format": "date-time",
+      "description": "ISO 8601 UTC timestamp of when the entry was last saved."
+    },
+    "published_at": {
+      "type": "string",
+      "format": "date-time",
+      "description": "ISO 8601 UTC timestamp of when the entry was last published. Null if never published."
+    },
+    "ACL": {
+      "type": "object",
+      "description": "Access control list defining role-level permissions for this entry.",
+      "additionalProperties": {
+        "$ref": "#/$defs/AclEntry"
+      }
+    },
+    "tags": {
+      "type": "array",
+      "description": "Arbitrary string tags associated with the entry for categorization and filtering.",
+      "items": {
+        "type": "string",
+        "maxLength": 100
+      },
+      "uniqueItems": true
+    },
+    "_metadata": {
+      "$ref": "#/$defs/EntryMetadata"
+    },
+    "publish_details": {
+      "type": "array",
+      "description": "List of environments and locales where this entry is currently published.",
+      "items": {
+        "$ref": "#/$defs/PublishDetail"
+      }
+    }
+  },
+  "$defs": {
+    "AclEntry": {
+      "type": "object",
+      "description": "Access control permissions for a specific role.",
+      "properties": {
+        "read": {
+          "type": "boolean",
+          "description": "Permission to read this entry."
+        },
+        "write": {
+          "type": "boolean",
+          "description": "Permission to create or update this entry."
+        },
+        "delete": {
+          "type": "boolean",
+          "description": "Permission to delete this entry."
+        }
+      }
+    },
+    "EntryMetadata": {
+      "type": "object",
+      "description": "Workflow and editorial metadata for the entry.",
+      "properties": {
+        "workflow": {
+          "$ref": "#/$defs/WorkflowState"
+        }
+      }
+    },
+    "WorkflowState": {
+      "type": "object",
+      "description": "Current workflow stage assignment for the entry.",
+      "properties": {
+        "workflow": {
+          "type": "object",
+          "description": "Reference to the assigned workflow.",
+          "properties": {
+            "uid": {
+              "type": "string",
+              "description": "UID of the workflow."
+            },
+            "name": {
+              "type": "string",
+              "description": "Display name of the workflow."
+            }
+          }
+        },
+        "workflow_stage": {
+          "type": "object",
+          "description": "Current stage within the workflow.",
+          "properties": {
+            "uid": {
+              "type": "string",
+              "description": "UID of the workflow stage."
+            },
+            "title": {
+              "type": "string",
+              "description": "Display name of the workflow stage."
+            },
+            "color": {
+              "type": "string",
+              "description": "Hex color code used to visually represent the workflow stage.",
+              "pattern": "^#[0-9A-Fa-f]{6}$"
+            }
+          }
+        },
+        "due_date": {
+          "type": "string",
+          "format": "date-time",
+          "description": "Optional due date for completing this entry in the current workflow stage."
+        },
+        "assigned_to": {
+          "type": "array",
+          "description": "List of users assigned to review this entry in the current stage.",
+          "items": {
+            "type": "object",
+            "properties": {
+              "uid": {
+                "type": "string",
+                "description": "UID of the assigned user."
+              },
+              "name": {
+                "type": "string",
+                "description": "Display name of the assigned user."
+              }
+            }
+          }
+        }
+      }
+    },
+    "PublishDetail": {
+      "type": "object",
+      "description": "Publication state for an entry in a specific environment and locale.",
+      "properties": {
+        "environment": {
+          "type": "string",
+          "description": "UID of the environment where the entry is published."
+        },
+        "locale": {
+          "type": "string",
+          "description": "Locale code of the published entry version."
+        },
+        "time": {
+          "type": "string",
+          "format": "date-time",
+          "description": "ISO 8601 timestamp of when the entry was published to this environment."
+        },
+        "user": {
+          "type": "string",
+          "description": "UID of the user who published the entry."
+        },
+        "version": {
+          "type": "integer",
+          "description": "Version number of the entry that is published.",
+          "minimum": 1
+        }
+      }
+    }
+  }
+}

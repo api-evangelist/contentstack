@@ -1,0 +1,741 @@
+openapi: 3.1.0
+info:
+  title: Contentstack Launch API
+  description: >-
+    The Contentstack Launch API allows developers to programmatically manage
+    web application deployments within Contentstack Launch. It supports full
+    lifecycle management of Launch projects, environments, and deployments,
+    including creating deployments from uploaded build artifacts, monitoring
+    deployment logs, revalidating CDN caches, and retrieving signed upload URLs
+    for build file transfers. The API is designed for CI/CD integration and
+    enables automated deployment workflows for front-end applications connected
+    to Contentstack stacks.
+  version: 'v1'
+  contact:
+    name: Contentstack Support
+    url: https://www.contentstack.com/contact
+  termsOfService: https://www.contentstack.com/legal/terms-of-service
+externalDocs:
+  description: Contentstack Launch API Documentation
+  url: https://www.contentstack.com/docs/developers/apis/launch-api
+servers:
+  - url: https://launch-api.contentstack.com
+    description: AWS North America Production Server
+  - url: https://eu-launch-api.contentstack.com
+    description: AWS Europe Production Server
+  - url: https://au-launch-api.contentstack.com
+    description: AWS Australia Production Server
+  - url: https://azure-na-launch-api.contentstack.com
+    description: Azure North America Production Server
+  - url: https://azure-eu-launch-api.contentstack.com
+    description: Azure Europe Production Server
+tags:
+  - name: Projects
+    description: >-
+      Launch projects represent web applications managed within Contentstack
+      Launch. Each project can have multiple deployment environments with
+      independent configuration.
+  - name: Environments
+    description: >-
+      Environments are deployment targets within a Launch project such as
+      production, staging, and preview environments, each with their own
+      domain configuration and deployment history.
+  - name: Deployments
+    description: >-
+      Deployments represent individual build and publish operations to a Launch
+      environment. Each deployment has associated build logs, server logs, and
+      status tracking.
+  - name: File Uploads
+    description: >-
+      File upload endpoints provide pre-signed URLs for securely uploading
+      build artifacts to Contentstack Launch infrastructure before triggering
+      a deployment.
+  - name: Analytics
+    description: >-
+      Analytics endpoints provide usage metrics for Launch projects such as
+      cache revalidation quota consumption.
+security:
+  - bearerAuth: []
+  - authtokenAuth: []
+paths:
+  /projects:
+    get:
+      operationId: getAllProjects
+      summary: Get all projects
+      description: >-
+        Retrieves all Launch projects accessible to the authenticated user or
+        organization. Returns project metadata including names, creation dates,
+        and environment counts.
+      tags:
+        - Projects
+      responses:
+        '200':
+          description: A list of Launch projects.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProjectList'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+    post:
+      operationId: createProject
+      summary: Create a project
+      description: >-
+        Creates a new Launch project for deploying a web application. Projects
+        serve as the top-level container for environments and deployments.
+      tags:
+        - Projects
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateProjectRequest'
+      responses:
+        '201':
+          description: The newly created Launch project.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Project'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+  /projects/upload-url:
+    get:
+      operationId: getProjectUploadUrl
+      summary: Get project upload URL
+      description: >-
+        Generates a pre-signed URL valid for 10 minutes for uploading a project
+        build artifact file. Use this URL to upload your build package before
+        triggering a deployment.
+      tags:
+        - File Uploads
+      responses:
+        '200':
+          description: A pre-signed upload URL for project files.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UploadUrlResponse'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+  /projects/{project_uid}:
+    get:
+      operationId: getProject
+      summary: Get a project
+      description: >-
+        Retrieves the details of a specific Launch project including its
+        configuration, current status, and linked Contentstack stack.
+      tags:
+        - Projects
+      parameters:
+        - $ref: '#/components/parameters/ProjectUid'
+      responses:
+        '200':
+          description: The requested Launch project.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Project'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+    put:
+      operationId: updateProject
+      summary: Update a project
+      description: >-
+        Updates the configuration of an existing Launch project such as its
+        name, description, or framework settings.
+      tags:
+        - Projects
+      parameters:
+        - $ref: '#/components/parameters/ProjectUid'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateProjectRequest'
+      responses:
+        '200':
+          description: The updated Launch project.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Project'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+    delete:
+      operationId: deleteProject
+      summary: Delete a project
+      description: >-
+        Permanently deletes a Launch project and all its environments and
+        deployment history. This action is irreversible.
+      tags:
+        - Projects
+      parameters:
+        - $ref: '#/components/parameters/ProjectUid'
+      responses:
+        '200':
+          description: Project deleted successfully.
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+  /projects/{project_uid}/environments:
+    get:
+      operationId: getAllEnvironments
+      summary: Get all environments
+      description: >-
+        Retrieves all deployment environments configured for a Launch project,
+        including their domain configurations and current deployment status.
+      tags:
+        - Environments
+      parameters:
+        - $ref: '#/components/parameters/ProjectUid'
+      responses:
+        '200':
+          description: A list of environments for the project.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/EnvironmentList'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+    post:
+      operationId: createEnvironment
+      summary: Create an environment
+      description: >-
+        Creates a new deployment environment for a Launch project. Each
+        environment can have its own domain, build configuration, and
+        deployment settings.
+      tags:
+        - Environments
+      parameters:
+        - $ref: '#/components/parameters/ProjectUid'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateEnvironmentRequest'
+      responses:
+        '201':
+          description: The newly created environment.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Environment'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+  /projects/{project_uid}/environments/{env_uid}:
+    get:
+      operationId: getEnvironment
+      summary: Get an environment
+      description: >-
+        Retrieves details for a specific deployment environment including its
+        domain configuration, framework settings, and latest deployment status.
+      tags:
+        - Environments
+      parameters:
+        - $ref: '#/components/parameters/ProjectUid'
+        - $ref: '#/components/parameters/EnvUid'
+      responses:
+        '200':
+          description: The requested environment.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Environment'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+    put:
+      operationId: updateEnvironment
+      summary: Update an environment
+      description: >-
+        Updates the configuration of a deployment environment such as domain
+        settings or build configuration.
+      tags:
+        - Environments
+      parameters:
+        - $ref: '#/components/parameters/ProjectUid'
+        - $ref: '#/components/parameters/EnvUid'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateEnvironmentRequest'
+      responses:
+        '200':
+          description: The updated environment.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Environment'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+    delete:
+      operationId: deleteEnvironment
+      summary: Delete an environment
+      description: >-
+        Permanently deletes a deployment environment and its deployment history.
+        This action is irreversible.
+      tags:
+        - Environments
+      parameters:
+        - $ref: '#/components/parameters/ProjectUid'
+        - $ref: '#/components/parameters/EnvUid'
+      responses:
+        '200':
+          description: Environment deleted successfully.
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+  /projects/{project_uid}/environments/{env_uid}/revalidate-cache:
+    post:
+      operationId: revalidateCache
+      summary: Revalidate CDN cache
+      description: >-
+        Triggers a CDN cache revalidation for the specified environment,
+        forcing the CDN to fetch fresh content on the next request. Subject to
+        cache revalidation quota limits per organization.
+      tags:
+        - Environments
+      parameters:
+        - $ref: '#/components/parameters/ProjectUid'
+        - $ref: '#/components/parameters/EnvUid'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                paths:
+                  type: array
+                  description: Specific URL paths to revalidate. If empty, all paths are revalidated.
+                  items:
+                    type: string
+      responses:
+        '200':
+          description: Cache revalidation triggered successfully.
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+  /projects/{project_uid}/environments/{env_uid}/deployments:
+    get:
+      operationId: getAllDeployments
+      summary: Get all deployments
+      description: >-
+        Retrieves all deployments for a specific environment, showing deployment
+        history with status, creation times, and build metadata.
+      tags:
+        - Deployments
+      parameters:
+        - $ref: '#/components/parameters/ProjectUid'
+        - $ref: '#/components/parameters/EnvUid'
+      responses:
+        '200':
+          description: A list of deployments for the environment.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DeploymentList'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+    post:
+      operationId: createDeployment
+      summary: Create a deployment
+      description: >-
+        Triggers a new deployment to the specified environment. Requires a
+        previously uploaded build artifact referenced by its upload URL. The
+        deployment process builds and publishes the application to the
+        environment's CDN infrastructure.
+      tags:
+        - Deployments
+      parameters:
+        - $ref: '#/components/parameters/ProjectUid'
+        - $ref: '#/components/parameters/EnvUid'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateDeploymentRequest'
+      responses:
+        '201':
+          description: Deployment created and queued for processing.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Deployment'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+  /projects/{project_uid}/environments/{env_uid}/deployments/{deploy_uid}:
+    get:
+      operationId: getDeployment
+      summary: Get a deployment
+      description: >-
+        Retrieves the full details of a specific deployment including its
+        status, build configuration, and completion information.
+      tags:
+        - Deployments
+      parameters:
+        - $ref: '#/components/parameters/ProjectUid'
+        - $ref: '#/components/parameters/EnvUid'
+        - $ref: '#/components/parameters/DeployUid'
+      responses:
+        '200':
+          description: The requested deployment details.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Deployment'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+  /projects/{project_uid}/environments/{env_uid}/deployments/{deploy_uid}/logs:
+    get:
+      operationId: getDeploymentLogs
+      summary: Get deployment logs
+      description: >-
+        Retrieves the build and deployment logs for a specific deployment,
+        useful for debugging failed deployments and monitoring build progress.
+      tags:
+        - Deployments
+      parameters:
+        - $ref: '#/components/parameters/ProjectUid'
+        - $ref: '#/components/parameters/EnvUid'
+        - $ref: '#/components/parameters/DeployUid'
+      responses:
+        '200':
+          description: The deployment log output.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LogResponse'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+  /projects/{project_uid}/environments/{env_uid}/deployments/{deploy_uid}/server-logs:
+    get:
+      operationId: getServerLogs
+      summary: Get server logs
+      description: >-
+        Retrieves server-side runtime logs for a deployed environment, useful
+        for debugging server-side rendering issues and monitoring application
+        runtime behavior.
+      tags:
+        - Deployments
+      parameters:
+        - $ref: '#/components/parameters/ProjectUid'
+        - $ref: '#/components/parameters/EnvUid'
+        - $ref: '#/components/parameters/DeployUid'
+      responses:
+        '200':
+          description: The server runtime logs.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LogResponse'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+  /organizations/cache-revalidation-usage:
+    get:
+      operationId: getCacheRevalidationUsage
+      summary: Get cache revalidation usage
+      description: >-
+        Retrieves the organization's current cache revalidation quota usage,
+        showing how many revalidation requests have been used against the
+        organization's plan limit.
+      tags:
+        - Analytics
+      responses:
+        '200':
+          description: Cache revalidation usage metrics.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CacheUsage'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      description: OAuth 2.0 Bearer token with launch:manage or launch.projects scopes.
+    authtokenAuth:
+      type: apiKey
+      in: header
+      name: authtoken
+      description: Contentstack user authtoken for session-based authentication.
+  parameters:
+    ProjectUid:
+      name: project_uid
+      in: path
+      required: true
+      description: The unique identifier of the Launch project.
+      schema:
+        type: string
+    EnvUid:
+      name: env_uid
+      in: path
+      required: true
+      description: The unique identifier of the deployment environment.
+      schema:
+        type: string
+    DeployUid:
+      name: deploy_uid
+      in: path
+      required: true
+      description: The unique identifier of the deployment.
+      schema:
+        type: string
+  responses:
+    BadRequest:
+      description: The request is malformed or contains invalid parameters.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    Unauthorized:
+      description: Authentication credentials are missing or invalid.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    NotFound:
+      description: The requested resource was not found.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+  schemas:
+    ProjectList:
+      type: object
+      description: A list of Launch projects.
+      properties:
+        data:
+          type: array
+          description: Array of Launch project objects.
+          items:
+            $ref: '#/components/schemas/Project'
+    Project:
+      type: object
+      description: A Contentstack Launch project for web application deployment.
+      properties:
+        uid:
+          type: string
+          description: Unique identifier of the project.
+        name:
+          type: string
+          description: Display name of the project.
+        description:
+          type: string
+          description: Description of the project.
+        framework:
+          type: string
+          description: The web framework used by the project (e.g., next, gatsby, nuxt).
+        created_at:
+          type: string
+          format: date-time
+          description: ISO 8601 timestamp when the project was created.
+        updated_at:
+          type: string
+          format: date-time
+          description: ISO 8601 timestamp when the project was last updated.
+    CreateProjectRequest:
+      type: object
+      description: Parameters for creating or updating a Launch project.
+      required:
+        - name
+      properties:
+        name:
+          type: string
+          description: Display name for the project.
+        description:
+          type: string
+          description: Description of the project.
+        framework:
+          type: string
+          description: The web framework for the project.
+    EnvironmentList:
+      type: object
+      description: A list of deployment environments.
+      properties:
+        data:
+          type: array
+          description: Array of environment objects.
+          items:
+            $ref: '#/components/schemas/Environment'
+    Environment:
+      type: object
+      description: A deployment environment within a Launch project.
+      properties:
+        uid:
+          type: string
+          description: Unique identifier of the environment.
+        name:
+          type: string
+          description: Display name of the environment.
+        domain:
+          type: string
+          description: The custom domain assigned to this environment.
+        status:
+          type: string
+          description: Current status of the environment.
+          enum:
+            - active
+            - inactive
+            - deploying
+        created_at:
+          type: string
+          format: date-time
+          description: ISO 8601 timestamp when the environment was created.
+    CreateEnvironmentRequest:
+      type: object
+      description: Parameters for creating or updating an environment.
+      required:
+        - name
+      properties:
+        name:
+          type: string
+          description: Display name for the environment.
+        domain:
+          type: string
+          description: Custom domain for the environment.
+    DeploymentList:
+      type: object
+      description: A list of deployments.
+      properties:
+        data:
+          type: array
+          description: Array of deployment objects.
+          items:
+            $ref: '#/components/schemas/Deployment'
+    Deployment:
+      type: object
+      description: A deployment operation to a Launch environment.
+      properties:
+        uid:
+          type: string
+          description: Unique identifier of the deployment.
+        status:
+          type: string
+          description: Current status of the deployment.
+          enum:
+            - queued
+            - building
+            - deploying
+            - live
+            - failed
+            - cancelled
+        created_at:
+          type: string
+          format: date-time
+          description: ISO 8601 timestamp when the deployment was created.
+        completed_at:
+          type: string
+          format: date-time
+          description: ISO 8601 timestamp when the deployment completed.
+    CreateDeploymentRequest:
+      type: object
+      description: Parameters for triggering a new deployment.
+      properties:
+        upload_uid:
+          type: string
+          description: The UID or reference to the previously uploaded build artifact.
+        branch:
+          type: string
+          description: The git branch to deploy from when using repository-linked deployments.
+    UploadUrlResponse:
+      type: object
+      description: A pre-signed URL for uploading build artifacts.
+      properties:
+        upload_url:
+          type: string
+          format: uri
+          description: The pre-signed URL to use for uploading the build artifact file.
+        upload_uid:
+          type: string
+          description: Unique identifier for this upload, used when creating a deployment.
+        expires_at:
+          type: string
+          format: date-time
+          description: ISO 8601 timestamp when the pre-signed URL expires (10 minutes).
+    LogResponse:
+      type: object
+      description: Log output from a deployment or server.
+      properties:
+        logs:
+          type: array
+          description: Array of log line entries.
+          items:
+            $ref: '#/components/schemas/LogEntry'
+    LogEntry:
+      type: object
+      description: A single log line entry.
+      properties:
+        timestamp:
+          type: string
+          format: date-time
+          description: ISO 8601 timestamp of the log entry.
+        level:
+          type: string
+          description: Log level.
+          enum:
+            - info
+            - warn
+            - error
+            - debug
+        message:
+          type: string
+          description: The log message content.
+    CacheUsage:
+      type: object
+      description: Cache revalidation usage metrics for the organization.
+      properties:
+        used:
+          type: integer
+          description: Number of cache revalidation requests used in the current period.
+        limit:
+          type: integer
+          description: Maximum number of cache revalidation requests allowed per period.
+        period_start:
+          type: string
+          format: date-time
+          description: Start of the current usage period.
+        period_end:
+          type: string
+          format: date-time
+          description: End of the current usage period.
+    Error:
+      type: object
+      description: Standard error response.
+      properties:
+        message:
+          type: string
+          description: Human-readable description of the error.
+        error_code:
+          type: integer
+          description: Numeric error code.

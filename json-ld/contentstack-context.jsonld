@@ -1,0 +1,311 @@
+{
+  "@context": {
+    "@version": 1.1,
+    "cs": "https://www.contentstack.com/vocab/",
+    "schema": "https://schema.org/",
+    "xsd": "http://www.w3.org/2001/XMLSchema#",
+    "dcterms": "http://purl.org/dc/terms/",
+    "skos": "http://www.w3.org/2004/02/skos/core#",
+
+    "Stack": {
+      "@id": "cs:Stack",
+      "@context": {
+        "apiKey": {
+          "@id": "cs:apiKey",
+          "@type": "xsd:string"
+        },
+        "name": "schema:name",
+        "description": "schema:description",
+        "masterLocale": {
+          "@id": "cs:masterLocale",
+          "@type": "xsd:string"
+        },
+        "organization": {
+          "@id": "cs:organization",
+          "@type": "@id"
+        },
+        "created": {
+          "@id": "dcterms:created",
+          "@type": "xsd:dateTime"
+        },
+        "modified": {
+          "@id": "dcterms:modified",
+          "@type": "xsd:dateTime"
+        }
+      }
+    },
+
+    "ContentType": {
+      "@id": "cs:ContentType",
+      "@context": {
+        "uid": "cs:uid",
+        "title": "schema:name",
+        "description": "schema:description",
+        "schema": {
+          "@id": "cs:schema",
+          "@container": "@set"
+        },
+        "created": {
+          "@id": "dcterms:created",
+          "@type": "xsd:dateTime"
+        },
+        "modified": {
+          "@id": "dcterms:modified",
+          "@type": "xsd:dateTime"
+        }
+      }
+    },
+
+    "Entry": {
+      "@id": "cs:Entry",
+      "@context": {
+        "uid": "cs:uid",
+        "title": "schema:name",
+        "locale": {
+          "@id": "cs:locale",
+          "@type": "xsd:string"
+        },
+        "version": {
+          "@id": "cs:version",
+          "@type": "xsd:integer"
+        },
+        "contentType": {
+          "@id": "cs:contentType",
+          "@type": "@id"
+        },
+        "publishDetails": {
+          "@id": "cs:publishDetails",
+          "@container": "@set"
+        },
+        "tags": {
+          "@id": "cs:tags",
+          "@container": "@set"
+        },
+        "created": {
+          "@id": "dcterms:created",
+          "@type": "xsd:dateTime"
+        },
+        "modified": {
+          "@id": "dcterms:modified",
+          "@type": "xsd:dateTime"
+        },
+        "publishedAt": {
+          "@id": "cs:publishedAt",
+          "@type": "xsd:dateTime"
+        }
+      }
+    },
+
+    "Asset": {
+      "@id": "cs:Asset",
+      "@context": {
+        "uid": "cs:uid",
+        "title": "schema:name",
+        "url": {
+          "@id": "schema:contentUrl",
+          "@type": "@id"
+        },
+        "filename": "schema:name",
+        "contentType": "schema:encodingFormat",
+        "fileSize": {
+          "@id": "schema:contentSize",
+          "@type": "xsd:string"
+        },
+        "description": "schema:description",
+        "tags": {
+          "@id": "cs:tags",
+          "@container": "@set"
+        },
+        "created": {
+          "@id": "dcterms:created",
+          "@type": "xsd:dateTime"
+        },
+        "modified": {
+          "@id": "dcterms:modified",
+          "@type": "xsd:dateTime"
+        }
+      }
+    },
+
+    "Environment": {
+      "@id": "cs:Environment",
+      "@context": {
+        "uid": "cs:uid",
+        "name": "schema:name",
+        "urls": {
+          "@id": "cs:urls",
+          "@container": "@set"
+        },
+        "created": {
+          "@id": "dcterms:created",
+          "@type": "xsd:dateTime"
+        }
+      }
+    },
+
+    "Organization": {
+      "@id": "cs:Organization",
+      "@context": {
+        "uid": "cs:uid",
+        "name": "schema:name",
+        "planId": {
+          "@id": "cs:planId",
+          "@type": "xsd:string"
+        },
+        "created": {
+          "@id": "dcterms:created",
+          "@type": "xsd:dateTime"
+        }
+      }
+    },
+
+    "User": {
+      "@id": "schema:Person",
+      "@context": {
+        "uid": "cs:uid",
+        "firstName": "schema:givenName",
+        "lastName": "schema:familyName",
+        "email": "schema:email",
+        "created": {
+          "@id": "dcterms:created",
+          "@type": "xsd:dateTime"
+        }
+      }
+    },
+
+    "Audience": {
+      "@id": "cs:Audience",
+      "@context": {
+        "uid": "cs:uid",
+        "name": "schema:name",
+        "description": "schema:description",
+        "rules": {
+          "@id": "cs:rules"
+        },
+        "created": {
+          "@id": "dcterms:created",
+          "@type": "xsd:dateTime"
+        }
+      }
+    },
+
+    "Experience": {
+      "@id": "cs:Experience",
+      "@context": {
+        "uid": "cs:uid",
+        "name": "schema:name",
+        "type": {
+          "@id": "cs:experienceType",
+          "@type": "xsd:string"
+        },
+        "status": {
+          "@id": "cs:status",
+          "@type": "xsd:string"
+        },
+        "variants": {
+          "@id": "cs:variants",
+          "@container": "@set"
+        },
+        "created": {
+          "@id": "dcterms:created",
+          "@type": "xsd:dateTime"
+        }
+      }
+    },
+
+    "BrandKit": {
+      "@id": "cs:BrandKit",
+      "@context": {
+        "uid": "cs:uid",
+        "name": "schema:name",
+        "description": "schema:description",
+        "organization": {
+          "@id": "cs:organization",
+          "@type": "@id"
+        },
+        "voiceProfiles": {
+          "@id": "cs:voiceProfiles",
+          "@container": "@set"
+        },
+        "created": {
+          "@id": "dcterms:created",
+          "@type": "xsd:dateTime"
+        },
+        "modified": {
+          "@id": "dcterms:modified",
+          "@type": "xsd:dateTime"
+        }
+      }
+    },
+
+    "VoiceProfile": {
+      "@id": "cs:VoiceProfile",
+      "@context": {
+        "uid": "cs:uid",
+        "name": "schema:name",
+        "description": "schema:description",
+        "tone": {
+          "@id": "cs:tone",
+          "@type": "xsd:string"
+        },
+        "styleGuidelines": {
+          "@id": "cs:styleGuidelines",
+          "@type": "xsd:string"
+        },
+        "brandKit": {
+          "@id": "cs:brandKit",
+          "@type": "@id"
+        },
+        "created": {
+          "@id": "dcterms:created",
+          "@type": "xsd:dateTime"
+        }
+      }
+    },
+
+    "Deployment": {
+      "@id": "cs:Deployment",
+      "@context": {
+        "uid": "cs:uid",
+        "status": {
+          "@id": "cs:status",
+          "@type": "xsd:string"
+        },
+        "environment": {
+          "@id": "cs:environment",
+          "@type": "@id"
+        },
+        "created": {
+          "@id": "dcterms:created",
+          "@type": "xsd:dateTime"
+        },
+        "completedAt": {
+          "@id": "cs:completedAt",
+          "@type": "xsd:dateTime"
+        }
+      }
+    },
+
+    "WebhookEvent": {
+      "@id": "cs:WebhookEvent",
+      "@context": {
+        "event": {
+          "@id": "cs:eventType",
+          "@type": "xsd:string"
+        },
+        "module": {
+          "@id": "cs:module",
+          "@type": "xsd:string"
+        },
+        "apiKey": {
+          "@id": "cs:apiKey",
+          "@type": "xsd:string"
+        },
+        "triggeredAt": {
+          "@id": "cs:triggeredAt",
+          "@type": "xsd:dateTime"
+        }
+      }
+    }
+  }
+}

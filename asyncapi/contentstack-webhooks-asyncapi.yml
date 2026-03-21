@@ -1,0 +1,529 @@
+asyncapi: 2.6.0
+info:
+  title: Contentstack Webhooks
+  description: >-
+    Contentstack Webhooks provide event-driven notifications for content
+    lifecycle events within a stack. When configured, Contentstack sends HTTP
+    POST requests to your specified endpoint URL whenever matching events occur,
+    such as entries being published, assets being deleted, or workflow stages
+    changing. Webhooks support filtering by content type, entry UID, environment,
+    and locale. Bulk operations trigger a single webhook notification at job
+    completion rather than one notification per item, making them efficient for
+    static site generation and cache invalidation workflows.
+  version: 'v3'
+  contact:
+    name: Contentstack Support
+    url: https://www.contentstack.com/contact
+servers:
+  yourWebhookEndpoint:
+    url: '{webhookUrl}'
+    protocol: https
+    description: >-
+      Your HTTPS endpoint that receives webhook event payloads from Contentstack.
+      Must be publicly accessible and return a 2xx status code to acknowledge
+      receipt.
+    variables:
+      webhookUrl:
+        description: The URL of your webhook listener endpoint.
+channels:
+  /webhook:
+    description: >-
+      Contentstack delivers all webhook event payloads via HTTP POST to this
+      channel. Each delivery includes event metadata and the content payload
+      relevant to the triggered action.
+    publish:
+      operationId: receiveWebhookEvent
+      summary: Receive a Contentstack webhook event
+      description: >-
+        Contentstack sends this message to your configured endpoint whenever
+        a matching content event occurs. The event type is indicated by the
+        event and module fields in the payload. Your endpoint must respond
+        with an HTTP 2xx status within 10 seconds to confirm receipt.
+      message:
+        oneOf:
+          - $ref: '#/components/messages/EntryPublished'
+          - $ref: '#/components/messages/EntryUnpublished'
+          - $ref: '#/components/messages/EntryDeleted'
+          - $ref: '#/components/messages/EntryCreated'
+          - $ref: '#/components/messages/EntryUpdated'
+          - $ref: '#/components/messages/AssetPublished'
+          - $ref: '#/components/messages/AssetUnpublished'
+          - $ref: '#/components/messages/AssetDeleted'
+          - $ref: '#/components/messages/ContentTypeCreated'
+          - $ref: '#/components/messages/ContentTypeUpdated'
+          - $ref: '#/components/messages/ContentTypeDeleted'
+          - $ref: '#/components/messages/WorkflowStageChanged'
+          - $ref: '#/components/messages/ReleaseDeployed'
+          - $ref: '#/components/messages/BulkJobCompleted'
+components:
+  messages:
+    EntryPublished:
+      name: EntryPublished
+      title: Entry Published
+      summary: An entry was published to one or more environments.
+      description: >-
+        Triggered when a content entry is successfully published to at least
+        one environment. Contains the full entry data and the list of
+        environments and locales the entry was published to.
+      contentType: application/json
+      payload:
+        $ref: '#/components/schemas/EntryEventPayload'
+      headers:
+        type: object
+        properties:
+          X-Contentstack-Request-ID:
+            type: string
+            description: Unique identifier for this webhook delivery request.
+          X-Contentstack-Timestamp:
+            type: string
+            description: Unix timestamp of when the webhook was dispatched.
+
+    EntryUnpublished:
+      name: EntryUnpublished
+      title: Entry Unpublished
+      summary: An entry was unpublished from one or more environments.
+      description: >-
+        Triggered when a content entry is removed from publication in one or
+        more environments, making it unavailable via the Content Delivery API.
+      contentType: application/json
+      payload:
+        $ref: '#/components/schemas/EntryEventPayload'
+
+    EntryDeleted:
+      name: EntryDeleted
+      title: Entry Deleted
+      summary: An entry was permanently deleted from the stack.
+      description: >-
+        Triggered when a content entry is permanently deleted. The payload
+        contains the entry metadata but not the full content since the entry
+        no longer exists.
+      contentType: application/json
+      payload:
+        $ref: '#/components/schemas/EntryEventPayload'
+
+    EntryCreated:
+      name: EntryCreated
+      title: Entry Created
+      summary: A new entry was created in the stack.
+      description: >-
+        Triggered when a new content entry is created within a content type.
+        The entry is in draft state at this point and not yet published.
+      contentType: application/json
+      payload:
+        $ref: '#/components/schemas/EntryEventPayload'
+
+    EntryUpdated:
+      name: EntryUpdated
+      title: Entry Updated
+      summary: An existing entry's content was updated.
+      description: >-
+        Triggered when the field values of an existing entry are modified and
+        saved. Does not require the entry to be published for this event to fire.
+      contentType: application/json
+      payload:
+        $ref: '#/components/schemas/EntryEventPayload'
+
+    AssetPublished:
+      name: AssetPublished
+      title: Asset Published
+      summary: An asset was published to one or more environments.
+      description: >-
+        Triggered when a media asset is published to one or more environments,
+        making it available via the Content Delivery API for the affected
+        environments.
+      contentType: application/json
+      payload:
+        $ref: '#/components/schemas/AssetEventPayload'
+
+    AssetUnpublished:
+      name: AssetUnpublished
+      title: Asset Unpublished
+      summary: An asset was unpublished from one or more environments.
+      description: >-
+        Triggered when a media asset is removed from publication in one or
+        more environments.
+      contentType: application/json
+      payload:
+        $ref: '#/components/schemas/AssetEventPayload'
+
+    AssetDeleted:
+      name: AssetDeleted
+      title: Asset Deleted
+      summary: An asset was permanently deleted from the stack.
+      description: >-
+        Triggered when a media asset is permanently deleted from the stack's
+        asset library.
+      contentType: application/json
+      payload:
+        $ref: '#/components/schemas/AssetEventPayload'
+
+    ContentTypeCreated:
+      name: ContentTypeCreated
+      title: Content Type Created
+      summary: A new content type was created in the stack.
+      description: >-
+        Triggered when a new content type schema is created in the stack.
+        Contains the full content type schema definition.
+      contentType: application/json
+      payload:
+        $ref: '#/components/schemas/ContentTypeEventPayload'
+
+    ContentTypeUpdated:
+      name: ContentTypeUpdated
+      title: Content Type Updated
+      summary: An existing content type schema was updated.
+      description: >-
+        Triggered when the schema, options, or settings of an existing content
+        type are modified.
+      contentType: application/json
+      payload:
+        $ref: '#/components/schemas/ContentTypeEventPayload'
+
+    ContentTypeDeleted:
+      name: ContentTypeDeleted
+      title: Content Type Deleted
+      summary: A content type was deleted from the stack.
+      description: >-
+        Triggered when a content type is permanently deleted from the stack.
+        This event also causes all entries of that content type to be
+        permanently removed.
+      contentType: application/json
+      payload:
+        $ref: '#/components/schemas/ContentTypeEventPayload'
+
+    WorkflowStageChanged:
+      name: WorkflowStageChanged
+      title: Workflow Stage Changed
+      summary: An entry moved to a different workflow stage.
+      description: >-
+        Triggered when an entry's workflow stage is changed. Contains both
+        the previous and new workflow stage information for tracking content
+        progression through editorial workflows.
+      contentType: application/json
+      payload:
+        $ref: '#/components/schemas/WorkflowEventPayload'
+
+    ReleaseDeployed:
+      name: ReleaseDeployed
+      title: Release Deployed
+      summary: A content release was deployed to an environment.
+      description: >-
+        Triggered when a Contentstack release — a collection of entries and
+        assets — is deployed to one or more environments simultaneously.
+      contentType: application/json
+      payload:
+        $ref: '#/components/schemas/ReleaseEventPayload'
+
+    BulkJobCompleted:
+      name: BulkJobCompleted
+      title: Bulk Job Completed
+      summary: A bulk publish or unpublish job completed.
+      description: >-
+        Triggered once when a bulk publish or unpublish job finishes processing
+        all items. Unlike individual entry webhooks, this fires only once per
+        job regardless of how many entries were affected, making it more
+        efficient for static site generation cache invalidation.
+      contentType: application/json
+      payload:
+        $ref: '#/components/schemas/BulkJobEventPayload'
+
+  schemas:
+    WebhookBase:
+      type: object
+      description: Common fields present in all Contentstack webhook payloads.
+      properties:
+        event:
+          type: string
+          description: The specific event action that triggered the webhook (e.g., publish, create, delete).
+        module:
+          type: string
+          description: The content module that generated the event (e.g., entry, asset, content_type).
+        api_key:
+          type: string
+          description: The API key of the stack where the event occurred.
+        uid:
+          type: string
+          description: The UID of the resource that triggered the event.
+        triggered_at:
+          type: string
+          format: date-time
+          description: ISO 8601 timestamp of when the event was triggered.
+
+    EntryEventPayload:
+      allOf:
+        - $ref: '#/components/schemas/WebhookBase'
+        - type: object
+          description: Payload for entry-related webhook events.
+          properties:
+            data:
+              type: object
+              description: The entry data and publication context for this event.
+              properties:
+                entry:
+                  type: object
+                  description: The entry object containing all field values at the time of the event.
+                  properties:
+                    uid:
+                      type: string
+                      description: Unique identifier of the entry.
+                    title:
+                      type: string
+                      description: Title of the entry.
+                    locale:
+                      type: string
+                      description: Locale of the entry.
+                    _version:
+                      type: integer
+                      description: Version number of the entry.
+                    created_at:
+                      type: string
+                      format: date-time
+                      description: ISO 8601 timestamp when the entry was created.
+                    updated_at:
+                      type: string
+                      format: date-time
+                      description: ISO 8601 timestamp when the entry was last updated.
+                content_type:
+                  type: object
+                  description: The content type this entry belongs to.
+                  properties:
+                    uid:
+                      type: string
+                      description: UID of the content type.
+                    title:
+                      type: string
+                      description: Title of the content type.
+                environments:
+                  type: array
+                  description: List of environments affected by this publish or unpublish event.
+                  items:
+                    type: object
+                    properties:
+                      name:
+                        type: string
+                        description: Name of the environment.
+                      uid:
+                        type: string
+                        description: UID of the environment.
+                locales:
+                  type: array
+                  description: List of locales affected by this event.
+                  items:
+                    type: object
+                    properties:
+                      code:
+                        type: string
+                        description: Locale code (e.g., en-us).
+                      name:
+                        type: string
+                        description: Display name of the locale.
+
+    AssetEventPayload:
+      allOf:
+        - $ref: '#/components/schemas/WebhookBase'
+        - type: object
+          description: Payload for asset-related webhook events.
+          properties:
+            data:
+              type: object
+              description: The asset data and event context.
+              properties:
+                asset:
+                  type: object
+                  description: The asset object.
+                  properties:
+                    uid:
+                      type: string
+                      description: Unique identifier of the asset.
+                    title:
+                      type: string
+                      description: Title of the asset.
+                    url:
+                      type: string
+                      format: uri
+                      description: CDN URL of the asset.
+                    filename:
+                      type: string
+                      description: Original file name of the asset.
+                    content_type:
+                      type: string
+                      description: MIME type of the asset.
+                    file_size:
+                      type: string
+                      description: File size in bytes.
+                environments:
+                  type: array
+                  description: Environments affected by this publish or unpublish event.
+                  items:
+                    type: object
+                    properties:
+                      name:
+                        type: string
+                      uid:
+                        type: string
+
+    ContentTypeEventPayload:
+      allOf:
+        - $ref: '#/components/schemas/WebhookBase'
+        - type: object
+          description: Payload for content type lifecycle webhook events.
+          properties:
+            data:
+              type: object
+              description: The content type data.
+              properties:
+                content_type:
+                  type: object
+                  description: The content type schema at the time of the event.
+                  properties:
+                    uid:
+                      type: string
+                      description: Unique identifier of the content type.
+                    title:
+                      type: string
+                      description: Display name of the content type.
+                    schema:
+                      type: array
+                      description: Array of field definitions.
+                      items:
+                        type: object
+
+    WorkflowEventPayload:
+      allOf:
+        - $ref: '#/components/schemas/WebhookBase'
+        - type: object
+          description: Payload for workflow stage change events.
+          properties:
+            data:
+              type: object
+              description: Workflow transition data.
+              properties:
+                entry:
+                  type: object
+                  description: The entry that changed workflow stage.
+                  properties:
+                    uid:
+                      type: string
+                      description: UID of the entry.
+                    title:
+                      type: string
+                      description: Title of the entry.
+                content_type:
+                  type: object
+                  description: The content type of the entry.
+                  properties:
+                    uid:
+                      type: string
+                    title:
+                      type: string
+                workflow:
+                  type: object
+                  description: Workflow transition details.
+                  properties:
+                    uid:
+                      type: string
+                      description: UID of the workflow.
+                    name:
+                      type: string
+                      description: Name of the workflow.
+                    current_stage:
+                      type: object
+                      description: The new workflow stage.
+                      properties:
+                        uid:
+                          type: string
+                          description: UID of the new stage.
+                        title:
+                          type: string
+                          description: Title of the new stage.
+                    previous_stage:
+                      type: object
+                      description: The previous workflow stage.
+                      properties:
+                        uid:
+                          type: string
+                          description: UID of the previous stage.
+                        title:
+                          type: string
+                          description: Title of the previous stage.
+
+    ReleaseEventPayload:
+      allOf:
+        - $ref: '#/components/schemas/WebhookBase'
+        - type: object
+          description: Payload for release deployment events.
+          properties:
+            data:
+              type: object
+              description: Release deployment data.
+              properties:
+                release:
+                  type: object
+                  description: The deployed release.
+                  properties:
+                    uid:
+                      type: string
+                      description: UID of the release.
+                    name:
+                      type: string
+                      description: Name of the release.
+                environments:
+                  type: array
+                  description: Environments the release was deployed to.
+                  items:
+                    type: object
+                    properties:
+                      name:
+                        type: string
+                      uid:
+                        type: string
+
+    BulkJobEventPayload:
+      allOf:
+        - $ref: '#/components/schemas/WebhookBase'
+        - type: object
+          description: Payload for bulk job completion events.
+          properties:
+            data:
+              type: object
+              description: Bulk job completion data.
+              properties:
+                job:
+                  type: object
+                  description: Summary of the completed bulk job.
+                  properties:
+                    uid:
+                      type: string
+                      description: UID of the bulk job.
+                    type:
+                      type: string
+                      description: Type of bulk operation performed.
+                      enum:
+                        - bulk_publish
+                        - bulk_unpublish
+                    status:
+                      type: string
+                      description: Completion status of the job.
+                      enum:
+                        - complete
+                        - partial
+                        - failed
+                    total_count:
+                      type: integer
+                      description: Total number of items in the bulk job.
+                    success_count:
+                      type: integer
+                      description: Number of items successfully processed.
+                    failed_count:
+                      type: integer
+                      description: Number of items that failed to process.
+                environments:
+                  type: array
+                  description: Target environments for the bulk operation.
+                  items:
+                    type: object
+                    properties:
+                      name:
+                        type: string
+                      uid:
+                        type: string

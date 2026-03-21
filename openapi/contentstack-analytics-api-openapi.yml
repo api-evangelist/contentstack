@@ -1,0 +1,479 @@
+openapi: 3.1.0
+info:
+  title: Contentstack Analytics API
+  description: >-
+    The Contentstack Analytics API provides access to usage and performance
+    metrics for CMS, Launch, and Automate products within a Contentstack
+    organization. Developers can retrieve analytics data programmatically to
+    build custom dashboards, monitor content delivery performance, and track
+    platform usage against plan limits. The API returns structured data
+    suitable for aggregation with external analytics and business intelligence
+    tools. Access is restricted to organization Owners and Admins. Requests
+    use async job-based processing where initial POST calls queue the job and
+    a subsequent GET call retrieves the results.
+  version: 'v2'
+  contact:
+    name: Contentstack Support
+    url: https://www.contentstack.com/contact
+  termsOfService: https://www.contentstack.com/legal/terms-of-service
+externalDocs:
+  description: Contentstack Analytics API Documentation
+  url: https://www.contentstack.com/docs/developers/apis/analytics-api
+servers:
+  - url: https://api.contentstack.io
+    description: AWS North America Production Server
+  - url: https://eu-api.contentstack.com
+    description: AWS Europe Production Server
+  - url: https://au-api.contentstack.com
+    description: AWS Australia Production Server
+tags:
+  - name: Subscription Usage
+    description: >-
+      Subscription usage analytics provide metrics on Launch project, environment,
+      and domain counts relative to the organization's plan limits.
+  - name: Device Usage
+    description: >-
+      Device usage analytics track API and content delivery requests broken
+      down by device type (desktop, mobile, tablet, server).
+  - name: Usage Analytics
+    description: >-
+      Usage analytics provide bandwidth and API call utilization overviews
+      across Contentstack services including CDN, CMA, Automate, and Launch.
+  - name: URL Analytics
+    description: >-
+      URL analytics show request volume broken down by specific URLs to
+      identify high-traffic content and optimize delivery.
+  - name: Status Code Analytics
+    description: >-
+      Status code analytics show the distribution of HTTP response codes
+      returned by Contentstack services for health and error monitoring.
+  - name: Cache Analytics
+    description: >-
+      Cache analytics track CDN cache hit and miss rates to measure delivery
+      efficiency and identify cache optimization opportunities.
+  - name: SDK Usage
+    description: >-
+      SDK usage analytics report request volumes from Contentstack SDKs
+      broken down by SDK type and version.
+  - name: Jobs
+    description: >-
+      Analytics jobs represent asynchronous data retrieval operations. Use
+      the job ID returned from POST endpoints to fetch results via the
+      job data endpoint.
+security:
+  - bearerAuth: []
+  - authtokenAuth: []
+paths:
+  /analytics/v2/subscription-usage:
+    post:
+      operationId: getSubscriptionUsage
+      summary: Get subscription usage metrics
+      description: >-
+        Returns metrics on the organization's Launch resource consumption
+        including the total number of projects, environments, and custom
+        domains relative to plan limits. Queues an async job and returns
+        a jobId for result retrieval.
+      tags:
+        - Subscription Usage
+      parameters:
+        - $ref: '#/components/parameters/OrganizationUid'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AnalyticsRequest'
+      responses:
+        '200':
+          description: Job queued successfully with a jobId for result retrieval.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/JobResponse'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+  /analytics/v2/device-usage:
+    post:
+      operationId: getDeviceUsage
+      summary: Get device usage metrics
+      description: >-
+        Returns API request counts broken down by device type. Tracks usage
+        from desktop, mobile, tablet, and server (API) clients to understand
+        content consumption patterns.
+      tags:
+        - Device Usage
+      parameters:
+        - $ref: '#/components/parameters/OrganizationUid'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AnalyticsRequest'
+      responses:
+        '200':
+          description: Job queued successfully.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/JobResponse'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+  /analytics/v2/usage-analytics:
+    post:
+      operationId: getUsageAnalytics
+      summary: Get usage analytics
+      description: >-
+        Provides bandwidth and API call utilization metrics across specified
+        Contentstack services. Useful for monitoring overall platform usage
+        trends and capacity planning.
+      tags:
+        - Usage Analytics
+      parameters:
+        - $ref: '#/components/parameters/OrganizationUid'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UsageAnalyticsRequest'
+      responses:
+        '200':
+          description: Job queued successfully.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/JobResponse'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+  /analytics/v2/top-urls:
+    post:
+      operationId: getTopUrls
+      summary: Get top URLs by request count
+      description: >-
+        Returns the most frequently requested URLs within the organization's
+        Contentstack delivery infrastructure over the specified time period.
+      tags:
+        - URL Analytics
+      parameters:
+        - $ref: '#/components/parameters/OrganizationUid'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AnalyticsRequest'
+      responses:
+        '200':
+          description: Job queued successfully.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/JobResponse'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+  /analytics/v2/status-code:
+    post:
+      operationId: getStatusCodeMetrics
+      summary: Get HTTP status code metrics
+      description: >-
+        Returns the distribution of HTTP response status codes returned by
+        Contentstack services. Useful for identifying error rates and
+        monitoring API health.
+      tags:
+        - Status Code Analytics
+      parameters:
+        - $ref: '#/components/parameters/OrganizationUid'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AnalyticsRequest'
+      responses:
+        '200':
+          description: Job queued successfully.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/JobResponse'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+  /analytics/v2/cache-usage:
+    post:
+      operationId: getCacheUsage
+      summary: Get CDN cache usage metrics
+      description: >-
+        Returns CDN cache hit and miss counts for the organization's content
+        delivery. High cache miss rates may indicate cache configuration
+        issues or stale cache invalidation frequency.
+      tags:
+        - Cache Analytics
+      parameters:
+        - $ref: '#/components/parameters/OrganizationUid'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AnalyticsRequest'
+      responses:
+        '200':
+          description: Job queued successfully.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/JobResponse'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+  /analytics/v2/sdk-usage:
+    post:
+      operationId: getSdkUsage
+      summary: Get SDK usage metrics
+      description: >-
+        Returns request count metrics broken down by Contentstack SDK type
+        and version, enabling teams to understand SDK adoption and identify
+        outdated SDK versions in use.
+      tags:
+        - SDK Usage
+      parameters:
+        - $ref: '#/components/parameters/OrganizationUid'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AnalyticsRequest'
+      responses:
+        '200':
+          description: Job queued successfully.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/JobResponse'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+  /analytics/v2/job/{jobId}/data:
+    get:
+      operationId: getJobData
+      summary: Get analytics job results
+      description: >-
+        Retrieves the results of an asynchronous analytics job using the
+        jobId returned from an analytics POST endpoint. Poll this endpoint
+        until the job status is completed to retrieve the full dataset.
+      tags:
+        - Jobs
+      parameters:
+        - $ref: '#/components/parameters/OrganizationUid'
+        - $ref: '#/components/parameters/JobId'
+        - $ref: '#/components/parameters/Skip'
+        - $ref: '#/components/parameters/Limit'
+      responses:
+        '200':
+          description: The analytics job results.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/JobData'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '404':
+          $ref: '#/components/responses/NotFound'
+components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      description: OAuth 2.0 Bearer token (M2M) with analytics access.
+    authtokenAuth:
+      type: apiKey
+      in: header
+      name: authtoken
+      description: Contentstack user authtoken. Only organization Owners and Admins can access analytics.
+  parameters:
+    OrganizationUid:
+      name: organization_uid
+      in: header
+      required: true
+      description: The unique identifier of the organization.
+      schema:
+        type: string
+    JobId:
+      name: jobId
+      in: path
+      required: true
+      description: The unique identifier of the analytics job returned from a POST endpoint.
+      schema:
+        type: string
+    Skip:
+      name: skip
+      in: query
+      description: Number of records to skip for pagination.
+      schema:
+        type: integer
+        minimum: 0
+        default: 0
+    Limit:
+      name: limit
+      in: query
+      description: Maximum number of records to return.
+      schema:
+        type: integer
+        minimum: 1
+        maximum: 1000
+        default: 100
+  responses:
+    BadRequest:
+      description: The request is malformed or contains invalid parameters.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    Unauthorized:
+      description: Authentication credentials are missing or invalid.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    Forbidden:
+      description: The user does not have permission to access analytics. Owner or Admin role required.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    NotFound:
+      description: The requested job was not found.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+  schemas:
+    AnalyticsRequest:
+      type: object
+      description: Common parameters for analytics data requests.
+      properties:
+        from:
+          type: string
+          format: date
+          description: Start date for the analytics query in YYYY-MM-DD format. Maximum range is 90 days.
+        to:
+          type: string
+          format: date
+          description: End date for the analytics query in YYYY-MM-DD format.
+        duration:
+          type: string
+          description: Aggregation duration for time series data.
+          enum:
+            - day
+            - week
+            - month
+        skip:
+          type: integer
+          description: Number of records to skip for pagination.
+          minimum: 0
+          default: 0
+        limit:
+          type: integer
+          description: Maximum number of records to return.
+          minimum: 1
+          maximum: 1000
+          default: 100
+    UsageAnalyticsRequest:
+      allOf:
+        - $ref: '#/components/schemas/AnalyticsRequest'
+        - type: object
+          properties:
+            services:
+              type: array
+              description: List of Contentstack services to include in the analytics query.
+              items:
+                type: string
+                enum:
+                  - cdn
+                  - cma
+                  - automations
+                  - launch
+            api_key:
+              type: string
+              description: Optional stack API key to filter metrics to a specific stack.
+    JobResponse:
+      type: object
+      description: Response returned when an analytics job is queued.
+      properties:
+        jobId:
+          type: string
+          description: >-
+            The unique identifier of the queued analytics job. Use this to
+            retrieve results via the GET /analytics/v2/job/{jobId}/data endpoint.
+        status:
+          type: string
+          description: Initial status of the job.
+          enum:
+            - queued
+            - processing
+            - completed
+            - failed
+    JobData:
+      type: object
+      description: The results of a completed analytics job.
+      properties:
+        jobId:
+          type: string
+          description: The unique identifier of the analytics job.
+        status:
+          type: string
+          description: Current status of the job.
+          enum:
+            - queued
+            - processing
+            - completed
+            - failed
+        data:
+          type: array
+          description: Array of analytics data records.
+          items:
+            type: object
+            description: An individual analytics data point with metric values and dimensions.
+        total:
+          type: integer
+          description: Total number of records available for this job.
+    Error:
+      type: object
+      description: Standard error response.
+      properties:
+        error_message:
+          type: string
+          description: Human-readable description of the error.
+        error_code:
+          type: integer
+          description: Numeric error code.

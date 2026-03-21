@@ -1,0 +1,842 @@
+openapi: 3.1.0
+info:
+  title: Contentstack Personalize Management API
+  description: >-
+    The Contentstack Personalize Management API provides programmatic control
+    over the resources in a Contentstack Personalize project, including
+    Attributes, Audiences, Events, and Experiences. Developers can use this API
+    to create and manage audience segments based on user attributes and
+    behavioral events, and to configure personalized content experiences for
+    those segments. It is a REST API that follows standard CRUD conventions and
+    is intended for use in headless personalization workflows where content
+    targeting logic needs to be managed programmatically or integrated with
+    external data platforms.
+  version: 'v1'
+  contact:
+    name: Contentstack Support
+    url: https://www.contentstack.com/contact
+  termsOfService: https://www.contentstack.com/legal/terms-of-service
+externalDocs:
+  description: Contentstack Personalize Management API Documentation
+  url: https://www.contentstack.com/docs/developers/apis/personalize-management-api
+servers:
+  - url: https://personalize-api.contentstack.com
+    description: AWS North America Production Server
+  - url: https://eu-personalize-api.contentstack.com
+    description: AWS Europe Production Server
+  - url: https://au-personalize-api.contentstack.com
+    description: AWS Australia Production Server
+  - url: https://azure-na-personalize-api.contentstack.com
+    description: Azure North America Production Server
+  - url: https://azure-eu-personalize-api.contentstack.com
+    description: Azure Europe Production Server
+tags:
+  - name: Attributes
+    description: >-
+      Attributes represent individual user data characteristics such as age,
+      location, or browsing history used to define audience segments.
+  - name: Audiences
+    description: >-
+      Audiences are defined segments of users grouped by demographic, behavioral,
+      or other attribute-based criteria for targeted content experiences.
+  - name: Experiences
+    description: >-
+      Experiences define personalized content variations delivered to specific
+      audience segments, supporting both segmented and A/B test configurations.
+  - name: Events
+    description: >-
+      Events track user actions and behaviors that can be used to trigger
+      audience membership changes or experience analytics.
+  - name: Geolocation
+    description: >-
+      Geolocation endpoints provide geographic datasets including regions,
+      countries, and cities for location-based audience targeting.
+security:
+  - bearerAuth: []
+  - authtokenAuth: []
+paths:
+  /attributes:
+    get:
+      operationId: getAllAttributes
+      summary: Get all attributes
+      description: >-
+        Retrieves all user attribute definitions configured in the Personalize
+        project. Attributes are used to build audience segment rules.
+      tags:
+        - Attributes
+      parameters:
+        - $ref: '#/components/parameters/ProjectUid'
+      responses:
+        '200':
+          description: A list of all attributes in the project.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AttributeList'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+    post:
+      operationId: createAttribute
+      summary: Create an attribute
+      description: >-
+        Creates a new user attribute definition in the Personalize project.
+        Attributes can be of various types including string, number, boolean,
+        and date, and are used to build audience segment rules.
+      tags:
+        - Attributes
+      parameters:
+        - $ref: '#/components/parameters/ProjectUid'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateAttributeRequest'
+      responses:
+        '201':
+          description: The newly created attribute.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Attribute'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+  /attributes/{id}:
+    put:
+      operationId: updateAttribute
+      summary: Update an attribute
+      description: >-
+        Updates the configuration of an existing attribute in the Personalize
+        project including its name, key, and data type.
+      tags:
+        - Attributes
+      parameters:
+        - $ref: '#/components/parameters/AttributeId'
+        - $ref: '#/components/parameters/ProjectUid'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateAttributeRequest'
+      responses:
+        '200':
+          description: The updated attribute.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Attribute'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+    delete:
+      operationId: deleteAttribute
+      summary: Delete an attribute
+      description: >-
+        Permanently deletes an attribute from the Personalize project. Attributes
+        referenced in audience rules cannot be deleted until those references
+        are removed.
+      tags:
+        - Attributes
+      parameters:
+        - $ref: '#/components/parameters/AttributeId'
+        - $ref: '#/components/parameters/ProjectUid'
+      responses:
+        '200':
+          description: Attribute deleted successfully.
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+  /audiences:
+    get:
+      operationId: getAllAudiences
+      summary: Get all audiences
+      description: >-
+        Retrieves all audience segment definitions in the Personalize project.
+        Audiences define the user groups that experiences are targeted to.
+      tags:
+        - Audiences
+      parameters:
+        - $ref: '#/components/parameters/ProjectUid'
+      responses:
+        '200':
+          description: A list of all audiences in the project.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AudienceList'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+    post:
+      operationId: createAudience
+      summary: Create an audience
+      description: >-
+        Creates a new audience segment in the Personalize project based on
+        attribute conditions and behavioral rules.
+      tags:
+        - Audiences
+      parameters:
+        - $ref: '#/components/parameters/ProjectUid'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateAudienceRequest'
+      responses:
+        '201':
+          description: The newly created audience.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Audience'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+  /audiences/{id}:
+    put:
+      operationId: updateAudience
+      summary: Update an audience
+      description: >-
+        Updates the rules and configuration of an existing audience segment.
+      tags:
+        - Audiences
+      parameters:
+        - $ref: '#/components/parameters/AudienceId'
+        - $ref: '#/components/parameters/ProjectUid'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateAudienceRequest'
+      responses:
+        '200':
+          description: The updated audience.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Audience'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+    delete:
+      operationId: deleteAudience
+      summary: Delete an audience
+      description: >-
+        Permanently deletes an audience from the Personalize project. Audiences
+        referenced in active experiences cannot be deleted.
+      tags:
+        - Audiences
+      parameters:
+        - $ref: '#/components/parameters/AudienceId'
+        - $ref: '#/components/parameters/ProjectUid'
+      responses:
+        '200':
+          description: Audience deleted successfully.
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+  /experiences:
+    get:
+      operationId: getAllExperiences
+      summary: Get all experiences
+      description: >-
+        Retrieves all experience configurations in the Personalize project,
+        including their variant definitions and audience assignments.
+      tags:
+        - Experiences
+      parameters:
+        - $ref: '#/components/parameters/ProjectUid'
+      responses:
+        '200':
+          description: A list of all experiences in the project.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ExperienceList'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+    post:
+      operationId: createExperience
+      summary: Create an experience
+      description: >-
+        Creates a new experience in the Personalize project. Experiences can be
+        of type SEGMENTED (rule-based audience targeting) or AB_TEST (split
+        testing with traffic distribution).
+      tags:
+        - Experiences
+      parameters:
+        - $ref: '#/components/parameters/ProjectUid'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateExperienceRequest'
+      responses:
+        '201':
+          description: The newly created experience.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Experience'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+  /experiences/{id}:
+    get:
+      operationId: getExperience
+      summary: Get an experience
+      description: >-
+        Retrieves details for a specific experience including its variants,
+        audience assignments, status, and configuration.
+      tags:
+        - Experiences
+      parameters:
+        - $ref: '#/components/parameters/ExperienceId'
+        - $ref: '#/components/parameters/ProjectUid'
+      responses:
+        '200':
+          description: The requested experience.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Experience'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+    put:
+      operationId: updateExperience
+      summary: Update an experience
+      description: >-
+        Updates the configuration of an existing experience including its name,
+        variants, and audience targeting rules.
+      tags:
+        - Experiences
+      parameters:
+        - $ref: '#/components/parameters/ExperienceId'
+        - $ref: '#/components/parameters/ProjectUid'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateExperienceRequest'
+      responses:
+        '200':
+          description: The updated experience.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Experience'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+    delete:
+      operationId: deleteExperience
+      summary: Delete an experience
+      description: >-
+        Permanently deletes an experience from the Personalize project. Only
+        experiences in draft or inactive status can be deleted.
+      tags:
+        - Experiences
+      parameters:
+        - $ref: '#/components/parameters/ExperienceId'
+        - $ref: '#/components/parameters/ProjectUid'
+      responses:
+        '200':
+          description: Experience deleted successfully.
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+  /experiences/priority:
+    get:
+      operationId: getExperiencePriority
+      summary: Get experience priority order
+      description: >-
+        Retrieves the priority ordering of all active experiences, which
+        determines which experience takes precedence when a user qualifies for
+        multiple experiences.
+      tags:
+        - Experiences
+      parameters:
+        - $ref: '#/components/parameters/ProjectUid'
+      responses:
+        '200':
+          description: The current experience priority ordering.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ExperiencePriority'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+    put:
+      operationId: updateExperiencePriority
+      summary: Update experience priority order
+      description: >-
+        Updates the priority ordering of experiences to control which experience
+        is applied first when a user qualifies for multiple active experiences.
+      tags:
+        - Experiences
+      parameters:
+        - $ref: '#/components/parameters/ProjectUid'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ExperiencePriority'
+      responses:
+        '200':
+          description: Updated experience priority ordering.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ExperiencePriority'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+  /events:
+    get:
+      operationId: getAllEvents
+      summary: Get all events
+      description: >-
+        Retrieves all custom event definitions in the Personalize project.
+        Events are used to track user interactions and trigger audience
+        membership updates.
+      tags:
+        - Events
+      parameters:
+        - $ref: '#/components/parameters/ProjectUid'
+      responses:
+        '200':
+          description: A list of all events in the project.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/EventList'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+    post:
+      operationId: createEvent
+      summary: Create an event
+      description: >-
+        Creates a new custom event definition in the Personalize project for
+        tracking specific user actions and behaviors.
+      tags:
+        - Events
+      parameters:
+        - $ref: '#/components/parameters/ProjectUid'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateEventRequest'
+      responses:
+        '201':
+          description: The newly created event.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PersonalizeEvent'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+  /geolocation/regions:
+    get:
+      operationId: getGeoRegions
+      summary: Get geolocation regions
+      description: >-
+        Retrieves the list of geographic regions available for location-based
+        audience targeting rules.
+      tags:
+        - Geolocation
+      parameters:
+        - $ref: '#/components/parameters/ProjectUid'
+      responses:
+        '200':
+          description: A list of geographic regions.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GeoList'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+  /geolocation/countries:
+    get:
+      operationId: getGeoCountries
+      summary: Get geolocation countries
+      description: >-
+        Retrieves the list of countries available for location-based audience
+        targeting rules.
+      tags:
+        - Geolocation
+      parameters:
+        - $ref: '#/components/parameters/ProjectUid'
+      responses:
+        '200':
+          description: A list of countries.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GeoList'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+  /geolocation/cities:
+    get:
+      operationId: getGeoCities
+      summary: Get geolocation cities
+      description: >-
+        Retrieves the list of cities available for location-based audience
+        targeting rules.
+      tags:
+        - Geolocation
+      parameters:
+        - $ref: '#/components/parameters/ProjectUid'
+      responses:
+        '200':
+          description: A list of cities.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GeoList'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      description: OAuth 2.0 Bearer token with personalize:manage or personalize:read scope.
+    authtokenAuth:
+      type: apiKey
+      in: header
+      name: authtoken
+      description: Contentstack user authtoken for session-based authentication.
+  parameters:
+    ProjectUid:
+      name: x-project-uid
+      in: header
+      required: true
+      description: The UID of the Contentstack Personalize project.
+      schema:
+        type: string
+    AttributeId:
+      name: id
+      in: path
+      required: true
+      description: The unique identifier of the attribute.
+      schema:
+        type: string
+    AudienceId:
+      name: id
+      in: path
+      required: true
+      description: The unique identifier of the audience.
+      schema:
+        type: string
+    ExperienceId:
+      name: id
+      in: path
+      required: true
+      description: The unique identifier of the experience.
+      schema:
+        type: string
+  responses:
+    BadRequest:
+      description: The request is malformed or contains invalid parameters.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    Unauthorized:
+      description: Authentication credentials are missing or invalid.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    NotFound:
+      description: The requested resource was not found.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+  schemas:
+    AttributeList:
+      type: object
+      description: A list of user attribute definitions.
+      properties:
+        data:
+          type: array
+          description: Array of attribute objects.
+          items:
+            $ref: '#/components/schemas/Attribute'
+    Attribute:
+      type: object
+      description: A user attribute definition used in audience segment rules.
+      properties:
+        uid:
+          type: string
+          description: Unique identifier of the attribute.
+        name:
+          type: string
+          description: Display name of the attribute.
+        key:
+          type: string
+          description: Machine-readable key used to reference this attribute in rules and SDKs.
+        data_type:
+          type: string
+          description: Data type of the attribute.
+          enum:
+            - string
+            - number
+            - boolean
+            - date
+        created_at:
+          type: string
+          format: date-time
+          description: ISO 8601 timestamp when the attribute was created.
+    CreateAttributeRequest:
+      type: object
+      description: Parameters for creating or updating an attribute.
+      required:
+        - name
+        - key
+        - data_type
+      properties:
+        name:
+          type: string
+          description: Display name for the attribute.
+        key:
+          type: string
+          description: Machine-readable key for the attribute.
+        data_type:
+          type: string
+          description: Data type of the attribute.
+          enum:
+            - string
+            - number
+            - boolean
+            - date
+    AudienceList:
+      type: object
+      description: A list of audience segment definitions.
+      properties:
+        data:
+          type: array
+          description: Array of audience objects.
+          items:
+            $ref: '#/components/schemas/Audience'
+    Audience:
+      type: object
+      description: An audience segment based on attribute rules and user behaviors.
+      properties:
+        uid:
+          type: string
+          description: Unique identifier of the audience.
+        name:
+          type: string
+          description: Display name of the audience.
+        description:
+          type: string
+          description: Description of the audience and its targeting criteria.
+        rules:
+          type: object
+          description: Logical conditions that determine audience membership.
+        created_at:
+          type: string
+          format: date-time
+          description: ISO 8601 timestamp when the audience was created.
+    CreateAudienceRequest:
+      type: object
+      description: Parameters for creating or updating an audience.
+      required:
+        - name
+      properties:
+        name:
+          type: string
+          description: Display name for the audience.
+        description:
+          type: string
+          description: Description of the audience targeting criteria.
+        rules:
+          type: object
+          description: Logical conditions for audience membership.
+    ExperienceList:
+      type: object
+      description: A list of personalization experiences.
+      properties:
+        data:
+          type: array
+          description: Array of experience objects.
+          items:
+            $ref: '#/components/schemas/Experience'
+    Experience:
+      type: object
+      description: A personalization experience with variant and audience configuration.
+      properties:
+        uid:
+          type: string
+          description: Unique identifier of the experience.
+        name:
+          type: string
+          description: Display name of the experience.
+        type:
+          type: string
+          description: Type of experience — SEGMENTED for rule-based or AB_TEST for split testing.
+          enum:
+            - SEGMENTED
+            - AB_TEST
+        status:
+          type: string
+          description: Current status of the experience.
+          enum:
+            - DRAFT
+            - ACTIVE
+            - INACTIVE
+            - ENDED
+        variants:
+          type: array
+          description: List of content variants included in the experience.
+          items:
+            $ref: '#/components/schemas/ExperienceVariant'
+        created_at:
+          type: string
+          format: date-time
+          description: ISO 8601 timestamp when the experience was created.
+    ExperienceVariant:
+      type: object
+      description: A content variant within a personalization experience.
+      properties:
+        uid:
+          type: string
+          description: Unique identifier of the variant.
+        name:
+          type: string
+          description: Display name of the variant.
+        audience_uid:
+          type: string
+          description: UID of the audience this variant targets (for SEGMENTED experiences).
+        traffic_percentage:
+          type: number
+          description: Percentage of traffic assigned to this variant (for AB_TEST experiences).
+          minimum: 0
+          maximum: 100
+    CreateExperienceRequest:
+      type: object
+      description: Parameters for creating or updating an experience.
+      required:
+        - name
+        - type
+      properties:
+        name:
+          type: string
+          description: Display name for the experience.
+        type:
+          type: string
+          description: Experience type.
+          enum:
+            - SEGMENTED
+            - AB_TEST
+        variants:
+          type: array
+          description: Variant definitions for the experience.
+          items:
+            $ref: '#/components/schemas/ExperienceVariant'
+    ExperiencePriority:
+      type: object
+      description: Priority ordering of experiences for conflict resolution.
+      properties:
+        priority:
+          type: array
+          description: Ordered list of experience UIDs from highest to lowest priority.
+          items:
+            type: string
+    EventList:
+      type: object
+      description: A list of custom event definitions.
+      properties:
+        data:
+          type: array
+          description: Array of event objects.
+          items:
+            $ref: '#/components/schemas/PersonalizeEvent'
+    PersonalizeEvent:
+      type: object
+      description: A custom event definition for tracking user actions.
+      properties:
+        uid:
+          type: string
+          description: Unique identifier of the event.
+        name:
+          type: string
+          description: Display name of the event.
+        key:
+          type: string
+          description: Machine-readable event key used in SDK tracking calls.
+        created_at:
+          type: string
+          format: date-time
+          description: ISO 8601 timestamp when the event was created.
+    CreateEventRequest:
+      type: object
+      description: Parameters for creating an event.
+      required:
+        - name
+        - key
+      properties:
+        name:
+          type: string
+          description: Display name for the event.
+        key:
+          type: string
+          description: Machine-readable key for SDK tracking calls.
+    GeoList:
+      type: object
+      description: A list of geographic locations for audience targeting.
+      properties:
+        data:
+          type: array
+          description: Array of geographic location objects.
+          items:
+            $ref: '#/components/schemas/GeoItem'
+    GeoItem:
+      type: object
+      description: A geographic location item for audience targeting.
+      properties:
+        uid:
+          type: string
+          description: Unique identifier of the geographic location.
+        name:
+          type: string
+          description: Display name of the location.
+        code:
+          type: string
+          description: ISO code for the location (country code, region code, etc.).
+    Error:
+      type: object
+      description: Standard error response.
+      properties:
+        message:
+          type: string
+          description: Human-readable description of the error.
+        status:
+          type: integer
+          description: HTTP status code.

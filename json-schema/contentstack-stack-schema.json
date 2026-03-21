@@ -1,0 +1,95 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://contentstack.com/schemas/contentstack/stack.json",
+  "title": "Contentstack Stack",
+  "description": "Schema representing a Contentstack stack, which is an independent content repository within an organization. Stacks contain all content types, entries, assets, environments, and configuration for a digital experience project.",
+  "type": "object",
+  "required": ["api_key", "name", "master_locale", "org_uid"],
+  "properties": {
+    "api_key": {
+      "type": "string",
+      "description": "The unique API key that identifies this stack. Used as the primary authentication credential for Content Management and Content Delivery API requests.",
+      "pattern": "^[a-zA-Z0-9]{16,}$"
+    },
+    "uid": {
+      "type": "string",
+      "description": "Internal unique identifier for the stack."
+    },
+    "name": {
+      "type": "string",
+      "description": "Human-readable display name of the stack.",
+      "minLength": 1,
+      "maxLength": 255
+    },
+    "description": {
+      "type": "string",
+      "description": "Optional description of the stack's purpose and contents.",
+      "maxLength": 2000
+    },
+    "master_locale": {
+      "type": "string",
+      "description": "The default locale code for the stack. All content must have a version in the master locale before it can be localized to other locales.",
+      "pattern": "^[a-z]{2}(-[A-Z]{2})?$",
+      "examples": ["en-us", "en-gb", "de-de"]
+    },
+    "org_uid": {
+      "type": "string",
+      "description": "UID of the organization that owns this stack."
+    },
+    "plan_id": {
+      "type": "string",
+      "description": "Identifier of the Contentstack subscription plan for this stack."
+    },
+    "settings": {
+      "$ref": "#/$defs/StackSettings"
+    },
+    "created_by": {
+      "type": "string",
+      "description": "UID of the user who created the stack."
+    },
+    "updated_by": {
+      "type": "string",
+      "description": "UID of the user who last modified stack settings."
+    },
+    "created_at": {
+      "type": "string",
+      "format": "date-time",
+      "description": "ISO 8601 UTC timestamp of when the stack was created."
+    },
+    "updated_at": {
+      "type": "string",
+      "format": "date-time",
+      "description": "ISO 8601 UTC timestamp of when the stack settings were last updated."
+    }
+  },
+  "$defs": {
+    "StackSettings": {
+      "type": "object",
+      "description": "Configuration settings for the stack.",
+      "properties": {
+        "version": {
+          "type": "integer",
+          "description": "Version number of the stack settings configuration.",
+          "minimum": 1
+        },
+        "rte_version": {
+          "type": "integer",
+          "description": "Version of the rich text editor used in this stack.",
+          "enum": [2, 3]
+        },
+        "blockEditorExperience": {
+          "type": "boolean",
+          "description": "Indicates whether the block editor experience is enabled for this stack."
+        },
+        "locales": {
+          "type": "array",
+          "description": "List of locale codes enabled for this stack.",
+          "items": {
+            "type": "string",
+            "pattern": "^[a-z]{2}(-[A-Z]{2})?$"
+          }
+        }
+      }
+    }
+  }
+}

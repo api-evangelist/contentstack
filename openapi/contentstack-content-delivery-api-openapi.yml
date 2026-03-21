@@ -1,0 +1,798 @@
+openapi: 3.1.0
+info:
+  title: Contentstack Content Delivery API
+  description: >-
+    The Contentstack Content Delivery API (CDA) allows developers to retrieve
+    published content from their Contentstack stacks and deliver it to web or
+    mobile applications. It supports fetching entries, assets, content types,
+    and global fields through REST endpoints using stack API keys and delivery
+    tokens for authentication. The API is read-only and optimized for
+    high-performance content retrieval at scale. It supports filtering, sorting,
+    pagination, localization, and synchronization, making it suitable for
+    building localized, multi-channel digital experiences.
+  version: 'v3'
+  contact:
+    name: Contentstack Support
+    url: https://www.contentstack.com/contact
+  termsOfService: https://www.contentstack.com/legal/terms-of-service
+externalDocs:
+  description: Contentstack Content Delivery API Documentation
+  url: https://www.contentstack.com/docs/developers/apis/content-delivery-api
+servers:
+  - url: https://cdn.contentstack.io/v3
+    description: AWS North America Production Server
+  - url: https://eu-cdn.contentstack.com/v3
+    description: AWS Europe Production Server
+  - url: https://au-cdn.contentstack.com/v3
+    description: AWS Australia Production Server
+tags:
+  - name: Content Types
+    description: >-
+      Content types define the structure of content entries in a Contentstack
+      stack. They specify the fields and their data types that entries must
+      conform to.
+  - name: Global Fields
+    description: >-
+      Global fields are reusable field groups that can be referenced across
+      multiple content types within a Contentstack stack.
+  - name: Entries
+    description: >-
+      Entries are instances of content types that hold the actual content data.
+      They can be filtered, sorted, paginated, and localized.
+  - name: Entry Variants
+    description: >-
+      Entry variants are customized versions of an entry created for
+      personalization or A/B testing purposes.
+  - name: Assets
+    description: >-
+      Assets are media files such as images, videos, and documents stored in
+      the Contentstack asset library.
+  - name: Synchronization
+    description: >-
+      The synchronization endpoints allow developers to sync published content
+      incrementally, enabling efficient local caching and offline-first patterns.
+security:
+  - apiKey: []
+    deliveryToken: []
+paths:
+  /content_types:
+    get:
+      operationId: getAllContentTypes
+      summary: Get all content types
+      description: >-
+        Retrieves comprehensive information of all content types available in a
+        stack. Supports include_count parameter to return the total count of
+        content types.
+      tags:
+        - Content Types
+      parameters:
+        - $ref: '#/components/parameters/ApiKey'
+        - $ref: '#/components/parameters/AccessToken'
+        - name: include_count
+          in: query
+          description: Set to true to include the total count of content types in the response.
+          schema:
+            type: boolean
+      responses:
+        '200':
+          description: A list of content types in the stack.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ContentTypeList'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+  /content_types/{content_type_uid}:
+    get:
+      operationId: getSingleContentType
+      summary: Get a single content type
+      description: >-
+        Returns detailed information for a specific content type identified by
+        its UID, including all field definitions and schema metadata.
+      tags:
+        - Content Types
+      parameters:
+        - $ref: '#/components/parameters/ApiKey'
+        - $ref: '#/components/parameters/AccessToken'
+        - $ref: '#/components/parameters/ContentTypeUid'
+        - name: version
+          in: query
+          description: Retrieve a specific version of the content type schema.
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: Details of the specified content type.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ContentType'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+  /content_types/{content_type_uid}/entries:
+    get:
+      operationId: getAllEntries
+      summary: Get all entries
+      description: >-
+        Fetches a list of all published entries for a particular content type.
+        Supports filtering by query, localization, reference inclusion,
+        pagination, sorting, and field selection.
+      tags:
+        - Entries
+      parameters:
+        - $ref: '#/components/parameters/ApiKey'
+        - $ref: '#/components/parameters/AccessToken'
+        - $ref: '#/components/parameters/ContentTypeUid'
+        - $ref: '#/components/parameters/Locale'
+        - $ref: '#/components/parameters/Skip'
+        - $ref: '#/components/parameters/Limit'
+        - name: query
+          in: query
+          description: >-
+            A JSON-encoded query object to filter entries. Supports MongoDB-style
+            query operators for field matching and comparison.
+          schema:
+            type: string
+        - name: include_count
+          in: query
+          description: Set to true to include the total count of matching entries.
+          schema:
+            type: boolean
+        - name: include_content_type
+          in: query
+          description: Set to true to include the content type schema in the response.
+          schema:
+            type: boolean
+        - name: include_reference
+          in: query
+          description: Set to true to include referenced entries inline in the response.
+          schema:
+            type: boolean
+        - name: only
+          in: query
+          description: Comma-separated list of fields to include in the response.
+          schema:
+            type: string
+        - name: except
+          in: query
+          description: Comma-separated list of fields to exclude from the response.
+          schema:
+            type: string
+        - name: asc
+          in: query
+          description: Field name to sort results in ascending order.
+          schema:
+            type: string
+        - name: desc
+          in: query
+          description: Field name to sort results in descending order.
+          schema:
+            type: string
+      responses:
+        '200':
+          description: A list of published entries for the specified content type.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/EntryList'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+  /content_types/{content_type_uid}/entries/{entry_uid}:
+    get:
+      operationId: getSingleEntry
+      summary: Get a single entry
+      description: >-
+        Retrieves a specific published entry identified by its UID within a
+        given content type. Supports localization, reference inclusion, and
+        field selection parameters.
+      tags:
+        - Entries
+      parameters:
+        - $ref: '#/components/parameters/ApiKey'
+        - $ref: '#/components/parameters/AccessToken'
+        - $ref: '#/components/parameters/ContentTypeUid'
+        - $ref: '#/components/parameters/EntryUid'
+        - $ref: '#/components/parameters/Locale'
+        - name: include_reference
+          in: query
+          description: Set to true to include referenced entries inline in the response.
+          schema:
+            type: boolean
+        - name: version
+          in: query
+          description: Retrieve a specific published version of the entry.
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: The requested entry object.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Entry'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+  /content_types/{content_type_uid}/entries/{entry_uid}/variants:
+    get:
+      operationId: getAllEntryVariants
+      summary: Get all entry variants
+      description: >-
+        Retrieves all personalization variants of a specific entry, including
+        their variant UIDs and customized field values.
+      tags:
+        - Entry Variants
+      parameters:
+        - $ref: '#/components/parameters/ApiKey'
+        - $ref: '#/components/parameters/AccessToken'
+        - $ref: '#/components/parameters/ContentTypeUid'
+        - $ref: '#/components/parameters/EntryUid'
+      responses:
+        '200':
+          description: A list of variants for the specified entry.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/EntryVariantList'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+  /content_types/{content_type_uid}/entries/{entry_uid}/variants/{variant_uid}:
+    get:
+      operationId: getSingleEntryVariant
+      summary: Get a single entry variant
+      description: >-
+        Retrieves a specific variant of an entry identified by the variant UID.
+        Returns the customized field values for that variant.
+      tags:
+        - Entry Variants
+      parameters:
+        - $ref: '#/components/parameters/ApiKey'
+        - $ref: '#/components/parameters/AccessToken'
+        - $ref: '#/components/parameters/ContentTypeUid'
+        - $ref: '#/components/parameters/EntryUid'
+        - $ref: '#/components/parameters/VariantUid'
+      responses:
+        '200':
+          description: The requested entry variant object.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/EntryVariant'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+  /assets:
+    get:
+      operationId: getAllAssets
+      summary: Get all assets
+      description: >-
+        Fetches a list of all published assets in the stack including images,
+        videos, and documents. Supports pagination, filtering, and field
+        selection.
+      tags:
+        - Assets
+      parameters:
+        - $ref: '#/components/parameters/ApiKey'
+        - $ref: '#/components/parameters/AccessToken'
+        - $ref: '#/components/parameters/Skip'
+        - $ref: '#/components/parameters/Limit'
+        - name: include_count
+          in: query
+          description: Set to true to include the total count of assets in the response.
+          schema:
+            type: boolean
+      responses:
+        '200':
+          description: A list of assets in the stack.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AssetList'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+  /assets/{asset_uid}:
+    get:
+      operationId: getSingleAsset
+      summary: Get a single asset
+      description: >-
+        Retrieves a specific asset by its UID, returning all metadata including
+        file URL, dimensions, file size, and content type.
+      tags:
+        - Assets
+      parameters:
+        - $ref: '#/components/parameters/ApiKey'
+        - $ref: '#/components/parameters/AccessToken'
+        - $ref: '#/components/parameters/AssetUid'
+      responses:
+        '200':
+          description: The requested asset object.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Asset'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+  /global_fields:
+    get:
+      operationId: getAllGlobalFields
+      summary: Get all global fields
+      description: >-
+        Fetches all reusable global field definitions available in the stack.
+        Global fields can be embedded in content type schemas to create
+        consistent field structures across multiple content types.
+      tags:
+        - Global Fields
+      parameters:
+        - $ref: '#/components/parameters/ApiKey'
+        - $ref: '#/components/parameters/AccessToken'
+      responses:
+        '200':
+          description: A list of global fields defined in the stack.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GlobalFieldList'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+  /global_fields/{global_field_uid}:
+    get:
+      operationId: getSingleGlobalField
+      summary: Get a single global field
+      description: >-
+        Returns the schema and metadata for a specific global field identified
+        by its UID.
+      tags:
+        - Global Fields
+      parameters:
+        - $ref: '#/components/parameters/ApiKey'
+        - $ref: '#/components/parameters/AccessToken'
+        - $ref: '#/components/parameters/GlobalFieldUid'
+      responses:
+        '200':
+          description: The requested global field object.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GlobalField'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+  /stacks/sync:
+    get:
+      operationId: syncContent
+      summary: Sync content
+      description: >-
+        Initiates an initial sync or continues a paginated sync of all published
+        entries and assets in the stack. Use init=true for the first sync to
+        receive a sync token. Use the sync_token from subsequent responses to
+        fetch only the changes since the last sync.
+      tags:
+        - Synchronization
+      parameters:
+        - $ref: '#/components/parameters/ApiKey'
+        - $ref: '#/components/parameters/AccessToken'
+        - name: init
+          in: query
+          description: Set to true to initiate the first sync and receive a sync token.
+          schema:
+            type: boolean
+        - name: sync_token
+          in: query
+          description: >-
+            The token received from a previous sync response. Use to fetch only
+            changes since the last sync.
+          schema:
+            type: string
+        - name: pagination_token
+          in: query
+          description: >-
+            Token to retrieve the next page of results in a large sync response.
+          schema:
+            type: string
+        - name: type
+          in: query
+          description: >-
+            Filter sync results by content type. Options: entry_published,
+            entry_unpublished, entry_deleted, asset_published, asset_unpublished,
+            asset_deleted, content_type_deleted.
+          schema:
+            type: string
+            enum:
+              - entry_published
+              - entry_unpublished
+              - entry_deleted
+              - asset_published
+              - asset_unpublished
+              - asset_deleted
+              - content_type_deleted
+        - name: content_type_uid
+          in: query
+          description: Filter sync results to a specific content type UID.
+          schema:
+            type: string
+        - $ref: '#/components/parameters/Locale'
+      responses:
+        '200':
+          description: Sync results with a sync_token or pagination_token for continuation.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SyncResponse'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+components:
+  securitySchemes:
+    apiKey:
+      type: apiKey
+      in: header
+      name: api_key
+      description: The API key for the Contentstack stack.
+    deliveryToken:
+      type: apiKey
+      in: header
+      name: access_token
+      description: The delivery token granting read access to the stack environment.
+  parameters:
+    ApiKey:
+      name: api_key
+      in: header
+      required: true
+      description: The API key for the Contentstack stack.
+      schema:
+        type: string
+    AccessToken:
+      name: access_token
+      in: header
+      required: true
+      description: The delivery token for the stack environment.
+      schema:
+        type: string
+    ContentTypeUid:
+      name: content_type_uid
+      in: path
+      required: true
+      description: The unique identifier (UID) of the content type.
+      schema:
+        type: string
+    EntryUid:
+      name: entry_uid
+      in: path
+      required: true
+      description: The unique identifier (UID) of the entry.
+      schema:
+        type: string
+    VariantUid:
+      name: variant_uid
+      in: path
+      required: true
+      description: The unique identifier (UID) of the entry variant.
+      schema:
+        type: string
+    AssetUid:
+      name: asset_uid
+      in: path
+      required: true
+      description: The unique identifier (UID) of the asset.
+      schema:
+        type: string
+    GlobalFieldUid:
+      name: global_field_uid
+      in: path
+      required: true
+      description: The unique identifier (UID) of the global field.
+      schema:
+        type: string
+    Locale:
+      name: locale
+      in: query
+      description: >-
+        The locale code to retrieve localized content. Defaults to the default
+        locale of the stack if not specified.
+      schema:
+        type: string
+        example: en-us
+    Skip:
+      name: skip
+      in: query
+      description: Number of entries to skip for pagination.
+      schema:
+        type: integer
+        minimum: 0
+        default: 0
+    Limit:
+      name: limit
+      in: query
+      description: Maximum number of entries to return. Maximum allowed is 250.
+      schema:
+        type: integer
+        minimum: 1
+        maximum: 250
+        default: 100
+  responses:
+    Unauthorized:
+      description: Authentication credentials are missing or invalid.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    NotFound:
+      description: The requested resource was not found.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+  schemas:
+    ContentTypeList:
+      type: object
+      description: A paginated list of content types in the stack.
+      properties:
+        content_types:
+          type: array
+          description: Array of content type objects.
+          items:
+            $ref: '#/components/schemas/ContentType'
+        count:
+          type: integer
+          description: Total count of content types when include_count is true.
+    ContentType:
+      type: object
+      description: A content type definition including schema and metadata.
+      properties:
+        uid:
+          type: string
+          description: Unique identifier of the content type.
+        title:
+          type: string
+          description: Display name of the content type.
+        schema:
+          type: array
+          description: Array of field definitions for the content type.
+          items:
+            $ref: '#/components/schemas/Field'
+        options:
+          type: object
+          description: Configuration options for the content type such as versioning and workflow settings.
+        created_at:
+          type: string
+          format: date-time
+          description: ISO 8601 timestamp when the content type was created.
+        updated_at:
+          type: string
+          format: date-time
+          description: ISO 8601 timestamp when the content type was last updated.
+    Field:
+      type: object
+      description: A field definition within a content type schema.
+      properties:
+        uid:
+          type: string
+          description: Unique identifier of the field within the content type.
+        data_type:
+          type: string
+          description: >-
+            The data type of the field. Common values: text, number, boolean,
+            date, file, link, json, reference, global_field, group, blocks.
+        display_name:
+          type: string
+          description: Human-readable label for the field.
+        mandatory:
+          type: boolean
+          description: Indicates whether the field is required for entry creation.
+        unique:
+          type: boolean
+          description: Indicates whether field values must be unique across entries.
+    EntryList:
+      type: object
+      description: A paginated list of published entries.
+      properties:
+        entries:
+          type: array
+          description: Array of entry objects.
+          items:
+            $ref: '#/components/schemas/Entry'
+        count:
+          type: integer
+          description: Total count of matching entries when include_count is true.
+    Entry:
+      type: object
+      description: A published content entry with all its field values.
+      properties:
+        uid:
+          type: string
+          description: Unique identifier of the entry.
+        title:
+          type: string
+          description: The title of the entry.
+        locale:
+          type: string
+          description: The locale code of the entry.
+        created_at:
+          type: string
+          format: date-time
+          description: ISO 8601 timestamp when the entry was created.
+        updated_at:
+          type: string
+          format: date-time
+          description: ISO 8601 timestamp when the entry was last updated.
+        published_at:
+          type: string
+          format: date-time
+          description: ISO 8601 timestamp when the entry was last published.
+    EntryVariantList:
+      type: object
+      description: A list of personalization variants for an entry.
+      properties:
+        entries:
+          type: array
+          description: Array of entry variant objects.
+          items:
+            $ref: '#/components/schemas/EntryVariant'
+    EntryVariant:
+      type: object
+      description: A personalization variant of a content entry.
+      properties:
+        uid:
+          type: string
+          description: Unique identifier of the entry variant.
+        variant_uid:
+          type: string
+          description: The variant identifier linking this entry to a personalization variant.
+        locale:
+          type: string
+          description: The locale code of the entry variant.
+    AssetList:
+      type: object
+      description: A paginated list of assets in the stack.
+      properties:
+        assets:
+          type: array
+          description: Array of asset objects.
+          items:
+            $ref: '#/components/schemas/Asset'
+        count:
+          type: integer
+          description: Total count of assets when include_count is true.
+    Asset:
+      type: object
+      description: A media asset stored in the Contentstack asset library.
+      properties:
+        uid:
+          type: string
+          description: Unique identifier of the asset.
+        title:
+          type: string
+          description: Display name of the asset.
+        url:
+          type: string
+          format: uri
+          description: CDN URL to access the asset file.
+        filename:
+          type: string
+          description: Original file name of the uploaded asset.
+        content_type:
+          type: string
+          description: MIME type of the asset file.
+        file_size:
+          type: string
+          description: File size of the asset in bytes.
+        created_at:
+          type: string
+          format: date-time
+          description: ISO 8601 timestamp when the asset was created.
+        updated_at:
+          type: string
+          format: date-time
+          description: ISO 8601 timestamp when the asset was last updated.
+    GlobalFieldList:
+      type: object
+      description: A list of global field definitions in the stack.
+      properties:
+        global_fields:
+          type: array
+          description: Array of global field objects.
+          items:
+            $ref: '#/components/schemas/GlobalField'
+    GlobalField:
+      type: object
+      description: A reusable global field definition that can be embedded in content types.
+      properties:
+        uid:
+          type: string
+          description: Unique identifier of the global field.
+        title:
+          type: string
+          description: Display name of the global field.
+        schema:
+          type: array
+          description: Array of field definitions within the global field group.
+          items:
+            $ref: '#/components/schemas/Field'
+        created_at:
+          type: string
+          format: date-time
+          description: ISO 8601 timestamp when the global field was created.
+        updated_at:
+          type: string
+          format: date-time
+          description: ISO 8601 timestamp when the global field was last updated.
+    SyncResponse:
+      type: object
+      description: >-
+        The response from a content sync operation, containing the synced items
+        and tokens for subsequent sync requests.
+      properties:
+        items:
+          type: array
+          description: Array of sync item objects representing content changes.
+          items:
+            $ref: '#/components/schemas/SyncItem'
+        paginationToken:
+          type: string
+          description: >-
+            Token to retrieve the next page of sync results. Present only when
+            more pages are available.
+        syncToken:
+          type: string
+          description: >-
+            Token representing the current sync state. Use this in subsequent
+            sync requests to receive only new changes.
+        total_count:
+          type: integer
+          description: Total number of items in the sync response.
+        limit:
+          type: integer
+          description: Maximum items returned per page.
+        skip:
+          type: integer
+          description: Number of items skipped in this response.
+    SyncItem:
+      type: object
+      description: A single item in a sync response representing a content change event.
+      properties:
+        type:
+          type: string
+          description: >-
+            The type of sync event. Possible values: entry_published,
+            entry_unpublished, entry_deleted, asset_published, asset_unpublished,
+            asset_deleted, content_type_deleted.
+          enum:
+            - entry_published
+            - entry_unpublished
+            - entry_deleted
+            - asset_published
+            - asset_unpublished
+            - asset_deleted
+            - content_type_deleted
+        data:
+          type: object
+          description: The content data associated with this sync event.
+        content_type_uid:
+          type: string
+          description: The UID of the content type for entry-related events.
+        locale:
+          type: string
+          description: The locale of the content for locale-specific events.
+    Error:
+      type: object
+      description: Standard error response returned by the API.
+      properties:
+        error_message:
+          type: string
+          description: Human-readable description of the error.
+        error_code:
+          type: integer
+          description: Numeric code identifying the error type.
+        errors:
+          type: object
+          description: Field-level validation errors when applicable.

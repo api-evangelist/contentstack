@@ -1,0 +1,408 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://contentstack.com/schemas/contentstack/webhook-payload.json",
+  "title": "Contentstack Webhook Payload",
+  "description": "Schema for the HTTP POST payload delivered by Contentstack to configured webhook endpoints. Payloads are sent when content lifecycle events occur in a stack, including entry and asset publish, unpublish, create, update, and delete operations.",
+  "type": "object",
+  "required": ["event", "module", "api_key"],
+  "properties": {
+    "event": {
+      "type": "string",
+      "description": "The specific action that triggered the webhook.",
+      "enum": [
+        "publish",
+        "unpublish",
+        "create",
+        "update",
+        "delete",
+        "workflow_stage_change",
+        "deploy"
+      ]
+    },
+    "module": {
+      "type": "string",
+      "description": "The Contentstack content module that generated the event.",
+      "enum": [
+        "entry",
+        "asset",
+        "content_type",
+        "global_field",
+        "release",
+        "workflow",
+        "bulk_job",
+        "taxonomy",
+        "branch"
+      ]
+    },
+    "api_key": {
+      "type": "string",
+      "description": "The API key of the Contentstack stack where the event occurred.",
+      "pattern": "^[a-zA-Z0-9]{16,}$"
+    },
+    "uid": {
+      "type": "string",
+      "description": "The UID of the primary resource that triggered the event."
+    },
+    "triggered_at": {
+      "type": "string",
+      "format": "date-time",
+      "description": "ISO 8601 UTC timestamp of when the event was triggered and the webhook was dispatched."
+    },
+    "data": {
+      "description": "Event-specific data payload containing the resource details and event context.",
+      "oneOf": [
+        {
+          "$ref": "#/$defs/EntryEventData"
+        },
+        {
+          "$ref": "#/$defs/AssetEventData"
+        },
+        {
+          "$ref": "#/$defs/ContentTypeEventData"
+        },
+        {
+          "$ref": "#/$defs/WorkflowEventData"
+        },
+        {
+          "$ref": "#/$defs/BulkJobEventData"
+        },
+        {
+          "$ref": "#/$defs/ReleaseEventData"
+        }
+      ]
+    }
+  },
+  "$defs": {
+    "EntryEventData": {
+      "type": "object",
+      "description": "Data payload for entry-related webhook events.",
+      "properties": {
+        "entry": {
+          "type": "object",
+          "description": "The entry resource that triggered the event.",
+          "properties": {
+            "uid": {
+              "type": "string",
+              "description": "Unique identifier of the entry."
+            },
+            "title": {
+              "type": "string",
+              "description": "Title of the entry."
+            },
+            "locale": {
+              "type": "string",
+              "description": "Locale code of the entry version."
+            },
+            "_version": {
+              "type": "integer",
+              "description": "Version number of the entry.",
+              "minimum": 1
+            },
+            "created_at": {
+              "type": "string",
+              "format": "date-time",
+              "description": "ISO 8601 timestamp when the entry was created."
+            },
+            "updated_at": {
+              "type": "string",
+              "format": "date-time",
+              "description": "ISO 8601 timestamp when the entry was last updated."
+            }
+          }
+        },
+        "content_type": {
+          "$ref": "#/$defs/ContentTypeRef"
+        },
+        "environments": {
+          "type": "array",
+          "description": "Environments affected by this event. Populated for publish and unpublish events.",
+          "items": {
+            "$ref": "#/$defs/EnvironmentRef"
+          }
+        },
+        "locales": {
+          "type": "array",
+          "description": "Locales affected by this event.",
+          "items": {
+            "$ref": "#/$defs/LocaleRef"
+          }
+        }
+      }
+    },
+    "AssetEventData": {
+      "type": "object",
+      "description": "Data payload for asset-related webhook events.",
+      "properties": {
+        "asset": {
+          "type": "object",
+          "description": "The asset resource that triggered the event.",
+          "properties": {
+            "uid": {
+              "type": "string",
+              "description": "Unique identifier of the asset."
+            },
+            "title": {
+              "type": "string",
+              "description": "Display title of the asset."
+            },
+            "url": {
+              "type": "string",
+              "format": "uri",
+              "description": "CDN URL of the asset file."
+            },
+            "filename": {
+              "type": "string",
+              "description": "Original filename of the uploaded asset."
+            },
+            "content_type": {
+              "type": "string",
+              "description": "MIME type of the asset file."
+            },
+            "file_size": {
+              "type": "string",
+              "description": "File size of the asset in bytes."
+            },
+            "created_at": {
+              "type": "string",
+              "format": "date-time",
+              "description": "ISO 8601 timestamp when the asset was created."
+            },
+            "updated_at": {
+              "type": "string",
+              "format": "date-time",
+              "description": "ISO 8601 timestamp when the asset was last updated."
+            }
+          }
+        },
+        "environments": {
+          "type": "array",
+          "description": "Environments affected by this event.",
+          "items": {
+            "$ref": "#/$defs/EnvironmentRef"
+          }
+        }
+      }
+    },
+    "ContentTypeEventData": {
+      "type": "object",
+      "description": "Data payload for content type lifecycle events.",
+      "properties": {
+        "content_type": {
+          "type": "object",
+          "description": "The content type resource involved in the event.",
+          "properties": {
+            "uid": {
+              "type": "string",
+              "description": "Unique identifier of the content type."
+            },
+            "title": {
+              "type": "string",
+              "description": "Display name of the content type."
+            },
+            "schema": {
+              "type": "array",
+              "description": "Array of field definitions for the content type schema.",
+              "items": {
+                "type": "object"
+              }
+            },
+            "created_at": {
+              "type": "string",
+              "format": "date-time",
+              "description": "ISO 8601 timestamp when the content type was created."
+            },
+            "updated_at": {
+              "type": "string",
+              "format": "date-time",
+              "description": "ISO 8601 timestamp when the content type schema was last updated."
+            }
+          }
+        }
+      }
+    },
+    "WorkflowEventData": {
+      "type": "object",
+      "description": "Data payload for workflow stage change events.",
+      "properties": {
+        "entry": {
+          "type": "object",
+          "description": "The entry that changed workflow stage.",
+          "properties": {
+            "uid": {
+              "type": "string",
+              "description": "UID of the entry."
+            },
+            "title": {
+              "type": "string",
+              "description": "Title of the entry."
+            }
+          }
+        },
+        "content_type": {
+          "$ref": "#/$defs/ContentTypeRef"
+        },
+        "workflow": {
+          "type": "object",
+          "description": "Workflow transition details.",
+          "properties": {
+            "uid": {
+              "type": "string",
+              "description": "UID of the workflow."
+            },
+            "name": {
+              "type": "string",
+              "description": "Name of the workflow."
+            },
+            "current_stage": {
+              "$ref": "#/$defs/WorkflowStageRef"
+            },
+            "previous_stage": {
+              "$ref": "#/$defs/WorkflowStageRef"
+            }
+          }
+        }
+      }
+    },
+    "BulkJobEventData": {
+      "type": "object",
+      "description": "Data payload for bulk job completion events.",
+      "properties": {
+        "job": {
+          "type": "object",
+          "description": "Summary information about the completed bulk job.",
+          "properties": {
+            "uid": {
+              "type": "string",
+              "description": "Unique identifier of the bulk job."
+            },
+            "type": {
+              "type": "string",
+              "description": "Type of bulk operation that was performed.",
+              "enum": ["bulk_publish", "bulk_unpublish"]
+            },
+            "status": {
+              "type": "string",
+              "description": "Final completion status of the bulk job.",
+              "enum": ["complete", "partial", "failed"]
+            },
+            "total_count": {
+              "type": "integer",
+              "description": "Total number of items included in the bulk job.",
+              "minimum": 0
+            },
+            "success_count": {
+              "type": "integer",
+              "description": "Number of items that were successfully processed.",
+              "minimum": 0
+            },
+            "failed_count": {
+              "type": "integer",
+              "description": "Number of items that failed to process.",
+              "minimum": 0
+            }
+          }
+        },
+        "environments": {
+          "type": "array",
+          "description": "Target environments for the bulk operation.",
+          "items": {
+            "$ref": "#/$defs/EnvironmentRef"
+          }
+        }
+      }
+    },
+    "ReleaseEventData": {
+      "type": "object",
+      "description": "Data payload for release deployment events.",
+      "properties": {
+        "release": {
+          "type": "object",
+          "description": "The deployed release.",
+          "properties": {
+            "uid": {
+              "type": "string",
+              "description": "Unique identifier of the release."
+            },
+            "name": {
+              "type": "string",
+              "description": "Display name of the release."
+            },
+            "description": {
+              "type": "string",
+              "description": "Optional description of the release contents."
+            }
+          }
+        },
+        "environments": {
+          "type": "array",
+          "description": "Environments the release was deployed to.",
+          "items": {
+            "$ref": "#/$defs/EnvironmentRef"
+          }
+        }
+      }
+    },
+    "ContentTypeRef": {
+      "type": "object",
+      "description": "A reference to a content type.",
+      "properties": {
+        "uid": {
+          "type": "string",
+          "description": "UID of the content type."
+        },
+        "title": {
+          "type": "string",
+          "description": "Display name of the content type."
+        }
+      }
+    },
+    "EnvironmentRef": {
+      "type": "object",
+      "description": "A reference to a deployment environment.",
+      "properties": {
+        "uid": {
+          "type": "string",
+          "description": "UID of the environment."
+        },
+        "name": {
+          "type": "string",
+          "description": "Display name of the environment."
+        }
+      }
+    },
+    "LocaleRef": {
+      "type": "object",
+      "description": "A reference to a locale.",
+      "properties": {
+        "code": {
+          "type": "string",
+          "description": "BCP 47 locale code (e.g., en-us, fr-fr).",
+          "pattern": "^[a-z]{2}(-[A-Z]{2})?$"
+        },
+        "name": {
+          "type": "string",
+          "description": "Human-readable locale name."
+        }
+      }
+    },
+    "WorkflowStageRef": {
+      "type": "object",
+      "description": "A reference to a workflow stage.",
+      "properties": {
+        "uid": {
+          "type": "string",
+          "description": "UID of the workflow stage."
+        },
+        "title": {
+          "type": "string",
+          "description": "Display name of the workflow stage."
+        },
+        "color": {
+          "type": "string",
+          "description": "Hex color code for the workflow stage indicator.",
+          "pattern": "^#[0-9A-Fa-f]{6}$"
+        }
+      }
+    }
+  }
+}

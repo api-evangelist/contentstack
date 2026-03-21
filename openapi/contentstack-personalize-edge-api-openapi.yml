@@ -1,0 +1,308 @@
+openapi: 3.1.0
+info:
+  title: Contentstack Personalize Edge API
+  description: >-
+    The Contentstack Personalize Edge API enables real-time, dynamic
+    personalization interactions using edge computing to deliver targeted
+    content experiences. It allows applications to retrieve personalized
+    manifests of active experiences, set and update user attributes for audience
+    matching, merge user identity records, and track behavioral events. The
+    Edge API does not require user authentication since it operates on
+    public-facing digital properties and uses project and user identifier
+    headers for context.
+  version: 'v1'
+  contact:
+    name: Contentstack Support
+    url: https://www.contentstack.com/contact
+  termsOfService: https://www.contentstack.com/legal/terms-of-service
+externalDocs:
+  description: Contentstack Personalize Edge API Documentation
+  url: https://www.contentstack.com/docs/developers/apis/personalize-edge-api
+servers:
+  - url: https://personalize-edge.contentstack.com
+    description: AWS North America Production Server
+  - url: https://eu-personalize-edge.contentstack.com
+    description: AWS Europe Production Server
+  - url: https://au-personalize-edge.contentstack.com
+    description: AWS Australia Production Server
+  - url: https://azure-na-personalize-edge.contentstack.com
+    description: Azure North America Production Server
+  - url: https://azure-eu-personalize-edge.contentstack.com
+    description: Azure Europe Production Server
+tags:
+  - name: Manifest
+    description: >-
+      The manifest endpoint returns a list of all active experiences and their
+      corresponding variants that are activated for the current user based on
+      their attributes and audience membership.
+  - name: User Attributes
+    description: >-
+      Endpoints for setting, updating, and merging user attribute data used to
+      determine audience membership and personalized content targeting.
+  - name: Events
+    description: >-
+      The events endpoint allows applications to track user actions and
+      behavioral events for experience analytics and audience rule evaluation.
+paths:
+  /manifest:
+    get:
+      operationId: getManifest
+      summary: Get personalization manifest
+      description: >-
+        Returns a list of all active personalization experiences and their
+        corresponding content variant mappings for the current user. The
+        manifest is evaluated in real-time based on the user's attributes and
+        current audience memberships. This endpoint is called at the beginning
+        of a user session to determine which content variants to display.
+      tags:
+        - Manifest
+      parameters:
+        - $ref: '#/components/parameters/ProjectUid'
+        - $ref: '#/components/parameters/PersonalizeUserUid'
+        - name: x-forwarded-for
+          in: header
+          description: Original client IP address for geolocation-based targeting.
+          schema:
+            type: string
+        - name: user-agent
+          in: header
+          description: User agent string for device-based targeting rules.
+          schema:
+            type: string
+        - name: referer
+          in: header
+          description: Referring URL for referral-based audience rules.
+          schema:
+            type: string
+        - name: x-page-url
+          in: header
+          description: Current page URL for page-based audience targeting rules.
+          schema:
+            type: string
+        - name: x-live-attributes
+          in: header
+          description: >-
+            JSON-encoded object of real-time attribute values to evaluate
+            audience rules against without persisting them.
+          schema:
+            type: string
+      responses:
+        '200':
+          description: The personalization manifest with active experiences and variants.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Manifest'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+  /user-attributes:
+    patch:
+      operationId: setUserAttributes
+      summary: Set and update user attributes
+      description: >-
+        Persists custom user attribute values at the Personalize Edge for use
+        in audience rule evaluation. Attributes set via this endpoint are stored
+        against the user's identifier and used in all subsequent manifest
+        requests. Use this endpoint to update attributes based on user actions
+        or profile data from external systems.
+      tags:
+        - User Attributes
+      parameters:
+        - $ref: '#/components/parameters/ProjectUid'
+        - $ref: '#/components/parameters/PersonalizeUserUid'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UserAttributesRequest'
+      responses:
+        '204':
+          description: User attributes added or updated successfully.
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+  /user-attributes/actions/merge:
+    post:
+      operationId: mergeUserAttributes
+      summary: Merge user attributes
+      description: >-
+        Merges the attributes of a source user identity into a target user
+        identity. This is used in identity resolution scenarios where an
+        anonymous user record needs to be combined with an authenticated user
+        record upon login, preserving all accumulated behavioral and attribute
+        data.
+      tags:
+        - User Attributes
+      parameters:
+        - $ref: '#/components/parameters/ProjectUid'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/MergeUserAttributesRequest'
+      responses:
+        '204':
+          description: User attributes merged successfully.
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+  /events:
+    post:
+      operationId: trackEvents
+      summary: Track user events
+      description: >-
+        Records one or more user behavior events for experience analytics and
+        audience evaluation. Supports both impression events (automatic tracking
+        when experiences are shown) and custom events (defined in the
+        Personalize Management API and triggered by specific user actions).
+      tags:
+        - Events
+      parameters:
+        - $ref: '#/components/parameters/ProjectUid'
+        - $ref: '#/components/parameters/PersonalizeUserUidRequired'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/TrackEventsRequest'
+      responses:
+        '202':
+          description: Events accepted for processing.
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+components:
+  parameters:
+    ProjectUid:
+      name: x-project-uid
+      in: header
+      required: true
+      description: The UID of the Contentstack Personalize project.
+      schema:
+        type: string
+    PersonalizeUserUid:
+      name: x-cs-personalize-user-uid
+      in: header
+      required: false
+      description: >-
+        The unique identifier for the end user. If not provided, a new anonymous
+        user will be created and the UID returned in the response headers.
+      schema:
+        type: string
+    PersonalizeUserUidRequired:
+      name: x-cs-personalize-user-uid
+      in: header
+      required: true
+      description: The unique identifier for the end user whose events are being tracked.
+      schema:
+        type: string
+  responses:
+    BadRequest:
+      description: The request is malformed or contains invalid parameters.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    Forbidden:
+      description: The request is not authorized for this project.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+  schemas:
+    Manifest:
+      type: object
+      description: >-
+        The personalization manifest containing active experiences and their
+        variant assignments for the current user.
+      properties:
+        experiences:
+          type: array
+          description: List of active experience objects with assigned variants.
+          items:
+            $ref: '#/components/schemas/ManifestExperience'
+    ManifestExperience:
+      type: object
+      description: An active experience entry in the manifest with variant assignment.
+      properties:
+        experience_uid:
+          type: string
+          description: Unique identifier of the experience.
+        experience_short_uid:
+          type: string
+          description: Short identifier of the experience for use in content querying.
+        variant_uid:
+          type: string
+          description: Unique identifier of the variant assigned to this user.
+        variant_short_uid:
+          type: string
+          description: Short identifier of the variant for use in content querying.
+    UserAttributesRequest:
+      type: object
+      description: >-
+        Key-value pairs of user attribute values to set or update. Keys must
+        correspond to attribute keys defined in the Personalize Management API.
+      additionalProperties:
+        description: Attribute value. Type must match the attribute's defined data type.
+    MergeUserAttributesRequest:
+      type: object
+      description: Parameters for merging two user identity records.
+      required:
+        - sourceUserUid
+        - targetUserUid
+      properties:
+        sourceUserUid:
+          type: string
+          description: >-
+            The UID of the source user whose attributes will be merged into the
+            target. Typically the anonymous user UID.
+        targetUserUid:
+          type: string
+          description: >-
+            The UID of the target user who will receive the merged attributes.
+            Typically the authenticated user UID.
+    TrackEventsRequest:
+      type: array
+      description: Array of event objects to track.
+      items:
+        $ref: '#/components/schemas/TrackEvent'
+    TrackEvent:
+      type: object
+      description: A single event to be tracked for the user.
+      required:
+        - eventKey
+      properties:
+        eventKey:
+          type: string
+          description: >-
+            The key of the event to track. Use "impression" for automatic view
+            tracking or a custom event key defined in the Personalize Management
+            API.
+        experience_uid:
+          type: string
+          description: >-
+            The UID of the experience associated with this event. Required for
+            impression events.
+        variant_uid:
+          type: string
+          description: >-
+            The UID of the variant shown to the user. Required for impression
+            events.
+    Error:
+      type: object
+      description: Standard error response.
+      properties:
+        message:
+          type: string
+          description: Human-readable description of the error.
+        status:
+          type: integer
+          description: HTTP status code.

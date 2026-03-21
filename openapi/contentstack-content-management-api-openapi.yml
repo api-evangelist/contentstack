@@ -1,0 +1,1233 @@
+openapi: 3.1.0
+info:
+  title: Contentstack Content Management API
+  description: >-
+    The Contentstack Content Management API (CMA) provides programmatic access
+    to manage all aspects of a Contentstack stack, including content types,
+    entries, assets, environments, workflows, and users. It supports full CRUD
+    operations using standard HTTP verbs and authenticates via management tokens
+    or user session tokens. Developers use this API to automate content
+    operations, build editorial tooling, migrate content between environments,
+    and integrate Contentstack with third-party systems. It is available at
+    version v3 under the api.contentstack.io base URL for the North America
+    region.
+  version: 'v3'
+  contact:
+    name: Contentstack Support
+    url: https://www.contentstack.com/contact
+  termsOfService: https://www.contentstack.com/legal/terms-of-service
+externalDocs:
+  description: Contentstack Content Management API Documentation
+  url: https://www.contentstack.com/docs/developers/apis/content-management-api
+servers:
+  - url: https://api.contentstack.io/v3
+    description: AWS North America Production Server
+  - url: https://eu-api.contentstack.com/v3
+    description: AWS Europe Production Server
+  - url: https://au-api.contentstack.com/v3
+    description: AWS Australia Production Server
+  - url: https://azure-na-api.contentstack.com/v3
+    description: Azure North America Production Server
+  - url: https://azure-eu-api.contentstack.com/v3
+    description: Azure Europe Production Server
+tags:
+  - name: User Sessions
+    description: >-
+      Endpoints for authenticating users and managing session tokens within
+      Contentstack.
+  - name: Users
+    description: >-
+      Endpoints for managing Contentstack user accounts including profile
+      updates, password resets, and account activation.
+  - name: Organizations
+    description: >-
+      Endpoints for managing Contentstack organizations, including user
+      invitations, roles, stacks, and audit logs at the organization level.
+  - name: Teams
+    description: >-
+      Endpoints for managing teams within an organization, including membership
+      and stack role assignments.
+  - name: Stacks
+    description: >-
+      Endpoints for creating and managing Contentstack stacks, including
+      settings, users, sharing, and ownership transfer.
+  - name: Branches
+    description: >-
+      Endpoints for managing stack branches, enabling parallel development
+      workflows and branch-level comparisons.
+  - name: Content Types
+    description: >-
+      Endpoints for creating, updating, and deleting content type schemas within
+      a stack.
+  - name: Global Fields
+    description: >-
+      Endpoints for managing reusable global field definitions that can be
+      shared across content types.
+  - name: Entries
+    description: >-
+      Endpoints for full CRUD operations on content entries including publishing,
+      unpublishing, and localization management.
+  - name: Assets
+    description: >-
+      Endpoints for uploading, updating, organizing, and deleting media assets
+      within a stack.
+  - name: Environments
+    description: >-
+      Endpoints for managing deployment environments (e.g., production, staging)
+      within a stack.
+  - name: Workflows
+    description: >-
+      Endpoints for configuring editorial workflow stages and rules within a
+      stack.
+security:
+  - authtokenAuth: []
+  - managementTokenAuth: []
+paths:
+  /user-session:
+    post:
+      operationId: loginUser
+      summary: Log in a user
+      description: >-
+        Authenticates a user with their email and password and returns an
+        authtoken for use in subsequent API requests. The authtoken is valid
+        for the duration of the session.
+      tags:
+        - User Sessions
+      security: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/LoginRequest'
+      responses:
+        '200':
+          description: Successful authentication with authtoken.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LoginResponse'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+    delete:
+      operationId: logoutUser
+      summary: Log out a user
+      description: >-
+        Invalidates the current user session and authtoken, signing the user out
+        of all Contentstack sessions.
+      tags:
+        - User Sessions
+      responses:
+        '200':
+          description: Successfully logged out.
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+  /user:
+    get:
+      operationId: getUser
+      summary: Get current user
+      description: >-
+        Retrieves the account details of the currently authenticated user,
+        including profile information and organization memberships.
+      tags:
+        - Users
+      responses:
+        '200':
+          description: The current user's account details.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/User'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+    put:
+      operationId: updateUser
+      summary: Update current user
+      description: >-
+        Updates profile information for the currently authenticated user,
+        including first name, last name, and other account attributes.
+      tags:
+        - Users
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpdateUserRequest'
+      responses:
+        '200':
+          description: The updated user object.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/User'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+  /organizations:
+    get:
+      operationId: getAllOrganizations
+      summary: Get all organizations
+      description: >-
+        Returns a list of all Contentstack organizations that the authenticated
+        user is a member of, along with their roles and permissions.
+      tags:
+        - Organizations
+      responses:
+        '200':
+          description: A list of organizations the user belongs to.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/OrganizationList'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+  /organizations/{organization_uid}:
+    get:
+      operationId: getOrganization
+      summary: Get an organization
+      description: >-
+        Retrieves details for a specific organization identified by its UID,
+        including plan information and configuration settings.
+      tags:
+        - Organizations
+      parameters:
+        - $ref: '#/components/parameters/OrganizationUid'
+      responses:
+        '200':
+          description: The requested organization details.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Organization'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+  /organizations/{organization_uid}/stacks:
+    get:
+      operationId: getOrganizationStacks
+      summary: Get organization stacks
+      description: >-
+        Returns a list of all stacks within a given organization that the
+        authenticated user has access to.
+      tags:
+        - Organizations
+      parameters:
+        - $ref: '#/components/parameters/OrganizationUid'
+      responses:
+        '200':
+          description: A list of stacks in the organization.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/StackList'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+  /stacks:
+    get:
+      operationId: getAllStacks
+      summary: Get all stacks
+      description: >-
+        Returns all stacks accessible to the authenticated user, optionally
+        filtered by organization.
+      tags:
+        - Stacks
+      responses:
+        '200':
+          description: A list of accessible stacks.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/StackList'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+    post:
+      operationId: createStack
+      summary: Create a stack
+      description: >-
+        Creates a new Contentstack stack within an organization. A stack is an
+        independent repository for content, assets, and configuration within a
+        Contentstack account.
+      tags:
+        - Stacks
+      parameters:
+        - $ref: '#/components/parameters/OrganizationUidHeader'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateStackRequest'
+      responses:
+        '201':
+          description: The newly created stack.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Stack'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+  /stacks/{api_key}:
+    get:
+      operationId: getStack
+      summary: Get a stack
+      description: >-
+        Retrieves details for a specific stack identified by its API key,
+        including configuration, plan, and region information.
+      tags:
+        - Stacks
+      parameters:
+        - $ref: '#/components/parameters/StackApiKey'
+      responses:
+        '200':
+          description: The requested stack details.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Stack'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+    put:
+      operationId: updateStack
+      summary: Update a stack
+      description: >-
+        Updates settings and metadata for a specific stack such as name,
+        description, and master locale configuration.
+      tags:
+        - Stacks
+      parameters:
+        - $ref: '#/components/parameters/StackApiKey'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpdateStackRequest'
+      responses:
+        '200':
+          description: The updated stack object.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Stack'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+    delete:
+      operationId: deleteStack
+      summary: Delete a stack
+      description: >-
+        Permanently deletes a stack and all its contents. This action is
+        irreversible and will remove all content types, entries, assets,
+        and configuration from the stack.
+      tags:
+        - Stacks
+      parameters:
+        - $ref: '#/components/parameters/StackApiKey'
+      responses:
+        '200':
+          description: Stack deleted successfully.
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+  /content_types:
+    get:
+      operationId: getAllContentTypes
+      summary: Get all content types
+      description: >-
+        Retrieves all content types defined within the stack specified by the
+        api_key header. Includes schema definitions and configuration options.
+      tags:
+        - Content Types
+      parameters:
+        - $ref: '#/components/parameters/StackApiKey'
+      responses:
+        '200':
+          description: A list of content types in the stack.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ContentTypeList'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+    post:
+      operationId: createContentType
+      summary: Create a content type
+      description: >-
+        Creates a new content type in the stack with a defined schema of fields.
+        The schema determines the structure of all entries created from this
+        content type.
+      tags:
+        - Content Types
+      parameters:
+        - $ref: '#/components/parameters/StackApiKey'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateContentTypeRequest'
+      responses:
+        '201':
+          description: The newly created content type.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ContentType'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+  /content_types/{content_type_uid}:
+    get:
+      operationId: getContentType
+      summary: Get a content type
+      description: >-
+        Retrieves the schema and configuration for a specific content type
+        identified by its UID.
+      tags:
+        - Content Types
+      parameters:
+        - $ref: '#/components/parameters/StackApiKey'
+        - $ref: '#/components/parameters/ContentTypeUid'
+      responses:
+        '200':
+          description: The requested content type.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ContentType'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+    put:
+      operationId: updateContentType
+      summary: Update a content type
+      description: >-
+        Updates the schema and options of an existing content type. Changes to
+        the schema may affect existing entries that use this content type.
+      tags:
+        - Content Types
+      parameters:
+        - $ref: '#/components/parameters/StackApiKey'
+        - $ref: '#/components/parameters/ContentTypeUid'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateContentTypeRequest'
+      responses:
+        '200':
+          description: The updated content type.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ContentType'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+    delete:
+      operationId: deleteContentType
+      summary: Delete a content type
+      description: >-
+        Permanently deletes a content type from the stack. All entries of this
+        content type must be deleted before the content type can be removed.
+      tags:
+        - Content Types
+      parameters:
+        - $ref: '#/components/parameters/StackApiKey'
+        - $ref: '#/components/parameters/ContentTypeUid'
+      responses:
+        '200':
+          description: Content type deleted successfully.
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+  /content_types/{content_type_uid}/entries:
+    get:
+      operationId: getAllEntries
+      summary: Get all entries
+      description: >-
+        Retrieves all entries for a specific content type in the stack. Supports
+        filtering, sorting, pagination, localization, and field selection.
+      tags:
+        - Entries
+      parameters:
+        - $ref: '#/components/parameters/StackApiKey'
+        - $ref: '#/components/parameters/AuthToken'
+        - $ref: '#/components/parameters/ContentTypeUid'
+        - $ref: '#/components/parameters/Locale'
+        - $ref: '#/components/parameters/Skip'
+        - $ref: '#/components/parameters/Limit'
+      responses:
+        '200':
+          description: A list of entries in the specified content type.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/EntryList'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+    post:
+      operationId: createEntry
+      summary: Create an entry
+      description: >-
+        Creates a new entry for the specified content type. The entry data must
+        conform to the content type schema. Newly created entries are in draft
+        state and must be published separately.
+      tags:
+        - Entries
+      parameters:
+        - $ref: '#/components/parameters/StackApiKey'
+        - $ref: '#/components/parameters/AuthToken'
+        - $ref: '#/components/parameters/ContentTypeUid'
+        - $ref: '#/components/parameters/Locale'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateEntryRequest'
+      responses:
+        '201':
+          description: The newly created entry.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Entry'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+  /content_types/{content_type_uid}/entries/{entry_uid}:
+    get:
+      operationId: getEntry
+      summary: Get an entry
+      description: >-
+        Retrieves a specific entry by its UID within a content type. Returns
+        all field values and system metadata for the entry.
+      tags:
+        - Entries
+      parameters:
+        - $ref: '#/components/parameters/StackApiKey'
+        - $ref: '#/components/parameters/AuthToken'
+        - $ref: '#/components/parameters/ContentTypeUid'
+        - $ref: '#/components/parameters/EntryUid'
+        - $ref: '#/components/parameters/Locale'
+      responses:
+        '200':
+          description: The requested entry.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Entry'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+    put:
+      operationId: updateEntry
+      summary: Update an entry
+      description: >-
+        Updates the field values of an existing entry. Only the fields included
+        in the request body are updated; other fields retain their current values.
+      tags:
+        - Entries
+      parameters:
+        - $ref: '#/components/parameters/StackApiKey'
+        - $ref: '#/components/parameters/AuthToken'
+        - $ref: '#/components/parameters/ContentTypeUid'
+        - $ref: '#/components/parameters/EntryUid'
+        - $ref: '#/components/parameters/Locale'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpdateEntryRequest'
+      responses:
+        '200':
+          description: The updated entry.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Entry'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+    delete:
+      operationId: deleteEntry
+      summary: Delete an entry
+      description: >-
+        Permanently deletes an entry from the stack. Published entries must be
+        unpublished before deletion. This action cannot be undone.
+      tags:
+        - Entries
+      parameters:
+        - $ref: '#/components/parameters/StackApiKey'
+        - $ref: '#/components/parameters/AuthToken'
+        - $ref: '#/components/parameters/ContentTypeUid'
+        - $ref: '#/components/parameters/EntryUid'
+      responses:
+        '200':
+          description: Entry deleted successfully.
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+  /content_types/{content_type_uid}/entries/{entry_uid}/publish:
+    post:
+      operationId: publishEntry
+      summary: Publish an entry
+      description: >-
+        Publishes an entry to one or more environments and locales. Publishing
+        makes the entry available via the Content Delivery API for the specified
+        environments.
+      tags:
+        - Entries
+      parameters:
+        - $ref: '#/components/parameters/StackApiKey'
+        - $ref: '#/components/parameters/AuthToken'
+        - $ref: '#/components/parameters/ContentTypeUid'
+        - $ref: '#/components/parameters/EntryUid'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PublishRequest'
+      responses:
+        '200':
+          description: Entry published successfully.
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+  /content_types/{content_type_uid}/entries/{entry_uid}/unpublish:
+    post:
+      operationId: unpublishEntry
+      summary: Unpublish an entry
+      description: >-
+        Removes an entry from one or more environments, making it unavailable
+        via the Content Delivery API for the specified environments.
+      tags:
+        - Entries
+      parameters:
+        - $ref: '#/components/parameters/StackApiKey'
+        - $ref: '#/components/parameters/AuthToken'
+        - $ref: '#/components/parameters/ContentTypeUid'
+        - $ref: '#/components/parameters/EntryUid'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PublishRequest'
+      responses:
+        '200':
+          description: Entry unpublished successfully.
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+  /assets:
+    get:
+      operationId: getAllAssets
+      summary: Get all assets
+      description: >-
+        Retrieves all assets in the stack including images, videos, and
+        documents. Supports filtering by type, folder, and tags.
+      tags:
+        - Assets
+      parameters:
+        - $ref: '#/components/parameters/StackApiKey'
+        - $ref: '#/components/parameters/AuthToken'
+        - $ref: '#/components/parameters/Skip'
+        - $ref: '#/components/parameters/Limit'
+      responses:
+        '200':
+          description: A list of assets in the stack.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AssetList'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+    post:
+      operationId: uploadAsset
+      summary: Upload an asset
+      description: >-
+        Uploads a new asset file to the stack. Supports multipart form data for
+        the file upload along with metadata such as title, description, and tags.
+      tags:
+        - Assets
+      parameters:
+        - $ref: '#/components/parameters/StackApiKey'
+        - $ref: '#/components/parameters/AuthToken'
+      requestBody:
+        required: true
+        content:
+          multipart/form-data:
+            schema:
+              type: object
+              properties:
+                asset[upload]:
+                  type: string
+                  format: binary
+                  description: The asset file to upload.
+                asset[title]:
+                  type: string
+                  description: Display title for the asset.
+                asset[description]:
+                  type: string
+                  description: Description of the asset content.
+      responses:
+        '201':
+          description: The newly uploaded asset.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Asset'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+  /environments:
+    get:
+      operationId: getAllEnvironments
+      summary: Get all environments
+      description: >-
+        Retrieves all deployment environments configured for the stack, such
+        as production, staging, and development.
+      tags:
+        - Environments
+      parameters:
+        - $ref: '#/components/parameters/StackApiKey'
+        - $ref: '#/components/parameters/AuthToken'
+      responses:
+        '200':
+          description: A list of environments in the stack.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/EnvironmentList'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+components:
+  securitySchemes:
+    authtokenAuth:
+      type: apiKey
+      in: header
+      name: authtoken
+      description: User session token obtained from the login endpoint.
+    managementTokenAuth:
+      type: apiKey
+      in: header
+      name: authorization
+      description: >-
+        Management token in the format "Bearer {management_token}" for
+        server-to-server authentication without user sessions.
+  parameters:
+    StackApiKey:
+      name: api_key
+      in: header
+      required: true
+      description: The API key identifying the Contentstack stack.
+      schema:
+        type: string
+    AuthToken:
+      name: authtoken
+      in: header
+      required: false
+      description: User session token for authentication. Required if not using management token.
+      schema:
+        type: string
+    OrganizationUid:
+      name: organization_uid
+      in: path
+      required: true
+      description: The unique identifier of the organization.
+      schema:
+        type: string
+    OrganizationUidHeader:
+      name: organization_uid
+      in: header
+      required: true
+      description: The UID of the organization in which to create the stack.
+      schema:
+        type: string
+    ContentTypeUid:
+      name: content_type_uid
+      in: path
+      required: true
+      description: The unique identifier (UID) of the content type.
+      schema:
+        type: string
+    EntryUid:
+      name: entry_uid
+      in: path
+      required: true
+      description: The unique identifier (UID) of the entry.
+      schema:
+        type: string
+    Locale:
+      name: locale
+      in: query
+      description: The locale code for localized content operations.
+      schema:
+        type: string
+        example: en-us
+    Skip:
+      name: skip
+      in: query
+      description: Number of records to skip for pagination.
+      schema:
+        type: integer
+        minimum: 0
+        default: 0
+    Limit:
+      name: limit
+      in: query
+      description: Maximum number of records to return.
+      schema:
+        type: integer
+        minimum: 1
+        maximum: 250
+        default: 100
+  responses:
+    BadRequest:
+      description: The request is malformed or contains invalid parameters.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    Unauthorized:
+      description: Authentication credentials are missing or invalid.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    NotFound:
+      description: The requested resource was not found.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+  schemas:
+    LoginRequest:
+      type: object
+      description: Credentials for user authentication.
+      required:
+        - user
+      properties:
+        user:
+          type: object
+          description: User credential object.
+          required:
+            - email
+            - password
+          properties:
+            email:
+              type: string
+              format: email
+              description: The user's email address.
+            password:
+              type: string
+              format: password
+              description: The user's account password.
+    LoginResponse:
+      type: object
+      description: Authentication response containing the user's authtoken.
+      properties:
+        user:
+          $ref: '#/components/schemas/User'
+    User:
+      type: object
+      description: A Contentstack user account.
+      properties:
+        uid:
+          type: string
+          description: Unique identifier of the user.
+        first_name:
+          type: string
+          description: User's first name.
+        last_name:
+          type: string
+          description: User's last name.
+        email:
+          type: string
+          format: email
+          description: User's email address.
+        authtoken:
+          type: string
+          description: Session authentication token. Only returned on login.
+        created_at:
+          type: string
+          format: date-time
+          description: ISO 8601 timestamp when the user account was created.
+    UpdateUserRequest:
+      type: object
+      description: Fields to update on the user profile.
+      properties:
+        user:
+          type: object
+          description: User profile fields to update.
+          properties:
+            first_name:
+              type: string
+              description: Updated first name.
+            last_name:
+              type: string
+              description: Updated last name.
+    OrganizationList:
+      type: object
+      description: A list of organizations.
+      properties:
+        organizations:
+          type: array
+          description: Array of organization objects.
+          items:
+            $ref: '#/components/schemas/Organization'
+    Organization:
+      type: object
+      description: A Contentstack organization that groups stacks and users.
+      properties:
+        uid:
+          type: string
+          description: Unique identifier of the organization.
+        name:
+          type: string
+          description: Display name of the organization.
+        plan_id:
+          type: string
+          description: The subscription plan identifier for the organization.
+        created_at:
+          type: string
+          format: date-time
+          description: ISO 8601 timestamp when the organization was created.
+    StackList:
+      type: object
+      description: A list of stacks.
+      properties:
+        stacks:
+          type: array
+          description: Array of stack objects.
+          items:
+            $ref: '#/components/schemas/Stack'
+    Stack:
+      type: object
+      description: A Contentstack stack, which is an independent content repository.
+      properties:
+        api_key:
+          type: string
+          description: Unique API key identifying the stack.
+        uid:
+          type: string
+          description: Unique identifier of the stack.
+        name:
+          type: string
+          description: Display name of the stack.
+        description:
+          type: string
+          description: Description of the stack's purpose.
+        master_locale:
+          type: string
+          description: The default locale code for the stack.
+        org_uid:
+          type: string
+          description: UID of the organization that owns the stack.
+        created_at:
+          type: string
+          format: date-time
+          description: ISO 8601 timestamp when the stack was created.
+        updated_at:
+          type: string
+          format: date-time
+          description: ISO 8601 timestamp when the stack was last updated.
+    CreateStackRequest:
+      type: object
+      description: Parameters for creating a new stack.
+      required:
+        - stack
+      properties:
+        stack:
+          type: object
+          required:
+            - name
+            - master_locale
+          properties:
+            name:
+              type: string
+              description: Display name for the new stack.
+            master_locale:
+              type: string
+              description: Default locale code for the stack (e.g., en-us).
+            description:
+              type: string
+              description: Description of the stack's purpose.
+    UpdateStackRequest:
+      type: object
+      description: Fields to update on the stack.
+      properties:
+        stack:
+          type: object
+          properties:
+            name:
+              type: string
+              description: Updated display name.
+            description:
+              type: string
+              description: Updated description.
+    ContentTypeList:
+      type: object
+      description: A list of content types.
+      properties:
+        content_types:
+          type: array
+          description: Array of content type objects.
+          items:
+            $ref: '#/components/schemas/ContentType'
+    ContentType:
+      type: object
+      description: A content type definition with schema and configuration.
+      properties:
+        uid:
+          type: string
+          description: Unique identifier of the content type.
+        title:
+          type: string
+          description: Display name of the content type.
+        description:
+          type: string
+          description: Description of the content type's purpose.
+        schema:
+          type: array
+          description: Array of field definitions.
+          items:
+            $ref: '#/components/schemas/Field'
+        created_at:
+          type: string
+          format: date-time
+          description: ISO 8601 timestamp when the content type was created.
+        updated_at:
+          type: string
+          format: date-time
+          description: ISO 8601 timestamp when the content type was last updated.
+    CreateContentTypeRequest:
+      type: object
+      description: Parameters for creating or updating a content type.
+      required:
+        - content_type
+      properties:
+        content_type:
+          type: object
+          required:
+            - uid
+            - title
+            - schema
+          properties:
+            uid:
+              type: string
+              description: Unique identifier for the content type.
+            title:
+              type: string
+              description: Display name of the content type.
+            schema:
+              type: array
+              description: Array of field definitions.
+              items:
+                $ref: '#/components/schemas/Field'
+            options:
+              type: object
+              description: Configuration options for the content type.
+    Field:
+      type: object
+      description: A field definition within a content type schema.
+      properties:
+        uid:
+          type: string
+          description: Unique identifier of the field.
+        data_type:
+          type: string
+          description: Data type of the field (e.g., text, number, boolean, date, file, reference).
+        display_name:
+          type: string
+          description: Human-readable label for the field.
+        mandatory:
+          type: boolean
+          description: Indicates whether the field is required.
+        unique:
+          type: boolean
+          description: Indicates whether field values must be unique.
+    EntryList:
+      type: object
+      description: A paginated list of entries.
+      properties:
+        entries:
+          type: array
+          description: Array of entry objects.
+          items:
+            $ref: '#/components/schemas/Entry'
+        count:
+          type: integer
+          description: Total number of entries.
+    Entry:
+      type: object
+      description: A content entry with field values and system metadata.
+      properties:
+        uid:
+          type: string
+          description: Unique identifier of the entry.
+        title:
+          type: string
+          description: Title of the entry.
+        locale:
+          type: string
+          description: Locale code of the entry.
+        _version:
+          type: integer
+          description: Version number of the entry.
+        created_at:
+          type: string
+          format: date-time
+          description: ISO 8601 timestamp when the entry was created.
+        updated_at:
+          type: string
+          format: date-time
+          description: ISO 8601 timestamp when the entry was last updated.
+    CreateEntryRequest:
+      type: object
+      description: Parameters for creating a new entry.
+      required:
+        - entry
+      properties:
+        entry:
+          type: object
+          description: Entry field values conforming to the content type schema.
+    UpdateEntryRequest:
+      type: object
+      description: Parameters for updating an entry.
+      required:
+        - entry
+      properties:
+        entry:
+          type: object
+          description: Updated field values for the entry.
+    PublishRequest:
+      type: object
+      description: Parameters for publishing or unpublishing an entry or asset.
+      properties:
+        entry:
+          type: object
+          description: Publish configuration.
+          properties:
+            environments:
+              type: array
+              description: List of environment names to publish to.
+              items:
+                type: string
+            locales:
+              type: array
+              description: List of locale codes to publish.
+              items:
+                type: string
+    AssetList:
+      type: object
+      description: A paginated list of assets.
+      properties:
+        assets:
+          type: array
+          description: Array of asset objects.
+          items:
+            $ref: '#/components/schemas/Asset'
+    Asset:
+      type: object
+      description: A media asset stored in the stack.
+      properties:
+        uid:
+          type: string
+          description: Unique identifier of the asset.
+        title:
+          type: string
+          description: Display name of the asset.
+        url:
+          type: string
+          format: uri
+          description: URL to access the asset file.
+        filename:
+          type: string
+          description: Original file name of the uploaded file.
+        content_type:
+          type: string
+          description: MIME type of the asset.
+        file_size:
+          type: string
+          description: File size in bytes.
+        created_at:
+          type: string
+          format: date-time
+          description: ISO 8601 timestamp when the asset was created.
+    EnvironmentList:
+      type: object
+      description: A list of deployment environments.
+      properties:
+        environments:
+          type: array
+          description: Array of environment objects.
+          items:
+            $ref: '#/components/schemas/Environment'
+    Environment:
+      type: object
+      description: A deployment environment for publishing content.
+      properties:
+        uid:
+          type: string
+          description: Unique identifier of the environment.
+        name:
+          type: string
+          description: Display name of the environment.
+        urls:
+          type: array
+          description: List of URL configurations for the environment.
+          items:
+            type: object
+            properties:
+              url:
+                type: string
+                format: uri
+                description: The URL for the environment.
+              locale:
+                type: string
+                description: The locale associated with this URL.
+        created_at:
+          type: string
+          format: date-time
+          description: ISO 8601 timestamp when the environment was created.
+    Error:
+      type: object
+      description: Standard error response.
+      properties:
+        error_message:
+          type: string
+          description: Human-readable description of the error.
+        error_code:
+          type: integer
+          description: Numeric error code.
+        errors:
+          type: object
+          description: Field-level validation errors.
