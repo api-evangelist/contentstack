@@ -39,14 +39,14 @@ tags:
     description: >-
       Audiences are defined segments of users grouped by demographic, behavioral,
       or other attribute-based criteria for targeted content experiences.
-  - name: Experiences
-    description: >-
-      Experiences define personalized content variations delivered to specific
-      audience segments, supporting both segmented and A/B test configurations.
   - name: Events
     description: >-
       Events track user actions and behaviors that can be used to trigger
       audience membership changes or experience analytics.
+  - name: Experiences
+    description: >-
+      Experiences define personalized content variations delivered to specific
+      audience segments, supporting both segmented and A/B test configurations.
   - name: Geolocation
     description: >-
       Geolocation endpoints provide geographic datasets including regions,

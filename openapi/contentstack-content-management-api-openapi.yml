@@ -31,6 +31,30 @@ servers:
   - url: https://azure-eu-api.contentstack.com/v3
     description: Azure Europe Production Server
 tags:
+  - name: Assets
+    description: >-
+      Endpoints for uploading, updating, organizing, and deleting media assets
+      within a stack.
+  - name: Content Types
+    description: >-
+      Endpoints for creating, updating, and deleting content type schemas within
+      a stack.
+  - name: Entries
+    description: >-
+      Endpoints for full CRUD operations on content entries including publishing,
+      unpublishing, and localization management.
+  - name: Environments
+    description: >-
+      Endpoints for managing deployment environments (e.g., production, staging)
+      within a stack.
+  - name: Organizations
+    description: >-
+      Endpoints for managing Contentstack organizations, including user
+      invitations, roles, stacks, and audit logs at the organization level.
+  - name: Stacks
+    description: >-
+      Endpoints for creating and managing Contentstack stacks, including
+      settings, users, sharing, and ownership transfer.
   - name: User Sessions
     description: >-
       Endpoints for authenticating users and managing session tokens within
@@ -39,46 +63,6 @@ tags:
     description: >-
       Endpoints for managing Contentstack user accounts including profile
       updates, password resets, and account activation.
-  - name: Organizations
-    description: >-
-      Endpoints for managing Contentstack organizations, including user
-      invitations, roles, stacks, and audit logs at the organization level.
-  - name: Teams
-    description: >-
-      Endpoints for managing teams within an organization, including membership
-      and stack role assignments.
-  - name: Stacks
-    description: >-
-      Endpoints for creating and managing Contentstack stacks, including
-      settings, users, sharing, and ownership transfer.
-  - name: Branches
-    description: >-
-      Endpoints for managing stack branches, enabling parallel development
-      workflows and branch-level comparisons.
-  - name: Content Types
-    description: >-
-      Endpoints for creating, updating, and deleting content type schemas within
-      a stack.
-  - name: Global Fields
-    description: >-
-      Endpoints for managing reusable global field definitions that can be
-      shared across content types.
-  - name: Entries
-    description: >-
-      Endpoints for full CRUD operations on content entries including publishing,
-      unpublishing, and localization management.
-  - name: Assets
-    description: >-
-      Endpoints for uploading, updating, organizing, and deleting media assets
-      within a stack.
-  - name: Environments
-    description: >-
-      Endpoints for managing deployment environments (e.g., production, staging)
-      within a stack.
-  - name: Workflows
-    description: >-
-      Endpoints for configuring editorial workflow stages and rules within a
-      stack.
 security:
   - authtokenAuth: []
   - managementTokenAuth: []

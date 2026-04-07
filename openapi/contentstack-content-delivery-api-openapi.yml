@@ -26,15 +26,15 @@ servers:
   - url: https://au-cdn.contentstack.com/v3
     description: AWS Australia Production Server
 tags:
+  - name: Assets
+    description: >-
+      Assets are media files such as images, videos, and documents stored in
+      the Contentstack asset library.
   - name: Content Types
     description: >-
       Content types define the structure of content entries in a Contentstack
       stack. They specify the fields and their data types that entries must
       conform to.
-  - name: Global Fields
-    description: >-
-      Global fields are reusable field groups that can be referenced across
-      multiple content types within a Contentstack stack.
   - name: Entries
     description: >-
       Entries are instances of content types that hold the actual content data.
@@ -43,10 +43,10 @@ tags:
     description: >-
       Entry variants are customized versions of an entry created for
       personalization or A/B testing purposes.
-  - name: Assets
+  - name: Global Fields
     description: >-
-      Assets are media files such as images, videos, and documents stored in
-      the Contentstack asset library.
+      Global fields are reusable field groups that can be referenced across
+      multiple content types within a Contentstack stack.
   - name: Synchronization
     description: >-
       The synchronization endpoints allow developers to sync published content

@@ -27,11 +27,14 @@ servers:
   - url: https://au-automations-api.contentstack.com
     description: AWS Australia Production Server
 tags:
-  - name: Projects
+  - name: Accounts
     description: >-
-      Automation projects are containers for automations within a Contentstack
-      organization. Each project groups related automations and can have
-      its own variables and account connections.
+      Accounts represent authenticated connections to external services and
+      third-party platforms used by automations as action targets.
+  - name: Audit Logs
+    description: >-
+      Audit logs track all administrative actions taken within an automation
+      project, providing a history of configuration changes.
   - name: Automations
     description: >-
       Automations are individual workflow definitions that connect triggers
@@ -41,18 +44,15 @@ tags:
     description: >-
       Execution logs record each time an automation runs, including the trigger
       context, steps executed, and success or failure status.
-  - name: Audit Logs
+  - name: Projects
     description: >-
-      Audit logs track all administrative actions taken within an automation
-      project, providing a history of configuration changes.
+      Automation projects are containers for automations within a Contentstack
+      organization. Each project groups related automations and can have
+      its own variables and account connections.
   - name: Variables
     description: >-
       Project variables are reusable key-value pairs that can be referenced
       across multiple automations within a project.
-  - name: Accounts
-    description: >-
-      Accounts represent authenticated connections to external services and
-      third-party platforms used by automations as action targets.
 security:
   - bearerAuth: []
   - authtokenAuth: []

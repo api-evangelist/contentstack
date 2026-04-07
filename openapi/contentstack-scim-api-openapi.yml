@@ -35,11 +35,6 @@ servers:
   - url: https://gcp-eu-auth-api.contentstack.com
     description: GCP Europe Production Server
 tags:
-  - name: SCIM Users
-    description: >-
-      SCIM user endpoints enable Identity Providers to provision, update, and
-      deprovision user accounts within a Contentstack organization following
-      the SCIM 2.0 User schema.
   - name: SCIM Groups
     description: >-
       SCIM group endpoints allow Identity Providers to manage group memberships
@@ -49,6 +44,11 @@ tags:
       Schema discovery endpoints implement the SCIM 2.0 service provider
       configuration, returning supported schemas and resource types for
       IdP compatibility validation.
+  - name: SCIM Users
+    description: >-
+      SCIM user endpoints enable Identity Providers to provision, update, and
+      deprovision user accounts within a Contentstack organization following
+      the SCIM 2.0 User schema.
 security:
   - bearerAuth: []
 paths:

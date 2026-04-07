@@ -30,30 +30,30 @@ servers:
   - url: https://azure-eu-launch-api.contentstack.com
     description: Azure Europe Production Server
 tags:
-  - name: Projects
+  - name: Analytics
     description: >-
-      Launch projects represent web applications managed within Contentstack
-      Launch. Each project can have multiple deployment environments with
-      independent configuration.
-  - name: Environments
-    description: >-
-      Environments are deployment targets within a Launch project such as
-      production, staging, and preview environments, each with their own
-      domain configuration and deployment history.
+      Analytics endpoints provide usage metrics for Launch projects such as
+      cache revalidation quota consumption.
   - name: Deployments
     description: >-
       Deployments represent individual build and publish operations to a Launch
       environment. Each deployment has associated build logs, server logs, and
       status tracking.
+  - name: Environments
+    description: >-
+      Environments are deployment targets within a Launch project such as
+      production, staging, and preview environments, each with their own
+      domain configuration and deployment history.
   - name: File Uploads
     description: >-
       File upload endpoints provide pre-signed URLs for securely uploading
       build artifacts to Contentstack Launch infrastructure before triggering
       a deployment.
-  - name: Analytics
+  - name: Projects
     description: >-
-      Analytics endpoints provide usage metrics for Launch projects such as
-      cache revalidation quota consumption.
+      Launch projects represent web applications managed within Contentstack
+      Launch. Each project can have multiple deployment environments with
+      independent configuration.
 security:
   - bearerAuth: []
   - authtokenAuth: []

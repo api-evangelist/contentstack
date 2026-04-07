@@ -27,39 +27,39 @@ servers:
   - url: https://au-api.contentstack.com
     description: AWS Australia Production Server
 tags:
-  - name: Subscription Usage
-    description: >-
-      Subscription usage analytics provide metrics on Launch project, environment,
-      and domain counts relative to the organization's plan limits.
-  - name: Device Usage
-    description: >-
-      Device usage analytics track API and content delivery requests broken
-      down by device type (desktop, mobile, tablet, server).
-  - name: Usage Analytics
-    description: >-
-      Usage analytics provide bandwidth and API call utilization overviews
-      across Contentstack services including CDN, CMA, Automate, and Launch.
-  - name: URL Analytics
-    description: >-
-      URL analytics show request volume broken down by specific URLs to
-      identify high-traffic content and optimize delivery.
-  - name: Status Code Analytics
-    description: >-
-      Status code analytics show the distribution of HTTP response codes
-      returned by Contentstack services for health and error monitoring.
   - name: Cache Analytics
     description: >-
       Cache analytics track CDN cache hit and miss rates to measure delivery
       efficiency and identify cache optimization opportunities.
-  - name: SDK Usage
+  - name: Device Usage
     description: >-
-      SDK usage analytics report request volumes from Contentstack SDKs
-      broken down by SDK type and version.
+      Device usage analytics track API and content delivery requests broken
+      down by device type (desktop, mobile, tablet, server).
   - name: Jobs
     description: >-
       Analytics jobs represent asynchronous data retrieval operations. Use
       the job ID returned from POST endpoints to fetch results via the
       job data endpoint.
+  - name: SDK Usage
+    description: >-
+      SDK usage analytics report request volumes from Contentstack SDKs
+      broken down by SDK type and version.
+  - name: Status Code Analytics
+    description: >-
+      Status code analytics show the distribution of HTTP response codes
+      returned by Contentstack services for health and error monitoring.
+  - name: Subscription Usage
+    description: >-
+      Subscription usage analytics provide metrics on Launch project, environment,
+      and domain counts relative to the organization's plan limits.
+  - name: URL Analytics
+    description: >-
+      URL analytics show request volume broken down by specific URLs to
+      identify high-traffic content and optimize delivery.
+  - name: Usage Analytics
+    description: >-
+      Usage analytics provide bandwidth and API call utilization overviews
+      across Contentstack services including CDN, CMA, Automate, and Launch.
 security:
   - bearerAuth: []
   - authtokenAuth: []

@@ -38,16 +38,16 @@ tags:
       Brand Kits are centralized repositories for an organization's brand
       identity assets, guidelines, and AI configuration. They are used to
       ensure consistent brand voice and style across AI-generated content.
-  - name: Voice Profiles
-    description: >-
-      Voice Profiles define the writing style, tone, and persona characteristics
-      for AI content generation within a Brand Kit. Multiple voice profiles
-      can be created to support different content contexts or audiences.
   - name: LLM Configuration
     description: >-
       LLM Configuration endpoints allow organizations to register custom API
       credentials for large language model providers, enabling content
       generation through their own LLM subscriptions.
+  - name: Voice Profiles
+    description: >-
+      Voice Profiles define the writing style, tone, and persona characteristics
+      for AI content generation within a Brand Kit. Multiple voice profiles
+      can be created to support different content contexts or audiences.
 security:
   - bearerAuth: []
   - authtokenAuth: []

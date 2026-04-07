@@ -30,6 +30,10 @@ servers:
   - url: https://azure-eu-personalize-edge.contentstack.com
     description: Azure Europe Production Server
 tags:
+  - name: Events
+    description: >-
+      The events endpoint allows applications to track user actions and
+      behavioral events for experience analytics and audience rule evaluation.
   - name: Manifest
     description: >-
       The manifest endpoint returns a list of all active experiences and their
@@ -39,10 +43,6 @@ tags:
     description: >-
       Endpoints for setting, updating, and merging user attribute data used to
       determine audience membership and personalized content targeting.
-  - name: Events
-    description: >-
-      The events endpoint allows applications to track user actions and
-      behavioral events for experience analytics and audience rule evaluation.
 paths:
   /manifest:
     get:
