@@ -1,0 +1,21 @@
+aid: contentstack:capability:automate-content-workflows
+name: Automate Content Workflows with Contentstack Automate
+description: >-
+  Workflow for programmatically managing Contentstack Automate (formerly
+  Automation Hub) projects so that content events can trigger downstream
+  business processes. Lists automation projects, creates a new automation
+  with a trigger and action chain, retrieves it for verification, and
+  retires it when no longer needed.
+api: contentstack:automate-management-api
+openapi: openapi/contentstack-automate-management-api-openapi.yml
+tags:
+  - Automation
+  - Integration
+  - Workflows
+useCases:
+  - Trigger downstream syndication when an entry is published
+  - Synchronize Contentstack changes to ticketing or PIM systems
+  - Roll out automation projects across multiple stacks programmatically
+maintainers:
+  - FN: Kin Lane
+    email: kin@apievangelist.com

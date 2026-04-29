@@ -1,0 +1,71 @@
+extends:
+  - "spectral:oas"
+documentationUrl: https://www.contentstack.com/docs/developers/apis
+rules:
+  contentstack-info-title-prefix:
+    description: All Contentstack OpenAPI info.title fields must start with "Contentstack"
+    severity: error
+    given: "$.info.title"
+    then:
+      function: pattern
+      functionOptions:
+        match: "^Contentstack\\b"
+  contentstack-info-contact:
+    description: Info contact information should be present
+    severity: warn
+    given: "$.info"
+    then:
+      field: contact
+      function: truthy
+  contentstack-server-defined:
+    description: At least one server URL must be defined
+    severity: error
+    given: "$.servers"
+    then:
+      function: length
+      functionOptions:
+        min: 1
+  contentstack-operation-id-camelcase:
+    description: Every operation must define an operationId in camelCase
+    severity: error
+    given: "$.paths.*[get,put,post,delete,patch].operationId"
+    then:
+      function: pattern
+      functionOptions:
+        match: "^[a-z][a-zA-Z0-9]+$"
+  contentstack-operation-summary-required:
+    description: Every operation must include a non-empty summary
+    severity: error
+    given: "$.paths.*[get,put,post,delete,patch]"
+    then:
+      field: summary
+      function: truthy
+  contentstack-tag-defined:
+    description: Operations must reference at least one tag
+    severity: warn
+    given: "$.paths.*[get,put,post,delete,patch].tags"
+    then:
+      function: length
+      functionOptions:
+        min: 1
+  contentstack-no-trailing-slash:
+    description: Paths should not end with a trailing slash
+    severity: warn
+    given: "$.paths"
+    then:
+      field: "@key"
+      function: pattern
+      functionOptions:
+        notMatch: "/$"
+  contentstack-success-response-defined:
+    description: Every operation must define a 2xx response
+    severity: error
+    given: "$.paths.*[get,put,post,delete,patch].responses"
+    then:
+      function: schema
+      functionOptions:
+        schema:
+          type: object
+          patternProperties:
+            "^2[0-9]{2}$": {}
+          minProperties: 1

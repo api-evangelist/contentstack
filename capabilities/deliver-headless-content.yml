@@ -1,0 +1,43 @@
+aid: contentstack:capability:deliver-headless-content
+name: Deliver Headless Content with Contentstack CDA
+description: >-
+  Workflow for delivering headless content to a website or application using
+  the Contentstack Content Delivery API. Discovers available content types,
+  retrieves a list of entries with filtering and pagination, fetches a single
+  entry with referenced relationships, and pulls associated assets so the
+  front-end can render fully composed pages.
+api: contentstack:content-delivery-api
+openapi: openapi/contentstack-content-delivery-api-openapi.yml
+tags:
+  - Content Delivery
+  - Headless CMS
+  - Read
+  - REST
+operations:
+  - operationId: getAllContentTypes
+    method: GET
+    path: /v3/content_types
+    purpose: Enumerate the content types available in a stack
+  - operationId: getAllEntries
+    method: GET
+    path: /v3/content_types/{content_type_uid}/entries
+    purpose: Fetch a paginated, filtered list of entries for a content type
+  - operationId: getSingleEntry
+    method: GET
+    path: /v3/content_types/{content_type_uid}/entries/{entry_uid}
+    purpose: Retrieve a single entry with selected references inlined
+  - operationId: getAllAssets
+    method: GET
+    path: /v3/assets
+    purpose: List assets so referenced media can be resolved
+  - operationId: getSingleAsset
+    method: GET
+    path: /v3/assets/{asset_uid}
+    purpose: Fetch metadata and CDN URL for a specific asset
+useCases:
+  - Render a localized marketing page from CMS-backed content types
+  - Pre-build a Jamstack site with all entries for a content type
+  - Power a mobile or kiosk experience with on-demand entry retrieval
+maintainers:
+  - FN: Kin Lane
+    email: kin@apievangelist.com

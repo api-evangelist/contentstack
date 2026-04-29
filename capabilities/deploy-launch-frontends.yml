@@ -1,0 +1,22 @@
+aid: contentstack:capability:deploy-launch-frontends
+name: Deploy Front-Ends with Contentstack Launch
+description: >-
+  Workflow for managing front-end deployments connected to a Contentstack
+  stack via the Contentstack Launch API. Inventories projects and
+  environments, requests a signed upload URL, posts a deployment with the
+  uploaded build artifact, monitors deployment logs, and revalidates the
+  CDN cache to release the new version.
+api: contentstack:launch-api
+openapi: openapi/contentstack-launch-api-openapi.yml
+tags:
+  - CI/CD
+  - Deployment
+  - Frontend
+  - Hosting
+useCases:
+  - Wire CI pipelines to push builds into Contentstack Launch
+  - Coordinate revalidation of CDN cache after content publishing
+  - Promote a deployment between environments via API
+maintainers:
+  - FN: Kin Lane
+    email: kin@apievangelist.com

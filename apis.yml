@@ -1,6 +1,6 @@
 aid: contentstack
 url: https://raw.githubusercontent.com/api-evangelist/contentstack/refs/heads/main/apis.yml
-modified: '2026-03-21'
+modified: '2026-04-28'
 apis:
   - aid: contentstack:content-delivery-api
     name: Contentstack Content Delivery API
@@ -299,6 +299,24 @@ common:
     type: JSONSchema
   - url: json-ld/contentstack-context.jsonld
     type: JSON-LD
+  - url: vocabulary/contentstack-vocabulary.yml
+    type: Vocabulary
+  - url: rules/contentstack-rules.yml
+    type: SpectralRules
+  - url: capabilities/deliver-headless-content.yml
+    type: Capability
+  - url: capabilities/manage-stack-content.yml
+    type: Capability
+  - url: capabilities/personalize-experiences.yml
+    type: Capability
+  - url: capabilities/automate-content-workflows.yml
+    type: Capability
+  - url: capabilities/generate-brand-aligned-ai-content.yml
+    type: Capability
+  - url: capabilities/deploy-launch-frontends.yml
+    type: Capability
+  - url: capabilities/provision-users-via-scim.yml
+    type: Capability
 description: >-
   This document is a detailed reference to Contentstack’s Content Delivery API. Retrieve
   content from your account and deliver it to web and mobile properties.

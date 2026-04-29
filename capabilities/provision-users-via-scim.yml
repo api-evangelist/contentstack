@@ -1,0 +1,22 @@
+aid: contentstack:capability:provision-users-via-scim
+name: Provision Users via SCIM
+description: >-
+  Workflow for synchronizing user lifecycle and group memberships between
+  an Identity Provider (IdP) and Contentstack using the SCIM 2.0 API. Lists
+  current users, creates new users on hire, updates attributes on role
+  changes, manages group memberships for role-based access, and deactivates
+  users on offboarding.
+api: contentstack:scim-api
+openapi: openapi/contentstack-scim-api-openapi.yml
+tags:
+  - Identity Management
+  - SCIM
+  - Security
+  - User Provisioning
+useCases:
+  - Automate user provisioning from Okta, Azure AD, or OneLogin into Contentstack
+  - Map IdP groups to Contentstack roles for least-privilege access
+  - Deactivate departed employees centrally to revoke Contentstack access
+maintainers:
+  - FN: Kin Lane
+    email: kin@apievangelist.com

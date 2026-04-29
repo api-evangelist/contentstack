@@ -223,6 +223,20 @@ The Contentstack Launch API allows developers to programmatically manage web app
 - [Support](https://www.contentstack.com/support)
 - [Blog](https://www.contentstack.com/blog)
 - [Login](https://app.contentstack.com/)
+- [AsyncAPI](asyncapi/contentstack-webhooks-asyncapi.yml)
+- [JSONSchema](json-schema/contentstack-entry-schema.json)
+- [JSONSchema](json-schema/contentstack-stack-schema.json)
+- [JSONSchema](json-schema/contentstack-webhook-payload-schema.json)
+- [JSON-LD](json-ld/contentstack-context.jsonld)
+- [Vocabulary](vocabulary/contentstack-vocabulary.yml)
+- [SpectralRules](rules/contentstack-rules.yml)
+- [Capability](capabilities/deliver-headless-content.yml)
+- [Capability](capabilities/manage-stack-content.yml)
+- [Capability](capabilities/personalize-experiences.yml)
+- [Capability](capabilities/automate-content-workflows.yml)
+- [Capability](capabilities/generate-brand-aligned-ai-content.yml)
+- [Capability](capabilities/deploy-launch-frontends.yml)
+- [Capability](capabilities/provision-users-via-scim.yml)
 
 ## Maintainers
 

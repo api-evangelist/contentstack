@@ -1,0 +1,26 @@
+aid: contentstack:capability:personalize-experiences
+name: Personalize Experiences with Contentstack Personalize
+description: >-
+  Workflow for configuring and serving personalized experiences using
+  Contentstack Personalize. Sets up audience attributes and segments via the
+  Personalize Management API, then drives runtime decisioning with the
+  Personalize Edge API to fetch experience manifests, update user attributes,
+  and capture behavioral events.
+apis:
+  - contentstack:personalize-management-api
+  - contentstack:personalize-edge-api
+openapi:
+  - openapi/contentstack-personalize-management-api-openapi.yml
+  - openapi/contentstack-personalize-edge-api-openapi.yml
+tags:
+  - Audiences
+  - Edge Computing
+  - Personalization
+  - Real-Time
+useCases:
+  - Build audience segments from first-party user attributes
+  - Run A/B experience tests against a Contentstack stack
+  - Track behavioral events from edge runtimes back into Personalize
+maintainers:
+  - FN: Kin Lane
+    email: kin@apievangelist.com

@@ -1,0 +1,30 @@
+aid: contentstack:capability:generate-brand-aligned-ai-content
+name: Generate Brand-Aligned AI Content
+description: >-
+  Workflow for producing AI-generated content that respects an
+  organization's brand identity in Contentstack. Manages Brand Kit voice
+  profiles via the Brand Kit Management API, ingests reference material into
+  a Knowledge Vault, and calls the Generative AI API to produce
+  retrieval-augmented, brand-aligned output for use across editorial and
+  marketing surfaces.
+apis:
+  - contentstack:brand-kit-management-api
+  - contentstack:knowledge-vault-api
+  - contentstack:generative-ai-api
+openapi:
+  - openapi/contentstack-brand-kit-management-api-openapi.yml
+  - openapi/contentstack-knowledge-vault-api-openapi.yml
+  - openapi/contentstack-generative-ai-api-openapi.yml
+tags:
+  - AI
+  - Brand Kit
+  - Generative AI
+  - Knowledge Vault
+  - RAG
+useCases:
+  - Generate brand-consistent product copy for new entries
+  - Power chat assistants grounded in a curated knowledge vault
+  - Maintain voice profiles per brand across multiple stacks
+maintainers:
+  - FN: Kin Lane
+    email: kin@apievangelist.com

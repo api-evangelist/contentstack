@@ -1,0 +1,43 @@
+aid: contentstack:capability:manage-stack-content
+name: Manage Stack Content with the Contentstack CMA
+description: >-
+  Workflow for full lifecycle content management against a Contentstack stack
+  using the Content Management API. Authenticates an organization user,
+  inventories stacks and organizations, creates or updates content types and
+  entries, and uploads assets, providing the editorial backbone for headless
+  publishing automation.
+api: contentstack:content-management-api
+openapi: openapi/contentstack-content-management-api-openapi.yml
+tags:
+  - Content Management
+  - CRUD
+  - Headless CMS
+  - Workflow
+operations:
+  - operationId: loginUser
+    method: POST
+    path: /v3/user-session
+    purpose: Authenticate as a Contentstack user and obtain a session token
+  - operationId: getAllStacks
+    method: GET
+    path: /v3/stacks
+    purpose: List the stacks the authenticated user can manage
+  - operationId: getOrganizationStacks
+    method: GET
+    path: /v3/organizations/{organization_uid}/stacks
+    purpose: Inventory stacks within a specific organization
+  - operationId: createStack
+    method: POST
+    path: /v3/stacks
+    purpose: Provision a new stack in the organization
+  - operationId: getUser
+    method: GET
+    path: /v3/user
+    purpose: Confirm the authenticated principal and tenancy
+useCases:
+  - Migrate content from a legacy CMS into a new Contentstack stack
+  - Automate editorial workflows from external systems
+  - Provision per-environment stacks for staging and production
+maintainers:
+  - FN: Kin Lane
+    email: kin@apievangelist.com

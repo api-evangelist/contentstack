@@ -1,0 +1,79 @@
+aid: contentstack:vocabulary
+name: Contentstack Headless CMS Vocabulary
+description: >-
+  Shared vocabulary for the Contentstack composable digital experience
+  platform, capturing the core resource concepts that recur across Content
+  Delivery, Content Management, Personalize, Automate, Brand Kit, Knowledge
+  Vault, Generative AI, Launch, SCIM, and Analytics APIs.
+namespace: https://www.contentstack.com/vocabulary#
+terms:
+  - term: Stack
+    definition: >-
+      A self-contained content repository in Contentstack. A stack scopes
+      content types, entries, assets, environments, and tokens for an
+      application or property.
+  - term: ContentType
+    definition: >-
+      A schema definition for a particular kind of content (for example
+      "Blog Post"), composed of fields, references, and modular blocks.
+  - term: Entry
+    definition: >-
+      A single instance of a content type representing an addressable piece
+      of editable content delivered through the Content Delivery API.
+  - term: Asset
+    definition: >-
+      A managed file (image, video, document) stored in a stack and
+      delivered via the Image Delivery API and CDN.
+  - term: Environment
+    definition: >-
+      A named publishing target (development, staging, production) used to
+      scope which entries and assets are visible to readers.
+  - term: DeliveryToken
+    definition: >-
+      A read-only credential associated with an environment used by the
+      Content Delivery API to fetch published content.
+  - term: ManagementToken
+    definition: >-
+      A stack-scoped credential used by the Content Management API to
+      perform CRUD operations.
+  - term: Audience
+    definition: >-
+      A group of users defined by attributes or behavioral events, used by
+      Contentstack Personalize to target experiences.
+  - term: Experience
+    definition: >-
+      A configured personalization variant served to a matched audience by
+      the Personalize Edge API.
+  - term: Automation
+    definition: >-
+      A no-code or low-code workflow in Contentstack Automate that connects
+      content events to third-party services and internal processes.
+  - term: BrandKit
+    definition: >-
+      A centralized hub for an organization's brand identity in Contentstack
+      that holds brand information, writing guidelines, persona
+      configurations, and voice profiles.
+  - term: VoiceProfile
+    definition: >-
+      A configuration within a Brand Kit describing tone, style, and
+      audience used by the Generative AI API to produce brand-aligned
+      content.
+  - term: KnowledgeVault
+    definition: >-
+      A vector database scoped to a Brand Kit that stores brand-specific
+      reference content for retrieval-augmented generation.
+  - term: LaunchProject
+    definition: >-
+      A deployment unit in Contentstack Launch representing a front-end
+      application connected to a stack with environments and deployments.
+  - term: SCIMUser
+    definition: >-
+      A user resource synchronized between an Identity Provider and
+      Contentstack via the SCIM 2.0 API.
+  - term: SCIMGroup
+    definition: >-
+      A group resource synchronized via SCIM that maps IdP-managed groups
+      to Contentstack role assignments.
+maintainers:
+  - FN: Kin Lane
+    email: kin@apievangelist.com
