@@ -1,0 +1,234 @@
+specification: FinOps Framework
+specificationVersion: '1.0'
+alignedWith:
+  framework: FinOps Foundation Framework
+  frameworkUrl: https://www.finops.org/framework/
+  dataSpec: FOCUS
+  dataSpecVersion: '1.3'
+  dataSpecUrl: https://focus.finops.org/focus-specification/v1-3/
+provider: contentstack
+providerId: contentstack
+publisherName: contentstack
+serviceCategory: API
+created: '2026-05-04'
+modified: '2026-05-04'
+tags:
+  - FinOps
+  - Cost Management
+  - FOCUS
+description: FinOps framework definition for the contentstack API surface. Provides a FOCUS-aligned mapping
+  for cost allocation, usage measurement, and unit-economics reporting across the provider's APIs.
+principles:
+  - name: Visibility
+    description: Make API consumption costs visible to engineering, product, and finance teams in near
+      real-time.
+  - name: Allocation
+    description: Tag every chargeable API call with the consuming team, environment, application, and
+      feature so cost can be allocated.
+  - name: Optimization
+    description: Continuously evaluate request patterns, caching, batching, and tier selection to reduce
+      cost per useful unit of work.
+  - name: Accountability
+    description: Establish budget owners and chargeback or showback flows for each consuming team.
+domains:
+  - name: Understand Usage and Cost
+    capabilities:
+      - Data Ingestion
+      - Allocation
+      - Reporting and Analytics
+      - Anomaly Management
+  - name: Quantify Business Value
+    capabilities:
+      - Planning and Estimating
+      - Forecasting
+      - Budgeting
+      - Benchmarking
+      - Unit Economics
+  - name: Optimize Usage and Cost
+    capabilities:
+      - Architecting for Cloud
+      - Rate Optimization
+      - Workload Optimization
+      - Cloud Sustainability
+      - Licensing and SaaS
+  - name: Manage the FinOps Practice
+    capabilities:
+      - FinOps Practice Operations
+      - FinOps Education and Enablement
+      - Invoicing and Chargeback
+      - Onboarding Workloads
+      - Intersecting Disciplines
+billingModel:
+  pricingCategory: Usage-Based
+  billingFrequency: Monthly
+  billingCurrency: USD
+  chargeCategories:
+    - Usage
+    - Purchase
+    - Tax
+    - Credit
+    - Adjustment
+  chargeFrequency: Recurring
+focusColumns:
+  ServiceName: contentstack
+  ServiceCategory: Developer Tools / API
+  ProviderName: contentstack
+  PublisherName: contentstack
+  InvoiceIssuerName: contentstack
+  PricingCategory: Usage-Based
+  PricingUnit: request
+  BillingCurrency: USD
+  ChargeCategory: Usage
+meters:
+  - name: api_requests
+    description: Count of billable API requests
+    unit: request
+    aggregation: sum
+    dimensions:
+      - api
+      - endpoint
+      - tier
+      - region
+      - consumer
+  - name: data_egress
+    description: Bytes returned over the network in API responses
+    unit: GB
+    aggregation: sum
+    dimensions:
+      - api
+      - region
+      - consumer
+  - name: compute_seconds
+    description: Server-side compute consumed by the request, where applicable
+    unit: second
+    aggregation: sum
+    dimensions:
+      - api
+      - endpoint
+      - tier
+apis:
+  - name: Contentstack Content Delivery API
+    baseURL: https://cdn.contentstack.io
+    tags:
+      - Content Delivery
+      - Content Management
+      - Headless CMS
+      - REST
+    serviceName: Contentstack Content Delivery API
+    serviceCategory: API
+  - name: Contentstack Content Management API
+    baseURL: https://api.contentstack.io
+    tags:
+      - Content Management
+      - CRUD
+      - Headless CMS
+      - REST
+    serviceName: Contentstack Content Management API
+    serviceCategory: API
+  - name: Contentstack GraphQL Content Delivery API
+    baseURL: https://graphql.contentstack.com
+    tags:
+      - Content Delivery
+      - GraphQL
+      - Headless CMS
+      - Query Language
+    serviceName: Contentstack GraphQL Content Delivery API
+    serviceCategory: API
+  - name: Contentstack Image Delivery API
+    baseURL: https://images.contentstack.io
+    tags:
+      - Asset Delivery
+      - Images
+      - Media
+      - Transformation
+    serviceName: Contentstack Image Delivery API
+    serviceCategory: API
+  - name: Contentstack Personalize Management API
+    baseURL: https://personalize-api.contentstack.com
+    tags:
+      - Audiences
+      - Content Management
+      - Experiences
+      - Personalization
+    serviceName: Contentstack Personalize Management API
+    serviceCategory: API
+  - name: Contentstack Personalize Edge API
+    baseURL: https://personalize-edge.contentstack.com
+    tags:
+      - Edge Computing
+      - Events
+      - Personalization
+      - User Attributes
+    serviceName: Contentstack Personalize Edge API
+    serviceCategory: API
+  - name: Contentstack Automate Management API
+    baseURL: https://automations-api.contentstack.com
+    tags:
+      - Automation
+      - Content Management
+      - Integration
+      - Workflows
+    serviceName: Contentstack Automate Management API
+    serviceCategory: API
+  - name: Contentstack Analytics API
+    baseURL: https://api.contentstack.io
+    tags:
+      - Analytics
+      - Metrics
+      - Monitoring
+      - Reporting
+    serviceName: Contentstack Analytics API
+    serviceCategory: API
+  - name: Contentstack SCIM API
+    baseURL: https://auth-api.contentstack.com
+    tags:
+      - Identity Management
+      - SCIM
+      - Security
+      - User Provisioning
+    serviceName: Contentstack SCIM API
+    serviceCategory: API
+  - name: Contentstack Brand Kit Management API
+    baseURL: https://brand-kits-api.contentstack.com
+    tags:
+      - AI
+      - Brand Management
+      - Content Generation
+      - Voice Profiles
+    serviceName: Contentstack Brand Kit Management API
+    serviceCategory: API
+  - name: Contentstack Knowledge Vault API
+    baseURL: https://ai.contentstack.com
+    tags:
+      - AI
+      - Knowledge Management
+      - RAG
+      - Vector Database
+    serviceName: Contentstack Knowledge Vault API
+    serviceCategory: API
+  - name: Contentstack Generative AI API
+    baseURL: https://ai.contentstack.com/brand-kits
+    tags:
+      - AI
+      - Brand Kit
+      - Content Generation
+      - Generative AI
+    serviceName: Contentstack Generative AI API
+    serviceCategory: API
+  - name: Contentstack Launch API
+    baseURL: https://launch-api.contentstack.com
+    tags:
+      - CI/CD
+      - Deployment
+      - Frontend
+      - Hosting
+    serviceName: Contentstack Launch API
+    serviceCategory: API
+unitEconomics:
+  - name: Cost per 1K Requests
+    metric: billed_cost / (api_requests / 1000)
+    target: TBD
+  - name: Cost per Active Consumer
+    metric: billed_cost / active_consumers
+    target: TBD
+maintainers: []
