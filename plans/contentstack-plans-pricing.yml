@@ -1,249 +1,126 @@
 specification: API Commons Plans
 specificationVersion: '0.1'
 schema: https://raw.githubusercontent.com/api-evangelist/interface-research/main/schema/api-commons.yml#/$defs/Plans
-provider: contentstack
+provider: Contentstack
 providerId: contentstack
 created: '2026-05-04'
-modified: '2026-05-04'
-tags: []
-description: Machine-readable plans and pricing scaffold for this API provider. Conforms to the API Commons
-  Plans schema. Tier limits and prices are scaffold defaults; replace with provider-published values.
+modified: '2026-05-05'
+reconciled: false
+tags:
+  - Headless CMS
+  - Content Management
+  - Personalization
+  - AI
+  - Real-Time CDP
+  - Agentic Experience
+description: Contentstack is a headless CMS (Contentstack AXP) packaged with personalization, real-time
+  CDP, and agentic experience capabilities. Pricing is sales-led — the public site exposes "Start free"
+  trial and "Request demo" CTAs but does not publish per-tier numeric prices. Stack quotas (content types,
+  languages, environments, users, API requests) are configured per plan and negotiated with Contentstack.
+notes: Contentstack's public pricing page does not surface specific per-tier prices or quotas; tiers
+  are negotiated with sales. Documented rate limits (10 read/sec and 10 write/sec per organization, 1
+  bulk-action/sec, configurable per plan) live in rate-limits/contentstack-rate-limits.yml. Reconcile
+  per-tier numbers against an active Contentstack contract.
+sources:
+  - https://www.contentstack.com/pricing
+  - https://www.contentstack.com/docs/developers/apis/content-management-api
 plans:
-  - id: contentstack-free
-    name: Free
-    type: freemium
-    description: Free entry tier for the contentstack API surface. Intended for evaluation, prototyping,
-      and low-volume integrations. Real limits and pricing must be reconciled with the provider's published
-      plan documentation.
+  - id: contentstack-free-trial
+    name: Free Trial
+    type: free
+    description: Limited-scope trial of Contentstack AXP / CMS available via "Start free" registration.
+      Quotas and duration are not publicly published.
     entries:
-      - label: API Requests
-        description: Monthly API request quota across all included endpoints
-        name: api_requests
-        type: quota
-        metric: requests
-        limit: 1000
+      - label: Trial Access
+        description: Time-limited evaluation; quotas not publicly published
+        name: trial_access
+        type: subscription
+        metric: month
+        limit: 'see Contentstack trial terms'
         timeFrame: month
         geo: global
-        domains:
-          - https://cdn.contentstack.io
-          - https://api.contentstack.io
-          - https://graphql.contentstack.com
-          - https://images.contentstack.io
-          - https://personalize-api.contentstack.com
-          - https://personalize-edge.contentstack.com
-          - https://automations-api.contentstack.com
-          - https://auth-api.contentstack.com
-          - https://brand-kits-api.contentstack.com
-          - https://ai.contentstack.com
-          - https://ai.contentstack.com/brand-kits
-          - https://launch-api.contentstack.com
         unit: 1
         price: '0.00'
         userMultiplied: false
-      - label: Rate Limit
-        description: Maximum requests per minute on the free tier
-        name: rate_limit
+    elements:
+      - name: Headless CMS Evaluation
+      - name: Community Documentation
+  - id: contentstack-business
+    name: Business
+    type: subscription
+    description: Standard production tier for Contentstack AXP. Per-stack quotas (content types, languages,
+      environments, users, API requests) are negotiated with sales.
+    entries:
+      - label: Subscription
+        description: Annual subscription; pricing not publicly published
+        name: subscription
+        type: subscription
+        metric: month
+        limit: 1
+        timeFrame: month
+        geo: global
+        unit: 1
+        price: 'contact sales'
+        userMultiplied: false
+      - label: API Requests
+        description: Per-organization API request quota; default 10 read/sec + 10 write/sec, configurable
+          per plan
+        name: api_requests
         type: rate
-        metric: requests_per_minute
+        metric: requests_per_second
         limit: 10
-        timeFrame: minute
+        timeFrame: second
         geo: global
-        domains:
-          - https://cdn.contentstack.io
-          - https://api.contentstack.io
-          - https://graphql.contentstack.com
-          - https://images.contentstack.io
-          - https://personalize-api.contentstack.com
-          - https://personalize-edge.contentstack.com
-          - https://automations-api.contentstack.com
-          - https://auth-api.contentstack.com
-          - https://brand-kits-api.contentstack.com
-          - https://ai.contentstack.com
-          - https://ai.contentstack.com/brand-kits
-          - https://launch-api.contentstack.com
         unit: 1
-        price: '0.00'
+        price: included
         userMultiplied: false
     elements:
-      - name: Public Documentation
-      - name: Community Support
-      - name: Sandbox Access
-      - name: Contentstack Content Delivery API
-      - name: Contentstack Content Management API
-      - name: Contentstack GraphQL Content Delivery API
-      - name: Contentstack Image Delivery API
-      - name: Contentstack Personalize Management API
-      - name: Contentstack Personalize Edge API
-      - name: Contentstack Automate Management API
-      - name: Contentstack Analytics API
-  - id: contentstack-pro
-    name: Professional
-    type: paid
-    description: Production tier for contentstack. Provides higher quotas, priority support, and access
-      to the broader API portfolio. Pricing placeholder; align with the provider's pricing page.
-    entries:
-      - label: API Requests
-        description: Monthly API request quota
-        name: api_requests
-        type: quota
-        metric: requests
-        limit: 100000
-        timeFrame: month
-        geo: global
-        domains:
-          - https://cdn.contentstack.io
-          - https://api.contentstack.io
-          - https://graphql.contentstack.com
-          - https://images.contentstack.io
-          - https://personalize-api.contentstack.com
-          - https://personalize-edge.contentstack.com
-          - https://automations-api.contentstack.com
-          - https://auth-api.contentstack.com
-          - https://brand-kits-api.contentstack.com
-          - https://ai.contentstack.com
-          - https://ai.contentstack.com/brand-kits
-          - https://launch-api.contentstack.com
-        unit: 1
-        price: TBD
-        userMultiplied: false
-      - label: Rate Limit
-        description: Maximum requests per minute on the professional tier
-        name: rate_limit
-        type: rate
-        metric: requests_per_minute
-        limit: 100
-        timeFrame: minute
-        geo: global
-        domains:
-          - https://cdn.contentstack.io
-          - https://api.contentstack.io
-          - https://graphql.contentstack.com
-          - https://images.contentstack.io
-          - https://personalize-api.contentstack.com
-          - https://personalize-edge.contentstack.com
-          - https://automations-api.contentstack.com
-          - https://auth-api.contentstack.com
-          - https://brand-kits-api.contentstack.com
-          - https://ai.contentstack.com
-          - https://ai.contentstack.com/brand-kits
-          - https://launch-api.contentstack.com
-        unit: 1
-        price: '0.00'
-        userMultiplied: false
-      - label: Overage
-        description: Per-request price after monthly quota is exceeded
-        name: overage
-        type: metered
-        metric: requests
-        limit: -1
-        timeFrame: month
-        geo: global
-        domains:
-          - https://cdn.contentstack.io
-          - https://api.contentstack.io
-          - https://graphql.contentstack.com
-          - https://images.contentstack.io
-          - https://personalize-api.contentstack.com
-          - https://personalize-edge.contentstack.com
-          - https://automations-api.contentstack.com
-          - https://auth-api.contentstack.com
-          - https://brand-kits-api.contentstack.com
-          - https://ai.contentstack.com
-          - https://ai.contentstack.com/brand-kits
-          - https://launch-api.contentstack.com
-        unit: 1000
-        price: TBD
-        userMultiplied: false
-    elements:
-      - name: All Production Endpoints
-      - name: Email Support
-      - name: SLA Targets
-      - name: Webhook Subscriptions
-      - name: Contentstack Content Delivery API
-      - name: Contentstack Content Management API
-      - name: Contentstack GraphQL Content Delivery API
-      - name: Contentstack Image Delivery API
-      - name: Contentstack Personalize Management API
-      - name: Contentstack Personalize Edge API
-      - name: Contentstack Automate Management API
-      - name: Contentstack Analytics API
-      - name: Contentstack SCIM API
-      - name: Contentstack Brand Kit Management API
-      - name: Contentstack Knowledge Vault API
-      - name: Contentstack Generative AI API
-      - name: Contentstack Launch API
+      - name: Headless CMS
+      - name: Content Management API
+      - name: Content Delivery API
+      - name: Webhooks
+      - name: Standard Support
   - id: contentstack-enterprise
-    name: Enterprise
+    name: Enterprise / AXP
     type: enterprise
-    description: Custom-negotiated tier for contentstack. Includes dedicated capacity, contractual SLAs,
-      security review, data residency options, and named technical account management.
+    description: Enterprise tier including the full Contentstack Agentic Experience Platform — personalization
+      engine, real-time data activation, no-code agents and automations, brand-aware AI, AI writing assistant,
+      visual builder, granular permissions, and custom workflows. Pricing is custom-quoted; rate limits
+      are configurable.
     entries:
-      - label: API Requests
-        description: Negotiated request volume; -1 indicates uncapped subject to fair use
-        name: api_requests
-        type: quota
-        metric: requests
+      - label: Subscription
+        description: Custom-quoted enterprise subscription
+        name: subscription
+        type: subscription
+        metric: month
         limit: -1
         timeFrame: month
         geo: configurable
-        domains:
-          - https://cdn.contentstack.io
-          - https://api.contentstack.io
-          - https://graphql.contentstack.com
-          - https://images.contentstack.io
-          - https://personalize-api.contentstack.com
-          - https://personalize-edge.contentstack.com
-          - https://automations-api.contentstack.com
-          - https://auth-api.contentstack.com
-          - https://brand-kits-api.contentstack.com
-          - https://ai.contentstack.com
-          - https://ai.contentstack.com/brand-kits
-          - https://launch-api.contentstack.com
         unit: 1
         price: custom
         userMultiplied: false
-      - label: Rate Limit
-        description: Negotiated burst and steady-state rate
-        name: rate_limit
+      - label: API Requests
+        description: Configurable per-organization API rate; raised on request
+        name: api_requests
         type: rate
-        metric: requests_per_minute
-        limit: 1000
-        timeFrame: minute
+        metric: requests_per_second
+        limit: 'configurable per plan'
+        timeFrame: second
         geo: configurable
-        domains:
-          - https://cdn.contentstack.io
-          - https://api.contentstack.io
-          - https://graphql.contentstack.com
-          - https://images.contentstack.io
-          - https://personalize-api.contentstack.com
-          - https://personalize-edge.contentstack.com
-          - https://automations-api.contentstack.com
-          - https://auth-api.contentstack.com
-          - https://brand-kits-api.contentstack.com
-          - https://ai.contentstack.com
-          - https://ai.contentstack.com/brand-kits
-          - https://launch-api.contentstack.com
         unit: 1
-        price: custom
+        price: included
         userMultiplied: false
     elements:
-      - name: Unlimited / Negotiated Volume
-      - name: 24/7 Dedicated Support
-      - name: Contractual SLA
-      - name: Security & Compliance Review
-      - name: Dedicated Account Manager
-      - name: Custom Data Residency
-      - name: Contentstack Content Delivery API
-      - name: Contentstack Content Management API
-      - name: Contentstack GraphQL Content Delivery API
-      - name: Contentstack Image Delivery API
-      - name: Contentstack Personalize Management API
-      - name: Contentstack Personalize Edge API
-      - name: Contentstack Automate Management API
-      - name: Contentstack Analytics API
-      - name: Contentstack SCIM API
-      - name: Contentstack Brand Kit Management API
-      - name: Contentstack Knowledge Vault API
-      - name: Contentstack Generative AI API
-      - name: Contentstack Launch API
-maintainers: []
+      - name: Agentic Experience Platform (AXP)
+      - name: Personalization Engine
+      - name: Real-Time CDP
+      - name: No-Code Agents & Automations
+      - name: Brand-Aware AI
+      - name: AI Writing Assistant
+      - name: Visual Builder / Live Preview
+      - name: Granular Permissions
+      - name: Custom Workflows
+      - name: Enterprise SLA & Support
+maintainers:
+  - FN: Kin Lane
+    email: kin@apievangelist.com

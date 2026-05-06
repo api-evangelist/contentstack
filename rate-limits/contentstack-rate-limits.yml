@@ -1,142 +1,70 @@
 specification: API Commons Rate Limits
 specificationVersion: '0.1'
 schema: https://raw.githubusercontent.com/api-evangelist/interface-research/main/schema/api-commons.yml#/$defs/RateLimits
-provider: contentstack
+provider: Contentstack
 providerId: contentstack
 created: '2026-05-04'
-modified: '2026-05-04'
+modified: '2026-05-05'
+reconciled: true
 tags:
+  - Headless CMS
+  - Content Management
   - Rate Limiting
-  - Quotas
-  - Throttling
-description: Machine-readable rate limit definitions for the contentstack API surface. Captures per-tier
-  quotas, burst behavior, response signaling, and recovery semantics. Defaults are scaffold values to
-  be replaced with published provider limits.
+description: Contentstack publishes default per-organization rate limits for the Content Management API.
+  Reads and writes are each limited to 10 requests per second per organization, bulk actions to 1 request
+  per second, and stack creation to 1 per minute per organization. Limits are configurable per plan;
+  higher thresholds are negotiated through support. Exceeding the limit returns HTTP 429.
+sources:
+  - https://www.contentstack.com/docs/developers/apis/content-management-api
 headers:
   limit: X-RateLimit-Limit
   remaining: X-RateLimit-Remaining
-  reset: X-RateLimit-Reset
-  retryAfter: Retry-After
-  policy: RateLimit-Policy
 responseCodes:
   throttled: 429
-  quotaExceeded: 429
   serviceUnavailable: 503
 limits:
-  - tier: free
-    name: Free Tier Default
-    scope: api-key
-    metric: requests_per_minute
+  - name: Content Management API Reads
+    scope: organization
+    metric: requests_per_second
     limit: 10
-    burst: 20
+    timeFrame: second
+    notes: Default per-organization read (GET) request rate; configurable per plan.
+  - name: Content Management API Writes
+    scope: organization
+    metric: requests_per_second
+    limit: 10
+    timeFrame: second
+    notes: Default per-organization write (POST / PUT / DELETE) request rate; configurable per plan.
+  - name: Bulk Actions
+    scope: organization
+    metric: requests_per_second
+    limit: 1
+    timeFrame: second
+    notes: Bulk-action endpoints are rate-limited more aggressively than standard reads / writes.
+  - name: Stack Creation
+    scope: organization
+    metric: stacks_per_minute
+    limit: 1
     timeFrame: minute
-    applies:
-      - Contentstack Content Delivery API
-      - Contentstack Content Management API
-      - Contentstack GraphQL Content Delivery API
-      - Contentstack Image Delivery API
-      - Contentstack Personalize Management API
-      - Contentstack Personalize Edge API
-      - Contentstack Automate Management API
-      - Contentstack Analytics API
-      - Contentstack SCIM API
-      - Contentstack Brand Kit Management API
-      - Contentstack Knowledge Vault API
-      - Contentstack Generative AI API
-      - Contentstack Launch API
-  - tier: free
-    name: Free Tier Monthly Quota
-    scope: api-key
-    metric: requests_per_month
-    limit: 1000
-    timeFrame: month
-    applies:
-      - Contentstack Content Delivery API
-      - Contentstack Content Management API
-      - Contentstack GraphQL Content Delivery API
-      - Contentstack Image Delivery API
-      - Contentstack Personalize Management API
-      - Contentstack Personalize Edge API
-      - Contentstack Automate Management API
-      - Contentstack Analytics API
-      - Contentstack SCIM API
-      - Contentstack Brand Kit Management API
-      - Contentstack Knowledge Vault API
-      - Contentstack Generative AI API
-      - Contentstack Launch API
-  - tier: professional
-    name: Professional Tier Default
-    scope: api-key
-    metric: requests_per_minute
-    limit: 100
-    burst: 200
-    timeFrame: minute
-    applies:
-      - Contentstack Content Delivery API
-      - Contentstack Content Management API
-      - Contentstack GraphQL Content Delivery API
-      - Contentstack Image Delivery API
-      - Contentstack Personalize Management API
-      - Contentstack Personalize Edge API
-      - Contentstack Automate Management API
-      - Contentstack Analytics API
-      - Contentstack SCIM API
-      - Contentstack Brand Kit Management API
-      - Contentstack Knowledge Vault API
-      - Contentstack Generative AI API
-      - Contentstack Launch API
-  - tier: professional
-    name: Professional Tier Monthly Quota
-    scope: api-key
-    metric: requests_per_month
-    limit: 100000
-    timeFrame: month
-    applies:
-      - Contentstack Content Delivery API
-      - Contentstack Content Management API
-      - Contentstack GraphQL Content Delivery API
-      - Contentstack Image Delivery API
-      - Contentstack Personalize Management API
-      - Contentstack Personalize Edge API
-      - Contentstack Automate Management API
-      - Contentstack Analytics API
-      - Contentstack SCIM API
-      - Contentstack Brand Kit Management API
-      - Contentstack Knowledge Vault API
-      - Contentstack Generative AI API
-      - Contentstack Launch API
-  - tier: enterprise
-    name: Enterprise Negotiated Limit
-    scope: contract
-    metric: requests_per_minute
-    limit: 1000
-    burst: 5000
-    timeFrame: minute
-    applies:
-      - Contentstack Content Delivery API
-      - Contentstack Content Management API
-      - Contentstack GraphQL Content Delivery API
-      - Contentstack Image Delivery API
-      - Contentstack Personalize Management API
-      - Contentstack Personalize Edge API
-      - Contentstack Automate Management API
-      - Contentstack Analytics API
-      - Contentstack SCIM API
-      - Contentstack Brand Kit Management API
-      - Contentstack Knowledge Vault API
-      - Contentstack Generative AI API
-      - Contentstack Launch API
+    notes: Limit on how often a new stack can be created within an organization.
+  - name: Plan-Configurable Override
+    scope: organization
+    metric: requests_per_second
+    limit: 'configurable per plan via Contentstack support'
+    notes: Higher organizations can negotiate elevated limits through support.
 policies:
-  - name: Backoff Strategy
-    description: Clients should implement exponential backoff with jitter, honoring the Retry-After header
-      when present.
-  - name: Burst Handling
-    description: Short bursts above the steady-state limit are tolerated up to the documented burst ceiling
-      before throttling engages.
-  - name: Quota Reset
-    description: Monthly quotas reset at the start of each calendar month in UTC. Per-minute and per-second
-      windows reset on a sliding-window basis.
-  - name: Fair Use
-    description: Even on uncapped enterprise tiers, sustained usage that materially impacts shared infrastructure
-      may be subject to fair-use throttling.
-maintainers: []
+  - name: 429 Backoff
+    description: On 429, clients should back off exponentially with jitter and consult X-RateLimit-Remaining
+      to pace subsequent requests.
+  - name: Per-Organization Scope
+    description: Limits are enforced at the organization level, not per stack or per API key — coordinate
+      across teams sharing an org.
+  - name: Bulk vs Standard
+    description: Use bulk endpoints for large-scale operations; remember that bulk shares its own 1 req/s
+      ceiling separate from the 10 req/s read/write limit.
+  - name: Plan Negotiation
+    description: Organizations needing sustained higher throughput should negotiate elevated limits with
+      Contentstack support as part of plan configuration.
+maintainers:
+  - FN: Kin Lane
+    email: kin@apievangelist.com
