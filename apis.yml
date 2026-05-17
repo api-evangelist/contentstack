@@ -298,7 +298,7 @@ common:
   - url: json-schema/contentstack-webhook-payload-schema.json
     type: JSONSchema
   - url: json-ld/contentstack-context.jsonld
-    type: JSON-LD
+    type: JSONLD
   - url: vocabulary/contentstack-vocabulary.yml
     type: Vocabulary
   - url: rules/contentstack-rules.yml
