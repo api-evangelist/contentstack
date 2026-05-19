@@ -1,0 +1,80 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: Contentstack Analytics API — Usage Analytics
+  description: 'Contentstack Analytics API — Usage Analytics. 1 operations. Lead operation: Get usage analytics. Self-contained
+    Naftiko capability covering one Contentstack business surface.'
+  tags:
+  - Contentstack
+  - Usage Analytics
+  created: '2026-05-19'
+  modified: '2026-05-19'
+binds:
+- namespace: env
+  keys:
+    CONTENTSTACK_API_KEY: CONTENTSTACK_API_KEY
+capability:
+  consumes:
+  - type: http
+    namespace: analytics-usage-analytics
+    baseUri: https://api.contentstack.io
+    description: Contentstack Analytics API — Usage Analytics business capability. Self-contained, no shared references.
+    resources:
+    - name: analytics-v2-usage-analytics
+      path: /analytics/v2/usage-analytics
+      operations:
+      - name: getusageanalytics
+        method: POST
+        description: Get usage analytics
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+    authentication:
+      type: bearer
+      token: '{{env.CONTENTSTACK_API_KEY}}'
+  exposes:
+  - type: rest
+    namespace: analytics-usage-analytics-rest
+    port: 8080
+    description: REST adapter for Contentstack Analytics API — Usage Analytics. One Spectral-compliant resource per consumed
+      operation, prefixed with /v1.
+    resources:
+    - path: /v1/analytics/v2/usage-analytics
+      name: analytics-v2-usage-analytics
+      description: REST surface for analytics-v2-usage-analytics.
+      operations:
+      - method: POST
+        name: getusageanalytics
+        description: Get usage analytics
+        call: analytics-usage-analytics.getusageanalytics
+        with:
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    namespace: analytics-usage-analytics-mcp
+    port: 9090
+    transport: http
+    description: MCP adapter for Contentstack Analytics API — Usage Analytics. One tool per consumed operation, routed inline
+      through this capability's consumes block.
+    tools:
+    - name: get-usage-analytics
+      description: Get usage analytics
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: false
+      call: analytics-usage-analytics.getusageanalytics
+      with:
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.

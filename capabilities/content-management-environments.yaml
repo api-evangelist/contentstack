@@ -1,0 +1,72 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: Contentstack Content Management API — Environments
+  description: 'Contentstack Content Management API — Environments. 1 operations. Lead operation: Get all environments. Self-contained
+    Naftiko capability covering one Contentstack business surface.'
+  tags:
+  - Contentstack
+  - Environments
+  created: '2026-05-19'
+  modified: '2026-05-19'
+binds:
+- namespace: env
+  keys:
+    CONTENTSTACK_API_KEY: CONTENTSTACK_API_KEY
+capability:
+  consumes:
+  - type: http
+    namespace: content-management-environments
+    baseUri: https://api.contentstack.io/v3
+    description: Contentstack Content Management API — Environments business capability. Self-contained, no shared references.
+    resources:
+    - name: environments
+      path: /environments
+      operations:
+      - name: getallenvironments
+        method: GET
+        description: Get all environments
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    authentication:
+      type: apikey
+      key: authtoken
+      value: '{{env.CONTENTSTACK_API_KEY}}'
+      placement: header
+  exposes:
+  - type: rest
+    namespace: content-management-environments-rest
+    port: 8080
+    description: REST adapter for Contentstack Content Management API — Environments. One Spectral-compliant resource per
+      consumed operation, prefixed with /v1.
+    resources:
+    - path: /v1/environments
+      name: environments
+      description: REST surface for environments.
+      operations:
+      - method: GET
+        name: getallenvironments
+        description: Get all environments
+        call: content-management-environments.getallenvironments
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    namespace: content-management-environments-mcp
+    port: 9090
+    transport: http
+    description: MCP adapter for Contentstack Content Management API — Environments. One tool per consumed operation, routed
+      inline through this capability's consumes block.
+    tools:
+    - name: get-all-environments
+      description: Get all environments
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: content-management-environments.getallenvironments
+      outputParameters:
+      - type: object
+        mapping: $.

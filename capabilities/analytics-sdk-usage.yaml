@@ -1,0 +1,80 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: Contentstack Analytics API — SDK Usage
+  description: 'Contentstack Analytics API — SDK Usage. 1 operations. Lead operation: Get SDK usage metrics. Self-contained
+    Naftiko capability covering one Contentstack business surface.'
+  tags:
+  - Contentstack
+  - SDK Usage
+  created: '2026-05-19'
+  modified: '2026-05-19'
+binds:
+- namespace: env
+  keys:
+    CONTENTSTACK_API_KEY: CONTENTSTACK_API_KEY
+capability:
+  consumes:
+  - type: http
+    namespace: analytics-sdk-usage
+    baseUri: https://api.contentstack.io
+    description: Contentstack Analytics API — SDK Usage business capability. Self-contained, no shared references.
+    resources:
+    - name: analytics-v2-sdk-usage
+      path: /analytics/v2/sdk-usage
+      operations:
+      - name: getsdkusage
+        method: POST
+        description: Get SDK usage metrics
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+    authentication:
+      type: bearer
+      token: '{{env.CONTENTSTACK_API_KEY}}'
+  exposes:
+  - type: rest
+    namespace: analytics-sdk-usage-rest
+    port: 8080
+    description: REST adapter for Contentstack Analytics API — SDK Usage. One Spectral-compliant resource per consumed operation,
+      prefixed with /v1.
+    resources:
+    - path: /v1/analytics/v2/sdk-usage
+      name: analytics-v2-sdk-usage
+      description: REST surface for analytics-v2-sdk-usage.
+      operations:
+      - method: POST
+        name: getsdkusage
+        description: Get SDK usage metrics
+        call: analytics-sdk-usage.getsdkusage
+        with:
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    namespace: analytics-sdk-usage-mcp
+    port: 9090
+    transport: http
+    description: MCP adapter for Contentstack Analytics API — SDK Usage. One tool per consumed operation, routed inline through
+      this capability's consumes block.
+    tools:
+    - name: get-sdk-usage-metrics
+      description: Get SDK usage metrics
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: false
+      call: analytics-sdk-usage.getsdkusage
+      with:
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.

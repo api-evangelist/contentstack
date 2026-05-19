@@ -1,0 +1,172 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: Contentstack Personalize Management API — Audiences
+  description: 'Contentstack Personalize Management API — Audiences. 4 operations. Lead operation: Get all audiences. Self-contained
+    Naftiko capability covering one Contentstack business surface.'
+  tags:
+  - Contentstack
+  - Audiences
+  created: '2026-05-19'
+  modified: '2026-05-19'
+binds:
+- namespace: env
+  keys:
+    CONTENTSTACK_API_KEY: CONTENTSTACK_API_KEY
+capability:
+  consumes:
+  - type: http
+    namespace: personalize-management-audiences
+    baseUri: https://personalize-api.contentstack.com
+    description: Contentstack Personalize Management API — Audiences business capability. Self-contained, no shared references.
+    resources:
+    - name: audiences
+      path: /audiences
+      operations:
+      - name: getallaudiences
+        method: GET
+        description: Get all audiences
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+      - name: createaudience
+        method: POST
+        description: Create an audience
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+    - name: audiences-id
+      path: /audiences/{id}
+      operations:
+      - name: updateaudience
+        method: PUT
+        description: Update an audience
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+      - name: deleteaudience
+        method: DELETE
+        description: Delete an audience
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    authentication:
+      type: bearer
+      token: '{{env.CONTENTSTACK_API_KEY}}'
+  exposes:
+  - type: rest
+    namespace: personalize-management-audiences-rest
+    port: 8080
+    description: REST adapter for Contentstack Personalize Management API — Audiences. One Spectral-compliant resource per
+      consumed operation, prefixed with /v1.
+    resources:
+    - path: /v1/audiences
+      name: audiences
+      description: REST surface for audiences.
+      operations:
+      - method: GET
+        name: getallaudiences
+        description: Get all audiences
+        call: personalize-management-audiences.getallaudiences
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: POST
+        name: createaudience
+        description: Create an audience
+        call: personalize-management-audiences.createaudience
+        with:
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/audiences/{id}
+      name: audiences-id
+      description: REST surface for audiences-id.
+      operations:
+      - method: PUT
+        name: updateaudience
+        description: Update an audience
+        call: personalize-management-audiences.updateaudience
+        with:
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: DELETE
+        name: deleteaudience
+        description: Delete an audience
+        call: personalize-management-audiences.deleteaudience
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    namespace: personalize-management-audiences-mcp
+    port: 9090
+    transport: http
+    description: MCP adapter for Contentstack Personalize Management API — Audiences. One tool per consumed operation, routed
+      inline through this capability's consumes block.
+    tools:
+    - name: get-all-audiences
+      description: Get all audiences
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: personalize-management-audiences.getallaudiences
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: create-audience
+      description: Create an audience
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: personalize-management-audiences.createaudience
+      with:
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: update-audience
+      description: Update an audience
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: true
+      call: personalize-management-audiences.updateaudience
+      with:
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: delete-audience
+      description: Delete an audience
+      hints:
+        readOnly: false
+        destructive: true
+        idempotent: true
+      call: personalize-management-audiences.deleteaudience
+      outputParameters:
+      - type: object
+        mapping: $.

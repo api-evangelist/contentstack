@@ -1,0 +1,107 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: Contentstack Content Management API — Users
+  description: 'Contentstack Content Management API — Users. 2 operations. Lead operation: Get current user. Self-contained
+    Naftiko capability covering one Contentstack business surface.'
+  tags:
+  - Contentstack
+  - Users
+  created: '2026-05-19'
+  modified: '2026-05-19'
+binds:
+- namespace: env
+  keys:
+    CONTENTSTACK_API_KEY: CONTENTSTACK_API_KEY
+capability:
+  consumes:
+  - type: http
+    namespace: content-management-users
+    baseUri: https://api.contentstack.io/v3
+    description: Contentstack Content Management API — Users business capability. Self-contained, no shared references.
+    resources:
+    - name: user
+      path: /user
+      operations:
+      - name: getuser
+        method: GET
+        description: Get current user
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+      - name: updateuser
+        method: PUT
+        description: Update current user
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+    authentication:
+      type: apikey
+      key: authtoken
+      value: '{{env.CONTENTSTACK_API_KEY}}'
+      placement: header
+  exposes:
+  - type: rest
+    namespace: content-management-users-rest
+    port: 8080
+    description: REST adapter for Contentstack Content Management API — Users. One Spectral-compliant resource per consumed
+      operation, prefixed with /v1.
+    resources:
+    - path: /v1/user
+      name: user
+      description: REST surface for user.
+      operations:
+      - method: GET
+        name: getuser
+        description: Get current user
+        call: content-management-users.getuser
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: PUT
+        name: updateuser
+        description: Update current user
+        call: content-management-users.updateuser
+        with:
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    namespace: content-management-users-mcp
+    port: 9090
+    transport: http
+    description: MCP adapter for Contentstack Content Management API — Users. One tool per consumed operation, routed inline
+      through this capability's consumes block.
+    tools:
+    - name: get-current-user
+      description: Get current user
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: content-management-users.getuser
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: update-current-user
+      description: Update current user
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: true
+      call: content-management-users.updateuser
+      with:
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.

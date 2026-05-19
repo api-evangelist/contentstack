@@ -1,0 +1,107 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: Contentstack Content Management API — Assets
+  description: 'Contentstack Content Management API — Assets. 2 operations. Lead operation: Get all assets. Self-contained
+    Naftiko capability covering one Contentstack business surface.'
+  tags:
+  - Contentstack
+  - Assets
+  created: '2026-05-19'
+  modified: '2026-05-19'
+binds:
+- namespace: env
+  keys:
+    CONTENTSTACK_API_KEY: CONTENTSTACK_API_KEY
+capability:
+  consumes:
+  - type: http
+    namespace: content-management-assets
+    baseUri: https://api.contentstack.io/v3
+    description: Contentstack Content Management API — Assets business capability. Self-contained, no shared references.
+    resources:
+    - name: assets
+      path: /assets
+      operations:
+      - name: getallassets
+        method: GET
+        description: Get all assets
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+      - name: uploadasset
+        method: POST
+        description: Upload an asset
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+    authentication:
+      type: apikey
+      key: authtoken
+      value: '{{env.CONTENTSTACK_API_KEY}}'
+      placement: header
+  exposes:
+  - type: rest
+    namespace: content-management-assets-rest
+    port: 8080
+    description: REST adapter for Contentstack Content Management API — Assets. One Spectral-compliant resource per consumed
+      operation, prefixed with /v1.
+    resources:
+    - path: /v1/assets
+      name: assets
+      description: REST surface for assets.
+      operations:
+      - method: GET
+        name: getallassets
+        description: Get all assets
+        call: content-management-assets.getallassets
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: POST
+        name: uploadasset
+        description: Upload an asset
+        call: content-management-assets.uploadasset
+        with:
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    namespace: content-management-assets-mcp
+    port: 9090
+    transport: http
+    description: MCP adapter for Contentstack Content Management API — Assets. One tool per consumed operation, routed inline
+      through this capability's consumes block.
+    tools:
+    - name: get-all-assets
+      description: Get all assets
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: content-management-assets.getallassets
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: upload-asset
+      description: Upload an asset
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: content-management-assets.uploadasset
+      with:
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.

@@ -1,0 +1,80 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: Contentstack Analytics API — Status Code Analytics
+  description: 'Contentstack Analytics API — Status Code Analytics. 1 operations. Lead operation: Get HTTP status code metrics.
+    Self-contained Naftiko capability covering one Contentstack business surface.'
+  tags:
+  - Contentstack
+  - Status Code Analytics
+  created: '2026-05-19'
+  modified: '2026-05-19'
+binds:
+- namespace: env
+  keys:
+    CONTENTSTACK_API_KEY: CONTENTSTACK_API_KEY
+capability:
+  consumes:
+  - type: http
+    namespace: analytics-status-code-analytics
+    baseUri: https://api.contentstack.io
+    description: Contentstack Analytics API — Status Code Analytics business capability. Self-contained, no shared references.
+    resources:
+    - name: analytics-v2-status-code
+      path: /analytics/v2/status-code
+      operations:
+      - name: getstatuscodemetrics
+        method: POST
+        description: Get HTTP status code metrics
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+    authentication:
+      type: bearer
+      token: '{{env.CONTENTSTACK_API_KEY}}'
+  exposes:
+  - type: rest
+    namespace: analytics-status-code-analytics-rest
+    port: 8080
+    description: REST adapter for Contentstack Analytics API — Status Code Analytics. One Spectral-compliant resource per
+      consumed operation, prefixed with /v1.
+    resources:
+    - path: /v1/analytics/v2/status-code
+      name: analytics-v2-status-code
+      description: REST surface for analytics-v2-status-code.
+      operations:
+      - method: POST
+        name: getstatuscodemetrics
+        description: Get HTTP status code metrics
+        call: analytics-status-code-analytics.getstatuscodemetrics
+        with:
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    namespace: analytics-status-code-analytics-mcp
+    port: 9090
+    transport: http
+    description: MCP adapter for Contentstack Analytics API — Status Code Analytics. One tool per consumed operation, routed
+      inline through this capability's consumes block.
+    tools:
+    - name: get-http-status-code-metrics
+      description: Get HTTP status code metrics
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: false
+      call: analytics-status-code-analytics.getstatuscodemetrics
+      with:
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.

@@ -1,0 +1,239 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: Contentstack Launch API — Environments
+  description: 'Contentstack Launch API — Environments. 6 operations. Lead operation: Get all environments. Self-contained
+    Naftiko capability covering one Contentstack business surface.'
+  tags:
+  - Contentstack
+  - Environments
+  created: '2026-05-19'
+  modified: '2026-05-19'
+binds:
+- namespace: env
+  keys:
+    CONTENTSTACK_API_KEY: CONTENTSTACK_API_KEY
+capability:
+  consumes:
+  - type: http
+    namespace: launch-environments
+    baseUri: https://launch-api.contentstack.com
+    description: Contentstack Launch API — Environments business capability. Self-contained, no shared references.
+    resources:
+    - name: projects-project_uid-environments
+      path: /projects/{project_uid}/environments
+      operations:
+      - name: getallenvironments
+        method: GET
+        description: Get all environments
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+      - name: createenvironment
+        method: POST
+        description: Create an environment
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+    - name: projects-project_uid-environments-env_uid
+      path: /projects/{project_uid}/environments/{env_uid}
+      operations:
+      - name: getenvironment
+        method: GET
+        description: Get an environment
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+      - name: updateenvironment
+        method: PUT
+        description: Update an environment
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+      - name: deleteenvironment
+        method: DELETE
+        description: Delete an environment
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    - name: projects-project_uid-environments-env_uid-revalidate-cache
+      path: /projects/{project_uid}/environments/{env_uid}/revalidate-cache
+      operations:
+      - name: revalidatecache
+        method: POST
+        description: Revalidate CDN cache
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: false
+    authentication:
+      type: bearer
+      token: '{{env.CONTENTSTACK_API_KEY}}'
+  exposes:
+  - type: rest
+    namespace: launch-environments-rest
+    port: 8080
+    description: REST adapter for Contentstack Launch API — Environments. One Spectral-compliant resource per consumed operation,
+      prefixed with /v1.
+    resources:
+    - path: /v1/projects/{project-uid}/environments
+      name: projects-project-uid-environments
+      description: REST surface for projects-project_uid-environments.
+      operations:
+      - method: GET
+        name: getallenvironments
+        description: Get all environments
+        call: launch-environments.getallenvironments
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: POST
+        name: createenvironment
+        description: Create an environment
+        call: launch-environments.createenvironment
+        with:
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/projects/{project-uid}/environments/{env-uid}
+      name: projects-project-uid-environments-env-uid
+      description: REST surface for projects-project_uid-environments-env_uid.
+      operations:
+      - method: GET
+        name: getenvironment
+        description: Get an environment
+        call: launch-environments.getenvironment
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: PUT
+        name: updateenvironment
+        description: Update an environment
+        call: launch-environments.updateenvironment
+        with:
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: DELETE
+        name: deleteenvironment
+        description: Delete an environment
+        call: launch-environments.deleteenvironment
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/projects/{project-uid}/environments/{env-uid}/revalidate-cache
+      name: projects-project-uid-environments-env-uid-revalidate-cache
+      description: REST surface for projects-project_uid-environments-env_uid-revalidate-cache.
+      operations:
+      - method: POST
+        name: revalidatecache
+        description: Revalidate CDN cache
+        call: launch-environments.revalidatecache
+        with:
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    namespace: launch-environments-mcp
+    port: 9090
+    transport: http
+    description: MCP adapter for Contentstack Launch API — Environments. One tool per consumed operation, routed inline through
+      this capability's consumes block.
+    tools:
+    - name: get-all-environments
+      description: Get all environments
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: launch-environments.getallenvironments
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: create-environment
+      description: Create an environment
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: launch-environments.createenvironment
+      with:
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: get-environment
+      description: Get an environment
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: launch-environments.getenvironment
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: update-environment
+      description: Update an environment
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: true
+      call: launch-environments.updateenvironment
+      with:
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: delete-environment
+      description: Delete an environment
+      hints:
+        readOnly: false
+        destructive: true
+        idempotent: true
+      call: launch-environments.deleteenvironment
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: revalidate-cdn-cache
+      description: Revalidate CDN cache
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: false
+      call: launch-environments.revalidatecache
+      with:
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.

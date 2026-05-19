@@ -1,0 +1,70 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: Contentstack Automate Management API — Accounts
+  description: 'Contentstack Automate Management API — Accounts. 1 operations. Lead operation: Get all accounts. Self-contained
+    Naftiko capability covering one Contentstack business surface.'
+  tags:
+  - Contentstack
+  - Accounts
+  created: '2026-05-19'
+  modified: '2026-05-19'
+binds:
+- namespace: env
+  keys:
+    CONTENTSTACK_API_KEY: CONTENTSTACK_API_KEY
+capability:
+  consumes:
+  - type: http
+    namespace: automate-management-accounts
+    baseUri: https://automations-api.contentstack.com
+    description: Contentstack Automate Management API — Accounts business capability. Self-contained, no shared references.
+    resources:
+    - name: v1-organizations-organization_uid-projects-project_uid-accounts
+      path: /v1/organizations/{organization_uid}/projects/{project_uid}/accounts
+      operations:
+      - name: getallaccounts
+        method: GET
+        description: Get all accounts
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    authentication:
+      type: bearer
+      token: '{{env.CONTENTSTACK_API_KEY}}'
+  exposes:
+  - type: rest
+    namespace: automate-management-accounts-rest
+    port: 8080
+    description: REST adapter for Contentstack Automate Management API — Accounts. One Spectral-compliant resource per consumed
+      operation, prefixed with /v1.
+    resources:
+    - path: /v1/v1/organizations/{organization-uid}/projects/{project-uid}/accounts
+      name: v1-organizations-organization-uid-projects-project-uid-accounts
+      description: REST surface for v1-organizations-organization_uid-projects-project_uid-accounts.
+      operations:
+      - method: GET
+        name: getallaccounts
+        description: Get all accounts
+        call: automate-management-accounts.getallaccounts
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    namespace: automate-management-accounts-mcp
+    port: 9090
+    transport: http
+    description: MCP adapter for Contentstack Automate Management API — Accounts. One tool per consumed operation, routed
+      inline through this capability's consumes block.
+    tools:
+    - name: get-all-accounts
+      description: Get all accounts
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: automate-management-accounts.getallaccounts
+      outputParameters:
+      - type: object
+        mapping: $.

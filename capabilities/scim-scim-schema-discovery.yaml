@@ -1,0 +1,102 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: Contentstack SCIM API — SCIM Schema Discovery
+  description: 'Contentstack SCIM API — SCIM Schema Discovery. 2 operations. Lead operation: Get SCIM resource types. Self-contained
+    Naftiko capability covering one Contentstack business surface.'
+  tags:
+  - Contentstack
+  - SCIM Schema Discovery
+  created: '2026-05-19'
+  modified: '2026-05-19'
+binds:
+- namespace: env
+  keys:
+    CONTENTSTACK_API_KEY: CONTENTSTACK_API_KEY
+capability:
+  consumes:
+  - type: http
+    namespace: scim-scim-schema-discovery
+    baseUri: https://auth-api.contentstack.com
+    description: Contentstack SCIM API — SCIM Schema Discovery business capability. Self-contained, no shared references.
+    resources:
+    - name: scim-v2.0-ResourceTypes
+      path: /scim/v2.0/ResourceTypes
+      operations:
+      - name: getscimresourcetypes
+        method: GET
+        description: Get SCIM resource types
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    - name: scim-v2.0-Schemas
+      path: /scim/v2.0/Schemas
+      operations:
+      - name: getscimschemas
+        method: GET
+        description: Get SCIM schemas
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    authentication:
+      type: bearer
+      token: '{{env.CONTENTSTACK_API_KEY}}'
+  exposes:
+  - type: rest
+    namespace: scim-scim-schema-discovery-rest
+    port: 8080
+    description: REST adapter for Contentstack SCIM API — SCIM Schema Discovery. One Spectral-compliant resource per consumed
+      operation, prefixed with /v1.
+    resources:
+    - path: /v1/scim/v2-0/resourcetypes
+      name: scim-v2-0-resourcetypes
+      description: REST surface for scim-v2.0-ResourceTypes.
+      operations:
+      - method: GET
+        name: getscimresourcetypes
+        description: Get SCIM resource types
+        call: scim-scim-schema-discovery.getscimresourcetypes
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/scim/v2-0/schemas
+      name: scim-v2-0-schemas
+      description: REST surface for scim-v2.0-Schemas.
+      operations:
+      - method: GET
+        name: getscimschemas
+        description: Get SCIM schemas
+        call: scim-scim-schema-discovery.getscimschemas
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    namespace: scim-scim-schema-discovery-mcp
+    port: 9090
+    transport: http
+    description: MCP adapter for Contentstack SCIM API — SCIM Schema Discovery. One tool per consumed operation, routed inline
+      through this capability's consumes block.
+    tools:
+    - name: get-scim-resource-types
+      description: Get SCIM resource types
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: scim-scim-schema-discovery.getscimresourcetypes
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: get-scim-schemas
+      description: Get SCIM schemas
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: scim-scim-schema-discovery.getscimschemas
+      outputParameters:
+      - type: object
+        mapping: $.

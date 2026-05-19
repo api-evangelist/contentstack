@@ -1,0 +1,80 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: Contentstack Generative AI API — Generative AI
+  description: 'Contentstack Generative AI API — Generative AI. 1 operations. Lead operation: Generate AI content. Self-contained
+    Naftiko capability covering one Contentstack business surface.'
+  tags:
+  - Contentstack
+  - Generative AI
+  created: '2026-05-19'
+  modified: '2026-05-19'
+binds:
+- namespace: env
+  keys:
+    CONTENTSTACK_API_KEY: CONTENTSTACK_API_KEY
+capability:
+  consumes:
+  - type: http
+    namespace: generative-ai-generative-ai
+    baseUri: https://ai.contentstack.com/brand-kits
+    description: Contentstack Generative AI API — Generative AI business capability. Self-contained, no shared references.
+    resources:
+    - name: v1-genai
+      path: /v1/genai/
+      operations:
+      - name: generatecontent
+        method: POST
+        description: Generate AI content
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+    authentication:
+      type: bearer
+      token: '{{env.CONTENTSTACK_API_KEY}}'
+  exposes:
+  - type: rest
+    namespace: generative-ai-generative-ai-rest
+    port: 8080
+    description: REST adapter for Contentstack Generative AI API — Generative AI. One Spectral-compliant resource per consumed
+      operation, prefixed with /v1.
+    resources:
+    - path: /v1/v1/genai
+      name: v1-genai
+      description: REST surface for v1-genai.
+      operations:
+      - method: POST
+        name: generatecontent
+        description: Generate AI content
+        call: generative-ai-generative-ai.generatecontent
+        with:
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    namespace: generative-ai-generative-ai-mcp
+    port: 9090
+    transport: http
+    description: MCP adapter for Contentstack Generative AI API — Generative AI. One tool per consumed operation, routed inline
+      through this capability's consumes block.
+    tools:
+    - name: generate-ai-content
+      description: Generate AI content
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: generative-ai-generative-ai.generatecontent
+      with:
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.

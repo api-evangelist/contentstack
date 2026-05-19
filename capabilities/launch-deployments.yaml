@@ -1,0 +1,201 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: Contentstack Launch API — Deployments
+  description: 'Contentstack Launch API — Deployments. 5 operations. Lead operation: Get all deployments. Self-contained Naftiko
+    capability covering one Contentstack business surface.'
+  tags:
+  - Contentstack
+  - Deployments
+  created: '2026-05-19'
+  modified: '2026-05-19'
+binds:
+- namespace: env
+  keys:
+    CONTENTSTACK_API_KEY: CONTENTSTACK_API_KEY
+capability:
+  consumes:
+  - type: http
+    namespace: launch-deployments
+    baseUri: https://launch-api.contentstack.com
+    description: Contentstack Launch API — Deployments business capability. Self-contained, no shared references.
+    resources:
+    - name: projects-project_uid-environments-env_uid-deployments
+      path: /projects/{project_uid}/environments/{env_uid}/deployments
+      operations:
+      - name: getalldeployments
+        method: GET
+        description: Get all deployments
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+      - name: createdeployment
+        method: POST
+        description: Create a deployment
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+    - name: projects-project_uid-environments-env_uid-deployments-deploy_uid
+      path: /projects/{project_uid}/environments/{env_uid}/deployments/{deploy_uid}
+      operations:
+      - name: getdeployment
+        method: GET
+        description: Get a deployment
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    - name: projects-project_uid-environments-env_uid-deployments-deploy_uid-logs
+      path: /projects/{project_uid}/environments/{env_uid}/deployments/{deploy_uid}/logs
+      operations:
+      - name: getdeploymentlogs
+        method: GET
+        description: Get deployment logs
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    - name: projects-project_uid-environments-env_uid-deployments-deploy_uid-server-logs
+      path: /projects/{project_uid}/environments/{env_uid}/deployments/{deploy_uid}/server-logs
+      operations:
+      - name: getserverlogs
+        method: GET
+        description: Get server logs
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    authentication:
+      type: bearer
+      token: '{{env.CONTENTSTACK_API_KEY}}'
+  exposes:
+  - type: rest
+    namespace: launch-deployments-rest
+    port: 8080
+    description: REST adapter for Contentstack Launch API — Deployments. One Spectral-compliant resource per consumed operation,
+      prefixed with /v1.
+    resources:
+    - path: /v1/projects/{project-uid}/environments/{env-uid}/deployments
+      name: projects-project-uid-environments-env-uid-deployments
+      description: REST surface for projects-project_uid-environments-env_uid-deployments.
+      operations:
+      - method: GET
+        name: getalldeployments
+        description: Get all deployments
+        call: launch-deployments.getalldeployments
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: POST
+        name: createdeployment
+        description: Create a deployment
+        call: launch-deployments.createdeployment
+        with:
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/projects/{project-uid}/environments/{env-uid}/deployments/{deploy-uid}
+      name: projects-project-uid-environments-env-uid-deployments-deploy-uid
+      description: REST surface for projects-project_uid-environments-env_uid-deployments-deploy_uid.
+      operations:
+      - method: GET
+        name: getdeployment
+        description: Get a deployment
+        call: launch-deployments.getdeployment
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/projects/{project-uid}/environments/{env-uid}/deployments/{deploy-uid}/logs
+      name: projects-project-uid-environments-env-uid-deployments-deploy-uid-logs
+      description: REST surface for projects-project_uid-environments-env_uid-deployments-deploy_uid-logs.
+      operations:
+      - method: GET
+        name: getdeploymentlogs
+        description: Get deployment logs
+        call: launch-deployments.getdeploymentlogs
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/projects/{project-uid}/environments/{env-uid}/deployments/{deploy-uid}/server-logs
+      name: projects-project-uid-environments-env-uid-deployments-deploy-uid-server-logs
+      description: REST surface for projects-project_uid-environments-env_uid-deployments-deploy_uid-server-logs.
+      operations:
+      - method: GET
+        name: getserverlogs
+        description: Get server logs
+        call: launch-deployments.getserverlogs
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    namespace: launch-deployments-mcp
+    port: 9090
+    transport: http
+    description: MCP adapter for Contentstack Launch API — Deployments. One tool per consumed operation, routed inline through
+      this capability's consumes block.
+    tools:
+    - name: get-all-deployments
+      description: Get all deployments
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: launch-deployments.getalldeployments
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: create-deployment
+      description: Create a deployment
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: launch-deployments.createdeployment
+      with:
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: get-deployment
+      description: Get a deployment
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: launch-deployments.getdeployment
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: get-deployment-logs
+      description: Get deployment logs
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: launch-deployments.getdeploymentlogs
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: get-server-logs
+      description: Get server logs
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: launch-deployments.getserverlogs
+      outputParameters:
+      - type: object
+        mapping: $.

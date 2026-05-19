@@ -1,0 +1,80 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: Contentstack Analytics API — Subscription Usage
+  description: 'Contentstack Analytics API — Subscription Usage. 1 operations. Lead operation: Get subscription usage metrics.
+    Self-contained Naftiko capability covering one Contentstack business surface.'
+  tags:
+  - Contentstack
+  - Subscription Usage
+  created: '2026-05-19'
+  modified: '2026-05-19'
+binds:
+- namespace: env
+  keys:
+    CONTENTSTACK_API_KEY: CONTENTSTACK_API_KEY
+capability:
+  consumes:
+  - type: http
+    namespace: analytics-subscription-usage
+    baseUri: https://api.contentstack.io
+    description: Contentstack Analytics API — Subscription Usage business capability. Self-contained, no shared references.
+    resources:
+    - name: analytics-v2-subscription-usage
+      path: /analytics/v2/subscription-usage
+      operations:
+      - name: getsubscriptionusage
+        method: POST
+        description: Get subscription usage metrics
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+    authentication:
+      type: bearer
+      token: '{{env.CONTENTSTACK_API_KEY}}'
+  exposes:
+  - type: rest
+    namespace: analytics-subscription-usage-rest
+    port: 8080
+    description: REST adapter for Contentstack Analytics API — Subscription Usage. One Spectral-compliant resource per consumed
+      operation, prefixed with /v1.
+    resources:
+    - path: /v1/analytics/v2/subscription-usage
+      name: analytics-v2-subscription-usage
+      description: REST surface for analytics-v2-subscription-usage.
+      operations:
+      - method: POST
+        name: getsubscriptionusage
+        description: Get subscription usage metrics
+        call: analytics-subscription-usage.getsubscriptionusage
+        with:
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    namespace: analytics-subscription-usage-mcp
+    port: 9090
+    transport: http
+    description: MCP adapter for Contentstack Analytics API — Subscription Usage. One tool per consumed operation, routed
+      inline through this capability's consumes block.
+    tools:
+    - name: get-subscription-usage-metrics
+      description: Get subscription usage metrics
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: false
+      call: analytics-subscription-usage.getsubscriptionusage
+      with:
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.

@@ -1,0 +1,241 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: Contentstack SCIM API — SCIM Groups
+  description: 'Contentstack SCIM API — SCIM Groups. 6 operations. Lead operation: List SCIM groups. Self-contained Naftiko
+    capability covering one Contentstack business surface.'
+  tags:
+  - Contentstack
+  - SCIM Groups
+  created: '2026-05-19'
+  modified: '2026-05-19'
+binds:
+- namespace: env
+  keys:
+    CONTENTSTACK_API_KEY: CONTENTSTACK_API_KEY
+capability:
+  consumes:
+  - type: http
+    namespace: scim-scim-groups
+    baseUri: https://auth-api.contentstack.com
+    description: Contentstack SCIM API — SCIM Groups business capability. Self-contained, no shared references.
+    resources:
+    - name: scim-v2.0-organizations-organization_uid-Groups
+      path: /scim/v2.0/organizations/{organization_uid}/Groups
+      operations:
+      - name: listscimgroups
+        method: GET
+        description: List SCIM groups
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: filter
+          in: query
+          type: string
+          description: 'SCIM filter expression for searching groups. Example: displayName eq "Editors"'
+      - name: createscimgroup
+        method: POST
+        description: Create a SCIM group
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+    - name: scim-v2.0-organizations-organization_uid-Groups-group_id
+      path: /scim/v2.0/organizations/{organization_uid}/Groups/{group_id}
+      operations:
+      - name: getscimgroup
+        method: GET
+        description: Get a SCIM group
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+      - name: replacescimgroup
+        method: PUT
+        description: Replace a SCIM group
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+      - name: updatescimgroup
+        method: PATCH
+        description: Update a SCIM group
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+      - name: deletescimgroup
+        method: DELETE
+        description: Delete a SCIM group
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    authentication:
+      type: bearer
+      token: '{{env.CONTENTSTACK_API_KEY}}'
+  exposes:
+  - type: rest
+    namespace: scim-scim-groups-rest
+    port: 8080
+    description: REST adapter for Contentstack SCIM API — SCIM Groups. One Spectral-compliant resource per consumed operation,
+      prefixed with /v1.
+    resources:
+    - path: /v1/scim/v2-0/organizations/{organization-uid}/groups
+      name: scim-v2-0-organizations-organization-uid-groups
+      description: REST surface for scim-v2.0-organizations-organization_uid-Groups.
+      operations:
+      - method: GET
+        name: listscimgroups
+        description: List SCIM groups
+        call: scim-scim-groups.listscimgroups
+        with:
+          filter: rest.filter
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: POST
+        name: createscimgroup
+        description: Create a SCIM group
+        call: scim-scim-groups.createscimgroup
+        with:
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/scim/v2-0/organizations/{organization-uid}/groups/{group-id}
+      name: scim-v2-0-organizations-organization-uid-groups-group-id
+      description: REST surface for scim-v2.0-organizations-organization_uid-Groups-group_id.
+      operations:
+      - method: GET
+        name: getscimgroup
+        description: Get a SCIM group
+        call: scim-scim-groups.getscimgroup
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: PUT
+        name: replacescimgroup
+        description: Replace a SCIM group
+        call: scim-scim-groups.replacescimgroup
+        with:
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: PATCH
+        name: updatescimgroup
+        description: Update a SCIM group
+        call: scim-scim-groups.updatescimgroup
+        with:
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: DELETE
+        name: deletescimgroup
+        description: Delete a SCIM group
+        call: scim-scim-groups.deletescimgroup
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    namespace: scim-scim-groups-mcp
+    port: 9090
+    transport: http
+    description: MCP adapter for Contentstack SCIM API — SCIM Groups. One tool per consumed operation, routed inline through
+      this capability's consumes block.
+    tools:
+    - name: list-scim-groups
+      description: List SCIM groups
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: scim-scim-groups.listscimgroups
+      with:
+        filter: tools.filter
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: create-scim-group
+      description: Create a SCIM group
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: scim-scim-groups.createscimgroup
+      with:
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: get-scim-group
+      description: Get a SCIM group
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: scim-scim-groups.getscimgroup
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: replace-scim-group
+      description: Replace a SCIM group
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: true
+      call: scim-scim-groups.replacescimgroup
+      with:
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: update-scim-group
+      description: Update a SCIM group
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: true
+      call: scim-scim-groups.updatescimgroup
+      with:
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: delete-scim-group
+      description: Delete a SCIM group
+      hints:
+        readOnly: false
+        destructive: true
+        idempotent: true
+      call: scim-scim-groups.deletescimgroup
+      outputParameters:
+      - type: object
+        mapping: $.

@@ -1,0 +1,107 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: Contentstack Content Management API — User Sessions
+  description: 'Contentstack Content Management API — User Sessions. 2 operations. Lead operation: Log in a user. Self-contained
+    Naftiko capability covering one Contentstack business surface.'
+  tags:
+  - Contentstack
+  - User Sessions
+  created: '2026-05-19'
+  modified: '2026-05-19'
+binds:
+- namespace: env
+  keys:
+    CONTENTSTACK_API_KEY: CONTENTSTACK_API_KEY
+capability:
+  consumes:
+  - type: http
+    namespace: content-management-user-sessions
+    baseUri: https://api.contentstack.io/v3
+    description: Contentstack Content Management API — User Sessions business capability. Self-contained, no shared references.
+    resources:
+    - name: user-session
+      path: /user-session
+      operations:
+      - name: loginuser
+        method: POST
+        description: Log in a user
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+      - name: logoutuser
+        method: DELETE
+        description: Log out a user
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    authentication:
+      type: apikey
+      key: authtoken
+      value: '{{env.CONTENTSTACK_API_KEY}}'
+      placement: header
+  exposes:
+  - type: rest
+    namespace: content-management-user-sessions-rest
+    port: 8080
+    description: REST adapter for Contentstack Content Management API — User Sessions. One Spectral-compliant resource per
+      consumed operation, prefixed with /v1.
+    resources:
+    - path: /v1/user-session
+      name: user-session
+      description: REST surface for user-session.
+      operations:
+      - method: POST
+        name: loginuser
+        description: Log in a user
+        call: content-management-user-sessions.loginuser
+        with:
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: DELETE
+        name: logoutuser
+        description: Log out a user
+        call: content-management-user-sessions.logoutuser
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    namespace: content-management-user-sessions-mcp
+    port: 9090
+    transport: http
+    description: MCP adapter for Contentstack Content Management API — User Sessions. One tool per consumed operation, routed
+      inline through this capability's consumes block.
+    tools:
+    - name: log-user
+      description: Log in a user
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: content-management-user-sessions.loginuser
+      with:
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: log-out-user
+      description: Log out a user
+      hints:
+        readOnly: false
+        destructive: true
+        idempotent: true
+      call: content-management-user-sessions.logoutuser
+      outputParameters:
+      - type: object
+        mapping: $.

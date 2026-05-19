@@ -1,0 +1,216 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: Contentstack SCIM API — SCIM Users
+  description: 'Contentstack SCIM API — SCIM Users. 5 operations. Lead operation: List SCIM users. Self-contained Naftiko
+    capability covering one Contentstack business surface.'
+  tags:
+  - Contentstack
+  - SCIM Users
+  created: '2026-05-19'
+  modified: '2026-05-19'
+binds:
+- namespace: env
+  keys:
+    CONTENTSTACK_API_KEY: CONTENTSTACK_API_KEY
+capability:
+  consumes:
+  - type: http
+    namespace: scim-scim-users
+    baseUri: https://auth-api.contentstack.com
+    description: Contentstack SCIM API — SCIM Users business capability. Self-contained, no shared references.
+    resources:
+    - name: scim-v2.0-organizations-organization_uid-Users
+      path: /scim/v2.0/organizations/{organization_uid}/Users
+      operations:
+      - name: listscimusers
+        method: GET
+        description: List SCIM users
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: filter
+          in: query
+          type: string
+          description: 'SCIM filter expression for searching users. Example: userName eq "user@example.com"'
+      - name: createscimuser
+        method: POST
+        description: Create a SCIM user
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+    - name: scim-v2.0-organizations-organization_uid-Users-user_id
+      path: /scim/v2.0/organizations/{organization_uid}/Users/{user_id}
+      operations:
+      - name: getscimuser
+        method: GET
+        description: Get a SCIM user
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+      - name: replacescimuser
+        method: PUT
+        description: Replace a SCIM user
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+      - name: updatescimuser
+        method: PATCH
+        description: Update a SCIM user
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+    authentication:
+      type: bearer
+      token: '{{env.CONTENTSTACK_API_KEY}}'
+  exposes:
+  - type: rest
+    namespace: scim-scim-users-rest
+    port: 8080
+    description: REST adapter for Contentstack SCIM API — SCIM Users. One Spectral-compliant resource per consumed operation,
+      prefixed with /v1.
+    resources:
+    - path: /v1/scim/v2-0/organizations/{organization-uid}/users
+      name: scim-v2-0-organizations-organization-uid-users
+      description: REST surface for scim-v2.0-organizations-organization_uid-Users.
+      operations:
+      - method: GET
+        name: listscimusers
+        description: List SCIM users
+        call: scim-scim-users.listscimusers
+        with:
+          filter: rest.filter
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: POST
+        name: createscimuser
+        description: Create a SCIM user
+        call: scim-scim-users.createscimuser
+        with:
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/scim/v2-0/organizations/{organization-uid}/users/{user-id}
+      name: scim-v2-0-organizations-organization-uid-users-user-id
+      description: REST surface for scim-v2.0-organizations-organization_uid-Users-user_id.
+      operations:
+      - method: GET
+        name: getscimuser
+        description: Get a SCIM user
+        call: scim-scim-users.getscimuser
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: PUT
+        name: replacescimuser
+        description: Replace a SCIM user
+        call: scim-scim-users.replacescimuser
+        with:
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: PATCH
+        name: updatescimuser
+        description: Update a SCIM user
+        call: scim-scim-users.updatescimuser
+        with:
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    namespace: scim-scim-users-mcp
+    port: 9090
+    transport: http
+    description: MCP adapter for Contentstack SCIM API — SCIM Users. One tool per consumed operation, routed inline through
+      this capability's consumes block.
+    tools:
+    - name: list-scim-users
+      description: List SCIM users
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: scim-scim-users.listscimusers
+      with:
+        filter: tools.filter
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: create-scim-user
+      description: Create a SCIM user
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: scim-scim-users.createscimuser
+      with:
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: get-scim-user
+      description: Get a SCIM user
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: scim-scim-users.getscimuser
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: replace-scim-user
+      description: Replace a SCIM user
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: true
+      call: scim-scim-users.replacescimuser
+      with:
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: update-scim-user
+      description: Update a SCIM user
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: true
+      call: scim-scim-users.updatescimuser
+      with:
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.

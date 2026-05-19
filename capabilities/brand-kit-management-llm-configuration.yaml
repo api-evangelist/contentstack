@@ -1,0 +1,106 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: Contentstack Brand Kit Management API — LLM Configuration
+  description: 'Contentstack Brand Kit Management API — LLM Configuration. 2 operations. Lead operation: Get LLM configuration.
+    Self-contained Naftiko capability covering one Contentstack business surface.'
+  tags:
+  - Contentstack
+  - LLM Configuration
+  created: '2026-05-19'
+  modified: '2026-05-19'
+binds:
+- namespace: env
+  keys:
+    CONTENTSTACK_API_KEY: CONTENTSTACK_API_KEY
+capability:
+  consumes:
+  - type: http
+    namespace: brand-kit-management-llm-configuration
+    baseUri: https://brand-kits-api.contentstack.com
+    description: Contentstack Brand Kit Management API — LLM Configuration business capability. Self-contained, no shared
+      references.
+    resources:
+    - name: v1-brand-kits-brand_kit_uid-llm-config
+      path: /v1/brand-kits/{brand_kit_uid}/llm-config
+      operations:
+      - name: getllmconfig
+        method: GET
+        description: Get LLM configuration
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+      - name: configurellm
+        method: POST
+        description: Configure custom LLM credentials
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+    authentication:
+      type: bearer
+      token: '{{env.CONTENTSTACK_API_KEY}}'
+  exposes:
+  - type: rest
+    namespace: brand-kit-management-llm-configuration-rest
+    port: 8080
+    description: REST adapter for Contentstack Brand Kit Management API — LLM Configuration. One Spectral-compliant resource
+      per consumed operation, prefixed with /v1.
+    resources:
+    - path: /v1/v1/brand-kits/{brand-kit-uid}/llm-config
+      name: v1-brand-kits-brand-kit-uid-llm-config
+      description: REST surface for v1-brand-kits-brand_kit_uid-llm-config.
+      operations:
+      - method: GET
+        name: getllmconfig
+        description: Get LLM configuration
+        call: brand-kit-management-llm-configuration.getllmconfig
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: POST
+        name: configurellm
+        description: Configure custom LLM credentials
+        call: brand-kit-management-llm-configuration.configurellm
+        with:
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    namespace: brand-kit-management-llm-configuration-mcp
+    port: 9090
+    transport: http
+    description: MCP adapter for Contentstack Brand Kit Management API — LLM Configuration. One tool per consumed operation,
+      routed inline through this capability's consumes block.
+    tools:
+    - name: get-llm-configuration
+      description: Get LLM configuration
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: brand-kit-management-llm-configuration.getllmconfig
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: configure-custom-llm-credentials
+      description: Configure custom LLM credentials
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: brand-kit-management-llm-configuration.configurellm
+      with:
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.

@@ -1,0 +1,172 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: Contentstack Personalize Management API — Attributes
+  description: 'Contentstack Personalize Management API — Attributes. 4 operations. Lead operation: Get all attributes. Self-contained
+    Naftiko capability covering one Contentstack business surface.'
+  tags:
+  - Contentstack
+  - Attributes
+  created: '2026-05-19'
+  modified: '2026-05-19'
+binds:
+- namespace: env
+  keys:
+    CONTENTSTACK_API_KEY: CONTENTSTACK_API_KEY
+capability:
+  consumes:
+  - type: http
+    namespace: personalize-management-attributes
+    baseUri: https://personalize-api.contentstack.com
+    description: Contentstack Personalize Management API — Attributes business capability. Self-contained, no shared references.
+    resources:
+    - name: attributes
+      path: /attributes
+      operations:
+      - name: getallattributes
+        method: GET
+        description: Get all attributes
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+      - name: createattribute
+        method: POST
+        description: Create an attribute
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+    - name: attributes-id
+      path: /attributes/{id}
+      operations:
+      - name: updateattribute
+        method: PUT
+        description: Update an attribute
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+      - name: deleteattribute
+        method: DELETE
+        description: Delete an attribute
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    authentication:
+      type: bearer
+      token: '{{env.CONTENTSTACK_API_KEY}}'
+  exposes:
+  - type: rest
+    namespace: personalize-management-attributes-rest
+    port: 8080
+    description: REST adapter for Contentstack Personalize Management API — Attributes. One Spectral-compliant resource per
+      consumed operation, prefixed with /v1.
+    resources:
+    - path: /v1/attributes
+      name: attributes
+      description: REST surface for attributes.
+      operations:
+      - method: GET
+        name: getallattributes
+        description: Get all attributes
+        call: personalize-management-attributes.getallattributes
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: POST
+        name: createattribute
+        description: Create an attribute
+        call: personalize-management-attributes.createattribute
+        with:
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/attributes/{id}
+      name: attributes-id
+      description: REST surface for attributes-id.
+      operations:
+      - method: PUT
+        name: updateattribute
+        description: Update an attribute
+        call: personalize-management-attributes.updateattribute
+        with:
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: DELETE
+        name: deleteattribute
+        description: Delete an attribute
+        call: personalize-management-attributes.deleteattribute
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    namespace: personalize-management-attributes-mcp
+    port: 9090
+    transport: http
+    description: MCP adapter for Contentstack Personalize Management API — Attributes. One tool per consumed operation, routed
+      inline through this capability's consumes block.
+    tools:
+    - name: get-all-attributes
+      description: Get all attributes
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: personalize-management-attributes.getallattributes
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: create-attribute
+      description: Create an attribute
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: personalize-management-attributes.createattribute
+      with:
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: update-attribute
+      description: Update an attribute
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: true
+      call: personalize-management-attributes.updateattribute
+      with:
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: delete-attribute
+      description: Delete an attribute
+      hints:
+        readOnly: false
+        destructive: true
+        idempotent: true
+      call: personalize-management-attributes.deleteattribute
+      outputParameters:
+      - type: object
+        mapping: $.
