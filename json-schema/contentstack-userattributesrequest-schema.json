@@ -1,0 +1,10 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/UserAttributesRequest",
+  "title": "UserAttributesRequest",
+  "type": "object",
+  "description": "Key-value pairs of user attribute values to set or update. Keys must correspond to attribute keys defined in the Personalize Management API.",
+  "additionalProperties": {
+    "description": "Attribute value. Type must match the attribute's defined data type."
+  }
+}

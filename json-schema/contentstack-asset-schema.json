@@ -1,0 +1,44 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/Asset",
+  "title": "Asset",
+  "type": "object",
+  "description": "A media asset stored in the Contentstack asset library.",
+  "properties": {
+    "uid": {
+      "type": "string",
+      "description": "Unique identifier of the asset."
+    },
+    "title": {
+      "type": "string",
+      "description": "Display name of the asset."
+    },
+    "url": {
+      "type": "string",
+      "format": "uri",
+      "description": "CDN URL to access the asset file."
+    },
+    "filename": {
+      "type": "string",
+      "description": "Original file name of the uploaded asset."
+    },
+    "content_type": {
+      "type": "string",
+      "description": "MIME type of the asset file."
+    },
+    "file_size": {
+      "type": "string",
+      "description": "File size of the asset in bytes."
+    },
+    "created_at": {
+      "type": "string",
+      "format": "date-time",
+      "description": "ISO 8601 timestamp when the asset was created."
+    },
+    "updated_at": {
+      "type": "string",
+      "format": "date-time",
+      "description": "ISO 8601 timestamp when the asset was last updated."
+    }
+  }
+}

@@ -1,0 +1,27 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/CacheUsage",
+  "title": "CacheUsage",
+  "type": "object",
+  "description": "Cache revalidation usage metrics for the organization.",
+  "properties": {
+    "used": {
+      "type": "integer",
+      "description": "Number of cache revalidation requests used in the current period."
+    },
+    "limit": {
+      "type": "integer",
+      "description": "Maximum number of cache revalidation requests allowed per period."
+    },
+    "period_start": {
+      "type": "string",
+      "format": "date-time",
+      "description": "Start of the current usage period."
+    },
+    "period_end": {
+      "type": "string",
+      "format": "date-time",
+      "description": "End of the current usage period."
+    }
+  }
+}

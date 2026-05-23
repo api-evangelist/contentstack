@@ -1,0 +1,30 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/Audience",
+  "title": "Audience",
+  "type": "object",
+  "description": "An audience segment based on attribute rules and user behaviors.",
+  "properties": {
+    "uid": {
+      "type": "string",
+      "description": "Unique identifier of the audience."
+    },
+    "name": {
+      "type": "string",
+      "description": "Display name of the audience."
+    },
+    "description": {
+      "type": "string",
+      "description": "Description of the audience and its targeting criteria."
+    },
+    "rules": {
+      "type": "object",
+      "description": "Logical conditions that determine audience membership."
+    },
+    "created_at": {
+      "type": "string",
+      "format": "date-time",
+      "description": "ISO 8601 timestamp when the audience was created."
+    }
+  }
+}

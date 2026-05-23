@@ -1,0 +1,21 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/MergeUserAttributesRequest",
+  "title": "MergeUserAttributesRequest",
+  "type": "object",
+  "description": "Parameters for merging two user identity records.",
+  "required": [
+    "sourceUserUid",
+    "targetUserUid"
+  ],
+  "properties": {
+    "sourceUserUid": {
+      "type": "string",
+      "description": "The UID of the source user whose attributes will be merged into the target. Typically the anonymous user UID."
+    },
+    "targetUserUid": {
+      "type": "string",
+      "description": "The UID of the target user who will receive the merged attributes. Typically the authenticated user UID."
+    }
+  }
+}

@@ -1,0 +1,27 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/IngestContentRequest",
+  "title": "IngestContentRequest",
+  "type": "object",
+  "description": "Parameters for ingesting or updating a Knowledge Vault content item.",
+  "required": [
+    "content"
+  ],
+  "properties": {
+    "content": {
+      "type": "string",
+      "description": "The text content to ingest into the Knowledge Vault. This content will be vectorized and stored for retrieval during AI generation."
+    },
+    "title": {
+      "type": "string",
+      "description": "Optional title or label for the content item."
+    },
+    "metadata": {
+      "type": "object",
+      "description": "Optional key-value metadata to associate with the content item.",
+      "additionalProperties": {
+        "type": "string"
+      }
+    }
+  }
+}

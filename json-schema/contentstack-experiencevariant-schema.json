@@ -1,0 +1,27 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/ExperienceVariant",
+  "title": "ExperienceVariant",
+  "type": "object",
+  "description": "A content variant within a personalization experience.",
+  "properties": {
+    "uid": {
+      "type": "string",
+      "description": "Unique identifier of the variant."
+    },
+    "name": {
+      "type": "string",
+      "description": "Display name of the variant."
+    },
+    "audience_uid": {
+      "type": "string",
+      "description": "UID of the audience this variant targets (for SEGMENTED experiences)."
+    },
+    "traffic_percentage": {
+      "type": "number",
+      "description": "Percentage of traffic assigned to this variant (for AB_TEST experiences).",
+      "minimum": 0,
+      "maximum": 100
+    }
+  }
+}

@@ -1,0 +1,29 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/Field",
+  "title": "Field",
+  "type": "object",
+  "description": "A field definition within a content type schema.",
+  "properties": {
+    "uid": {
+      "type": "string",
+      "description": "Unique identifier of the field within the content type."
+    },
+    "data_type": {
+      "type": "string",
+      "description": "The data type of the field. Common values: text, number, boolean, date, file, link, json, reference, global_field, group, blocks."
+    },
+    "display_name": {
+      "type": "string",
+      "description": "Human-readable label for the field."
+    },
+    "mandatory": {
+      "type": "boolean",
+      "description": "Indicates whether the field is required for entry creation."
+    },
+    "unique": {
+      "type": "boolean",
+      "description": "Indicates whether field values must be unique across entries."
+    }
+  }
+}

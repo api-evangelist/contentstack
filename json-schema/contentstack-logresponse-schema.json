@@ -1,0 +1,16 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/LogResponse",
+  "title": "LogResponse",
+  "type": "object",
+  "description": "Log output from a deployment or server.",
+  "properties": {
+    "logs": {
+      "type": "array",
+      "description": "Array of log line entries.",
+      "items": {
+        "$ref": "#/components/schemas/LogEntry"
+      }
+    }
+  }
+}

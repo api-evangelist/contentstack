@@ -1,0 +1,13 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/DeleteResponse",
+  "title": "DeleteResponse",
+  "type": "object",
+  "description": "Response returned after a successful Knowledge Vault delete operation.",
+  "properties": {
+    "message": {
+      "type": "string",
+      "description": "Confirmation message for the deletion."
+    }
+  }
+}

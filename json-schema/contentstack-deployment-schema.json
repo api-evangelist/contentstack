@@ -1,0 +1,35 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/Deployment",
+  "title": "Deployment",
+  "type": "object",
+  "description": "A deployment operation to a Launch environment.",
+  "properties": {
+    "uid": {
+      "type": "string",
+      "description": "Unique identifier of the deployment."
+    },
+    "status": {
+      "type": "string",
+      "description": "Current status of the deployment.",
+      "enum": [
+        "queued",
+        "building",
+        "deploying",
+        "live",
+        "failed",
+        "cancelled"
+      ]
+    },
+    "created_at": {
+      "type": "string",
+      "format": "date-time",
+      "description": "ISO 8601 timestamp when the deployment was created."
+    },
+    "completed_at": {
+      "type": "string",
+      "format": "date-time",
+      "description": "ISO 8601 timestamp when the deployment completed."
+    }
+  }
+}

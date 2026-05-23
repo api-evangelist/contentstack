@@ -1,0 +1,16 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/AuditLogList",
+  "title": "AuditLogList",
+  "type": "object",
+  "description": "A list of audit log entries.",
+  "properties": {
+    "data": {
+      "type": "array",
+      "description": "Array of audit log objects.",
+      "items": {
+        "$ref": "#/components/schemas/AuditLog"
+      }
+    }
+  }
+}

@@ -1,0 +1,16 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/CreateEntryRequest",
+  "title": "CreateEntryRequest",
+  "type": "object",
+  "description": "Parameters for creating a new entry.",
+  "required": [
+    "entry"
+  ],
+  "properties": {
+    "entry": {
+      "type": "object",
+      "description": "Entry field values conforming to the content type schema."
+    }
+  }
+}

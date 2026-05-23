@@ -1,0 +1,21 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/CreateEventRequest",
+  "title": "CreateEventRequest",
+  "type": "object",
+  "description": "Parameters for creating an event.",
+  "required": [
+    "name",
+    "key"
+  ],
+  "properties": {
+    "name": {
+      "type": "string",
+      "description": "Display name for the event."
+    },
+    "key": {
+      "type": "string",
+      "description": "Machine-readable key for SDK tracking calls."
+    }
+  }
+}

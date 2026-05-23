@@ -1,0 +1,16 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/AutomationList",
+  "title": "AutomationList",
+  "type": "object",
+  "description": "A list of automations in a project.",
+  "properties": {
+    "data": {
+      "type": "array",
+      "description": "Array of automation objects.",
+      "items": {
+        "$ref": "#/components/schemas/Automation"
+      }
+    }
+  }
+}

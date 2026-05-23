@@ -1,0 +1,23 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/UpdateUserRequest",
+  "title": "UpdateUserRequest",
+  "type": "object",
+  "description": "Fields to update on the user profile.",
+  "properties": {
+    "user": {
+      "type": "object",
+      "description": "User profile fields to update.",
+      "properties": {
+        "first_name": {
+          "type": "string",
+          "description": "Updated first name."
+        },
+        "last_name": {
+          "type": "string",
+          "description": "Updated last name."
+        }
+      }
+    }
+  }
+}

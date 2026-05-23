@@ -1,0 +1,35 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/JobData",
+  "title": "JobData",
+  "type": "object",
+  "description": "The results of a completed analytics job.",
+  "properties": {
+    "jobId": {
+      "type": "string",
+      "description": "The unique identifier of the analytics job."
+    },
+    "status": {
+      "type": "string",
+      "description": "Current status of the job.",
+      "enum": [
+        "queued",
+        "processing",
+        "completed",
+        "failed"
+      ]
+    },
+    "data": {
+      "type": "array",
+      "description": "Array of analytics data records.",
+      "items": {
+        "type": "object",
+        "description": "An individual analytics data point with metric values and dimensions."
+      }
+    },
+    "total": {
+      "type": "integer",
+      "description": "Total number of records available for this job."
+    }
+  }
+}

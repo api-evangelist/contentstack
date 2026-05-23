@@ -1,0 +1,44 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/ScimGroup",
+  "title": "ScimGroup",
+  "type": "object",
+  "description": "A SCIM 2.0 Group resource representing a Contentstack user group.",
+  "properties": {
+    "schemas": {
+      "type": "array",
+      "description": "SCIM schema URNs for this resource.",
+      "items": {
+        "type": "string"
+      },
+      "example": [
+        "urn:ietf:params:scim:schemas:core:2.0:Group"
+      ]
+    },
+    "id": {
+      "type": "string",
+      "description": "SCIM-assigned unique identifier for the group."
+    },
+    "displayName": {
+      "type": "string",
+      "description": "The display name of the group."
+    },
+    "members": {
+      "type": "array",
+      "description": "List of user members in the group.",
+      "items": {
+        "type": "object",
+        "properties": {
+          "value": {
+            "type": "string",
+            "description": "The SCIM user ID of the group member."
+          },
+          "display": {
+            "type": "string",
+            "description": "The display name of the group member."
+          }
+        }
+      }
+    }
+  }
+}

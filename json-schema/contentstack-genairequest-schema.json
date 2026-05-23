@@ -1,0 +1,25 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/GenAIRequest",
+  "title": "GenAIRequest",
+  "type": "object",
+  "description": "Parameters for an AI content generation request.",
+  "required": [
+    "prompt"
+  ],
+  "properties": {
+    "prompt": {
+      "type": "string",
+      "description": "The content generation prompt to send to the LLM. Provide clear, specific instructions for the type of content to generate."
+    },
+    "knowledge_vault": {
+      "type": "boolean",
+      "description": "Set to true to enable knowledge vault retrieval, injecting relevant brand knowledge into the LLM context for more accurate and brand-aligned responses.",
+      "default": false
+    },
+    "voice_profile_uid": {
+      "type": "string",
+      "description": "Optional UID of a Voice Profile to apply. When specified, the voice profile's style guidelines are used to shape the tone and format of the generated content."
+    }
+  }
+}

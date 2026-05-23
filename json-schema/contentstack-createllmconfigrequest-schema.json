@@ -1,0 +1,35 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/CreateLlmConfigRequest",
+  "title": "CreateLlmConfigRequest",
+  "type": "object",
+  "description": "Parameters for configuring custom LLM credentials.",
+  "required": [
+    "provider",
+    "api_key"
+  ],
+  "properties": {
+    "provider": {
+      "type": "string",
+      "description": "Name of the LLM provider.",
+      "enum": [
+        "openai",
+        "anthropic",
+        "azure_openai"
+      ]
+    },
+    "model": {
+      "type": "string",
+      "description": "The LLM model identifier to use."
+    },
+    "api_key": {
+      "type": "string",
+      "description": "API key for authenticating with the LLM provider."
+    },
+    "endpoint": {
+      "type": "string",
+      "format": "uri",
+      "description": "Custom endpoint URL for Azure OpenAI or self-hosted deployments."
+    }
+  }
+}

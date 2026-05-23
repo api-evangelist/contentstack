@@ -1,0 +1,32 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/CreateAttributeRequest",
+  "title": "CreateAttributeRequest",
+  "type": "object",
+  "description": "Parameters for creating or updating an attribute.",
+  "required": [
+    "name",
+    "key",
+    "data_type"
+  ],
+  "properties": {
+    "name": {
+      "type": "string",
+      "description": "Display name for the attribute."
+    },
+    "key": {
+      "type": "string",
+      "description": "Machine-readable key for the attribute."
+    },
+    "data_type": {
+      "type": "string",
+      "description": "Data type of the attribute.",
+      "enum": [
+        "string",
+        "number",
+        "boolean",
+        "date"
+      ]
+    }
+  }
+}

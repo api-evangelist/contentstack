@@ -1,0 +1,29 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/PublishRequest",
+  "title": "PublishRequest",
+  "type": "object",
+  "description": "Parameters for publishing or unpublishing an entry or asset.",
+  "properties": {
+    "entry": {
+      "type": "object",
+      "description": "Publish configuration.",
+      "properties": {
+        "environments": {
+          "type": "array",
+          "description": "List of environment names to publish to.",
+          "items": {
+            "type": "string"
+          }
+        },
+        "locales": {
+          "type": "array",
+          "description": "List of locale codes to publish.",
+          "items": {
+            "type": "string"
+          }
+        }
+      }
+    }
+  }
+}

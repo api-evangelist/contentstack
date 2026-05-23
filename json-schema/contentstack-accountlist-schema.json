@@ -1,0 +1,16 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/AccountList",
+  "title": "AccountList",
+  "type": "object",
+  "description": "A list of external service account connections.",
+  "properties": {
+    "data": {
+      "type": "array",
+      "description": "Array of account connection objects.",
+      "items": {
+        "$ref": "#/components/schemas/Account"
+      }
+    }
+  }
+}

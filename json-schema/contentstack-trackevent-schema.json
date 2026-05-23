@@ -1,0 +1,24 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/TrackEvent",
+  "title": "TrackEvent",
+  "type": "object",
+  "description": "A single event to be tracked for the user.",
+  "required": [
+    "eventKey"
+  ],
+  "properties": {
+    "eventKey": {
+      "type": "string",
+      "description": "The key of the event to track. Use \"impression\" for automatic view tracking or a custom event key defined in the Personalize Management API."
+    },
+    "experience_uid": {
+      "type": "string",
+      "description": "The UID of the experience associated with this event. Required for impression events."
+    },
+    "variant_uid": {
+      "type": "string",
+      "description": "The UID of the variant shown to the user. Required for impression events."
+    }
+  }
+}

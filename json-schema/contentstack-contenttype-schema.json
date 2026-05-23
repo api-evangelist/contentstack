@@ -1,0 +1,38 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/ContentType",
+  "title": "ContentType",
+  "type": "object",
+  "description": "A content type definition including schema and metadata.",
+  "properties": {
+    "uid": {
+      "type": "string",
+      "description": "Unique identifier of the content type."
+    },
+    "title": {
+      "type": "string",
+      "description": "Display name of the content type."
+    },
+    "schema": {
+      "type": "array",
+      "description": "Array of field definitions for the content type.",
+      "items": {
+        "$ref": "#/components/schemas/Field"
+      }
+    },
+    "options": {
+      "type": "object",
+      "description": "Configuration options for the content type such as versioning and workflow settings."
+    },
+    "created_at": {
+      "type": "string",
+      "format": "date-time",
+      "description": "ISO 8601 timestamp when the content type was created."
+    },
+    "updated_at": {
+      "type": "string",
+      "format": "date-time",
+      "description": "ISO 8601 timestamp when the content type was last updated."
+    }
+  }
+}

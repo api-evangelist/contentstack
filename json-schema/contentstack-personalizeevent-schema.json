@@ -1,0 +1,26 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/PersonalizeEvent",
+  "title": "PersonalizeEvent",
+  "type": "object",
+  "description": "A custom event definition for tracking user actions.",
+  "properties": {
+    "uid": {
+      "type": "string",
+      "description": "Unique identifier of the event."
+    },
+    "name": {
+      "type": "string",
+      "description": "Display name of the event."
+    },
+    "key": {
+      "type": "string",
+      "description": "Machine-readable event key used in SDK tracking calls."
+    },
+    "created_at": {
+      "type": "string",
+      "format": "date-time",
+      "description": "ISO 8601 timestamp when the event was created."
+    }
+  }
+}

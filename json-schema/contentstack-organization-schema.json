@@ -1,0 +1,26 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/Organization",
+  "title": "Organization",
+  "type": "object",
+  "description": "A Contentstack organization that groups stacks and users.",
+  "properties": {
+    "uid": {
+      "type": "string",
+      "description": "Unique identifier of the organization."
+    },
+    "name": {
+      "type": "string",
+      "description": "Display name of the organization."
+    },
+    "plan_id": {
+      "type": "string",
+      "description": "The subscription plan identifier for the organization."
+    },
+    "created_at": {
+      "type": "string",
+      "format": "date-time",
+      "description": "ISO 8601 timestamp when the organization was created."
+    }
+  }
+}

@@ -1,0 +1,47 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/Automation",
+  "title": "Automation",
+  "type": "object",
+  "description": "An automation workflow that connects a trigger to one or more actions.",
+  "properties": {
+    "uid": {
+      "type": "string",
+      "description": "Unique identifier of the automation."
+    },
+    "name": {
+      "type": "string",
+      "description": "Display name of the automation."
+    },
+    "status": {
+      "type": "string",
+      "description": "Current status of the automation.",
+      "enum": [
+        "active",
+        "inactive",
+        "draft"
+      ]
+    },
+    "trigger": {
+      "type": "object",
+      "description": "Configuration for the automation trigger condition."
+    },
+    "steps": {
+      "type": "array",
+      "description": "Ordered list of action steps executed when the trigger fires.",
+      "items": {
+        "type": "object"
+      }
+    },
+    "created_at": {
+      "type": "string",
+      "format": "date-time",
+      "description": "ISO 8601 timestamp when the automation was created."
+    },
+    "updated_at": {
+      "type": "string",
+      "format": "date-time",
+      "description": "ISO 8601 timestamp when the automation was last updated."
+    }
+  }
+}

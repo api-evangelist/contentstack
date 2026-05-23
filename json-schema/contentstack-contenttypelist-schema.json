@@ -1,0 +1,20 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/ContentTypeList",
+  "title": "ContentTypeList",
+  "type": "object",
+  "description": "A paginated list of content types in the stack.",
+  "properties": {
+    "content_types": {
+      "type": "array",
+      "description": "Array of content type objects.",
+      "items": {
+        "$ref": "#/components/schemas/ContentType"
+      }
+    },
+    "count": {
+      "type": "integer",
+      "description": "Total count of content types when include_count is true."
+    }
+  }
+}

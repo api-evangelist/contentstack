@@ -1,0 +1,35 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/BrandKit",
+  "title": "BrandKit",
+  "type": "object",
+  "description": "A Brand Kit containing centralized brand identity assets and AI configuration.",
+  "properties": {
+    "uid": {
+      "type": "string",
+      "description": "Unique identifier of the Brand Kit."
+    },
+    "name": {
+      "type": "string",
+      "description": "Display name of the Brand Kit."
+    },
+    "description": {
+      "type": "string",
+      "description": "Description of the Brand Kit's purpose and scope."
+    },
+    "organization_uid": {
+      "type": "string",
+      "description": "UID of the organization that owns the Brand Kit."
+    },
+    "created_at": {
+      "type": "string",
+      "format": "date-time",
+      "description": "ISO 8601 timestamp when the Brand Kit was created."
+    },
+    "updated_at": {
+      "type": "string",
+      "format": "date-time",
+      "description": "ISO 8601 timestamp when the Brand Kit was last updated."
+    }
+  }
+}

@@ -1,0 +1,43 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/ExecutionLog",
+  "title": "ExecutionLog",
+  "type": "object",
+  "description": "A record of a single automation execution run.",
+  "properties": {
+    "uid": {
+      "type": "string",
+      "description": "Unique identifier of the execution log entry."
+    },
+    "automation_uid": {
+      "type": "string",
+      "description": "UID of the automation that was executed."
+    },
+    "status": {
+      "type": "string",
+      "description": "Outcome status of the execution.",
+      "enum": [
+        "success",
+        "failure",
+        "partial"
+      ]
+    },
+    "started_at": {
+      "type": "string",
+      "format": "date-time",
+      "description": "ISO 8601 timestamp when the execution started."
+    },
+    "completed_at": {
+      "type": "string",
+      "format": "date-time",
+      "description": "ISO 8601 timestamp when the execution completed."
+    },
+    "steps": {
+      "type": "array",
+      "description": "Step-by-step execution results.",
+      "items": {
+        "type": "object"
+      }
+    }
+  }
+}

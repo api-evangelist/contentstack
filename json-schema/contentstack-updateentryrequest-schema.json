@@ -1,0 +1,16 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/UpdateEntryRequest",
+  "title": "UpdateEntryRequest",
+  "type": "object",
+  "description": "Parameters for updating an entry.",
+  "required": [
+    "entry"
+  ],
+  "properties": {
+    "entry": {
+      "type": "object",
+      "description": "Updated field values for the entry."
+    }
+  }
+}

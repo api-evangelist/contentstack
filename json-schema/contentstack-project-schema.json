@@ -1,0 +1,35 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/Project",
+  "title": "Project",
+  "type": "object",
+  "description": "An automation project within a Contentstack organization.",
+  "properties": {
+    "uid": {
+      "type": "string",
+      "description": "Unique identifier of the project."
+    },
+    "name": {
+      "type": "string",
+      "description": "Display name of the project."
+    },
+    "description": {
+      "type": "string",
+      "description": "Description of the project's purpose."
+    },
+    "organization_uid": {
+      "type": "string",
+      "description": "UID of the organization that owns the project."
+    },
+    "created_at": {
+      "type": "string",
+      "format": "date-time",
+      "description": "ISO 8601 timestamp when the project was created."
+    },
+    "updated_at": {
+      "type": "string",
+      "format": "date-time",
+      "description": "ISO 8601 timestamp when the project was last updated."
+    }
+  }
+}

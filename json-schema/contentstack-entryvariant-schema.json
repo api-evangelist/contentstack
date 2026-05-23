@@ -1,0 +1,21 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/EntryVariant",
+  "title": "EntryVariant",
+  "type": "object",
+  "description": "A personalization variant of a content entry.",
+  "properties": {
+    "uid": {
+      "type": "string",
+      "description": "Unique identifier of the entry variant."
+    },
+    "variant_uid": {
+      "type": "string",
+      "description": "The variant identifier linking this entry to a personalization variant."
+    },
+    "locale": {
+      "type": "string",
+      "description": "The locale code of the entry variant."
+    }
+  }
+}

@@ -1,0 +1,23 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/UploadUrlResponse",
+  "title": "UploadUrlResponse",
+  "type": "object",
+  "description": "A pre-signed URL for uploading build artifacts.",
+  "properties": {
+    "upload_url": {
+      "type": "string",
+      "format": "uri",
+      "description": "The pre-signed URL to use for uploading the build artifact file."
+    },
+    "upload_uid": {
+      "type": "string",
+      "description": "Unique identifier for this upload, used when creating a deployment."
+    },
+    "expires_at": {
+      "type": "string",
+      "format": "date-time",
+      "description": "ISO 8601 timestamp when the pre-signed URL expires (10 minutes)."
+    }
+  }
+}

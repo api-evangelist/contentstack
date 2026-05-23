@@ -1,0 +1,23 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/JobResponse",
+  "title": "JobResponse",
+  "type": "object",
+  "description": "Response returned when an analytics job is queued.",
+  "properties": {
+    "jobId": {
+      "type": "string",
+      "description": "The unique identifier of the queued analytics job. Use this to retrieve results via the GET /analytics/v2/job/{jobId}/data endpoint."
+    },
+    "status": {
+      "type": "string",
+      "description": "Initial status of the job.",
+      "enum": [
+        "queued",
+        "processing",
+        "completed",
+        "failed"
+      ]
+    }
+  }
+}

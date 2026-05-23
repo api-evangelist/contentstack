@@ -1,0 +1,26 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/Account",
+  "title": "Account",
+  "type": "object",
+  "description": "An authenticated connection to an external service for use in automations.",
+  "properties": {
+    "uid": {
+      "type": "string",
+      "description": "Unique identifier of the account connection."
+    },
+    "name": {
+      "type": "string",
+      "description": "Display name of the account connection."
+    },
+    "service": {
+      "type": "string",
+      "description": "The name of the external service (e.g., Slack, SendGrid)."
+    },
+    "created_at": {
+      "type": "string",
+      "format": "date-time",
+      "description": "ISO 8601 timestamp when the account connection was created."
+    }
+  }
+}

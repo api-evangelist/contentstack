@@ -1,0 +1,33 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/CreateStackRequest",
+  "title": "CreateStackRequest",
+  "type": "object",
+  "description": "Parameters for creating a new stack.",
+  "required": [
+    "stack"
+  ],
+  "properties": {
+    "stack": {
+      "type": "object",
+      "required": [
+        "name",
+        "master_locale"
+      ],
+      "properties": {
+        "name": {
+          "type": "string",
+          "description": "Display name for the new stack."
+        },
+        "master_locale": {
+          "type": "string",
+          "description": "Default locale code for the stack (e.g., en-us)."
+        },
+        "description": {
+          "type": "string",
+          "description": "Description of the stack's purpose."
+        }
+      }
+    }
+  }
+}

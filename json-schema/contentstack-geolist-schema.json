@@ -1,0 +1,16 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/GeoList",
+  "title": "GeoList",
+  "type": "object",
+  "description": "A list of geographic locations for audience targeting.",
+  "properties": {
+    "data": {
+      "type": "array",
+      "description": "Array of geographic location objects.",
+      "items": {
+        "$ref": "#/components/schemas/GeoItem"
+      }
+    }
+  }
+}

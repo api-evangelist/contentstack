@@ -1,0 +1,29 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/Variable",
+  "title": "Variable",
+  "type": "object",
+  "description": "A reusable configuration variable for use across automations.",
+  "properties": {
+    "uid": {
+      "type": "string",
+      "description": "Unique identifier of the variable."
+    },
+    "name": {
+      "type": "string",
+      "description": "Display name of the variable."
+    },
+    "key": {
+      "type": "string",
+      "description": "Machine-readable key for referencing the variable in automations."
+    },
+    "value": {
+      "type": "string",
+      "description": "The value stored in the variable. Sensitive values may be masked."
+    },
+    "is_secret": {
+      "type": "boolean",
+      "description": "Indicates whether the variable value is treated as a secret."
+    }
+  }
+}

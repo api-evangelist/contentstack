@@ -1,0 +1,26 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/AuditLog",
+  "title": "AuditLog",
+  "type": "object",
+  "description": "An audit log entry recording an administrative action.",
+  "properties": {
+    "uid": {
+      "type": "string",
+      "description": "Unique identifier of the audit log entry."
+    },
+    "action": {
+      "type": "string",
+      "description": "The administrative action that was performed."
+    },
+    "performed_by": {
+      "type": "string",
+      "description": "UID of the user who performed the action."
+    },
+    "created_at": {
+      "type": "string",
+      "format": "date-time",
+      "description": "ISO 8601 timestamp when the action was performed."
+    }
+  }
+}

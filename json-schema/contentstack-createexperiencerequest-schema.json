@@ -1,0 +1,32 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/CreateExperienceRequest",
+  "title": "CreateExperienceRequest",
+  "type": "object",
+  "description": "Parameters for creating or updating an experience.",
+  "required": [
+    "name",
+    "type"
+  ],
+  "properties": {
+    "name": {
+      "type": "string",
+      "description": "Display name for the experience."
+    },
+    "type": {
+      "type": "string",
+      "description": "Experience type.",
+      "enum": [
+        "SEGMENTED",
+        "AB_TEST"
+      ]
+    },
+    "variants": {
+      "type": "array",
+      "description": "Variant definitions for the experience.",
+      "items": {
+        "$ref": "#/components/schemas/ExperienceVariant"
+      }
+    }
+  }
+}

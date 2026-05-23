@@ -1,0 +1,20 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/KnowledgeVaultResponse",
+  "title": "KnowledgeVaultResponse",
+  "type": "object",
+  "description": "Response returned after a successful Knowledge Vault ingest or update operation.",
+  "properties": {
+    "message": {
+      "type": "string",
+      "description": "Confirmation message for the operation."
+    },
+    "uid": {
+      "type": "string",
+      "description": "Unique identifier assigned to the ingested content item."
+    },
+    "token_usage": {
+      "$ref": "#/components/schemas/TokenUsage"
+    }
+  }
+}

@@ -1,0 +1,20 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/CreateEnvironmentRequest",
+  "title": "CreateEnvironmentRequest",
+  "type": "object",
+  "description": "Parameters for creating or updating an environment.",
+  "required": [
+    "name"
+  ],
+  "properties": {
+    "name": {
+      "type": "string",
+      "description": "Display name for the environment."
+    },
+    "domain": {
+      "type": "string",
+      "description": "Custom domain for the environment."
+    }
+  }
+}

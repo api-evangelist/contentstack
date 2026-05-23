@@ -1,0 +1,36 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/Attribute",
+  "title": "Attribute",
+  "type": "object",
+  "description": "A user attribute definition used in audience segment rules.",
+  "properties": {
+    "uid": {
+      "type": "string",
+      "description": "Unique identifier of the attribute."
+    },
+    "name": {
+      "type": "string",
+      "description": "Display name of the attribute."
+    },
+    "key": {
+      "type": "string",
+      "description": "Machine-readable key used to reference this attribute in rules and SDKs."
+    },
+    "data_type": {
+      "type": "string",
+      "description": "Data type of the attribute.",
+      "enum": [
+        "string",
+        "number",
+        "boolean",
+        "date"
+      ]
+    },
+    "created_at": {
+      "type": "string",
+      "format": "date-time",
+      "description": "ISO 8601 timestamp when the attribute was created."
+    }
+  }
+}

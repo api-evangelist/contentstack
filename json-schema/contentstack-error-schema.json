@@ -1,0 +1,17 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/Error",
+  "title": "Error",
+  "type": "object",
+  "description": "Standard error response.",
+  "properties": {
+    "error_message": {
+      "type": "string",
+      "description": "Human-readable description of the error."
+    },
+    "error_code": {
+      "type": "integer",
+      "description": "Numeric error code."
+    }
+  }
+}

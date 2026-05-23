@@ -1,0 +1,41 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/CreateContentTypeRequest",
+  "title": "CreateContentTypeRequest",
+  "type": "object",
+  "description": "Parameters for creating or updating a content type.",
+  "required": [
+    "content_type"
+  ],
+  "properties": {
+    "content_type": {
+      "type": "object",
+      "required": [
+        "uid",
+        "title",
+        "schema"
+      ],
+      "properties": {
+        "uid": {
+          "type": "string",
+          "description": "Unique identifier for the content type."
+        },
+        "title": {
+          "type": "string",
+          "description": "Display name of the content type."
+        },
+        "schema": {
+          "type": "array",
+          "description": "Array of field definitions.",
+          "items": {
+            "$ref": "#/components/schemas/Field"
+          }
+        },
+        "options": {
+          "type": "object",
+          "description": "Configuration options for the content type."
+        }
+      }
+    }
+  }
+}

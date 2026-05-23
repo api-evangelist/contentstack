@@ -1,0 +1,409 @@
+{
+  "provider": "Contentstack",
+  "providerId": "contentstack",
+  "kind": "json-structure",
+  "description": "Structural overview of the Contentstack API surface; extracted from openapi/.",
+  "schemaCount": 24,
+  "operationCount": 27,
+  "schemas": [
+    {
+      "name": "LoginRequest",
+      "type": "object",
+      "propertyCount": 1,
+      "required": [
+        "user"
+      ]
+    },
+    {
+      "name": "LoginResponse",
+      "type": "object",
+      "propertyCount": 1,
+      "required": []
+    },
+    {
+      "name": "User",
+      "type": "object",
+      "propertyCount": 6,
+      "required": []
+    },
+    {
+      "name": "UpdateUserRequest",
+      "type": "object",
+      "propertyCount": 1,
+      "required": []
+    },
+    {
+      "name": "OrganizationList",
+      "type": "object",
+      "propertyCount": 1,
+      "required": []
+    },
+    {
+      "name": "Organization",
+      "type": "object",
+      "propertyCount": 4,
+      "required": []
+    },
+    {
+      "name": "StackList",
+      "type": "object",
+      "propertyCount": 1,
+      "required": []
+    },
+    {
+      "name": "Stack",
+      "type": "object",
+      "propertyCount": 8,
+      "required": []
+    },
+    {
+      "name": "CreateStackRequest",
+      "type": "object",
+      "propertyCount": 1,
+      "required": [
+        "stack"
+      ]
+    },
+    {
+      "name": "UpdateStackRequest",
+      "type": "object",
+      "propertyCount": 1,
+      "required": []
+    },
+    {
+      "name": "ContentTypeList",
+      "type": "object",
+      "propertyCount": 1,
+      "required": []
+    },
+    {
+      "name": "ContentType",
+      "type": "object",
+      "propertyCount": 6,
+      "required": []
+    },
+    {
+      "name": "CreateContentTypeRequest",
+      "type": "object",
+      "propertyCount": 1,
+      "required": [
+        "content_type"
+      ]
+    },
+    {
+      "name": "Field",
+      "type": "object",
+      "propertyCount": 5,
+      "required": []
+    },
+    {
+      "name": "EntryList",
+      "type": "object",
+      "propertyCount": 2,
+      "required": []
+    },
+    {
+      "name": "Entry",
+      "type": "object",
+      "propertyCount": 6,
+      "required": []
+    },
+    {
+      "name": "CreateEntryRequest",
+      "type": "object",
+      "propertyCount": 1,
+      "required": [
+        "entry"
+      ]
+    },
+    {
+      "name": "UpdateEntryRequest",
+      "type": "object",
+      "propertyCount": 1,
+      "required": [
+        "entry"
+      ]
+    },
+    {
+      "name": "PublishRequest",
+      "type": "object",
+      "propertyCount": 1,
+      "required": []
+    },
+    {
+      "name": "AssetList",
+      "type": "object",
+      "propertyCount": 1,
+      "required": []
+    },
+    {
+      "name": "Asset",
+      "type": "object",
+      "propertyCount": 7,
+      "required": []
+    },
+    {
+      "name": "EnvironmentList",
+      "type": "object",
+      "propertyCount": 1,
+      "required": []
+    },
+    {
+      "name": "Environment",
+      "type": "object",
+      "propertyCount": 4,
+      "required": []
+    },
+    {
+      "name": "Error",
+      "type": "object",
+      "propertyCount": 3,
+      "required": []
+    }
+  ],
+  "operations": [
+    {
+      "method": "POST",
+      "path": "/user-session",
+      "operationId": "loginUser",
+      "summary": "Log in a user",
+      "tags": [
+        "User Sessions"
+      ]
+    },
+    {
+      "method": "DELETE",
+      "path": "/user-session",
+      "operationId": "logoutUser",
+      "summary": "Log out a user",
+      "tags": [
+        "User Sessions"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/user",
+      "operationId": "getUser",
+      "summary": "Get current user",
+      "tags": [
+        "Users"
+      ]
+    },
+    {
+      "method": "PUT",
+      "path": "/user",
+      "operationId": "updateUser",
+      "summary": "Update current user",
+      "tags": [
+        "Users"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/organizations",
+      "operationId": "getAllOrganizations",
+      "summary": "Get all organizations",
+      "tags": [
+        "Organizations"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/organizations/{organization_uid}",
+      "operationId": "getOrganization",
+      "summary": "Get an organization",
+      "tags": [
+        "Organizations"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/organizations/{organization_uid}/stacks",
+      "operationId": "getOrganizationStacks",
+      "summary": "Get organization stacks",
+      "tags": [
+        "Organizations"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/stacks",
+      "operationId": "getAllStacks",
+      "summary": "Get all stacks",
+      "tags": [
+        "Stacks"
+      ]
+    },
+    {
+      "method": "POST",
+      "path": "/stacks",
+      "operationId": "createStack",
+      "summary": "Create a stack",
+      "tags": [
+        "Stacks"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/stacks/{api_key}",
+      "operationId": "getStack",
+      "summary": "Get a stack",
+      "tags": [
+        "Stacks"
+      ]
+    },
+    {
+      "method": "PUT",
+      "path": "/stacks/{api_key}",
+      "operationId": "updateStack",
+      "summary": "Update a stack",
+      "tags": [
+        "Stacks"
+      ]
+    },
+    {
+      "method": "DELETE",
+      "path": "/stacks/{api_key}",
+      "operationId": "deleteStack",
+      "summary": "Delete a stack",
+      "tags": [
+        "Stacks"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/content_types",
+      "operationId": "getAllContentTypes",
+      "summary": "Get all content types",
+      "tags": [
+        "Content Types"
+      ]
+    },
+    {
+      "method": "POST",
+      "path": "/content_types",
+      "operationId": "createContentType",
+      "summary": "Create a content type",
+      "tags": [
+        "Content Types"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/content_types/{content_type_uid}",
+      "operationId": "getContentType",
+      "summary": "Get a content type",
+      "tags": [
+        "Content Types"
+      ]
+    },
+    {
+      "method": "PUT",
+      "path": "/content_types/{content_type_uid}",
+      "operationId": "updateContentType",
+      "summary": "Update a content type",
+      "tags": [
+        "Content Types"
+      ]
+    },
+    {
+      "method": "DELETE",
+      "path": "/content_types/{content_type_uid}",
+      "operationId": "deleteContentType",
+      "summary": "Delete a content type",
+      "tags": [
+        "Content Types"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/content_types/{content_type_uid}/entries",
+      "operationId": "getAllEntries",
+      "summary": "Get all entries",
+      "tags": [
+        "Entries"
+      ]
+    },
+    {
+      "method": "POST",
+      "path": "/content_types/{content_type_uid}/entries",
+      "operationId": "createEntry",
+      "summary": "Create an entry",
+      "tags": [
+        "Entries"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/content_types/{content_type_uid}/entries/{entry_uid}",
+      "operationId": "getEntry",
+      "summary": "Get an entry",
+      "tags": [
+        "Entries"
+      ]
+    },
+    {
+      "method": "PUT",
+      "path": "/content_types/{content_type_uid}/entries/{entry_uid}",
+      "operationId": "updateEntry",
+      "summary": "Update an entry",
+      "tags": [
+        "Entries"
+      ]
+    },
+    {
+      "method": "DELETE",
+      "path": "/content_types/{content_type_uid}/entries/{entry_uid}",
+      "operationId": "deleteEntry",
+      "summary": "Delete an entry",
+      "tags": [
+        "Entries"
+      ]
+    },
+    {
+      "method": "POST",
+      "path": "/content_types/{content_type_uid}/entries/{entry_uid}/publish",
+      "operationId": "publishEntry",
+      "summary": "Publish an entry",
+      "tags": [
+        "Entries"
+      ]
+    },
+    {
+      "method": "POST",
+      "path": "/content_types/{content_type_uid}/entries/{entry_uid}/unpublish",
+      "operationId": "unpublishEntry",
+      "summary": "Unpublish an entry",
+      "tags": [
+        "Entries"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/assets",
+      "operationId": "getAllAssets",
+      "summary": "Get all assets",
+      "tags": [
+        "Assets"
+      ]
+    },
+    {
+      "method": "POST",
+      "path": "/assets",
+      "operationId": "uploadAsset",
+      "summary": "Upload an asset",
+      "tags": [
+        "Assets"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/environments",
+      "operationId": "getAllEnvironments",
+      "summary": "Get all environments",
+      "tags": [
+        "Environments"
+      ]
+    }
+  ]
+}

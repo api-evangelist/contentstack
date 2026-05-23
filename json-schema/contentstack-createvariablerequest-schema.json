@@ -1,0 +1,31 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/CreateVariableRequest",
+  "title": "CreateVariableRequest",
+  "type": "object",
+  "description": "Parameters for creating a project variable.",
+  "required": [
+    "name",
+    "key",
+    "value"
+  ],
+  "properties": {
+    "name": {
+      "type": "string",
+      "description": "Display name for the variable."
+    },
+    "key": {
+      "type": "string",
+      "description": "Machine-readable key for the variable."
+    },
+    "value": {
+      "type": "string",
+      "description": "Value to store in the variable."
+    },
+    "is_secret": {
+      "type": "boolean",
+      "description": "Set to true to mark the variable as a secret.",
+      "default": false
+    }
+  }
+}

@@ -1,0 +1,38 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/ScimListResponse",
+  "title": "ScimListResponse",
+  "type": "object",
+  "description": "A SCIM 2.0 ListResponse container for multi-resource responses.",
+  "properties": {
+    "schemas": {
+      "type": "array",
+      "description": "SCIM schema URNs identifying this as a ListResponse.",
+      "items": {
+        "type": "string"
+      },
+      "example": [
+        "urn:ietf:params:scim:api:messages:2.0:ListResponse"
+      ]
+    },
+    "totalResults": {
+      "type": "integer",
+      "description": "Total number of resources matching the query."
+    },
+    "startIndex": {
+      "type": "integer",
+      "description": "1-based index of the first result in this page."
+    },
+    "itemsPerPage": {
+      "type": "integer",
+      "description": "Number of results returned in this response."
+    },
+    "Resources": {
+      "type": "array",
+      "description": "Array of SCIM resource objects (Users or Groups).",
+      "items": {
+        "type": "object"
+      }
+    }
+  }
+}

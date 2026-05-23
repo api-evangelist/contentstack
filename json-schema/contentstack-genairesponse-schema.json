@@ -1,0 +1,16 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/GenAIResponse",
+  "title": "GenAIResponse",
+  "type": "object",
+  "description": "The AI-generated content response including the generated text and token usage metrics.",
+  "properties": {
+    "content": {
+      "type": "string",
+      "description": "The AI-generated content produced in response to the prompt."
+    },
+    "token_usage": {
+      "$ref": "#/components/schemas/TokenUsage"
+    }
+  }
+}

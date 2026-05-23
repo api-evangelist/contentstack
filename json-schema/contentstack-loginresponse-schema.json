@@ -1,0 +1,12 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/LoginResponse",
+  "title": "LoginResponse",
+  "type": "object",
+  "description": "Authentication response containing the user's authtoken.",
+  "properties": {
+    "user": {
+      "$ref": "#/components/schemas/User"
+    }
+  }
+}

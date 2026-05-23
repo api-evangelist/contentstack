@@ -1,0 +1,25 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/ManifestExperience",
+  "title": "ManifestExperience",
+  "type": "object",
+  "description": "An active experience entry in the manifest with variant assignment.",
+  "properties": {
+    "experience_uid": {
+      "type": "string",
+      "description": "Unique identifier of the experience."
+    },
+    "experience_short_uid": {
+      "type": "string",
+      "description": "Short identifier of the experience for use in content querying."
+    },
+    "variant_uid": {
+      "type": "string",
+      "description": "Unique identifier of the variant assigned to this user."
+    },
+    "variant_short_uid": {
+      "type": "string",
+      "description": "Short identifier of the variant for use in content querying."
+    }
+  }
+}

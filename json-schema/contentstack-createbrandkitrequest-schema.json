@@ -1,0 +1,20 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/CreateBrandKitRequest",
+  "title": "CreateBrandKitRequest",
+  "type": "object",
+  "description": "Parameters for creating or updating a Brand Kit.",
+  "required": [
+    "name"
+  ],
+  "properties": {
+    "name": {
+      "type": "string",
+      "description": "Display name for the Brand Kit."
+    },
+    "description": {
+      "type": "string",
+      "description": "Description of the Brand Kit's purpose."
+    }
+  }
+}

@@ -1,0 +1,17 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/CreateDeploymentRequest",
+  "title": "CreateDeploymentRequest",
+  "type": "object",
+  "description": "Parameters for triggering a new deployment.",
+  "properties": {
+    "upload_uid": {
+      "type": "string",
+      "description": "The UID or reference to the previously uploaded build artifact."
+    },
+    "branch": {
+      "type": "string",
+      "description": "The git branch to deploy from when using repository-linked deployments."
+    }
+  }
+}

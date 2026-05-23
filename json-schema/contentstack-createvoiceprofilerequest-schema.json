@@ -1,0 +1,28 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/CreateVoiceProfileRequest",
+  "title": "CreateVoiceProfileRequest",
+  "type": "object",
+  "description": "Parameters for creating or updating a Voice Profile.",
+  "required": [
+    "name"
+  ],
+  "properties": {
+    "name": {
+      "type": "string",
+      "description": "Display name for the Voice Profile."
+    },
+    "description": {
+      "type": "string",
+      "description": "Description of the voice profile's purpose."
+    },
+    "tone": {
+      "type": "string",
+      "description": "Tonal characteristics for the voice profile."
+    },
+    "style_guidelines": {
+      "type": "string",
+      "description": "Writing style guidelines for AI content generation."
+    }
+  }
+}

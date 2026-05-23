@@ -1,0 +1,16 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/VoiceProfileList",
+  "title": "VoiceProfileList",
+  "type": "object",
+  "description": "A list of Voice Profiles for a Brand Kit.",
+  "properties": {
+    "data": {
+      "type": "array",
+      "description": "Array of Voice Profile objects.",
+      "items": {
+        "$ref": "#/components/schemas/VoiceProfile"
+      }
+    }
+  }
+}

@@ -1,0 +1,16 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/GlobalFieldList",
+  "title": "GlobalFieldList",
+  "type": "object",
+  "description": "A list of global field definitions in the stack.",
+  "properties": {
+    "global_fields": {
+      "type": "array",
+      "description": "Array of global field objects.",
+      "items": {
+        "$ref": "#/components/schemas/GlobalField"
+      }
+    }
+  }
+}

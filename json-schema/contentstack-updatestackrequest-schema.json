@@ -1,0 +1,22 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/UpdateStackRequest",
+  "title": "UpdateStackRequest",
+  "type": "object",
+  "description": "Fields to update on the stack.",
+  "properties": {
+    "stack": {
+      "type": "object",
+      "properties": {
+        "name": {
+          "type": "string",
+          "description": "Updated display name."
+        },
+        "description": {
+          "type": "string",
+          "description": "Updated description."
+        }
+      }
+    }
+  }
+}

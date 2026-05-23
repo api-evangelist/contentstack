@@ -1,0 +1,21 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/GeoItem",
+  "title": "GeoItem",
+  "type": "object",
+  "description": "A geographic location item for audience targeting.",
+  "properties": {
+    "uid": {
+      "type": "string",
+      "description": "Unique identifier of the geographic location."
+    },
+    "name": {
+      "type": "string",
+      "description": "Display name of the location."
+    },
+    "code": {
+      "type": "string",
+      "description": "ISO code for the location (country code, region code, etc.)."
+    }
+  }
+}

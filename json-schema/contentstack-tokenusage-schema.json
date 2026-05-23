@@ -1,0 +1,21 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/TokenUsage",
+  "title": "TokenUsage",
+  "type": "object",
+  "description": "Token consumption metrics for the generation request.",
+  "properties": {
+    "prompt_tokens": {
+      "type": "integer",
+      "description": "Number of tokens consumed by the input prompt and retrieved context."
+    },
+    "completion_tokens": {
+      "type": "integer",
+      "description": "Number of tokens consumed by the generated response."
+    },
+    "total_tokens": {
+      "type": "integer",
+      "description": "Total tokens consumed by the generation request."
+    }
+  }
+}

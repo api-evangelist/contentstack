@@ -1,0 +1,24 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/CreateAudienceRequest",
+  "title": "CreateAudienceRequest",
+  "type": "object",
+  "description": "Parameters for creating or updating an audience.",
+  "required": [
+    "name"
+  ],
+  "properties": {
+    "name": {
+      "type": "string",
+      "description": "Display name for the audience."
+    },
+    "description": {
+      "type": "string",
+      "description": "Description of the audience targeting criteria."
+    },
+    "rules": {
+      "type": "object",
+      "description": "Logical conditions for audience membership."
+    }
+  }
+}

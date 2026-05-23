@@ -1,0 +1,36 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/SyncResponse",
+  "title": "SyncResponse",
+  "type": "object",
+  "description": "The response from a content sync operation, containing the synced items and tokens for subsequent sync requests.",
+  "properties": {
+    "items": {
+      "type": "array",
+      "description": "Array of sync item objects representing content changes.",
+      "items": {
+        "$ref": "#/components/schemas/SyncItem"
+      }
+    },
+    "paginationToken": {
+      "type": "string",
+      "description": "Token to retrieve the next page of sync results. Present only when more pages are available."
+    },
+    "syncToken": {
+      "type": "string",
+      "description": "Token representing the current sync state. Use this in subsequent sync requests to receive only new changes."
+    },
+    "total_count": {
+      "type": "integer",
+      "description": "Total number of items in the sync response."
+    },
+    "limit": {
+      "type": "integer",
+      "description": "Maximum items returned per page."
+    },
+    "skip": {
+      "type": "integer",
+      "description": "Number of items skipped in this response."
+    }
+  }
+}

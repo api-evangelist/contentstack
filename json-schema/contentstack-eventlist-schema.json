@@ -1,0 +1,16 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/EventList",
+  "title": "EventList",
+  "type": "object",
+  "description": "A list of custom event definitions.",
+  "properties": {
+    "data": {
+      "type": "array",
+      "description": "Array of event objects.",
+      "items": {
+        "$ref": "#/components/schemas/PersonalizeEvent"
+      }
+    }
+  }
+}

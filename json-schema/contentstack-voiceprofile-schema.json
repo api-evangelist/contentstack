@@ -1,0 +1,38 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/VoiceProfile",
+  "title": "VoiceProfile",
+  "type": "object",
+  "description": "A Voice Profile defining writing style and tone for AI content generation.",
+  "properties": {
+    "uid": {
+      "type": "string",
+      "description": "Unique identifier of the Voice Profile."
+    },
+    "name": {
+      "type": "string",
+      "description": "Display name of the Voice Profile."
+    },
+    "description": {
+      "type": "string",
+      "description": "Description of the voice profile's intended use case."
+    },
+    "tone": {
+      "type": "string",
+      "description": "The tonal characteristics of the voice profile such as formal, conversational, or authoritative."
+    },
+    "style_guidelines": {
+      "type": "string",
+      "description": "Writing style guidelines that define how content should be structured."
+    },
+    "brand_kit_uid": {
+      "type": "string",
+      "description": "UID of the Brand Kit this Voice Profile belongs to."
+    },
+    "created_at": {
+      "type": "string",
+      "format": "date-time",
+      "description": "ISO 8601 timestamp when the Voice Profile was created."
+    }
+  }
+}

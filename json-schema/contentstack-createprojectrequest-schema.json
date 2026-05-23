@@ -1,0 +1,20 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/CreateProjectRequest",
+  "title": "CreateProjectRequest",
+  "type": "object",
+  "description": "Parameters for creating or updating a project.",
+  "required": [
+    "name"
+  ],
+  "properties": {
+    "name": {
+      "type": "string",
+      "description": "Display name for the project."
+    },
+    "description": {
+      "type": "string",
+      "description": "Description of the project's purpose."
+    }
+  }
+}

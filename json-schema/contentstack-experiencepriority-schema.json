@@ -1,0 +1,16 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/ExperiencePriority",
+  "title": "ExperiencePriority",
+  "type": "object",
+  "description": "Priority ordering of experiences for conflict resolution.",
+  "properties": {
+    "priority": {
+      "type": "array",
+      "description": "Ordered list of experience UIDs from highest to lowest priority.",
+      "items": {
+        "type": "string"
+      }
+    }
+  }
+}

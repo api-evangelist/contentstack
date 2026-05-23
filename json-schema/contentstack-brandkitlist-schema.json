@@ -1,0 +1,20 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/BrandKitList",
+  "title": "BrandKitList",
+  "type": "object",
+  "description": "A paginated list of Brand Kits.",
+  "properties": {
+    "data": {
+      "type": "array",
+      "description": "Array of Brand Kit objects.",
+      "items": {
+        "$ref": "#/components/schemas/BrandKit"
+      }
+    },
+    "total": {
+      "type": "integer",
+      "description": "Total count of Brand Kits in the organization."
+    }
+  }
+}

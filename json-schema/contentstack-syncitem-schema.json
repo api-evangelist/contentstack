@@ -1,0 +1,34 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/SyncItem",
+  "title": "SyncItem",
+  "type": "object",
+  "description": "A single item in a sync response representing a content change event.",
+  "properties": {
+    "type": {
+      "type": "string",
+      "description": "The type of sync event. Possible values: entry_published, entry_unpublished, entry_deleted, asset_published, asset_unpublished, asset_deleted, content_type_deleted.",
+      "enum": [
+        "entry_published",
+        "entry_unpublished",
+        "entry_deleted",
+        "asset_published",
+        "asset_unpublished",
+        "asset_deleted",
+        "content_type_deleted"
+      ]
+    },
+    "data": {
+      "type": "object",
+      "description": "The content data associated with this sync event."
+    },
+    "content_type_uid": {
+      "type": "string",
+      "description": "The UID of the content type for entry-related events."
+    },
+    "locale": {
+      "type": "string",
+      "description": "The locale of the content for locale-specific events."
+    }
+  }
+}

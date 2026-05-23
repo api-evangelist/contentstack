@@ -1,0 +1,16 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/Manifest",
+  "title": "Manifest",
+  "type": "object",
+  "description": "The personalization manifest containing active experiences and their variant assignments for the current user.",
+  "properties": {
+    "experiences": {
+      "type": "array",
+      "description": "List of active experience objects with assigned variants.",
+      "items": {
+        "$ref": "#/components/schemas/ManifestExperience"
+      }
+    }
+  }
+}

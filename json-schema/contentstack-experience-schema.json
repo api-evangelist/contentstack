@@ -1,0 +1,47 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/Experience",
+  "title": "Experience",
+  "type": "object",
+  "description": "A personalization experience with variant and audience configuration.",
+  "properties": {
+    "uid": {
+      "type": "string",
+      "description": "Unique identifier of the experience."
+    },
+    "name": {
+      "type": "string",
+      "description": "Display name of the experience."
+    },
+    "type": {
+      "type": "string",
+      "description": "Type of experience \u2014 SEGMENTED for rule-based or AB_TEST for split testing.",
+      "enum": [
+        "SEGMENTED",
+        "AB_TEST"
+      ]
+    },
+    "status": {
+      "type": "string",
+      "description": "Current status of the experience.",
+      "enum": [
+        "DRAFT",
+        "ACTIVE",
+        "INACTIVE",
+        "ENDED"
+      ]
+    },
+    "variants": {
+      "type": "array",
+      "description": "List of content variants included in the experience.",
+      "items": {
+        "$ref": "#/components/schemas/ExperienceVariant"
+      }
+    },
+    "created_at": {
+      "type": "string",
+      "format": "date-time",
+      "description": "ISO 8601 timestamp when the experience was created."
+    }
+  }
+}
