@@ -1,0 +1,2889 @@
+{
+  "item": [
+    {
+      "id": "6968d37d-4dc1-4c48-9d10-106eaeb7cd12",
+      "name": "Brand Kits",
+      "description": {
+        "content": "Brand Kits are centralized repositories for an organization's brand identity assets, guidelines, and AI configuration. They are used to ensure consistent brand voice and style across AI-generated content.",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "a7452650-9ab0-4a13-858d-65888361fe9a",
+          "name": "Get all Brand Kits",
+          "request": {
+            "name": "Get all Brand Kits",
+            "description": {
+              "content": "Retrieves all Brand Kits in the organization with pagination support and optional filtering. Each Brand Kit contains brand identity information used for AI content generation.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v1",
+                "brand-kits"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "skip",
+                  "value": "0",
+                  "description": "Number of records to skip for pagination."
+                },
+                {
+                  "disabled": false,
+                  "key": "limit",
+                  "value": "25",
+                  "description": "Maximum number of records to return."
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "disabled": false,
+                "description": "(Required) The unique identifier of the organization.",
+                "key": "organization_uid",
+                "value": "<string>"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "c1713d44-e771-41f1-b049-c08d941f1f49",
+              "name": "A list of Brand Kits in the organization.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "brand-kits"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "skip",
+                      "value": "0"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "25"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) The unique identifier of the organization.",
+                    "key": "organization_uid",
+                    "value": "<string>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"data\": [\n    {\n      \"uid\": \"string\",\n      \"name\": \"string\",\n      \"description\": \"string\",\n      \"organization_uid\": \"string\",\n      \"created_at\": \"2008-02-02T16:31:29.462Z\",\n      \"updated_at\": \"1950-01-27T07:07:12.346Z\"\n    },\n    {\n      \"uid\": \"string\",\n      \"name\": \"string\",\n      \"description\": \"string\",\n      \"organization_uid\": \"string\",\n      \"created_at\": \"2008-08-16T01:11:24.566Z\",\n      \"updated_at\": \"2011-07-08T14:38:47.935Z\"\n    }\n  ],\n  \"total\": 5923\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "d4e82f56-a4cb-4473-99a4-a635ef0f542d",
+              "name": "Authentication credentials are missing or invalid.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "brand-kits"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "skip",
+                      "value": "0"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "25"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) The unique identifier of the organization.",
+                    "key": "organization_uid",
+                    "value": "<string>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"string\",\n  \"error_code\": 9132\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "8095a2d6-f54d-4606-8df0-458e4321b2e5",
+          "name": "Create a Brand Kit",
+          "request": {
+            "name": "Create a Brand Kit",
+            "description": {
+              "content": "Creates a new Brand Kit in the organization with brand identity configuration including name, description, guidelines, and associated metadata.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v1",
+                "brand-kits"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "disabled": false,
+                "description": "(Required) The unique identifier of the organization.",
+                "key": "organization_uid",
+                "value": "<string>"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"<string>\",\n  \"description\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "7759a623-2db1-4e1b-8def-c46973ad2e4a",
+              "name": "The newly created Brand Kit.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "brand-kits"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) The unique identifier of the organization.",
+                    "key": "organization_uid",
+                    "value": "<string>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"<string>\",\n  \"description\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Created",
+              "code": 201,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"uid\": \"string\",\n  \"name\": \"string\",\n  \"description\": \"string\",\n  \"organization_uid\": \"string\",\n  \"created_at\": \"1971-12-29T19:25:34.238Z\",\n  \"updated_at\": \"2015-08-13T11:53:03.922Z\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "5ec1e3ea-4fe7-4e0d-89b1-9d3954b4bd0d",
+              "name": "The request is malformed or contains invalid parameters.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "brand-kits"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) The unique identifier of the organization.",
+                    "key": "organization_uid",
+                    "value": "<string>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"<string>\",\n  \"description\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"string\",\n  \"error_code\": 9132\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "6d04ec6c-7784-4611-910b-5789f9ad64c1",
+              "name": "Authentication credentials are missing or invalid.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "brand-kits"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) The unique identifier of the organization.",
+                    "key": "organization_uid",
+                    "value": "<string>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"<string>\",\n  \"description\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"string\",\n  \"error_code\": 9132\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "8886aead-3017-4c8c-87a7-16d196222925",
+          "name": "Get a Brand Kit",
+          "request": {
+            "name": "Get a Brand Kit",
+            "description": {
+              "content": "Retrieves the full details of a specific Brand Kit including its brand identity configuration, voice profiles, and associated knowledge vault content.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v1",
+                "brand-kits",
+                ":brand_kit_uid"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "brand_kit_uid",
+                  "description": "(Required) The unique identifier of the Brand Kit."
+                }
+              ]
+            },
+            "header": [
+              {
+                "disabled": false,
+                "description": "(Required) The unique identifier of the organization.",
+                "key": "organization_uid",
+                "value": "<string>"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "63bcd3ae-c12d-48ea-b46e-64f90f84c09d",
+              "name": "The requested Brand Kit.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "brand-kits",
+                    ":brand_kit_uid"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "brand_kit_uid",
+                      "description": "(Required) The unique identifier of the Brand Kit."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) The unique identifier of the organization.",
+                    "key": "organization_uid",
+                    "value": "<string>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"uid\": \"string\",\n  \"name\": \"string\",\n  \"description\": \"string\",\n  \"organization_uid\": \"string\",\n  \"created_at\": \"1971-12-29T19:25:34.238Z\",\n  \"updated_at\": \"2015-08-13T11:53:03.922Z\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "911932ca-c2e9-45e0-9cb6-00dbbe333527",
+              "name": "Authentication credentials are missing or invalid.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "brand-kits",
+                    ":brand_kit_uid"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "brand_kit_uid",
+                      "description": "(Required) The unique identifier of the Brand Kit."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) The unique identifier of the organization.",
+                    "key": "organization_uid",
+                    "value": "<string>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"string\",\n  \"error_code\": 9132\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "2f5a8a57-6ca9-4187-a225-2aed0b8087e2",
+              "name": "The requested resource was not found.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "brand-kits",
+                    ":brand_kit_uid"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "brand_kit_uid",
+                      "description": "(Required) The unique identifier of the Brand Kit."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) The unique identifier of the organization.",
+                    "key": "organization_uid",
+                    "value": "<string>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"string\",\n  \"error_code\": 9132\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "a6a88d70-9faf-4e4d-b522-679aecf5cf69",
+          "name": "Update a Brand Kit",
+          "request": {
+            "name": "Update a Brand Kit",
+            "description": {
+              "content": "Updates the configuration and brand identity information for an existing Brand Kit.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v1",
+                "brand-kits",
+                ":brand_kit_uid"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "brand_kit_uid",
+                  "description": "(Required) The unique identifier of the Brand Kit."
+                }
+              ]
+            },
+            "header": [
+              {
+                "disabled": false,
+                "description": "(Required) The unique identifier of the organization.",
+                "key": "organization_uid",
+                "value": "<string>"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "PUT",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"<string>\",\n  \"description\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "48a6a998-e78d-4ed2-8315-6ac5c14e127f",
+              "name": "The updated Brand Kit.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "brand-kits",
+                    ":brand_kit_uid"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "brand_kit_uid",
+                      "description": "(Required) The unique identifier of the Brand Kit."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) The unique identifier of the organization.",
+                    "key": "organization_uid",
+                    "value": "<string>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"<string>\",\n  \"description\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"uid\": \"string\",\n  \"name\": \"string\",\n  \"description\": \"string\",\n  \"organization_uid\": \"string\",\n  \"created_at\": \"1971-12-29T19:25:34.238Z\",\n  \"updated_at\": \"2015-08-13T11:53:03.922Z\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "0d13485b-53e2-40d9-8d10-4f99cf34a9a1",
+              "name": "The request is malformed or contains invalid parameters.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "brand-kits",
+                    ":brand_kit_uid"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "brand_kit_uid",
+                      "description": "(Required) The unique identifier of the Brand Kit."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) The unique identifier of the organization.",
+                    "key": "organization_uid",
+                    "value": "<string>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"<string>\",\n  \"description\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"string\",\n  \"error_code\": 9132\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "e178446a-b986-4e24-b5e7-b41c7897afc3",
+              "name": "Authentication credentials are missing or invalid.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "brand-kits",
+                    ":brand_kit_uid"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "brand_kit_uid",
+                      "description": "(Required) The unique identifier of the Brand Kit."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) The unique identifier of the organization.",
+                    "key": "organization_uid",
+                    "value": "<string>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"<string>\",\n  \"description\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"string\",\n  \"error_code\": 9132\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "e1926903-4419-4cb3-af25-5a296cb34dc5",
+          "name": "Delete a Brand Kit",
+          "request": {
+            "name": "Delete a Brand Kit",
+            "description": {
+              "content": "Permanently removes a Brand Kit from the organization including all associated voice profiles and knowledge vault content.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v1",
+                "brand-kits",
+                ":brand_kit_uid"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "brand_kit_uid",
+                  "description": "(Required) The unique identifier of the Brand Kit."
+                }
+              ]
+            },
+            "header": [
+              {
+                "disabled": false,
+                "description": "(Required) The unique identifier of the organization.",
+                "key": "organization_uid",
+                "value": "<string>"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "DELETE",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "8afe46ba-1b85-458a-8c12-d8448bb4537f",
+              "name": "Brand Kit deleted successfully.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "brand-kits",
+                    ":brand_kit_uid"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "brand_kit_uid",
+                      "description": "(Required) The unique identifier of the Brand Kit."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) The unique identifier of the organization.",
+                    "key": "organization_uid",
+                    "value": "<string>"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "f3273eb8-ed49-4a95-92a4-f60f2adf3bdb",
+              "name": "Authentication credentials are missing or invalid.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "brand-kits",
+                    ":brand_kit_uid"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "brand_kit_uid",
+                      "description": "(Required) The unique identifier of the Brand Kit."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) The unique identifier of the organization.",
+                    "key": "organization_uid",
+                    "value": "<string>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"string\",\n  \"error_code\": 9132\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "ae4b06b9-b61e-4073-8a01-b85eb16b7ddd",
+              "name": "The requested resource was not found.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "brand-kits",
+                    ":brand_kit_uid"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "brand_kit_uid",
+                      "description": "(Required) The unique identifier of the Brand Kit."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) The unique identifier of the organization.",
+                    "key": "organization_uid",
+                    "value": "<string>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"string\",\n  \"error_code\": 9132\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    },
+    {
+      "id": "b0f3a019-c02a-4971-8a55-29f4d929a8af",
+      "name": "LLM Configuration",
+      "description": {
+        "content": "LLM Configuration endpoints allow organizations to register custom API credentials for large language model providers, enabling content generation through their own LLM subscriptions.",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "ff5920b2-6d4b-448f-a0a3-6e95af39088b",
+          "name": "Get LLM configuration",
+          "request": {
+            "name": "Get LLM configuration",
+            "description": {
+              "content": "Retrieves the custom LLM provider credentials configured for a Brand Kit. This allows organizations to use their own LLM API subscriptions for content generation within the Brand Kit.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v1",
+                "brand-kits",
+                ":brand_kit_uid",
+                "llm-config"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "brand_kit_uid",
+                  "description": "(Required) The unique identifier of the Brand Kit."
+                }
+              ]
+            },
+            "header": [
+              {
+                "disabled": false,
+                "description": "(Required) The unique identifier of the organization.",
+                "key": "organization_uid",
+                "value": "<string>"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "63caff85-5b35-44c9-84a6-f750d4c7930b",
+              "name": "The LLM configuration for the Brand Kit.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "brand-kits",
+                    ":brand_kit_uid",
+                    "llm-config"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "brand_kit_uid",
+                      "description": "(Required) The unique identifier of the Brand Kit."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) The unique identifier of the organization.",
+                    "key": "organization_uid",
+                    "value": "<string>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"provider\": \"string\",\n  \"model\": \"string\",\n  \"api_key_configured\": false,\n  \"created_at\": \"2000-06-02T03:37:20.384Z\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "8d0dd46f-d7de-4f09-86e9-e49572bc91b5",
+              "name": "Authentication credentials are missing or invalid.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "brand-kits",
+                    ":brand_kit_uid",
+                    "llm-config"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "brand_kit_uid",
+                      "description": "(Required) The unique identifier of the Brand Kit."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) The unique identifier of the organization.",
+                    "key": "organization_uid",
+                    "value": "<string>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"string\",\n  \"error_code\": 9132\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "3d7b4caf-6a3b-42b0-88dc-49972c8ba40d",
+          "name": "Configure custom LLM credentials",
+          "request": {
+            "name": "Configure custom LLM credentials",
+            "description": {
+              "content": "Registers custom API credentials for an LLM provider to enable content generation through the organization's own LLM subscription rather than Contentstack's default AI infrastructure.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v1",
+                "brand-kits",
+                ":brand_kit_uid",
+                "llm-config"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "brand_kit_uid",
+                  "description": "(Required) The unique identifier of the Brand Kit."
+                }
+              ]
+            },
+            "header": [
+              {
+                "disabled": false,
+                "description": "(Required) The unique identifier of the organization.",
+                "key": "organization_uid",
+                "value": "<string>"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"provider\": \"<string>\",\n  \"api_key\": \"<string>\",\n  \"model\": \"<string>\",\n  \"endpoint\": \"<uri>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "72150758-bd07-4f40-b648-d8824a42d6a4",
+              "name": "LLM configuration saved successfully.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "brand-kits",
+                    ":brand_kit_uid",
+                    "llm-config"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "brand_kit_uid",
+                      "description": "(Required) The unique identifier of the Brand Kit."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) The unique identifier of the organization.",
+                    "key": "organization_uid",
+                    "value": "<string>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"provider\": \"<string>\",\n  \"api_key\": \"<string>\",\n  \"model\": \"<string>\",\n  \"endpoint\": \"<uri>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"provider\": \"string\",\n  \"model\": \"string\",\n  \"api_key_configured\": false,\n  \"created_at\": \"2000-06-02T03:37:20.384Z\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "554ed5e5-f08d-4fe6-99b7-94840d52f8ef",
+              "name": "The request is malformed or contains invalid parameters.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "brand-kits",
+                    ":brand_kit_uid",
+                    "llm-config"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "brand_kit_uid",
+                      "description": "(Required) The unique identifier of the Brand Kit."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) The unique identifier of the organization.",
+                    "key": "organization_uid",
+                    "value": "<string>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"provider\": \"<string>\",\n  \"api_key\": \"<string>\",\n  \"model\": \"<string>\",\n  \"endpoint\": \"<uri>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"string\",\n  \"error_code\": 9132\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "9d76e1bb-c7b5-4a7b-b50f-1572ce8790b5",
+              "name": "Authentication credentials are missing or invalid.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "brand-kits",
+                    ":brand_kit_uid",
+                    "llm-config"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "brand_kit_uid",
+                      "description": "(Required) The unique identifier of the Brand Kit."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) The unique identifier of the organization.",
+                    "key": "organization_uid",
+                    "value": "<string>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"provider\": \"<string>\",\n  \"api_key\": \"<string>\",\n  \"model\": \"<string>\",\n  \"endpoint\": \"<uri>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"string\",\n  \"error_code\": 9132\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    },
+    {
+      "id": "424ccea3-b4e5-4bfa-bdbc-b1f9f034d958",
+      "name": "Voice Profiles",
+      "description": {
+        "content": "Voice Profiles define the writing style, tone, and persona characteristics for AI content generation within a Brand Kit. Multiple voice profiles can be created to support different content contexts or audiences.",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "37e642d3-80ec-44e6-9bf2-e6c0ca9a2101",
+          "name": "Get all Voice Profiles",
+          "request": {
+            "name": "Get all Voice Profiles",
+            "description": {
+              "content": "Retrieves all Voice Profiles associated with a specific Brand Kit. Voice Profiles define the writing style and tone used in AI content generation for that Brand Kit.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v1",
+                "brand-kits",
+                ":brand_kit_uid",
+                "voice-profiles"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "brand_kit_uid",
+                  "description": "(Required) The unique identifier of the Brand Kit."
+                }
+              ]
+            },
+            "header": [
+              {
+                "disabled": false,
+                "description": "(Required) The unique identifier of the organization.",
+                "key": "organization_uid",
+                "value": "<string>"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "3406760b-34e3-4b25-bd93-773bbd126c94",
+              "name": "A list of Voice Profiles in the Brand Kit.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "brand-kits",
+                    ":brand_kit_uid",
+                    "voice-profiles"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "brand_kit_uid",
+                      "description": "(Required) The unique identifier of the Brand Kit."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) The unique identifier of the organization.",
+                    "key": "organization_uid",
+                    "value": "<string>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"data\": [\n    {\n      \"uid\": \"string\",\n      \"name\": \"string\",\n      \"description\": \"string\",\n      \"tone\": \"string\",\n      \"style_guidelines\": \"string\",\n      \"brand_kit_uid\": \"string\",\n      \"created_at\": \"1964-10-01T20:26:39.032Z\"\n    },\n    {\n      \"uid\": \"string\",\n      \"name\": \"string\",\n      \"description\": \"string\",\n      \"tone\": \"string\",\n      \"style_guidelines\": \"string\",\n      \"brand_kit_uid\": \"string\",\n      \"created_at\": \"2025-03-10T05:34:05.017Z\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "0bd27e12-3f71-46d1-a7ac-98f85737a245",
+              "name": "Authentication credentials are missing or invalid.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "brand-kits",
+                    ":brand_kit_uid",
+                    "voice-profiles"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "brand_kit_uid",
+                      "description": "(Required) The unique identifier of the Brand Kit."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) The unique identifier of the organization.",
+                    "key": "organization_uid",
+                    "value": "<string>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"string\",\n  \"error_code\": 9132\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "08502af9-8b3c-41f3-9f94-e0cd403b273d",
+          "name": "Create a Voice Profile",
+          "request": {
+            "name": "Create a Voice Profile",
+            "description": {
+              "content": "Creates a new Voice Profile within a Brand Kit defining the writing style, tone characteristics, persona guidelines, and example content for AI generation.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v1",
+                "brand-kits",
+                ":brand_kit_uid",
+                "voice-profiles"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "brand_kit_uid",
+                  "description": "(Required) The unique identifier of the Brand Kit."
+                }
+              ]
+            },
+            "header": [
+              {
+                "disabled": false,
+                "description": "(Required) The unique identifier of the organization.",
+                "key": "organization_uid",
+                "value": "<string>"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"<string>\",\n  \"description\": \"<string>\",\n  \"tone\": \"<string>\",\n  \"style_guidelines\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "8a1ce928-84a7-46b4-89a3-92de4e24900e",
+              "name": "The newly created Voice Profile.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "brand-kits",
+                    ":brand_kit_uid",
+                    "voice-profiles"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "brand_kit_uid",
+                      "description": "(Required) The unique identifier of the Brand Kit."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) The unique identifier of the organization.",
+                    "key": "organization_uid",
+                    "value": "<string>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"<string>\",\n  \"description\": \"<string>\",\n  \"tone\": \"<string>\",\n  \"style_guidelines\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Created",
+              "code": 201,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"uid\": \"string\",\n  \"name\": \"string\",\n  \"description\": \"string\",\n  \"tone\": \"string\",\n  \"style_guidelines\": \"string\",\n  \"brand_kit_uid\": \"string\",\n  \"created_at\": \"1971-06-24T16:21:26.622Z\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "3aab4842-fdb2-418f-bb8f-23cc84f7dd34",
+              "name": "The request is malformed or contains invalid parameters.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "brand-kits",
+                    ":brand_kit_uid",
+                    "voice-profiles"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "brand_kit_uid",
+                      "description": "(Required) The unique identifier of the Brand Kit."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) The unique identifier of the organization.",
+                    "key": "organization_uid",
+                    "value": "<string>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"<string>\",\n  \"description\": \"<string>\",\n  \"tone\": \"<string>\",\n  \"style_guidelines\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"string\",\n  \"error_code\": 9132\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "afb0dfe0-0905-47e2-86a5-54c537b93d92",
+              "name": "Authentication credentials are missing or invalid.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "brand-kits",
+                    ":brand_kit_uid",
+                    "voice-profiles"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "brand_kit_uid",
+                      "description": "(Required) The unique identifier of the Brand Kit."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) The unique identifier of the organization.",
+                    "key": "organization_uid",
+                    "value": "<string>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"<string>\",\n  \"description\": \"<string>\",\n  \"tone\": \"<string>\",\n  \"style_guidelines\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"string\",\n  \"error_code\": 9132\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "d7dc469d-7da3-4609-9283-fe60417c9140",
+          "name": "Get a Voice Profile",
+          "request": {
+            "name": "Get a Voice Profile",
+            "description": {
+              "content": "Retrieves the full configuration of a specific Voice Profile including style guidelines, tone settings, and example content.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v1",
+                "brand-kits",
+                ":brand_kit_uid",
+                "voice-profiles",
+                ":profile_uid"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "brand_kit_uid",
+                  "description": "(Required) The unique identifier of the Brand Kit."
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "profile_uid",
+                  "description": "(Required) The unique identifier of the Voice Profile."
+                }
+              ]
+            },
+            "header": [
+              {
+                "disabled": false,
+                "description": "(Required) The unique identifier of the organization.",
+                "key": "organization_uid",
+                "value": "<string>"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "e50e7b7a-b89f-473e-a4f3-f0ffddf9d983",
+              "name": "The requested Voice Profile.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "brand-kits",
+                    ":brand_kit_uid",
+                    "voice-profiles",
+                    ":profile_uid"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "brand_kit_uid",
+                      "description": "(Required) The unique identifier of the Brand Kit."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "profile_uid",
+                      "description": "(Required) The unique identifier of the Voice Profile."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) The unique identifier of the organization.",
+                    "key": "organization_uid",
+                    "value": "<string>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"uid\": \"string\",\n  \"name\": \"string\",\n  \"description\": \"string\",\n  \"tone\": \"string\",\n  \"style_guidelines\": \"string\",\n  \"brand_kit_uid\": \"string\",\n  \"created_at\": \"1971-06-24T16:21:26.622Z\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "6f273a14-4979-4d12-8597-a1c61561792f",
+              "name": "Authentication credentials are missing or invalid.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "brand-kits",
+                    ":brand_kit_uid",
+                    "voice-profiles",
+                    ":profile_uid"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "brand_kit_uid",
+                      "description": "(Required) The unique identifier of the Brand Kit."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "profile_uid",
+                      "description": "(Required) The unique identifier of the Voice Profile."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) The unique identifier of the organization.",
+                    "key": "organization_uid",
+                    "value": "<string>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"string\",\n  \"error_code\": 9132\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "c8e110c6-6787-4e2d-a0ab-42eea603856d",
+              "name": "The requested resource was not found.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "brand-kits",
+                    ":brand_kit_uid",
+                    "voice-profiles",
+                    ":profile_uid"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "brand_kit_uid",
+                      "description": "(Required) The unique identifier of the Brand Kit."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "profile_uid",
+                      "description": "(Required) The unique identifier of the Voice Profile."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) The unique identifier of the organization.",
+                    "key": "organization_uid",
+                    "value": "<string>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"string\",\n  \"error_code\": 9132\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "90fcf174-944c-488f-babf-76ceba6608ed",
+          "name": "Update a Voice Profile",
+          "request": {
+            "name": "Update a Voice Profile",
+            "description": {
+              "content": "Updates the configuration of an existing Voice Profile including style guidelines and tone characteristics.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v1",
+                "brand-kits",
+                ":brand_kit_uid",
+                "voice-profiles",
+                ":profile_uid"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "brand_kit_uid",
+                  "description": "(Required) The unique identifier of the Brand Kit."
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "profile_uid",
+                  "description": "(Required) The unique identifier of the Voice Profile."
+                }
+              ]
+            },
+            "header": [
+              {
+                "disabled": false,
+                "description": "(Required) The unique identifier of the organization.",
+                "key": "organization_uid",
+                "value": "<string>"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "PUT",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"<string>\",\n  \"description\": \"<string>\",\n  \"tone\": \"<string>\",\n  \"style_guidelines\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "f17f496e-1296-4d89-ae4e-e14ee6856a24",
+              "name": "The updated Voice Profile.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "brand-kits",
+                    ":brand_kit_uid",
+                    "voice-profiles",
+                    ":profile_uid"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "brand_kit_uid",
+                      "description": "(Required) The unique identifier of the Brand Kit."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "profile_uid",
+                      "description": "(Required) The unique identifier of the Voice Profile."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) The unique identifier of the organization.",
+                    "key": "organization_uid",
+                    "value": "<string>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"<string>\",\n  \"description\": \"<string>\",\n  \"tone\": \"<string>\",\n  \"style_guidelines\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"uid\": \"string\",\n  \"name\": \"string\",\n  \"description\": \"string\",\n  \"tone\": \"string\",\n  \"style_guidelines\": \"string\",\n  \"brand_kit_uid\": \"string\",\n  \"created_at\": \"1971-06-24T16:21:26.622Z\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "13991684-58c1-41a0-bee9-58f1b584cf86",
+              "name": "The request is malformed or contains invalid parameters.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "brand-kits",
+                    ":brand_kit_uid",
+                    "voice-profiles",
+                    ":profile_uid"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "brand_kit_uid",
+                      "description": "(Required) The unique identifier of the Brand Kit."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "profile_uid",
+                      "description": "(Required) The unique identifier of the Voice Profile."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) The unique identifier of the organization.",
+                    "key": "organization_uid",
+                    "value": "<string>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"<string>\",\n  \"description\": \"<string>\",\n  \"tone\": \"<string>\",\n  \"style_guidelines\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"string\",\n  \"error_code\": 9132\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "4f9de0ad-db94-4ff8-abbc-a0b162d93b1f",
+              "name": "Authentication credentials are missing or invalid.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "brand-kits",
+                    ":brand_kit_uid",
+                    "voice-profiles",
+                    ":profile_uid"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "brand_kit_uid",
+                      "description": "(Required) The unique identifier of the Brand Kit."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "profile_uid",
+                      "description": "(Required) The unique identifier of the Voice Profile."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) The unique identifier of the organization.",
+                    "key": "organization_uid",
+                    "value": "<string>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"<string>\",\n  \"description\": \"<string>\",\n  \"tone\": \"<string>\",\n  \"style_guidelines\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"string\",\n  \"error_code\": 9132\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "f2b44fb3-d19b-4edc-88b4-6b0efed116de",
+          "name": "Delete a Voice Profile",
+          "request": {
+            "name": "Delete a Voice Profile",
+            "description": {
+              "content": "Permanently removes a Voice Profile from the Brand Kit. This action cannot be undone.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v1",
+                "brand-kits",
+                ":brand_kit_uid",
+                "voice-profiles",
+                ":profile_uid"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "brand_kit_uid",
+                  "description": "(Required) The unique identifier of the Brand Kit."
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "profile_uid",
+                  "description": "(Required) The unique identifier of the Voice Profile."
+                }
+              ]
+            },
+            "header": [
+              {
+                "disabled": false,
+                "description": "(Required) The unique identifier of the organization.",
+                "key": "organization_uid",
+                "value": "<string>"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "DELETE",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "ef412f2b-3078-4e3f-ad3e-ff2e3fe419cb",
+              "name": "Voice Profile deleted successfully.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "brand-kits",
+                    ":brand_kit_uid",
+                    "voice-profiles",
+                    ":profile_uid"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "brand_kit_uid",
+                      "description": "(Required) The unique identifier of the Brand Kit."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "profile_uid",
+                      "description": "(Required) The unique identifier of the Voice Profile."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) The unique identifier of the organization.",
+                    "key": "organization_uid",
+                    "value": "<string>"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "726a4be6-4b5b-4b45-adfe-3456672e6e14",
+              "name": "Authentication credentials are missing or invalid.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "brand-kits",
+                    ":brand_kit_uid",
+                    "voice-profiles",
+                    ":profile_uid"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "brand_kit_uid",
+                      "description": "(Required) The unique identifier of the Brand Kit."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "profile_uid",
+                      "description": "(Required) The unique identifier of the Voice Profile."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) The unique identifier of the organization.",
+                    "key": "organization_uid",
+                    "value": "<string>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"string\",\n  \"error_code\": 9132\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "e2beeb13-04f8-454b-9040-2299aae3d22d",
+              "name": "The requested resource was not found.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "brand-kits",
+                    ":brand_kit_uid",
+                    "voice-profiles",
+                    ":profile_uid"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "brand_kit_uid",
+                      "description": "(Required) The unique identifier of the Brand Kit."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "profile_uid",
+                      "description": "(Required) The unique identifier of the Voice Profile."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) The unique identifier of the organization.",
+                    "key": "organization_uid",
+                    "value": "<string>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"string\",\n  \"error_code\": 9132\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://brand-kits-api.contentstack.com",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "bearer",
+    "bearer": [
+      {
+        "key": "token",
+        "value": "{{bearerToken}}"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "75b9d0a0-caf0-4ac4-9b52-7d22de7869d7",
+    "name": "Contentstack Brand Kit Management API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "The Contentstack Brand Kit Management API provides programmatic control over Brand Kit resources within a Contentstack organization. Brand Kits serve as centralized hubs for an organization's brand identity, encompassing detailed brand information, writing guidelines, and persona configurations. The API supports full CRUD operations for Brand Kits, Voice Profiles, and custom LLM configuration, enabling developers to manage brand identity data programmatically and integrate it with AI content generation workflows.\n\nContact Support:\n Name: Contentstack Support",
+      "type": "text/plain"
+    }
+  }
+}

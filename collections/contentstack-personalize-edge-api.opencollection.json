@@ -1,0 +1,146 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Contentstack Personalize Edge API",
+    "version": "v1"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Manifest",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get personalization manifest",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://personalize-edge.contentstack.com/manifest",
+            "headers": [
+              {
+                "name": "x-project-uid",
+                "value": ""
+              },
+              {
+                "name": "x-cs-personalize-user-uid",
+                "value": ""
+              },
+              {
+                "name": "x-forwarded-for",
+                "value": ""
+              },
+              {
+                "name": "user-agent",
+                "value": ""
+              },
+              {
+                "name": "referer",
+                "value": ""
+              },
+              {
+                "name": "x-page-url",
+                "value": ""
+              },
+              {
+                "name": "x-live-attributes",
+                "value": ""
+              }
+            ]
+          },
+          "docs": "Returns a list of all active personalization experiences and their corresponding content variant mappings for the current user. The manifest is evaluated in real-time based on the user's attributes and current audience memberships. This endpoint is called at the beginning of a user session to determine which content variants to display."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "User Attributes",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Set and update user attributes",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "https://personalize-edge.contentstack.com/user-attributes",
+            "headers": [
+              {
+                "name": "x-project-uid",
+                "value": ""
+              },
+              {
+                "name": "x-cs-personalize-user-uid",
+                "value": ""
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Persists custom user attribute values at the Personalize Edge for use in audience rule evaluation. Attributes set via this endpoint are stored against the user's identifier and used in all subsequent manifest requests. Use this endpoint to update attributes based on user actions or profile data from external systems."
+        },
+        {
+          "info": {
+            "name": "Merge user attributes",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://personalize-edge.contentstack.com/user-attributes/actions/merge",
+            "headers": [
+              {
+                "name": "x-project-uid",
+                "value": ""
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Merges the attributes of a source user identity into a target user identity. This is used in identity resolution scenarios where an anonymous user record needs to be combined with an authenticated user record upon login, preserving all accumulated behavioral and attribute data."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Events",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Track user events",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://personalize-edge.contentstack.com/events",
+            "headers": [
+              {
+                "name": "x-project-uid",
+                "value": ""
+              },
+              {
+                "name": "x-cs-personalize-user-uid",
+                "value": ""
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Records one or more user behavior events for experience analytics and audience evaluation. Supports both impression events (automatic tracking when experiences are shown) and custom events (defined in the Personalize Management API and triggered by specific user actions)."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

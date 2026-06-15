@@ -1,0 +1,2508 @@
+{
+  "item": [
+    {
+      "id": "c842199a-ba47-4b36-b7ce-89cb44ca16d6",
+      "name": "Cache Analytics",
+      "description": {
+        "content": "Cache analytics track CDN cache hit and miss rates to measure delivery efficiency and identify cache optimization opportunities.",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "a77f13e9-6820-4d5a-843e-fbc24775d574",
+          "name": "Get CDN cache usage metrics",
+          "request": {
+            "name": "Get CDN cache usage metrics",
+            "description": {
+              "content": "Returns CDN cache hit and miss counts for the organization's content delivery. High cache miss rates may indicate cache configuration issues or stale cache invalidation frequency.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "analytics",
+                "v2",
+                "cache-usage"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "disabled": false,
+                "description": "(Required) The unique identifier of the organization.",
+                "key": "organization_uid",
+                "value": "<string>"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"from\": \"<date>\",\n  \"to\": \"<date>\",\n  \"duration\": \"<string>\",\n  \"skip\": 0,\n  \"limit\": 100\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "c03f110c-58b3-41dc-a8be-85984893f2eb",
+              "name": "Job queued successfully.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "analytics",
+                    "v2",
+                    "cache-usage"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) The unique identifier of the organization.",
+                    "key": "organization_uid",
+                    "value": "<string>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"from\": \"<date>\",\n  \"to\": \"<date>\",\n  \"duration\": \"<string>\",\n  \"skip\": 0,\n  \"limit\": 100\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"jobId\": \"string\",\n  \"status\": \"completed\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "85b75cfe-6534-48c3-82cc-535f1ca62d26",
+              "name": "The request is malformed or contains invalid parameters.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "analytics",
+                    "v2",
+                    "cache-usage"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) The unique identifier of the organization.",
+                    "key": "organization_uid",
+                    "value": "<string>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"from\": \"<date>\",\n  \"to\": \"<date>\",\n  \"duration\": \"<string>\",\n  \"skip\": 0,\n  \"limit\": 100\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error_message\": \"string\",\n  \"error_code\": 2017\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "10e9beda-00ff-4ffb-bc8d-34e9f58a86a6",
+              "name": "Authentication credentials are missing or invalid.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "analytics",
+                    "v2",
+                    "cache-usage"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) The unique identifier of the organization.",
+                    "key": "organization_uid",
+                    "value": "<string>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"from\": \"<date>\",\n  \"to\": \"<date>\",\n  \"duration\": \"<string>\",\n  \"skip\": 0,\n  \"limit\": 100\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error_message\": \"string\",\n  \"error_code\": 2017\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "d985470b-1054-4b8f-90f6-36ad9b439d31",
+              "name": "The user does not have permission to access analytics. Owner or Admin role required.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "analytics",
+                    "v2",
+                    "cache-usage"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) The unique identifier of the organization.",
+                    "key": "organization_uid",
+                    "value": "<string>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"from\": \"<date>\",\n  \"to\": \"<date>\",\n  \"duration\": \"<string>\",\n  \"skip\": 0,\n  \"limit\": 100\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error_message\": \"string\",\n  \"error_code\": 2017\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    },
+    {
+      "id": "8de5f6b0-4800-411b-b92b-40ff08f2f931",
+      "name": "Device Usage",
+      "description": {
+        "content": "Device usage analytics track API and content delivery requests broken down by device type (desktop, mobile, tablet, server).",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "0869f12b-9945-422d-91f8-816612f8971d",
+          "name": "Get device usage metrics",
+          "request": {
+            "name": "Get device usage metrics",
+            "description": {
+              "content": "Returns API request counts broken down by device type. Tracks usage from desktop, mobile, tablet, and server (API) clients to understand content consumption patterns.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "analytics",
+                "v2",
+                "device-usage"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "disabled": false,
+                "description": "(Required) The unique identifier of the organization.",
+                "key": "organization_uid",
+                "value": "<string>"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"from\": \"<date>\",\n  \"to\": \"<date>\",\n  \"duration\": \"<string>\",\n  \"skip\": 0,\n  \"limit\": 100\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "8ab98380-f36d-4dc7-8374-f53d81a15794",
+              "name": "Job queued successfully.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "analytics",
+                    "v2",
+                    "device-usage"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) The unique identifier of the organization.",
+                    "key": "organization_uid",
+                    "value": "<string>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"from\": \"<date>\",\n  \"to\": \"<date>\",\n  \"duration\": \"<string>\",\n  \"skip\": 0,\n  \"limit\": 100\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"jobId\": \"string\",\n  \"status\": \"completed\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "42f392b4-192f-4256-983d-65f7a983669c",
+              "name": "The request is malformed or contains invalid parameters.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "analytics",
+                    "v2",
+                    "device-usage"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) The unique identifier of the organization.",
+                    "key": "organization_uid",
+                    "value": "<string>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"from\": \"<date>\",\n  \"to\": \"<date>\",\n  \"duration\": \"<string>\",\n  \"skip\": 0,\n  \"limit\": 100\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error_message\": \"string\",\n  \"error_code\": 2017\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "dce362aa-692b-4882-82e0-41855d756dcf",
+              "name": "Authentication credentials are missing or invalid.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "analytics",
+                    "v2",
+                    "device-usage"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) The unique identifier of the organization.",
+                    "key": "organization_uid",
+                    "value": "<string>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"from\": \"<date>\",\n  \"to\": \"<date>\",\n  \"duration\": \"<string>\",\n  \"skip\": 0,\n  \"limit\": 100\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error_message\": \"string\",\n  \"error_code\": 2017\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "048f0939-f08a-47ea-b04b-981c340ff326",
+              "name": "The user does not have permission to access analytics. Owner or Admin role required.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "analytics",
+                    "v2",
+                    "device-usage"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) The unique identifier of the organization.",
+                    "key": "organization_uid",
+                    "value": "<string>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"from\": \"<date>\",\n  \"to\": \"<date>\",\n  \"duration\": \"<string>\",\n  \"skip\": 0,\n  \"limit\": 100\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error_message\": \"string\",\n  \"error_code\": 2017\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    },
+    {
+      "id": "f957c521-185f-4ad2-85cb-19068cc08de7",
+      "name": "Jobs",
+      "description": {
+        "content": "Analytics jobs represent asynchronous data retrieval operations. Use the job ID returned from POST endpoints to fetch results via the job data endpoint.",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "a92a8e8e-5459-4b62-8fcd-4caad15ca04a",
+          "name": "Get analytics job results",
+          "request": {
+            "name": "Get analytics job results",
+            "description": {
+              "content": "Retrieves the results of an asynchronous analytics job using the jobId returned from an analytics POST endpoint. Poll this endpoint until the job status is completed to retrieve the full dataset.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "analytics",
+                "v2",
+                "job",
+                ":jobId",
+                "data"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "skip",
+                  "value": "0",
+                  "description": "Number of records to skip for pagination."
+                },
+                {
+                  "disabled": false,
+                  "key": "limit",
+                  "value": "100",
+                  "description": "Maximum number of records to return."
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "jobId",
+                  "description": "(Required) The unique identifier of the analytics job returned from a POST endpoint."
+                }
+              ]
+            },
+            "header": [
+              {
+                "disabled": false,
+                "description": "(Required) The unique identifier of the organization.",
+                "key": "organization_uid",
+                "value": "<string>"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "fde99ac2-79d5-44b9-8d5f-8d258980338d",
+              "name": "The analytics job results.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "analytics",
+                    "v2",
+                    "job",
+                    ":jobId",
+                    "data"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "skip",
+                      "value": "0"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "100"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "jobId",
+                      "description": "(Required) The unique identifier of the analytics job returned from a POST endpoint."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) The unique identifier of the organization.",
+                    "key": "organization_uid",
+                    "value": "<string>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"jobId\": \"string\",\n  \"status\": \"failed\",\n  \"total\": 2738\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "3a6d7d8a-ee18-4c33-8bd8-aab08420ad75",
+              "name": "Authentication credentials are missing or invalid.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "analytics",
+                    "v2",
+                    "job",
+                    ":jobId",
+                    "data"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "skip",
+                      "value": "0"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "100"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "jobId",
+                      "description": "(Required) The unique identifier of the analytics job returned from a POST endpoint."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) The unique identifier of the organization.",
+                    "key": "organization_uid",
+                    "value": "<string>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error_message\": \"string\",\n  \"error_code\": 2017\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "1bf83392-2b51-43c6-b7e0-b828638f0758",
+              "name": "The user does not have permission to access analytics. Owner or Admin role required.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "analytics",
+                    "v2",
+                    "job",
+                    ":jobId",
+                    "data"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "skip",
+                      "value": "0"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "100"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "jobId",
+                      "description": "(Required) The unique identifier of the analytics job returned from a POST endpoint."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) The unique identifier of the organization.",
+                    "key": "organization_uid",
+                    "value": "<string>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error_message\": \"string\",\n  \"error_code\": 2017\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "874825be-040a-41ec-b7ce-d3e2ade7c209",
+              "name": "The requested job was not found.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "analytics",
+                    "v2",
+                    "job",
+                    ":jobId",
+                    "data"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "skip",
+                      "value": "0"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "100"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "jobId",
+                      "description": "(Required) The unique identifier of the analytics job returned from a POST endpoint."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) The unique identifier of the organization.",
+                    "key": "organization_uid",
+                    "value": "<string>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error_message\": \"string\",\n  \"error_code\": 2017\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    },
+    {
+      "id": "daa44832-bb04-418a-81e9-5c6109ffee5d",
+      "name": "SDK Usage",
+      "description": {
+        "content": "SDK usage analytics report request volumes from Contentstack SDKs broken down by SDK type and version.",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "503f8b60-b5b5-4826-9d86-164af1fd8cbb",
+          "name": "Get SDK usage metrics",
+          "request": {
+            "name": "Get SDK usage metrics",
+            "description": {
+              "content": "Returns request count metrics broken down by Contentstack SDK type and version, enabling teams to understand SDK adoption and identify outdated SDK versions in use.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "analytics",
+                "v2",
+                "sdk-usage"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "disabled": false,
+                "description": "(Required) The unique identifier of the organization.",
+                "key": "organization_uid",
+                "value": "<string>"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"from\": \"<date>\",\n  \"to\": \"<date>\",\n  \"duration\": \"<string>\",\n  \"skip\": 0,\n  \"limit\": 100\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "c0db847a-f460-43d3-8b6d-091c0099bd1c",
+              "name": "Job queued successfully.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "analytics",
+                    "v2",
+                    "sdk-usage"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) The unique identifier of the organization.",
+                    "key": "organization_uid",
+                    "value": "<string>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"from\": \"<date>\",\n  \"to\": \"<date>\",\n  \"duration\": \"<string>\",\n  \"skip\": 0,\n  \"limit\": 100\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"jobId\": \"string\",\n  \"status\": \"completed\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "2da3dc6a-d136-432b-a3c6-93a4e8881610",
+              "name": "The request is malformed or contains invalid parameters.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "analytics",
+                    "v2",
+                    "sdk-usage"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) The unique identifier of the organization.",
+                    "key": "organization_uid",
+                    "value": "<string>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"from\": \"<date>\",\n  \"to\": \"<date>\",\n  \"duration\": \"<string>\",\n  \"skip\": 0,\n  \"limit\": 100\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error_message\": \"string\",\n  \"error_code\": 2017\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "b387fb08-b7da-476c-ae61-a62a2043cf2d",
+              "name": "Authentication credentials are missing or invalid.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "analytics",
+                    "v2",
+                    "sdk-usage"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) The unique identifier of the organization.",
+                    "key": "organization_uid",
+                    "value": "<string>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"from\": \"<date>\",\n  \"to\": \"<date>\",\n  \"duration\": \"<string>\",\n  \"skip\": 0,\n  \"limit\": 100\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error_message\": \"string\",\n  \"error_code\": 2017\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "8b38bad7-0ca7-4344-bb67-f25c575274ef",
+              "name": "The user does not have permission to access analytics. Owner or Admin role required.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "analytics",
+                    "v2",
+                    "sdk-usage"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) The unique identifier of the organization.",
+                    "key": "organization_uid",
+                    "value": "<string>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"from\": \"<date>\",\n  \"to\": \"<date>\",\n  \"duration\": \"<string>\",\n  \"skip\": 0,\n  \"limit\": 100\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error_message\": \"string\",\n  \"error_code\": 2017\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    },
+    {
+      "id": "f4ba4d25-2d62-4172-a6ee-1c306fe8056f",
+      "name": "Status Code Analytics",
+      "description": {
+        "content": "Status code analytics show the distribution of HTTP response codes returned by Contentstack services for health and error monitoring.",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "a3030326-68cb-4a6a-88ab-35b728925170",
+          "name": "Get HTTP status code metrics",
+          "request": {
+            "name": "Get HTTP status code metrics",
+            "description": {
+              "content": "Returns the distribution of HTTP response status codes returned by Contentstack services. Useful for identifying error rates and monitoring API health.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "analytics",
+                "v2",
+                "status-code"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "disabled": false,
+                "description": "(Required) The unique identifier of the organization.",
+                "key": "organization_uid",
+                "value": "<string>"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"from\": \"<date>\",\n  \"to\": \"<date>\",\n  \"duration\": \"<string>\",\n  \"skip\": 0,\n  \"limit\": 100\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "afd2193c-07f2-497e-8cc4-0aae30020100",
+              "name": "Job queued successfully.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "analytics",
+                    "v2",
+                    "status-code"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) The unique identifier of the organization.",
+                    "key": "organization_uid",
+                    "value": "<string>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"from\": \"<date>\",\n  \"to\": \"<date>\",\n  \"duration\": \"<string>\",\n  \"skip\": 0,\n  \"limit\": 100\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"jobId\": \"string\",\n  \"status\": \"completed\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "71bd796c-b0cc-4c6b-9732-3d7b1effe73d",
+              "name": "The request is malformed or contains invalid parameters.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "analytics",
+                    "v2",
+                    "status-code"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) The unique identifier of the organization.",
+                    "key": "organization_uid",
+                    "value": "<string>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"from\": \"<date>\",\n  \"to\": \"<date>\",\n  \"duration\": \"<string>\",\n  \"skip\": 0,\n  \"limit\": 100\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error_message\": \"string\",\n  \"error_code\": 2017\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "03b60342-b921-4202-b7f3-65c5cdf04fd4",
+              "name": "Authentication credentials are missing or invalid.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "analytics",
+                    "v2",
+                    "status-code"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) The unique identifier of the organization.",
+                    "key": "organization_uid",
+                    "value": "<string>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"from\": \"<date>\",\n  \"to\": \"<date>\",\n  \"duration\": \"<string>\",\n  \"skip\": 0,\n  \"limit\": 100\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error_message\": \"string\",\n  \"error_code\": 2017\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "ac13c152-b964-42f6-9a47-039186824307",
+              "name": "The user does not have permission to access analytics. Owner or Admin role required.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "analytics",
+                    "v2",
+                    "status-code"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) The unique identifier of the organization.",
+                    "key": "organization_uid",
+                    "value": "<string>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"from\": \"<date>\",\n  \"to\": \"<date>\",\n  \"duration\": \"<string>\",\n  \"skip\": 0,\n  \"limit\": 100\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error_message\": \"string\",\n  \"error_code\": 2017\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    },
+    {
+      "id": "825c2664-7563-4eb6-8d27-bd248ee0b21b",
+      "name": "Subscription Usage",
+      "description": {
+        "content": "Subscription usage analytics provide metrics on Launch project, environment, and domain counts relative to the organization's plan limits.",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "9951e81c-c564-4761-a746-636adbd6d963",
+          "name": "Get subscription usage metrics",
+          "request": {
+            "name": "Get subscription usage metrics",
+            "description": {
+              "content": "Returns metrics on the organization's Launch resource consumption including the total number of projects, environments, and custom domains relative to plan limits. Queues an async job and returns a jobId for result retrieval.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "analytics",
+                "v2",
+                "subscription-usage"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "disabled": false,
+                "description": "(Required) The unique identifier of the organization.",
+                "key": "organization_uid",
+                "value": "<string>"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"from\": \"<date>\",\n  \"to\": \"<date>\",\n  \"duration\": \"<string>\",\n  \"skip\": 0,\n  \"limit\": 100\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "8c65fe56-977a-4592-bff4-03421ffaba29",
+              "name": "Job queued successfully with a jobId for result retrieval.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "analytics",
+                    "v2",
+                    "subscription-usage"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) The unique identifier of the organization.",
+                    "key": "organization_uid",
+                    "value": "<string>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"from\": \"<date>\",\n  \"to\": \"<date>\",\n  \"duration\": \"<string>\",\n  \"skip\": 0,\n  \"limit\": 100\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"jobId\": \"string\",\n  \"status\": \"completed\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "05c47a64-1b49-424c-a006-5965e1e91f92",
+              "name": "The request is malformed or contains invalid parameters.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "analytics",
+                    "v2",
+                    "subscription-usage"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) The unique identifier of the organization.",
+                    "key": "organization_uid",
+                    "value": "<string>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"from\": \"<date>\",\n  \"to\": \"<date>\",\n  \"duration\": \"<string>\",\n  \"skip\": 0,\n  \"limit\": 100\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error_message\": \"string\",\n  \"error_code\": 2017\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "8ca720fa-0ed4-4cf3-b09c-fd36a925614f",
+              "name": "Authentication credentials are missing or invalid.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "analytics",
+                    "v2",
+                    "subscription-usage"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) The unique identifier of the organization.",
+                    "key": "organization_uid",
+                    "value": "<string>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"from\": \"<date>\",\n  \"to\": \"<date>\",\n  \"duration\": \"<string>\",\n  \"skip\": 0,\n  \"limit\": 100\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error_message\": \"string\",\n  \"error_code\": 2017\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "703a4d00-c57c-48fa-ba2b-ec517e207b30",
+              "name": "The user does not have permission to access analytics. Owner or Admin role required.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "analytics",
+                    "v2",
+                    "subscription-usage"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) The unique identifier of the organization.",
+                    "key": "organization_uid",
+                    "value": "<string>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"from\": \"<date>\",\n  \"to\": \"<date>\",\n  \"duration\": \"<string>\",\n  \"skip\": 0,\n  \"limit\": 100\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error_message\": \"string\",\n  \"error_code\": 2017\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    },
+    {
+      "id": "78c997c1-0d5c-45cf-a8a8-e73877940817",
+      "name": "URL Analytics",
+      "description": {
+        "content": "URL analytics show request volume broken down by specific URLs to identify high-traffic content and optimize delivery.",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "9f2aa0a7-5409-41a6-b7d3-be49b7ce5a52",
+          "name": "Get top URLs by request count",
+          "request": {
+            "name": "Get top URLs by request count",
+            "description": {
+              "content": "Returns the most frequently requested URLs within the organization's Contentstack delivery infrastructure over the specified time period.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "analytics",
+                "v2",
+                "top-urls"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "disabled": false,
+                "description": "(Required) The unique identifier of the organization.",
+                "key": "organization_uid",
+                "value": "<string>"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"from\": \"<date>\",\n  \"to\": \"<date>\",\n  \"duration\": \"<string>\",\n  \"skip\": 0,\n  \"limit\": 100\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "99bfdfb2-00ca-4679-9a05-9065c596a3b8",
+              "name": "Job queued successfully.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "analytics",
+                    "v2",
+                    "top-urls"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) The unique identifier of the organization.",
+                    "key": "organization_uid",
+                    "value": "<string>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"from\": \"<date>\",\n  \"to\": \"<date>\",\n  \"duration\": \"<string>\",\n  \"skip\": 0,\n  \"limit\": 100\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"jobId\": \"string\",\n  \"status\": \"completed\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "3d61ef23-2d9f-4b9e-a57e-bfd6a532394c",
+              "name": "The request is malformed or contains invalid parameters.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "analytics",
+                    "v2",
+                    "top-urls"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) The unique identifier of the organization.",
+                    "key": "organization_uid",
+                    "value": "<string>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"from\": \"<date>\",\n  \"to\": \"<date>\",\n  \"duration\": \"<string>\",\n  \"skip\": 0,\n  \"limit\": 100\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error_message\": \"string\",\n  \"error_code\": 2017\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "a2345f66-bb8d-42db-b9b9-b2e39f1c182d",
+              "name": "Authentication credentials are missing or invalid.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "analytics",
+                    "v2",
+                    "top-urls"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) The unique identifier of the organization.",
+                    "key": "organization_uid",
+                    "value": "<string>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"from\": \"<date>\",\n  \"to\": \"<date>\",\n  \"duration\": \"<string>\",\n  \"skip\": 0,\n  \"limit\": 100\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error_message\": \"string\",\n  \"error_code\": 2017\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "f3a632e8-1fd8-4046-ab7d-e4690e58e27b",
+              "name": "The user does not have permission to access analytics. Owner or Admin role required.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "analytics",
+                    "v2",
+                    "top-urls"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) The unique identifier of the organization.",
+                    "key": "organization_uid",
+                    "value": "<string>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"from\": \"<date>\",\n  \"to\": \"<date>\",\n  \"duration\": \"<string>\",\n  \"skip\": 0,\n  \"limit\": 100\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error_message\": \"string\",\n  \"error_code\": 2017\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    },
+    {
+      "id": "738f0c7d-b424-41b6-bb41-340ea7b34bac",
+      "name": "Usage Analytics",
+      "description": {
+        "content": "Usage analytics provide bandwidth and API call utilization overviews across Contentstack services including CDN, CMA, Automate, and Launch.",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "c59302e8-f9aa-4cfb-883e-db4d77f5175a",
+          "name": "Get usage analytics",
+          "request": {
+            "name": "Get usage analytics",
+            "description": {
+              "content": "Provides bandwidth and API call utilization metrics across specified Contentstack services. Useful for monitoring overall platform usage trends and capacity planning.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "analytics",
+                "v2",
+                "usage-analytics"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "disabled": false,
+                "description": "(Required) The unique identifier of the organization.",
+                "key": "organization_uid",
+                "value": "<string>"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"from\": \"<date>\",\n  \"to\": \"<date>\",\n  \"duration\": \"<string>\",\n  \"skip\": 0,\n  \"limit\": 100,\n  \"services\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"api_key\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "7756c3f4-8715-4c94-93e9-3983d357a297",
+              "name": "Job queued successfully.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "analytics",
+                    "v2",
+                    "usage-analytics"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) The unique identifier of the organization.",
+                    "key": "organization_uid",
+                    "value": "<string>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"from\": \"1963-09-02\",\n  \"to\": \"1972-09-22\",\n  \"duration\": \"month\",\n  \"skip\": 0,\n  \"limit\": 100,\n  \"services\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"api_key\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"jobId\": \"string\",\n  \"status\": \"completed\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "84896391-6d33-4a08-a5b2-348b491566ec",
+              "name": "The request is malformed or contains invalid parameters.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "analytics",
+                    "v2",
+                    "usage-analytics"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) The unique identifier of the organization.",
+                    "key": "organization_uid",
+                    "value": "<string>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"from\": \"1963-09-02\",\n  \"to\": \"1972-09-22\",\n  \"duration\": \"month\",\n  \"skip\": 0,\n  \"limit\": 100,\n  \"services\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"api_key\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error_message\": \"string\",\n  \"error_code\": 2017\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "7cce49e8-f6bc-4da0-a02f-f8666372d2a7",
+              "name": "Authentication credentials are missing or invalid.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "analytics",
+                    "v2",
+                    "usage-analytics"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) The unique identifier of the organization.",
+                    "key": "organization_uid",
+                    "value": "<string>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"from\": \"1963-09-02\",\n  \"to\": \"1972-09-22\",\n  \"duration\": \"month\",\n  \"skip\": 0,\n  \"limit\": 100,\n  \"services\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"api_key\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error_message\": \"string\",\n  \"error_code\": 2017\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "d8788947-83f9-40cf-ba70-58241921a486",
+              "name": "The user does not have permission to access analytics. Owner or Admin role required.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "analytics",
+                    "v2",
+                    "usage-analytics"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) The unique identifier of the organization.",
+                    "key": "organization_uid",
+                    "value": "<string>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"from\": \"1963-09-02\",\n  \"to\": \"1972-09-22\",\n  \"duration\": \"month\",\n  \"skip\": 0,\n  \"limit\": 100,\n  \"services\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"api_key\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error_message\": \"string\",\n  \"error_code\": 2017\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.contentstack.io",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "bearer",
+    "bearer": [
+      {
+        "key": "token",
+        "value": "{{bearerToken}}"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "f59e9b1f-e090-40ee-981c-3761b8ac5fb1",
+    "name": "Contentstack Analytics API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "The Contentstack Analytics API provides access to usage and performance metrics for CMS, Launch, and Automate products within a Contentstack organization. Developers can retrieve analytics data programmatically to build custom dashboards, monitor content delivery performance, and track platform usage against plan limits. The API returns structured data suitable for aggregation with external analytics and business intelligence tools. Access is restricted to organization Owners and Admins. Requests use async job-based processing where initial POST calls queue the job and a subsequent GET call retrieves the results.\n\nContact Support:\n Name: Contentstack Support",
+      "type": "text/plain"
+    }
+  }
+}

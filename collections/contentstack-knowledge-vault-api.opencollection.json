@@ -1,0 +1,111 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Contentstack Knowledge Vault API",
+    "version": "v1"
+  },
+  "request": {
+    "auth": {
+      "type": "bearer",
+      "token": "{{bearerToken}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Knowledge Vault",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Ingest content into Knowledge Vault",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://ai.contentstack.com/v1/knowledge-vault/",
+            "headers": [
+              {
+                "name": "authtoken",
+                "value": ""
+              },
+              {
+                "name": "brand_kit_uid",
+                "value": ""
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Adds new content to the Knowledge Vault associated with the specified Brand Kit. The content is vectorized and stored in the vector database for retrieval during AI content generation. Rate limited to 10 requests per second per organization."
+        },
+        {
+          "info": {
+            "name": "Update Knowledge Vault content",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://ai.contentstack.com/v1/knowledge-vault/:content_uid",
+            "headers": [
+              {
+                "name": "authtoken",
+                "value": ""
+              },
+              {
+                "name": "brand_kit_uid",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "content_uid",
+                "value": "",
+                "type": "path",
+                "description": "The unique identifier of the Knowledge Vault content item."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Updates an existing content item in the Knowledge Vault. The content is re-vectorized after update to reflect the changes in the vector database."
+        },
+        {
+          "info": {
+            "name": "Delete Knowledge Vault content",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://ai.contentstack.com/v1/knowledge-vault/:content_uid",
+            "headers": [
+              {
+                "name": "authtoken",
+                "value": ""
+              },
+              {
+                "name": "brand_kit_uid",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "content_uid",
+                "value": "",
+                "type": "path",
+                "description": "The unique identifier of the Knowledge Vault content item."
+              }
+            ]
+          },
+          "docs": "Permanently removes a content item from the Knowledge Vault vector database. Deleted content will no longer be available for retrieval during AI content generation."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

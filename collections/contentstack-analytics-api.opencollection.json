@@ -1,0 +1,264 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Contentstack Analytics API",
+    "version": "v2"
+  },
+  "request": {
+    "auth": {
+      "type": "bearer",
+      "token": "{{bearerToken}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Subscription Usage",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get subscription usage metrics",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.contentstack.io/analytics/v2/subscription-usage",
+            "headers": [
+              {
+                "name": "organization_uid",
+                "value": ""
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Returns metrics on the organization's Launch resource consumption including the total number of projects, environments, and custom domains relative to plan limits. Queues an async job and returns a jobId for result retrieval."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Device Usage",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get device usage metrics",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.contentstack.io/analytics/v2/device-usage",
+            "headers": [
+              {
+                "name": "organization_uid",
+                "value": ""
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Returns API request counts broken down by device type. Tracks usage from desktop, mobile, tablet, and server (API) clients to understand content consumption patterns."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Usage Analytics",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get usage analytics",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.contentstack.io/analytics/v2/usage-analytics",
+            "headers": [
+              {
+                "name": "organization_uid",
+                "value": ""
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Provides bandwidth and API call utilization metrics across specified Contentstack services. Useful for monitoring overall platform usage trends and capacity planning."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "URL Analytics",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get top URLs by request count",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.contentstack.io/analytics/v2/top-urls",
+            "headers": [
+              {
+                "name": "organization_uid",
+                "value": ""
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Returns the most frequently requested URLs within the organization's Contentstack delivery infrastructure over the specified time period."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Status Code Analytics",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get HTTP status code metrics",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.contentstack.io/analytics/v2/status-code",
+            "headers": [
+              {
+                "name": "organization_uid",
+                "value": ""
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Returns the distribution of HTTP response status codes returned by Contentstack services. Useful for identifying error rates and monitoring API health."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Cache Analytics",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get CDN cache usage metrics",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.contentstack.io/analytics/v2/cache-usage",
+            "headers": [
+              {
+                "name": "organization_uid",
+                "value": ""
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Returns CDN cache hit and miss counts for the organization's content delivery. High cache miss rates may indicate cache configuration issues or stale cache invalidation frequency."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "SDK Usage",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get SDK usage metrics",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.contentstack.io/analytics/v2/sdk-usage",
+            "headers": [
+              {
+                "name": "organization_uid",
+                "value": ""
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Returns request count metrics broken down by Contentstack SDK type and version, enabling teams to understand SDK adoption and identify outdated SDK versions in use."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Jobs",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get analytics job results",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.contentstack.io/analytics/v2/job/:jobId/data",
+            "headers": [
+              {
+                "name": "organization_uid",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "jobId",
+                "value": "",
+                "type": "path",
+                "description": "The unique identifier of the analytics job returned from a POST endpoint."
+              },
+              {
+                "name": "skip",
+                "value": "",
+                "type": "query",
+                "description": "Number of records to skip for pagination."
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "Maximum number of records to return."
+              }
+            ]
+          },
+          "docs": "Retrieves the results of an asynchronous analytics job using the jobId returned from an analytics POST endpoint. Poll this endpoint until the job status is completed to retrieve the full dataset."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

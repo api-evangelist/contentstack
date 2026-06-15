@@ -1,0 +1,3474 @@
+{
+  "item": [
+    {
+      "id": "7f13ccf2-557a-4769-8697-3e85a1682890",
+      "name": "Accounts",
+      "description": {
+        "content": "Accounts represent authenticated connections to external services and third-party platforms used by automations as action targets.",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "c58c0b64-1084-45cc-97b8-ce76b04d66d9",
+          "name": "Get all accounts",
+          "request": {
+            "name": "Get all accounts",
+            "description": {
+              "content": "Retrieves all external service account connections configured for the automation project, such as connections to Slack, email services, or other third-party platforms.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v1",
+                "organizations",
+                ":organization_uid",
+                "projects",
+                ":project_uid",
+                "accounts"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "organization_uid",
+                  "description": "(Required) The unique identifier of the organization."
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "project_uid",
+                  "description": "(Required) The unique identifier of the automation project."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "d5865ad2-5848-4c39-816c-b8954051606d",
+              "name": "A list of external service account connections.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "organizations",
+                    ":organization_uid",
+                    "projects",
+                    ":project_uid",
+                    "accounts"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "organization_uid",
+                      "description": "(Required) The unique identifier of the organization."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "project_uid",
+                      "description": "(Required) The unique identifier of the automation project."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"data\": [\n    {\n      \"uid\": \"string\",\n      \"name\": \"string\",\n      \"service\": \"string\",\n      \"created_at\": \"1984-09-24T21:02:18.514Z\"\n    },\n    {\n      \"uid\": \"string\",\n      \"name\": \"string\",\n      \"service\": \"string\",\n      \"created_at\": \"2017-03-29T12:37:19.659Z\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "1917af90-6065-4eea-92be-58e04f87883c",
+              "name": "Authentication credentials are missing or invalid.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "organizations",
+                    ":organization_uid",
+                    "projects",
+                    ":project_uid",
+                    "accounts"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "organization_uid",
+                      "description": "(Required) The unique identifier of the organization."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "project_uid",
+                      "description": "(Required) The unique identifier of the automation project."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"string\",\n  \"error_code\": 9865\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    },
+    {
+      "id": "dee09beb-87e5-4f73-bd40-18d7f0ea467f",
+      "name": "Audit Logs",
+      "description": {
+        "content": "Audit logs track all administrative actions taken within an automation project, providing a history of configuration changes.",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "8e6dc43f-de5a-47d0-a55e-fda1cbd47f9d",
+          "name": "Get all audit logs",
+          "request": {
+            "name": "Get all audit logs",
+            "description": {
+              "content": "Retrieves all audit log entries for administrative actions taken within the project such as creating, updating, or deleting automations and configuration changes.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v1",
+                "organizations",
+                ":organization_uid",
+                "projects",
+                ":project_uid",
+                "audit-logs"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "organization_uid",
+                  "description": "(Required) The unique identifier of the organization."
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "project_uid",
+                  "description": "(Required) The unique identifier of the automation project."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "8574fcd5-f20f-4f28-942d-0ace9285af25",
+              "name": "A list of audit log entries.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "organizations",
+                    ":organization_uid",
+                    "projects",
+                    ":project_uid",
+                    "audit-logs"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "organization_uid",
+                      "description": "(Required) The unique identifier of the organization."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "project_uid",
+                      "description": "(Required) The unique identifier of the automation project."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"data\": [\n    {\n      \"uid\": \"string\",\n      \"action\": \"string\",\n      \"performed_by\": \"string\",\n      \"created_at\": \"1987-02-24T00:59:04.910Z\"\n    },\n    {\n      \"uid\": \"string\",\n      \"action\": \"string\",\n      \"performed_by\": \"string\",\n      \"created_at\": \"1963-10-05T10:16:31.541Z\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "e29c303a-9434-492c-a9f5-2c33044932f0",
+              "name": "Authentication credentials are missing or invalid.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "organizations",
+                    ":organization_uid",
+                    "projects",
+                    ":project_uid",
+                    "audit-logs"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "organization_uid",
+                      "description": "(Required) The unique identifier of the organization."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "project_uid",
+                      "description": "(Required) The unique identifier of the automation project."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"string\",\n  \"error_code\": 9865\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    },
+    {
+      "id": "544b68d3-118c-455a-9d1c-4079c0add1b1",
+      "name": "Automations",
+      "description": {
+        "content": "Automations are individual workflow definitions that connect triggers (such as Contentstack content events) to actions (such as sending notifications or updating external systems).",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "90356790-6b15-4a3f-a820-7fef8e2e4502",
+          "name": "Get all automations",
+          "request": {
+            "name": "Get all automations",
+            "description": {
+              "content": "Retrieves all automation workflow definitions within a specific project, including their trigger configurations, steps, and activation status.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v1",
+                "organizations",
+                ":organization_uid",
+                "projects",
+                ":project_uid",
+                "automations"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "organization_uid",
+                  "description": "(Required) The unique identifier of the organization."
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "project_uid",
+                  "description": "(Required) The unique identifier of the automation project."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "064be39d-d5af-4106-aa18-d3c88f2aba52",
+              "name": "A list of automations in the project.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "organizations",
+                    ":organization_uid",
+                    "projects",
+                    ":project_uid",
+                    "automations"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "organization_uid",
+                      "description": "(Required) The unique identifier of the organization."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "project_uid",
+                      "description": "(Required) The unique identifier of the automation project."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"data\": [\n    {\n      \"uid\": \"string\",\n      \"name\": \"string\",\n      \"status\": \"active\",\n      \"trigger\": {},\n      \"created_at\": \"1984-01-07T15:50:53.933Z\",\n      \"updated_at\": \"1964-08-18T05:56:39.042Z\"\n    },\n    {\n      \"uid\": \"string\",\n      \"name\": \"string\",\n      \"status\": \"inactive\",\n      \"trigger\": {},\n      \"created_at\": \"1960-08-12T15:30:03.567Z\",\n      \"updated_at\": \"1984-06-22T21:53:22.951Z\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "bb8d39df-740a-470b-b937-a3ebf5a73b93",
+              "name": "Authentication credentials are missing or invalid.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "organizations",
+                    ":organization_uid",
+                    "projects",
+                    ":project_uid",
+                    "automations"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "organization_uid",
+                      "description": "(Required) The unique identifier of the organization."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "project_uid",
+                      "description": "(Required) The unique identifier of the automation project."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"string\",\n  \"error_code\": 9865\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "517f9619-358a-4b6e-9ed5-a3366c677de2",
+          "name": "Get an automation",
+          "request": {
+            "name": "Get an automation",
+            "description": {
+              "content": "Retrieves the full configuration of a specific automation including trigger settings, action steps, error handling, and activation status.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v1",
+                "organizations",
+                ":organization_uid",
+                "projects",
+                ":project_uid",
+                "automations",
+                ":automation_uid"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "organization_uid",
+                  "description": "(Required) The unique identifier of the organization."
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "project_uid",
+                  "description": "(Required) The unique identifier of the automation project."
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "automation_uid",
+                  "description": "(Required) The unique identifier of the automation."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "5e2dde6d-a6ba-4662-9bbe-4c79f01c32ee",
+              "name": "The requested automation configuration.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "organizations",
+                    ":organization_uid",
+                    "projects",
+                    ":project_uid",
+                    "automations",
+                    ":automation_uid"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "organization_uid",
+                      "description": "(Required) The unique identifier of the organization."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "project_uid",
+                      "description": "(Required) The unique identifier of the automation project."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "automation_uid",
+                      "description": "(Required) The unique identifier of the automation."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"uid\": \"string\",\n  \"name\": \"string\",\n  \"status\": \"draft\",\n  \"trigger\": {},\n  \"created_at\": \"1955-12-12T19:42:27.048Z\",\n  \"updated_at\": \"1979-04-02T03:28:46.038Z\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "4d5fb2ab-22cc-42c9-a7f4-7ee5ea50a872",
+              "name": "Authentication credentials are missing or invalid.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "organizations",
+                    ":organization_uid",
+                    "projects",
+                    ":project_uid",
+                    "automations",
+                    ":automation_uid"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "organization_uid",
+                      "description": "(Required) The unique identifier of the organization."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "project_uid",
+                      "description": "(Required) The unique identifier of the automation project."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "automation_uid",
+                      "description": "(Required) The unique identifier of the automation."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"string\",\n  \"error_code\": 9865\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "6d513100-104e-4934-9218-c8001eea5c82",
+              "name": "The requested resource was not found.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "organizations",
+                    ":organization_uid",
+                    "projects",
+                    ":project_uid",
+                    "automations",
+                    ":automation_uid"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "organization_uid",
+                      "description": "(Required) The unique identifier of the organization."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "project_uid",
+                      "description": "(Required) The unique identifier of the automation project."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "automation_uid",
+                      "description": "(Required) The unique identifier of the automation."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"string\",\n  \"error_code\": 9865\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "4be5379a-939b-44ee-aa6b-8d2dff9f87bd",
+          "name": "Activate an automation",
+          "request": {
+            "name": "Activate an automation",
+            "description": {
+              "content": "Enables an automation so that it will execute when its configured trigger conditions are met. Only automations in a valid, configured state can be activated.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v1",
+                "organizations",
+                ":organization_uid",
+                "projects",
+                ":project_uid",
+                "automations",
+                ":automation_uid",
+                "activate"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "organization_uid",
+                  "description": "(Required) The unique identifier of the organization."
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "project_uid",
+                  "description": "(Required) The unique identifier of the automation project."
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "automation_uid",
+                  "description": "(Required) The unique identifier of the automation."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "PUT",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "1feb5867-797d-49d6-81e2-d9e89f595e8b",
+              "name": "Automation activated successfully.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "organizations",
+                    ":organization_uid",
+                    "projects",
+                    ":project_uid",
+                    "automations",
+                    ":automation_uid",
+                    "activate"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "organization_uid",
+                      "description": "(Required) The unique identifier of the organization."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "project_uid",
+                      "description": "(Required) The unique identifier of the automation project."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "automation_uid",
+                      "description": "(Required) The unique identifier of the automation."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"uid\": \"string\",\n  \"name\": \"string\",\n  \"status\": \"draft\",\n  \"trigger\": {},\n  \"created_at\": \"1955-12-12T19:42:27.048Z\",\n  \"updated_at\": \"1979-04-02T03:28:46.038Z\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "712bfa40-a1e5-4753-ad5d-758e52b6996c",
+              "name": "The request is malformed or contains invalid parameters.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "organizations",
+                    ":organization_uid",
+                    "projects",
+                    ":project_uid",
+                    "automations",
+                    ":automation_uid",
+                    "activate"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "organization_uid",
+                      "description": "(Required) The unique identifier of the organization."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "project_uid",
+                      "description": "(Required) The unique identifier of the automation project."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "automation_uid",
+                      "description": "(Required) The unique identifier of the automation."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"string\",\n  \"error_code\": 9865\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "e8fbd19e-b6df-4660-b086-ed8a6ef2d5d4",
+              "name": "Authentication credentials are missing or invalid.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "organizations",
+                    ":organization_uid",
+                    "projects",
+                    ":project_uid",
+                    "automations",
+                    ":automation_uid",
+                    "activate"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "organization_uid",
+                      "description": "(Required) The unique identifier of the organization."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "project_uid",
+                      "description": "(Required) The unique identifier of the automation project."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "automation_uid",
+                      "description": "(Required) The unique identifier of the automation."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"string\",\n  \"error_code\": 9865\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "c9415f6d-999a-4e99-b67a-8adc3d1de50f",
+          "name": "Deactivate an automation",
+          "request": {
+            "name": "Deactivate an automation",
+            "description": {
+              "content": "Disables an active automation, preventing it from executing when its trigger conditions are met. Existing in-progress executions will complete before the automation is fully deactivated.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v1",
+                "organizations",
+                ":organization_uid",
+                "projects",
+                ":project_uid",
+                "automations",
+                ":automation_uid",
+                "deactivate"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "organization_uid",
+                  "description": "(Required) The unique identifier of the organization."
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "project_uid",
+                  "description": "(Required) The unique identifier of the automation project."
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "automation_uid",
+                  "description": "(Required) The unique identifier of the automation."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "PUT",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "5b8e1df1-f67c-4de0-80aa-c756ee6eeb86",
+              "name": "Automation deactivated successfully.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "organizations",
+                    ":organization_uid",
+                    "projects",
+                    ":project_uid",
+                    "automations",
+                    ":automation_uid",
+                    "deactivate"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "organization_uid",
+                      "description": "(Required) The unique identifier of the organization."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "project_uid",
+                      "description": "(Required) The unique identifier of the automation project."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "automation_uid",
+                      "description": "(Required) The unique identifier of the automation."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"uid\": \"string\",\n  \"name\": \"string\",\n  \"status\": \"draft\",\n  \"trigger\": {},\n  \"created_at\": \"1955-12-12T19:42:27.048Z\",\n  \"updated_at\": \"1979-04-02T03:28:46.038Z\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "e3b1bdba-4acd-43fd-847a-38a597ebd28e",
+              "name": "Authentication credentials are missing or invalid.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "organizations",
+                    ":organization_uid",
+                    "projects",
+                    ":project_uid",
+                    "automations",
+                    ":automation_uid",
+                    "deactivate"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "organization_uid",
+                      "description": "(Required) The unique identifier of the organization."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "project_uid",
+                      "description": "(Required) The unique identifier of the automation project."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "automation_uid",
+                      "description": "(Required) The unique identifier of the automation."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"string\",\n  \"error_code\": 9865\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    },
+    {
+      "id": "635d2eac-4b70-4565-8bd8-0e583eab4c3e",
+      "name": "Execution Logs",
+      "description": {
+        "content": "Execution logs record each time an automation runs, including the trigger context, steps executed, and success or failure status.",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "efa18fad-3230-4ce4-a2a6-406012a20544",
+          "name": "Get all execution logs",
+          "request": {
+            "name": "Get all execution logs",
+            "description": {
+              "content": "Retrieves a list of execution log entries for all automations in the project, showing each run with its trigger context, status, and completion time.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v1",
+                "organizations",
+                ":organization_uid",
+                "projects",
+                ":project_uid",
+                "executions"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "organization_uid",
+                  "description": "(Required) The unique identifier of the organization."
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "project_uid",
+                  "description": "(Required) The unique identifier of the automation project."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "0e86c864-6546-484c-b328-24b1fdfbcc1e",
+              "name": "A list of execution log entries.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "organizations",
+                    ":organization_uid",
+                    "projects",
+                    ":project_uid",
+                    "executions"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "organization_uid",
+                      "description": "(Required) The unique identifier of the organization."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "project_uid",
+                      "description": "(Required) The unique identifier of the automation project."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"data\": [\n    {\n      \"uid\": \"string\",\n      \"automation_uid\": \"string\",\n      \"status\": \"success\",\n      \"started_at\": \"2026-05-29T21:41:02.494Z\",\n      \"completed_at\": \"2025-08-31T13:05:15.159Z\"\n    },\n    {\n      \"uid\": \"string\",\n      \"automation_uid\": \"string\",\n      \"status\": \"failure\",\n      \"started_at\": \"1953-09-21T15:01:35.884Z\",\n      \"completed_at\": \"1962-09-29T23:13:48.771Z\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "7a678e89-c90c-4ece-b334-5a54158deb0f",
+              "name": "Authentication credentials are missing or invalid.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "organizations",
+                    ":organization_uid",
+                    "projects",
+                    ":project_uid",
+                    "executions"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "organization_uid",
+                      "description": "(Required) The unique identifier of the organization."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "project_uid",
+                      "description": "(Required) The unique identifier of the automation project."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"string\",\n  \"error_code\": 9865\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "79bc33db-cbbc-4ca6-99d3-39fd8c4192aa",
+          "name": "Get an execution log",
+          "request": {
+            "name": "Get an execution log",
+            "description": {
+              "content": "Retrieves the full details of a specific automation execution log entry, including step-by-step results and any error messages encountered.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v1",
+                "organizations",
+                ":organization_uid",
+                "projects",
+                ":project_uid",
+                "executions",
+                ":execution_uid"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "organization_uid",
+                  "description": "(Required) The unique identifier of the organization."
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "project_uid",
+                  "description": "(Required) The unique identifier of the automation project."
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "execution_uid",
+                  "description": "(Required) The unique identifier of the execution log entry."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "eb29873b-cf18-427d-bfd1-119f71f4b3cd",
+              "name": "The requested execution log entry.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "organizations",
+                    ":organization_uid",
+                    "projects",
+                    ":project_uid",
+                    "executions",
+                    ":execution_uid"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "organization_uid",
+                      "description": "(Required) The unique identifier of the organization."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "project_uid",
+                      "description": "(Required) The unique identifier of the automation project."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "execution_uid",
+                      "description": "(Required) The unique identifier of the execution log entry."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"uid\": \"string\",\n  \"automation_uid\": \"string\",\n  \"status\": \"partial\",\n  \"started_at\": \"2005-05-11T09:14:56.027Z\",\n  \"completed_at\": \"1992-09-15T14:59:42.857Z\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "e62a322e-5772-45bf-9748-1f231c205129",
+              "name": "Authentication credentials are missing or invalid.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "organizations",
+                    ":organization_uid",
+                    "projects",
+                    ":project_uid",
+                    "executions",
+                    ":execution_uid"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "organization_uid",
+                      "description": "(Required) The unique identifier of the organization."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "project_uid",
+                      "description": "(Required) The unique identifier of the automation project."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "execution_uid",
+                      "description": "(Required) The unique identifier of the execution log entry."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"string\",\n  \"error_code\": 9865\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "ac00caf2-d99b-44bc-bb94-adda30d081ce",
+              "name": "The requested resource was not found.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "organizations",
+                    ":organization_uid",
+                    "projects",
+                    ":project_uid",
+                    "executions",
+                    ":execution_uid"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "organization_uid",
+                      "description": "(Required) The unique identifier of the organization."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "project_uid",
+                      "description": "(Required) The unique identifier of the automation project."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "execution_uid",
+                      "description": "(Required) The unique identifier of the execution log entry."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"string\",\n  \"error_code\": 9865\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    },
+    {
+      "id": "eb4dbb73-4016-4869-a834-d2c3615972b9",
+      "name": "Projects",
+      "description": {
+        "content": "Automation projects are containers for automations within a Contentstack organization. Each project groups related automations and can have its own variables and account connections.",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "4bae851c-9ccb-469a-b1d2-32a5477b7171",
+          "name": "Get all projects",
+          "request": {
+            "name": "Get all projects",
+            "description": {
+              "content": "Retrieves all automation projects within the specified organization. Each project contains automations, variables, and external service account connections.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v1",
+                "organizations",
+                ":organization_uid",
+                "projects"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "organization_uid",
+                  "description": "(Required) The unique identifier of the organization."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "54c9c372-870b-4769-8463-c8ff26dc2f1b",
+              "name": "A list of automation projects in the organization.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "organizations",
+                    ":organization_uid",
+                    "projects"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "organization_uid",
+                      "description": "(Required) The unique identifier of the organization."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"data\": [\n    {\n      \"uid\": \"string\",\n      \"name\": \"string\",\n      \"description\": \"string\",\n      \"organization_uid\": \"string\",\n      \"created_at\": \"1973-12-08T00:53:17.474Z\",\n      \"updated_at\": \"1980-01-27T18:23:29.678Z\"\n    },\n    {\n      \"uid\": \"string\",\n      \"name\": \"string\",\n      \"description\": \"string\",\n      \"organization_uid\": \"string\",\n      \"created_at\": \"2008-07-11T08:51:56.006Z\",\n      \"updated_at\": \"1983-05-28T23:25:57.877Z\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "29e6dcd9-b4b2-4201-bd37-559a54c04139",
+              "name": "Authentication credentials are missing or invalid.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "organizations",
+                    ":organization_uid",
+                    "projects"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "organization_uid",
+                      "description": "(Required) The unique identifier of the organization."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"string\",\n  \"error_code\": 9865\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "8bc62950-3f14-4dd8-aa2a-e1f6ed8b3910",
+          "name": "Create a project",
+          "request": {
+            "name": "Create a project",
+            "description": {
+              "content": "Creates a new automation project within the specified organization. Projects serve as organizational containers for automations and shared configuration.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v1",
+                "organizations",
+                ":organization_uid",
+                "projects"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "organization_uid",
+                  "description": "(Required) The unique identifier of the organization."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"<string>\",\n  \"description\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "4815d420-1385-45b5-a1ce-3ea37d400689",
+              "name": "The newly created project.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "organizations",
+                    ":organization_uid",
+                    "projects"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "organization_uid",
+                      "description": "(Required) The unique identifier of the organization."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"<string>\",\n  \"description\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Created",
+              "code": 201,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"uid\": \"string\",\n  \"name\": \"string\",\n  \"description\": \"string\",\n  \"organization_uid\": \"string\",\n  \"created_at\": \"2006-10-04T09:44:03.957Z\",\n  \"updated_at\": \"2024-04-09T22:37:47.649Z\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "9d7de15f-4892-4c8a-983c-6d1e3b33600d",
+              "name": "The request is malformed or contains invalid parameters.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "organizations",
+                    ":organization_uid",
+                    "projects"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "organization_uid",
+                      "description": "(Required) The unique identifier of the organization."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"<string>\",\n  \"description\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"string\",\n  \"error_code\": 9865\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "dfdb114a-4777-47ae-9142-13fc250a40ef",
+              "name": "Authentication credentials are missing or invalid.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "organizations",
+                    ":organization_uid",
+                    "projects"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "organization_uid",
+                      "description": "(Required) The unique identifier of the organization."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"<string>\",\n  \"description\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"string\",\n  \"error_code\": 9865\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "cb53be42-7e61-4c49-bff6-ca36d7e1660b",
+          "name": "Get a project",
+          "request": {
+            "name": "Get a project",
+            "description": {
+              "content": "Retrieves details for a specific automation project including its metadata, creation date, and current status.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v1",
+                "organizations",
+                ":organization_uid",
+                "projects",
+                ":project_uid"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "organization_uid",
+                  "description": "(Required) The unique identifier of the organization."
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "project_uid",
+                  "description": "(Required) The unique identifier of the automation project."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "7060f043-d2bf-434f-8909-5afce5187d93",
+              "name": "The requested project details.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "organizations",
+                    ":organization_uid",
+                    "projects",
+                    ":project_uid"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "organization_uid",
+                      "description": "(Required) The unique identifier of the organization."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "project_uid",
+                      "description": "(Required) The unique identifier of the automation project."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"uid\": \"string\",\n  \"name\": \"string\",\n  \"description\": \"string\",\n  \"organization_uid\": \"string\",\n  \"created_at\": \"2006-10-04T09:44:03.957Z\",\n  \"updated_at\": \"2024-04-09T22:37:47.649Z\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "982a7a08-5437-4faf-86de-b0fbd7570481",
+              "name": "Authentication credentials are missing or invalid.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "organizations",
+                    ":organization_uid",
+                    "projects",
+                    ":project_uid"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "organization_uid",
+                      "description": "(Required) The unique identifier of the organization."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "project_uid",
+                      "description": "(Required) The unique identifier of the automation project."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"string\",\n  \"error_code\": 9865\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "33467400-b2a8-42bd-9116-a4dbabcdbe3b",
+              "name": "The requested resource was not found.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "organizations",
+                    ":organization_uid",
+                    "projects",
+                    ":project_uid"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "organization_uid",
+                      "description": "(Required) The unique identifier of the organization."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "project_uid",
+                      "description": "(Required) The unique identifier of the automation project."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"string\",\n  \"error_code\": 9865\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "8e107117-5086-454d-924e-c125850a0006",
+          "name": "Update a project",
+          "request": {
+            "name": "Update a project",
+            "description": {
+              "content": "Updates the name or description of an existing automation project.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v1",
+                "organizations",
+                ":organization_uid",
+                "projects",
+                ":project_uid"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "organization_uid",
+                  "description": "(Required) The unique identifier of the organization."
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "project_uid",
+                  "description": "(Required) The unique identifier of the automation project."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "PUT",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"<string>\",\n  \"description\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "ef54b2ae-247a-4229-840c-1dcd6401e704",
+              "name": "The updated project.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "organizations",
+                    ":organization_uid",
+                    "projects",
+                    ":project_uid"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "organization_uid",
+                      "description": "(Required) The unique identifier of the organization."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "project_uid",
+                      "description": "(Required) The unique identifier of the automation project."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"<string>\",\n  \"description\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"uid\": \"string\",\n  \"name\": \"string\",\n  \"description\": \"string\",\n  \"organization_uid\": \"string\",\n  \"created_at\": \"2006-10-04T09:44:03.957Z\",\n  \"updated_at\": \"2024-04-09T22:37:47.649Z\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "15672b5e-53de-4867-9a8e-d2711b175122",
+              "name": "The request is malformed or contains invalid parameters.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "organizations",
+                    ":organization_uid",
+                    "projects",
+                    ":project_uid"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "organization_uid",
+                      "description": "(Required) The unique identifier of the organization."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "project_uid",
+                      "description": "(Required) The unique identifier of the automation project."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"<string>\",\n  \"description\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"string\",\n  \"error_code\": 9865\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "4bf62439-3473-48e4-8fc3-ba14c0d9de30",
+              "name": "Authentication credentials are missing or invalid.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "organizations",
+                    ":organization_uid",
+                    "projects",
+                    ":project_uid"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "organization_uid",
+                      "description": "(Required) The unique identifier of the organization."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "project_uid",
+                      "description": "(Required) The unique identifier of the automation project."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"<string>\",\n  \"description\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"string\",\n  \"error_code\": 9865\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "aeaae46e-3091-4aec-8834-0f6a488ff239",
+          "name": "Delete a project",
+          "request": {
+            "name": "Delete a project",
+            "description": {
+              "content": "Permanently deletes an automation project and all its automations, variables, and configuration. This action is irreversible.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v1",
+                "organizations",
+                ":organization_uid",
+                "projects",
+                ":project_uid"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "organization_uid",
+                  "description": "(Required) The unique identifier of the organization."
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "project_uid",
+                  "description": "(Required) The unique identifier of the automation project."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "DELETE",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "90636c59-0317-4877-be1a-5548a0e3f63e",
+              "name": "Project deleted successfully.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "organizations",
+                    ":organization_uid",
+                    "projects",
+                    ":project_uid"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "organization_uid",
+                      "description": "(Required) The unique identifier of the organization."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "project_uid",
+                      "description": "(Required) The unique identifier of the automation project."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "03fb785b-874e-4c09-99fc-a26db782b467",
+              "name": "Authentication credentials are missing or invalid.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "organizations",
+                    ":organization_uid",
+                    "projects",
+                    ":project_uid"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "organization_uid",
+                      "description": "(Required) The unique identifier of the organization."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "project_uid",
+                      "description": "(Required) The unique identifier of the automation project."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"string\",\n  \"error_code\": 9865\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "a7b3a92a-3168-4ddc-959d-ef0019cd7bc7",
+              "name": "The requested resource was not found.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "organizations",
+                    ":organization_uid",
+                    "projects",
+                    ":project_uid"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "organization_uid",
+                      "description": "(Required) The unique identifier of the organization."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "project_uid",
+                      "description": "(Required) The unique identifier of the automation project."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"string\",\n  \"error_code\": 9865\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    },
+    {
+      "id": "dc5ce1c8-0565-46ea-8ce6-a1a82617d81a",
+      "name": "Variables",
+      "description": {
+        "content": "Project variables are reusable key-value pairs that can be referenced across multiple automations within a project.",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "abb97720-89a7-4138-9229-c0224a6b389d",
+          "name": "Get all variables",
+          "request": {
+            "name": "Get all variables",
+            "description": {
+              "content": "Retrieves all project variables defined for the automation project. Variables are reusable key-value pairs that can be referenced across automation configurations.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v1",
+                "organizations",
+                ":organization_uid",
+                "projects",
+                ":project_uid",
+                "variables"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "organization_uid",
+                  "description": "(Required) The unique identifier of the organization."
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "project_uid",
+                  "description": "(Required) The unique identifier of the automation project."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "c08a9480-42be-4a3c-b0c9-a9f03c7323e4",
+              "name": "A list of project variables.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "organizations",
+                    ":organization_uid",
+                    "projects",
+                    ":project_uid",
+                    "variables"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "organization_uid",
+                      "description": "(Required) The unique identifier of the organization."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "project_uid",
+                      "description": "(Required) The unique identifier of the automation project."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"data\": [\n    {\n      \"uid\": \"string\",\n      \"name\": \"string\",\n      \"key\": \"string\",\n      \"value\": \"string\",\n      \"is_secret\": false\n    },\n    {\n      \"uid\": \"string\",\n      \"name\": \"string\",\n      \"key\": \"string\",\n      \"value\": \"string\",\n      \"is_secret\": false\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "b3c73dbc-6f7c-43c2-98e8-5d5584f252cb",
+              "name": "Authentication credentials are missing or invalid.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "organizations",
+                    ":organization_uid",
+                    "projects",
+                    ":project_uid",
+                    "variables"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "organization_uid",
+                      "description": "(Required) The unique identifier of the organization."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "project_uid",
+                      "description": "(Required) The unique identifier of the automation project."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"string\",\n  \"error_code\": 9865\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "ffa28472-f96b-43f9-a217-96154951f0fa",
+          "name": "Create a variable",
+          "request": {
+            "name": "Create a variable",
+            "description": {
+              "content": "Creates a new project variable that can be referenced in automation configurations. Variables can store API keys, URLs, or other configuration values that are used across multiple automations.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v1",
+                "organizations",
+                ":organization_uid",
+                "projects",
+                ":project_uid",
+                "variables"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "organization_uid",
+                  "description": "(Required) The unique identifier of the organization."
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "project_uid",
+                  "description": "(Required) The unique identifier of the automation project."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"<string>\",\n  \"key\": \"<string>\",\n  \"value\": \"<string>\",\n  \"is_secret\": false\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "c0c7b058-bcc8-439d-add2-32e2fb00b2f6",
+              "name": "The newly created variable.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "organizations",
+                    ":organization_uid",
+                    "projects",
+                    ":project_uid",
+                    "variables"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "organization_uid",
+                      "description": "(Required) The unique identifier of the organization."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "project_uid",
+                      "description": "(Required) The unique identifier of the automation project."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"<string>\",\n  \"key\": \"<string>\",\n  \"value\": \"<string>\",\n  \"is_secret\": false\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Created",
+              "code": 201,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"uid\": \"string\",\n  \"name\": \"string\",\n  \"key\": \"string\",\n  \"value\": \"string\",\n  \"is_secret\": false\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "f4bf02d6-87fe-4e65-af8b-dc7caa6cdc80",
+              "name": "The request is malformed or contains invalid parameters.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "organizations",
+                    ":organization_uid",
+                    "projects",
+                    ":project_uid",
+                    "variables"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "organization_uid",
+                      "description": "(Required) The unique identifier of the organization."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "project_uid",
+                      "description": "(Required) The unique identifier of the automation project."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"<string>\",\n  \"key\": \"<string>\",\n  \"value\": \"<string>\",\n  \"is_secret\": false\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"string\",\n  \"error_code\": 9865\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "c5ddb6bb-069c-43cf-a483-bcafc3cb747c",
+              "name": "Authentication credentials are missing or invalid.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "organizations",
+                    ":organization_uid",
+                    "projects",
+                    ":project_uid",
+                    "variables"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "organization_uid",
+                      "description": "(Required) The unique identifier of the organization."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "project_uid",
+                      "description": "(Required) The unique identifier of the automation project."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"<string>\",\n  \"key\": \"<string>\",\n  \"value\": \"<string>\",\n  \"is_secret\": false\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"string\",\n  \"error_code\": 9865\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://automations-api.contentstack.com",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "bearer",
+    "bearer": [
+      {
+        "key": "token",
+        "value": "{{bearerToken}}"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "fee4fbce-c5ed-4271-9494-ef282da401bd",
+    "name": "Contentstack Automate Management API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "The Contentstack Automate Management API allows developers to programmatically manage automation projects and workflows within a Contentstack organization. It supports creating, updating, retrieving, and deleting automations that connect Contentstack content events to third-party services and internal processes. This API is part of the Contentstack Automate product, which provides a no-code/low-code automation layer built on top of the CMS. It is useful for organizations that need to provision or manage automations at scale across multiple stacks or environments. The API also provides access to execution logs, audit logs, and project variables.\n\nContact Support:\n Name: Contentstack Support",
+      "type": "text/plain"
+    }
+  }
+}

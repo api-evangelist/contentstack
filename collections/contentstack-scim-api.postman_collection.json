@@ -1,0 +1,3130 @@
+{
+  "item": [
+    {
+      "id": "1a8d26be-59a4-4f47-9f3d-811b633c30ae",
+      "name": "SCIM Groups",
+      "description": {
+        "content": "SCIM group endpoints allow Identity Providers to manage group memberships in Contentstack, which map to role-based access control within the CMS.",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "5910e5eb-de13-4e39-800d-b8ed07d18f60",
+          "name": "List SCIM groups",
+          "request": {
+            "name": "List SCIM groups",
+            "description": {
+              "content": "Retrieves all groups in the organization following the SCIM 2.0 ListResponse format. Supports filtering by displayName for group lookup during IdP sync operations.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "scim",
+                "v2.0",
+                "organizations",
+                ":organization_uid",
+                "Groups"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "filter",
+                  "value": "<string>",
+                  "description": "SCIM filter expression for searching groups. Example: displayName eq \"Editors\""
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "organization_uid",
+                  "description": "(Required) The unique identifier of the Contentstack organization."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "69088747-04ab-403b-9555-916345b354d5",
+              "name": "A SCIM ListResponse containing group resources.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "scim",
+                    "v2.0",
+                    "organizations",
+                    ":organization_uid",
+                    "Groups"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "filter",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "organization_uid",
+                      "description": "(Required) The unique identifier of the Contentstack organization."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"schemas\": [\n    \"urn:ietf:params:scim:api:messages:2.0:ListResponse\"\n  ],\n  \"totalResults\": 321,\n  \"startIndex\": 5617,\n  \"itemsPerPage\": 8454\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "288ae458-c61d-4117-8799-1fabeeaa0c3e",
+              "name": "The SCIM bearer token is missing or invalid.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "scim",
+                    "v2.0",
+                    "organizations",
+                    ":organization_uid",
+                    "Groups"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "filter",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "organization_uid",
+                      "description": "(Required) The unique identifier of the Contentstack organization."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"schemas\": [\n    \"urn:ietf:params:scim:api:messages:2.0:Error\"\n  ],\n  \"status\": \"string\",\n  \"detail\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "ba684ceb-d7ec-4a2f-9c43-87182ba40fc9",
+          "name": "Create a SCIM group",
+          "request": {
+            "name": "Create a SCIM group",
+            "description": {
+              "content": "Creates a new group in the Contentstack organization via SCIM. Groups can be mapped to specific roles and stacks in Contentstack to control member access permissions.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "scim",
+                "v2.0",
+                "organizations",
+                ":organization_uid",
+                "Groups"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "organization_uid",
+                  "description": "(Required) The unique identifier of the Contentstack organization."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"schemas\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"id\": \"<string>\",\n  \"displayName\": \"<string>\",\n  \"members\": [\n    {\n      \"value\": \"<string>\",\n      \"display\": \"<string>\"\n    },\n    {\n      \"value\": \"<string>\",\n      \"display\": \"<string>\"\n    }\n  ]\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "cdfeb94c-8277-4af3-8497-1dce22351c0d",
+              "name": "The newly created SCIM group resource.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "scim",
+                    "v2.0",
+                    "organizations",
+                    ":organization_uid",
+                    "Groups"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "organization_uid",
+                      "description": "(Required) The unique identifier of the Contentstack organization."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"schemas\": [\n    \"urn:ietf:params:scim:schemas:core:2.0:Group\"\n  ],\n  \"id\": \"<string>\",\n  \"displayName\": \"<string>\",\n  \"members\": [\n    {\n      \"value\": \"<string>\",\n      \"display\": \"<string>\"\n    },\n    {\n      \"value\": \"<string>\",\n      \"display\": \"<string>\"\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Created",
+              "code": 201,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"schemas\": [\n    \"urn:ietf:params:scim:schemas:core:2.0:Group\"\n  ],\n  \"id\": \"string\",\n  \"displayName\": \"string\",\n  \"members\": [\n    {\n      \"value\": \"string\",\n      \"display\": \"string\"\n    },\n    {\n      \"value\": \"string\",\n      \"display\": \"string\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "a92f4aae-802a-4d0e-a091-068708133fab",
+              "name": "The SCIM request is malformed or contains invalid attribute values.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "scim",
+                    "v2.0",
+                    "organizations",
+                    ":organization_uid",
+                    "Groups"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "organization_uid",
+                      "description": "(Required) The unique identifier of the Contentstack organization."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"schemas\": [\n    \"urn:ietf:params:scim:schemas:core:2.0:Group\"\n  ],\n  \"id\": \"<string>\",\n  \"displayName\": \"<string>\",\n  \"members\": [\n    {\n      \"value\": \"<string>\",\n      \"display\": \"<string>\"\n    },\n    {\n      \"value\": \"<string>\",\n      \"display\": \"<string>\"\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"schemas\": [\n    \"urn:ietf:params:scim:api:messages:2.0:Error\"\n  ],\n  \"status\": \"string\",\n  \"detail\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "e01e6e9e-3e6a-45bc-9182-60c9834530b3",
+              "name": "The SCIM bearer token is missing or invalid.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "scim",
+                    "v2.0",
+                    "organizations",
+                    ":organization_uid",
+                    "Groups"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "organization_uid",
+                      "description": "(Required) The unique identifier of the Contentstack organization."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"schemas\": [\n    \"urn:ietf:params:scim:schemas:core:2.0:Group\"\n  ],\n  \"id\": \"<string>\",\n  \"displayName\": \"<string>\",\n  \"members\": [\n    {\n      \"value\": \"<string>\",\n      \"display\": \"<string>\"\n    },\n    {\n      \"value\": \"<string>\",\n      \"display\": \"<string>\"\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"schemas\": [\n    \"urn:ietf:params:scim:api:messages:2.0:Error\"\n  ],\n  \"status\": \"string\",\n  \"detail\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "76691fa0-9e6d-45bd-90b7-ea97a288db1a",
+          "name": "Get a SCIM group",
+          "request": {
+            "name": "Get a SCIM group",
+            "description": {
+              "content": "Retrieves the SCIM Group resource for a specific group by its SCIM group ID within the organization.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "scim",
+                "v2.0",
+                "organizations",
+                ":organization_uid",
+                "Groups",
+                ":group_id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "organization_uid",
+                  "description": "(Required) The unique identifier of the Contentstack organization."
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "group_id",
+                  "description": "(Required) The SCIM group ID of the group within the organization."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "90cc3c69-e0ed-4755-8e07-271e6e2873fa",
+              "name": "The SCIM group resource.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "scim",
+                    "v2.0",
+                    "organizations",
+                    ":organization_uid",
+                    "Groups",
+                    ":group_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "organization_uid",
+                      "description": "(Required) The unique identifier of the Contentstack organization."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "group_id",
+                      "description": "(Required) The SCIM group ID of the group within the organization."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"schemas\": [\n    \"urn:ietf:params:scim:schemas:core:2.0:Group\"\n  ],\n  \"id\": \"string\",\n  \"displayName\": \"string\",\n  \"members\": [\n    {\n      \"value\": \"string\",\n      \"display\": \"string\"\n    },\n    {\n      \"value\": \"string\",\n      \"display\": \"string\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "a5159094-a9e4-4885-aea1-e848e9d1681b",
+              "name": "The SCIM bearer token is missing or invalid.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "scim",
+                    "v2.0",
+                    "organizations",
+                    ":organization_uid",
+                    "Groups",
+                    ":group_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "organization_uid",
+                      "description": "(Required) The unique identifier of the Contentstack organization."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "group_id",
+                      "description": "(Required) The SCIM group ID of the group within the organization."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"schemas\": [\n    \"urn:ietf:params:scim:api:messages:2.0:Error\"\n  ],\n  \"status\": \"string\",\n  \"detail\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "730b6397-2753-4e8d-905f-0b0b61e78a7a",
+              "name": "The requested SCIM resource was not found.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "scim",
+                    "v2.0",
+                    "organizations",
+                    ":organization_uid",
+                    "Groups",
+                    ":group_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "organization_uid",
+                      "description": "(Required) The unique identifier of the Contentstack organization."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "group_id",
+                      "description": "(Required) The SCIM group ID of the group within the organization."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"schemas\": [\n    \"urn:ietf:params:scim:api:messages:2.0:Error\"\n  ],\n  \"status\": \"string\",\n  \"detail\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "885d4fc2-1694-48ca-80c7-8e1e2a41ad09",
+          "name": "Replace a SCIM group",
+          "request": {
+            "name": "Replace a SCIM group",
+            "description": {
+              "content": "Fully replaces a SCIM group resource including all member assignments. Use this to synchronize the complete group membership from the IdP.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "scim",
+                "v2.0",
+                "organizations",
+                ":organization_uid",
+                "Groups",
+                ":group_id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "organization_uid",
+                  "description": "(Required) The unique identifier of the Contentstack organization."
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "group_id",
+                  "description": "(Required) The SCIM group ID of the group within the organization."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "PUT",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"schemas\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"id\": \"<string>\",\n  \"displayName\": \"<string>\",\n  \"members\": [\n    {\n      \"value\": \"<string>\",\n      \"display\": \"<string>\"\n    },\n    {\n      \"value\": \"<string>\",\n      \"display\": \"<string>\"\n    }\n  ]\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "25d4a154-ba26-4981-b8ca-4b4e830bf3ea",
+              "name": "The updated SCIM group resource.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "scim",
+                    "v2.0",
+                    "organizations",
+                    ":organization_uid",
+                    "Groups",
+                    ":group_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "organization_uid",
+                      "description": "(Required) The unique identifier of the Contentstack organization."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "group_id",
+                      "description": "(Required) The SCIM group ID of the group within the organization."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"schemas\": [\n    \"urn:ietf:params:scim:schemas:core:2.0:Group\"\n  ],\n  \"id\": \"<string>\",\n  \"displayName\": \"<string>\",\n  \"members\": [\n    {\n      \"value\": \"<string>\",\n      \"display\": \"<string>\"\n    },\n    {\n      \"value\": \"<string>\",\n      \"display\": \"<string>\"\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"schemas\": [\n    \"urn:ietf:params:scim:schemas:core:2.0:Group\"\n  ],\n  \"id\": \"string\",\n  \"displayName\": \"string\",\n  \"members\": [\n    {\n      \"value\": \"string\",\n      \"display\": \"string\"\n    },\n    {\n      \"value\": \"string\",\n      \"display\": \"string\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "396986e8-0d33-4a3a-889c-b4aab57bf78b",
+              "name": "The SCIM bearer token is missing or invalid.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "scim",
+                    "v2.0",
+                    "organizations",
+                    ":organization_uid",
+                    "Groups",
+                    ":group_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "organization_uid",
+                      "description": "(Required) The unique identifier of the Contentstack organization."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "group_id",
+                      "description": "(Required) The SCIM group ID of the group within the organization."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"schemas\": [\n    \"urn:ietf:params:scim:schemas:core:2.0:Group\"\n  ],\n  \"id\": \"<string>\",\n  \"displayName\": \"<string>\",\n  \"members\": [\n    {\n      \"value\": \"<string>\",\n      \"display\": \"<string>\"\n    },\n    {\n      \"value\": \"<string>\",\n      \"display\": \"<string>\"\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"schemas\": [\n    \"urn:ietf:params:scim:api:messages:2.0:Error\"\n  ],\n  \"status\": \"string\",\n  \"detail\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "893a0bc1-f572-43e8-819a-77f72132d3b8",
+              "name": "The requested SCIM resource was not found.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "scim",
+                    "v2.0",
+                    "organizations",
+                    ":organization_uid",
+                    "Groups",
+                    ":group_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "organization_uid",
+                      "description": "(Required) The unique identifier of the Contentstack organization."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "group_id",
+                      "description": "(Required) The SCIM group ID of the group within the organization."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"schemas\": [\n    \"urn:ietf:params:scim:schemas:core:2.0:Group\"\n  ],\n  \"id\": \"<string>\",\n  \"displayName\": \"<string>\",\n  \"members\": [\n    {\n      \"value\": \"<string>\",\n      \"display\": \"<string>\"\n    },\n    {\n      \"value\": \"<string>\",\n      \"display\": \"<string>\"\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"schemas\": [\n    \"urn:ietf:params:scim:api:messages:2.0:Error\"\n  ],\n  \"status\": \"string\",\n  \"detail\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "dcf8db08-d027-43d1-af40-f7e307e35555",
+          "name": "Update a SCIM group",
+          "request": {
+            "name": "Update a SCIM group",
+            "description": {
+              "content": "Partially updates a SCIM group using SCIM 2.0 PATCH operations. Commonly used to add or remove individual members from the group without replacing the entire membership list.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "scim",
+                "v2.0",
+                "organizations",
+                ":organization_uid",
+                "Groups",
+                ":group_id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "organization_uid",
+                  "description": "(Required) The unique identifier of the Contentstack organization."
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "group_id",
+                  "description": "(Required) The SCIM group ID of the group within the organization."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "PATCH",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"schemas\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"Operations\": [\n    {\n      \"op\": \"<string>\",\n      \"path\": \"<string>\",\n      \"value\": {}\n    },\n    {\n      \"op\": \"<string>\",\n      \"path\": \"<string>\",\n      \"value\": {}\n    }\n  ]\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "a6419b87-60a6-427e-828d-11f59132c9cc",
+              "name": "The updated SCIM group resource.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "scim",
+                    "v2.0",
+                    "organizations",
+                    ":organization_uid",
+                    "Groups",
+                    ":group_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "organization_uid",
+                      "description": "(Required) The unique identifier of the Contentstack organization."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "group_id",
+                      "description": "(Required) The SCIM group ID of the group within the organization."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PATCH",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"schemas\": [\n    \"urn:ietf:params:scim:api:messages:2.0:PatchOp\"\n  ],\n  \"Operations\": [\n    {\n      \"op\": \"replace\",\n      \"path\": \"string\",\n      \"value\": {}\n    },\n    {\n      \"op\": \"remove\",\n      \"path\": \"string\",\n      \"value\": {}\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"schemas\": [\n    \"urn:ietf:params:scim:schemas:core:2.0:Group\"\n  ],\n  \"id\": \"string\",\n  \"displayName\": \"string\",\n  \"members\": [\n    {\n      \"value\": \"string\",\n      \"display\": \"string\"\n    },\n    {\n      \"value\": \"string\",\n      \"display\": \"string\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "244b7bf0-ed70-4505-933f-6c7b345ab69d",
+              "name": "The SCIM bearer token is missing or invalid.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "scim",
+                    "v2.0",
+                    "organizations",
+                    ":organization_uid",
+                    "Groups",
+                    ":group_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "organization_uid",
+                      "description": "(Required) The unique identifier of the Contentstack organization."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "group_id",
+                      "description": "(Required) The SCIM group ID of the group within the organization."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PATCH",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"schemas\": [\n    \"urn:ietf:params:scim:api:messages:2.0:PatchOp\"\n  ],\n  \"Operations\": [\n    {\n      \"op\": \"replace\",\n      \"path\": \"string\",\n      \"value\": {}\n    },\n    {\n      \"op\": \"remove\",\n      \"path\": \"string\",\n      \"value\": {}\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"schemas\": [\n    \"urn:ietf:params:scim:api:messages:2.0:Error\"\n  ],\n  \"status\": \"string\",\n  \"detail\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "488d68ed-d8ce-4cfc-83b4-9b57359b7a5a",
+              "name": "The requested SCIM resource was not found.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "scim",
+                    "v2.0",
+                    "organizations",
+                    ":organization_uid",
+                    "Groups",
+                    ":group_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "organization_uid",
+                      "description": "(Required) The unique identifier of the Contentstack organization."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "group_id",
+                      "description": "(Required) The SCIM group ID of the group within the organization."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PATCH",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"schemas\": [\n    \"urn:ietf:params:scim:api:messages:2.0:PatchOp\"\n  ],\n  \"Operations\": [\n    {\n      \"op\": \"replace\",\n      \"path\": \"string\",\n      \"value\": {}\n    },\n    {\n      \"op\": \"remove\",\n      \"path\": \"string\",\n      \"value\": {}\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"schemas\": [\n    \"urn:ietf:params:scim:api:messages:2.0:Error\"\n  ],\n  \"status\": \"string\",\n  \"detail\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "2a31f99b-b11e-42b2-be51-17d8af238952",
+          "name": "Delete a SCIM group",
+          "request": {
+            "name": "Delete a SCIM group",
+            "description": {
+              "content": "Removes a SCIM group from the Contentstack organization. Members of the group retain their individual user accounts but lose the role permissions granted by the group mapping.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "scim",
+                "v2.0",
+                "organizations",
+                ":organization_uid",
+                "Groups",
+                ":group_id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "organization_uid",
+                  "description": "(Required) The unique identifier of the Contentstack organization."
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "group_id",
+                  "description": "(Required) The SCIM group ID of the group within the organization."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "DELETE",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "c753fd2c-0865-4f4f-b748-7fc4c015daaa",
+              "name": "Group deleted successfully.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "scim",
+                    "v2.0",
+                    "organizations",
+                    ":organization_uid",
+                    "Groups",
+                    ":group_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "organization_uid",
+                      "description": "(Required) The unique identifier of the Contentstack organization."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "group_id",
+                      "description": "(Required) The SCIM group ID of the group within the organization."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "No Content",
+              "code": 204,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "a33f1c84-9c0d-4938-808b-fe846e4e851e",
+              "name": "The SCIM bearer token is missing or invalid.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "scim",
+                    "v2.0",
+                    "organizations",
+                    ":organization_uid",
+                    "Groups",
+                    ":group_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "organization_uid",
+                      "description": "(Required) The unique identifier of the Contentstack organization."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "group_id",
+                      "description": "(Required) The SCIM group ID of the group within the organization."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"schemas\": [\n    \"urn:ietf:params:scim:api:messages:2.0:Error\"\n  ],\n  \"status\": \"string\",\n  \"detail\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "566695ad-2463-4312-aa2b-bdaddd0eaf85",
+              "name": "The requested SCIM resource was not found.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "scim",
+                    "v2.0",
+                    "organizations",
+                    ":organization_uid",
+                    "Groups",
+                    ":group_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "organization_uid",
+                      "description": "(Required) The unique identifier of the Contentstack organization."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "group_id",
+                      "description": "(Required) The SCIM group ID of the group within the organization."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"schemas\": [\n    \"urn:ietf:params:scim:api:messages:2.0:Error\"\n  ],\n  \"status\": \"string\",\n  \"detail\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    },
+    {
+      "id": "e4f92893-e8d7-492e-897d-0dfe8d2cc1a4",
+      "name": "SCIM Schema Discovery",
+      "description": {
+        "content": "Schema discovery endpoints implement the SCIM 2.0 service provider configuration, returning supported schemas and resource types for IdP compatibility validation.",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "e811d747-6451-4c26-a1ee-04293b53626f",
+          "name": "Get SCIM schemas",
+          "request": {
+            "name": "Get SCIM schemas",
+            "description": {
+              "content": "Returns the SCIM schemas supported by the Contentstack SCIM API, enabling IdP clients to understand the available attributes for User and Group resources.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "scim",
+                "v2.0",
+                "Schemas"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "e1ad5c94-4ae1-41d8-aebf-66ec1b5d135f",
+              "name": "A list of SCIM schemas supported by the API.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "scim",
+                    "v2.0",
+                    "Schemas"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"schemas\": [\n    \"urn:ietf:params:scim:api:messages:2.0:ListResponse\"\n  ],\n  \"totalResults\": 321,\n  \"startIndex\": 5617,\n  \"itemsPerPage\": 8454\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "7d168650-c8ed-4d69-ac35-a3c24d29a05a",
+          "name": "Get SCIM resource types",
+          "request": {
+            "name": "Get SCIM resource types",
+            "description": {
+              "content": "Returns the SCIM resource types supported by the Contentstack SCIM API including Users and Groups, enabling IdP clients to discover available endpoints and their schemas.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "scim",
+                "v2.0",
+                "ResourceTypes"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "d8b1d582-f7ac-448c-8782-f610f4352303",
+              "name": "A list of SCIM resource types.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "scim",
+                    "v2.0",
+                    "ResourceTypes"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"schemas\": [\n    \"urn:ietf:params:scim:api:messages:2.0:ListResponse\"\n  ],\n  \"totalResults\": 321,\n  \"startIndex\": 5617,\n  \"itemsPerPage\": 8454\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    },
+    {
+      "id": "43baee4d-75c1-4014-aa0b-9dc24a10d017",
+      "name": "SCIM Users",
+      "description": {
+        "content": "SCIM user endpoints enable Identity Providers to provision, update, and deprovision user accounts within a Contentstack organization following the SCIM 2.0 User schema.",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "9ef38941-c4b1-44da-b4d9-69e75d44f4b7",
+          "name": "List SCIM users",
+          "request": {
+            "name": "List SCIM users",
+            "description": {
+              "content": "Retrieves all users in the organization following the SCIM 2.0 ListResponse format. Supports filtering by userName (email address) using the filter query parameter for user lookup during IdP sync operations.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "scim",
+                "v2.0",
+                "organizations",
+                ":organization_uid",
+                "Users"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "filter",
+                  "value": "<string>",
+                  "description": "SCIM filter expression for searching users. Example: userName eq \"user@example.com\""
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "organization_uid",
+                  "description": "(Required) The unique identifier of the Contentstack organization."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "5ed62ab3-daa5-4029-a46a-c0307874e7fc",
+              "name": "A SCIM ListResponse containing user resources.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "scim",
+                    "v2.0",
+                    "organizations",
+                    ":organization_uid",
+                    "Users"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "filter",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "organization_uid",
+                      "description": "(Required) The unique identifier of the Contentstack organization."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"schemas\": [\n    \"urn:ietf:params:scim:api:messages:2.0:ListResponse\"\n  ],\n  \"totalResults\": 321,\n  \"startIndex\": 5617,\n  \"itemsPerPage\": 8454\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "db487f7a-1f5a-4d4c-8148-86eb16b522b2",
+              "name": "The SCIM bearer token is missing or invalid.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "scim",
+                    "v2.0",
+                    "organizations",
+                    ":organization_uid",
+                    "Users"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "filter",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "organization_uid",
+                      "description": "(Required) The unique identifier of the Contentstack organization."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"schemas\": [\n    \"urn:ietf:params:scim:api:messages:2.0:Error\"\n  ],\n  \"status\": \"string\",\n  \"detail\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "49b52767-e351-4248-be38-8e6d46a7a4ec",
+          "name": "Create a SCIM user",
+          "request": {
+            "name": "Create a SCIM user",
+            "description": {
+              "content": "Provisions a new user in the Contentstack organization via SCIM. The user is created with the attributes provided in the SCIM User resource and assigned to the organization's default role unless group mappings specify otherwise.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "scim",
+                "v2.0",
+                "organizations",
+                ":organization_uid",
+                "Users"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "organization_uid",
+                  "description": "(Required) The unique identifier of the Contentstack organization."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"schemas\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"id\": \"<string>\",\n  \"userName\": \"<email>\",\n  \"name\": {\n    \"givenName\": \"<string>\",\n    \"familyName\": \"<string>\"\n  },\n  \"emails\": [\n    {\n      \"value\": \"<email>\",\n      \"primary\": \"<boolean>\"\n    },\n    {\n      \"value\": \"<email>\",\n      \"primary\": \"<boolean>\"\n    }\n  ],\n  \"active\": \"<boolean>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "9dad885c-be9c-4e7b-805b-4d688b963344",
+              "name": "The newly provisioned SCIM user resource.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "scim",
+                    "v2.0",
+                    "organizations",
+                    ":organization_uid",
+                    "Users"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "organization_uid",
+                      "description": "(Required) The unique identifier of the Contentstack organization."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"schemas\": [\n    \"urn:ietf:params:scim:schemas:core:2.0:User\"\n  ],\n  \"id\": \"<string>\",\n  \"userName\": \"<email>\",\n  \"name\": {\n    \"givenName\": \"<string>\",\n    \"familyName\": \"<string>\"\n  },\n  \"emails\": [\n    {\n      \"value\": \"<email>\",\n      \"primary\": \"<boolean>\"\n    },\n    {\n      \"value\": \"<email>\",\n      \"primary\": \"<boolean>\"\n    }\n  ],\n  \"active\": \"<boolean>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Created",
+              "code": 201,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"schemas\": [\n    \"urn:ietf:params:scim:schemas:core:2.0:User\"\n  ],\n  \"id\": \"string\",\n  \"userName\": \"N9JsAaFG1DbK3ot@obfIqTy.kib\",\n  \"name\": {\n    \"givenName\": \"string\",\n    \"familyName\": \"string\"\n  },\n  \"emails\": [\n    {\n      \"value\": \"DbY8g5rW-KDR@hHxHwzvMiexKOIa.qrr\",\n      \"primary\": false\n    },\n    {\n      \"value\": \"kmBN18gSM@OEcYb.rhk\",\n      \"primary\": true\n    }\n  ],\n  \"active\": false\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "8d420336-3ed8-41b1-9a82-276f04cd0f41",
+              "name": "The SCIM request is malformed or contains invalid attribute values.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "scim",
+                    "v2.0",
+                    "organizations",
+                    ":organization_uid",
+                    "Users"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "organization_uid",
+                      "description": "(Required) The unique identifier of the Contentstack organization."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"schemas\": [\n    \"urn:ietf:params:scim:schemas:core:2.0:User\"\n  ],\n  \"id\": \"<string>\",\n  \"userName\": \"<email>\",\n  \"name\": {\n    \"givenName\": \"<string>\",\n    \"familyName\": \"<string>\"\n  },\n  \"emails\": [\n    {\n      \"value\": \"<email>\",\n      \"primary\": \"<boolean>\"\n    },\n    {\n      \"value\": \"<email>\",\n      \"primary\": \"<boolean>\"\n    }\n  ],\n  \"active\": \"<boolean>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"schemas\": [\n    \"urn:ietf:params:scim:api:messages:2.0:Error\"\n  ],\n  \"status\": \"string\",\n  \"detail\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "8b998e81-1e67-4c77-b568-dc4795de6f28",
+              "name": "The SCIM bearer token is missing or invalid.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "scim",
+                    "v2.0",
+                    "organizations",
+                    ":organization_uid",
+                    "Users"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "organization_uid",
+                      "description": "(Required) The unique identifier of the Contentstack organization."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"schemas\": [\n    \"urn:ietf:params:scim:schemas:core:2.0:User\"\n  ],\n  \"id\": \"<string>\",\n  \"userName\": \"<email>\",\n  \"name\": {\n    \"givenName\": \"<string>\",\n    \"familyName\": \"<string>\"\n  },\n  \"emails\": [\n    {\n      \"value\": \"<email>\",\n      \"primary\": \"<boolean>\"\n    },\n    {\n      \"value\": \"<email>\",\n      \"primary\": \"<boolean>\"\n    }\n  ],\n  \"active\": \"<boolean>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"schemas\": [\n    \"urn:ietf:params:scim:api:messages:2.0:Error\"\n  ],\n  \"status\": \"string\",\n  \"detail\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "540dc2c7-64a6-4ce3-9dce-e24ce368148c",
+              "name": "A user with this userName already exists.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "scim",
+                    "v2.0",
+                    "organizations",
+                    ":organization_uid",
+                    "Users"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "organization_uid",
+                      "description": "(Required) The unique identifier of the Contentstack organization."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"schemas\": [\n    \"urn:ietf:params:scim:schemas:core:2.0:User\"\n  ],\n  \"id\": \"<string>\",\n  \"userName\": \"<email>\",\n  \"name\": {\n    \"givenName\": \"<string>\",\n    \"familyName\": \"<string>\"\n  },\n  \"emails\": [\n    {\n      \"value\": \"<email>\",\n      \"primary\": \"<boolean>\"\n    },\n    {\n      \"value\": \"<email>\",\n      \"primary\": \"<boolean>\"\n    }\n  ],\n  \"active\": \"<boolean>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Conflict",
+              "code": 409,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"schemas\": [\n    \"urn:ietf:params:scim:api:messages:2.0:Error\"\n  ],\n  \"status\": \"string\",\n  \"detail\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "db6ac9ac-5208-4195-8803-4f76ac92181e",
+          "name": "Get a SCIM user",
+          "request": {
+            "name": "Get a SCIM user",
+            "description": {
+              "content": "Retrieves the SCIM User resource for a specific user by their SCIM user ID within the organization.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "scim",
+                "v2.0",
+                "organizations",
+                ":organization_uid",
+                "Users",
+                ":user_id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "organization_uid",
+                  "description": "(Required) The unique identifier of the Contentstack organization."
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "user_id",
+                  "description": "(Required) The SCIM user ID of the user within the organization."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "e81334a3-78fb-4439-97fd-e96bafaf1c2a",
+              "name": "The SCIM user resource.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "scim",
+                    "v2.0",
+                    "organizations",
+                    ":organization_uid",
+                    "Users",
+                    ":user_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "organization_uid",
+                      "description": "(Required) The unique identifier of the Contentstack organization."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "user_id",
+                      "description": "(Required) The SCIM user ID of the user within the organization."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"schemas\": [\n    \"urn:ietf:params:scim:schemas:core:2.0:User\"\n  ],\n  \"id\": \"string\",\n  \"userName\": \"N9JsAaFG1DbK3ot@obfIqTy.kib\",\n  \"name\": {\n    \"givenName\": \"string\",\n    \"familyName\": \"string\"\n  },\n  \"emails\": [\n    {\n      \"value\": \"DbY8g5rW-KDR@hHxHwzvMiexKOIa.qrr\",\n      \"primary\": false\n    },\n    {\n      \"value\": \"kmBN18gSM@OEcYb.rhk\",\n      \"primary\": true\n    }\n  ],\n  \"active\": false\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "18ec6782-fbe4-46f7-8947-be06e5b55548",
+              "name": "The SCIM bearer token is missing or invalid.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "scim",
+                    "v2.0",
+                    "organizations",
+                    ":organization_uid",
+                    "Users",
+                    ":user_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "organization_uid",
+                      "description": "(Required) The unique identifier of the Contentstack organization."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "user_id",
+                      "description": "(Required) The SCIM user ID of the user within the organization."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"schemas\": [\n    \"urn:ietf:params:scim:api:messages:2.0:Error\"\n  ],\n  \"status\": \"string\",\n  \"detail\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "bd69da3c-ba8a-4713-ab15-3244fc5a0e66",
+              "name": "The requested SCIM resource was not found.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "scim",
+                    "v2.0",
+                    "organizations",
+                    ":organization_uid",
+                    "Users",
+                    ":user_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "organization_uid",
+                      "description": "(Required) The unique identifier of the Contentstack organization."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "user_id",
+                      "description": "(Required) The SCIM user ID of the user within the organization."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"schemas\": [\n    \"urn:ietf:params:scim:api:messages:2.0:Error\"\n  ],\n  \"status\": \"string\",\n  \"detail\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "fb39c48b-5636-4e05-b0da-ee63a4d3a45a",
+          "name": "Replace a SCIM user",
+          "request": {
+            "name": "Replace a SCIM user",
+            "description": {
+              "content": "Fully replaces a SCIM user resource with the provided attributes. All attributes not included in the request will be cleared or reset to defaults following SCIM 2.0 PUT semantics.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "scim",
+                "v2.0",
+                "organizations",
+                ":organization_uid",
+                "Users",
+                ":user_id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "organization_uid",
+                  "description": "(Required) The unique identifier of the Contentstack organization."
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "user_id",
+                  "description": "(Required) The SCIM user ID of the user within the organization."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "PUT",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"schemas\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"id\": \"<string>\",\n  \"userName\": \"<email>\",\n  \"name\": {\n    \"givenName\": \"<string>\",\n    \"familyName\": \"<string>\"\n  },\n  \"emails\": [\n    {\n      \"value\": \"<email>\",\n      \"primary\": \"<boolean>\"\n    },\n    {\n      \"value\": \"<email>\",\n      \"primary\": \"<boolean>\"\n    }\n  ],\n  \"active\": \"<boolean>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "801fe58a-77ef-4ea1-b874-b3dc0bf5a867",
+              "name": "The updated SCIM user resource.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "scim",
+                    "v2.0",
+                    "organizations",
+                    ":organization_uid",
+                    "Users",
+                    ":user_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "organization_uid",
+                      "description": "(Required) The unique identifier of the Contentstack organization."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "user_id",
+                      "description": "(Required) The SCIM user ID of the user within the organization."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"schemas\": [\n    \"urn:ietf:params:scim:schemas:core:2.0:User\"\n  ],\n  \"id\": \"<string>\",\n  \"userName\": \"<email>\",\n  \"name\": {\n    \"givenName\": \"<string>\",\n    \"familyName\": \"<string>\"\n  },\n  \"emails\": [\n    {\n      \"value\": \"<email>\",\n      \"primary\": \"<boolean>\"\n    },\n    {\n      \"value\": \"<email>\",\n      \"primary\": \"<boolean>\"\n    }\n  ],\n  \"active\": \"<boolean>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"schemas\": [\n    \"urn:ietf:params:scim:schemas:core:2.0:User\"\n  ],\n  \"id\": \"string\",\n  \"userName\": \"N9JsAaFG1DbK3ot@obfIqTy.kib\",\n  \"name\": {\n    \"givenName\": \"string\",\n    \"familyName\": \"string\"\n  },\n  \"emails\": [\n    {\n      \"value\": \"DbY8g5rW-KDR@hHxHwzvMiexKOIa.qrr\",\n      \"primary\": false\n    },\n    {\n      \"value\": \"kmBN18gSM@OEcYb.rhk\",\n      \"primary\": true\n    }\n  ],\n  \"active\": false\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "b47667ba-98f8-4a36-83cc-de670813e7db",
+              "name": "The SCIM request is malformed or contains invalid attribute values.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "scim",
+                    "v2.0",
+                    "organizations",
+                    ":organization_uid",
+                    "Users",
+                    ":user_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "organization_uid",
+                      "description": "(Required) The unique identifier of the Contentstack organization."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "user_id",
+                      "description": "(Required) The SCIM user ID of the user within the organization."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"schemas\": [\n    \"urn:ietf:params:scim:schemas:core:2.0:User\"\n  ],\n  \"id\": \"<string>\",\n  \"userName\": \"<email>\",\n  \"name\": {\n    \"givenName\": \"<string>\",\n    \"familyName\": \"<string>\"\n  },\n  \"emails\": [\n    {\n      \"value\": \"<email>\",\n      \"primary\": \"<boolean>\"\n    },\n    {\n      \"value\": \"<email>\",\n      \"primary\": \"<boolean>\"\n    }\n  ],\n  \"active\": \"<boolean>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"schemas\": [\n    \"urn:ietf:params:scim:api:messages:2.0:Error\"\n  ],\n  \"status\": \"string\",\n  \"detail\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "c43d447f-d69f-423b-926c-668748689e95",
+              "name": "The SCIM bearer token is missing or invalid.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "scim",
+                    "v2.0",
+                    "organizations",
+                    ":organization_uid",
+                    "Users",
+                    ":user_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "organization_uid",
+                      "description": "(Required) The unique identifier of the Contentstack organization."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "user_id",
+                      "description": "(Required) The SCIM user ID of the user within the organization."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"schemas\": [\n    \"urn:ietf:params:scim:schemas:core:2.0:User\"\n  ],\n  \"id\": \"<string>\",\n  \"userName\": \"<email>\",\n  \"name\": {\n    \"givenName\": \"<string>\",\n    \"familyName\": \"<string>\"\n  },\n  \"emails\": [\n    {\n      \"value\": \"<email>\",\n      \"primary\": \"<boolean>\"\n    },\n    {\n      \"value\": \"<email>\",\n      \"primary\": \"<boolean>\"\n    }\n  ],\n  \"active\": \"<boolean>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"schemas\": [\n    \"urn:ietf:params:scim:api:messages:2.0:Error\"\n  ],\n  \"status\": \"string\",\n  \"detail\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "18719050-abd3-4824-bf6b-9208fac17a2a",
+              "name": "The requested SCIM resource was not found.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "scim",
+                    "v2.0",
+                    "organizations",
+                    ":organization_uid",
+                    "Users",
+                    ":user_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "organization_uid",
+                      "description": "(Required) The unique identifier of the Contentstack organization."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "user_id",
+                      "description": "(Required) The SCIM user ID of the user within the organization."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"schemas\": [\n    \"urn:ietf:params:scim:schemas:core:2.0:User\"\n  ],\n  \"id\": \"<string>\",\n  \"userName\": \"<email>\",\n  \"name\": {\n    \"givenName\": \"<string>\",\n    \"familyName\": \"<string>\"\n  },\n  \"emails\": [\n    {\n      \"value\": \"<email>\",\n      \"primary\": \"<boolean>\"\n    },\n    {\n      \"value\": \"<email>\",\n      \"primary\": \"<boolean>\"\n    }\n  ],\n  \"active\": \"<boolean>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"schemas\": [\n    \"urn:ietf:params:scim:api:messages:2.0:Error\"\n  ],\n  \"status\": \"string\",\n  \"detail\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "d8ddf4ab-836c-48d1-9257-faef8f00e89a",
+          "name": "Update a SCIM user",
+          "request": {
+            "name": "Update a SCIM user",
+            "description": {
+              "content": "Partially updates a SCIM user resource using SCIM 2.0 PATCH operations. Commonly used to activate or deactivate users by setting the active attribute, or to update specific profile attributes without replacing the entire resource.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "scim",
+                "v2.0",
+                "organizations",
+                ":organization_uid",
+                "Users",
+                ":user_id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "organization_uid",
+                  "description": "(Required) The unique identifier of the Contentstack organization."
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "user_id",
+                  "description": "(Required) The SCIM user ID of the user within the organization."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "PATCH",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"schemas\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"Operations\": [\n    {\n      \"op\": \"<string>\",\n      \"path\": \"<string>\",\n      \"value\": {}\n    },\n    {\n      \"op\": \"<string>\",\n      \"path\": \"<string>\",\n      \"value\": {}\n    }\n  ]\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "ab3e31fa-f883-40de-a3bf-ff624f96b198",
+              "name": "The updated SCIM user resource.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "scim",
+                    "v2.0",
+                    "organizations",
+                    ":organization_uid",
+                    "Users",
+                    ":user_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "organization_uid",
+                      "description": "(Required) The unique identifier of the Contentstack organization."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "user_id",
+                      "description": "(Required) The SCIM user ID of the user within the organization."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PATCH",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"schemas\": [\n    \"urn:ietf:params:scim:api:messages:2.0:PatchOp\"\n  ],\n  \"Operations\": [\n    {\n      \"op\": \"replace\",\n      \"path\": \"string\",\n      \"value\": {}\n    },\n    {\n      \"op\": \"remove\",\n      \"path\": \"string\",\n      \"value\": {}\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"schemas\": [\n    \"urn:ietf:params:scim:schemas:core:2.0:User\"\n  ],\n  \"id\": \"string\",\n  \"userName\": \"N9JsAaFG1DbK3ot@obfIqTy.kib\",\n  \"name\": {\n    \"givenName\": \"string\",\n    \"familyName\": \"string\"\n  },\n  \"emails\": [\n    {\n      \"value\": \"DbY8g5rW-KDR@hHxHwzvMiexKOIa.qrr\",\n      \"primary\": false\n    },\n    {\n      \"value\": \"kmBN18gSM@OEcYb.rhk\",\n      \"primary\": true\n    }\n  ],\n  \"active\": false\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "084ac66b-d784-45f3-a5b0-14a01cdcbc29",
+              "name": "The SCIM request is malformed or contains invalid attribute values.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "scim",
+                    "v2.0",
+                    "organizations",
+                    ":organization_uid",
+                    "Users",
+                    ":user_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "organization_uid",
+                      "description": "(Required) The unique identifier of the Contentstack organization."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "user_id",
+                      "description": "(Required) The SCIM user ID of the user within the organization."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PATCH",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"schemas\": [\n    \"urn:ietf:params:scim:api:messages:2.0:PatchOp\"\n  ],\n  \"Operations\": [\n    {\n      \"op\": \"replace\",\n      \"path\": \"string\",\n      \"value\": {}\n    },\n    {\n      \"op\": \"remove\",\n      \"path\": \"string\",\n      \"value\": {}\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"schemas\": [\n    \"urn:ietf:params:scim:api:messages:2.0:Error\"\n  ],\n  \"status\": \"string\",\n  \"detail\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "1b1a646a-c371-43c2-90c8-1fe0d0460b81",
+              "name": "The SCIM bearer token is missing or invalid.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "scim",
+                    "v2.0",
+                    "organizations",
+                    ":organization_uid",
+                    "Users",
+                    ":user_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "organization_uid",
+                      "description": "(Required) The unique identifier of the Contentstack organization."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "user_id",
+                      "description": "(Required) The SCIM user ID of the user within the organization."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PATCH",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"schemas\": [\n    \"urn:ietf:params:scim:api:messages:2.0:PatchOp\"\n  ],\n  \"Operations\": [\n    {\n      \"op\": \"replace\",\n      \"path\": \"string\",\n      \"value\": {}\n    },\n    {\n      \"op\": \"remove\",\n      \"path\": \"string\",\n      \"value\": {}\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"schemas\": [\n    \"urn:ietf:params:scim:api:messages:2.0:Error\"\n  ],\n  \"status\": \"string\",\n  \"detail\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "a6100e45-699e-4bf5-855d-55835c5203fe",
+              "name": "The requested SCIM resource was not found.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "scim",
+                    "v2.0",
+                    "organizations",
+                    ":organization_uid",
+                    "Users",
+                    ":user_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "organization_uid",
+                      "description": "(Required) The unique identifier of the Contentstack organization."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "user_id",
+                      "description": "(Required) The SCIM user ID of the user within the organization."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PATCH",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"schemas\": [\n    \"urn:ietf:params:scim:api:messages:2.0:PatchOp\"\n  ],\n  \"Operations\": [\n    {\n      \"op\": \"replace\",\n      \"path\": \"string\",\n      \"value\": {}\n    },\n    {\n      \"op\": \"remove\",\n      \"path\": \"string\",\n      \"value\": {}\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"schemas\": [\n    \"urn:ietf:params:scim:api:messages:2.0:Error\"\n  ],\n  \"status\": \"string\",\n  \"detail\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://auth-api.contentstack.com",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "bearer",
+    "bearer": [
+      {
+        "key": "token",
+        "value": "{{bearerToken}}"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "40dbf2ff-e3a6-403e-bd6a-d04c30f3fb6a",
+    "name": "Contentstack SCIM API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "The Contentstack SCIM API implements the System for Cross-domain Identity Management (SCIM 2.0) standard to enable automated user lifecycle management within a Contentstack organization. It allows Identity Providers (IdPs) to provision and deprovision users, manage group memberships, and synchronize user attributes between the IdP and Contentstack. This API is primarily used by enterprise organizations that manage Contentstack access through centralized identity management platforms such as Okta, Azure AD, or OneLogin. Group mappings in Contentstack allow IdP-managed groups to control role-based access within the CMS.\n\nContact Support:\n Name: Contentstack Support",
+      "type": "text/plain"
+    }
+  }
+}

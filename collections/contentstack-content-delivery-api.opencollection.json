@@ -1,0 +1,533 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Contentstack Content Delivery API",
+    "version": "v3"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "key": "api_key",
+      "value": "{{api_key}}",
+      "placement": "header"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Content Types",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get all content types",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://cdn.contentstack.io/v3/content_types",
+            "headers": [
+              {
+                "name": "api_key",
+                "value": ""
+              },
+              {
+                "name": "access_token",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "include_count",
+                "value": "",
+                "type": "query",
+                "description": "Set to true to include the total count of content types in the response."
+              }
+            ]
+          },
+          "docs": "Retrieves comprehensive information of all content types available in a stack. Supports include_count parameter to return the total count of content types."
+        },
+        {
+          "info": {
+            "name": "Get a single content type",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://cdn.contentstack.io/v3/content_types/:content_type_uid",
+            "headers": [
+              {
+                "name": "api_key",
+                "value": ""
+              },
+              {
+                "name": "access_token",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "content_type_uid",
+                "value": "",
+                "type": "path",
+                "description": "The unique identifier (UID) of the content type."
+              },
+              {
+                "name": "version",
+                "value": "",
+                "type": "query",
+                "description": "Retrieve a specific version of the content type schema."
+              }
+            ]
+          },
+          "docs": "Returns detailed information for a specific content type identified by its UID, including all field definitions and schema metadata."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Entries",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get all entries",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://cdn.contentstack.io/v3/content_types/:content_type_uid/entries",
+            "headers": [
+              {
+                "name": "api_key",
+                "value": ""
+              },
+              {
+                "name": "access_token",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "content_type_uid",
+                "value": "",
+                "type": "path",
+                "description": "The unique identifier (UID) of the content type."
+              },
+              {
+                "name": "locale",
+                "value": "",
+                "type": "query",
+                "description": "The locale code to retrieve localized content. Defaults to the default locale of the stack if not specified."
+              },
+              {
+                "name": "skip",
+                "value": "",
+                "type": "query",
+                "description": "Number of entries to skip for pagination."
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "Maximum number of entries to return. Maximum allowed is 250."
+              },
+              {
+                "name": "query",
+                "value": "",
+                "type": "query",
+                "description": "A JSON-encoded query object to filter entries. Supports MongoDB-style query operators for field matching and comparison."
+              },
+              {
+                "name": "include_count",
+                "value": "",
+                "type": "query",
+                "description": "Set to true to include the total count of matching entries."
+              },
+              {
+                "name": "include_content_type",
+                "value": "",
+                "type": "query",
+                "description": "Set to true to include the content type schema in the response."
+              },
+              {
+                "name": "include_reference",
+                "value": "",
+                "type": "query",
+                "description": "Set to true to include referenced entries inline in the response."
+              },
+              {
+                "name": "only",
+                "value": "",
+                "type": "query",
+                "description": "Comma-separated list of fields to include in the response."
+              },
+              {
+                "name": "except",
+                "value": "",
+                "type": "query",
+                "description": "Comma-separated list of fields to exclude from the response."
+              },
+              {
+                "name": "asc",
+                "value": "",
+                "type": "query",
+                "description": "Field name to sort results in ascending order."
+              },
+              {
+                "name": "desc",
+                "value": "",
+                "type": "query",
+                "description": "Field name to sort results in descending order."
+              }
+            ]
+          },
+          "docs": "Fetches a list of all published entries for a particular content type. Supports filtering by query, localization, reference inclusion, pagination, sorting, and field selection."
+        },
+        {
+          "info": {
+            "name": "Get a single entry",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://cdn.contentstack.io/v3/content_types/:content_type_uid/entries/:entry_uid",
+            "headers": [
+              {
+                "name": "api_key",
+                "value": ""
+              },
+              {
+                "name": "access_token",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "content_type_uid",
+                "value": "",
+                "type": "path",
+                "description": "The unique identifier (UID) of the content type."
+              },
+              {
+                "name": "entry_uid",
+                "value": "",
+                "type": "path",
+                "description": "The unique identifier (UID) of the entry."
+              },
+              {
+                "name": "locale",
+                "value": "",
+                "type": "query",
+                "description": "The locale code to retrieve localized content. Defaults to the default locale of the stack if not specified."
+              },
+              {
+                "name": "include_reference",
+                "value": "",
+                "type": "query",
+                "description": "Set to true to include referenced entries inline in the response."
+              },
+              {
+                "name": "version",
+                "value": "",
+                "type": "query",
+                "description": "Retrieve a specific published version of the entry."
+              }
+            ]
+          },
+          "docs": "Retrieves a specific published entry identified by its UID within a given content type. Supports localization, reference inclusion, and field selection parameters."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Entry Variants",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get all entry variants",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://cdn.contentstack.io/v3/content_types/:content_type_uid/entries/:entry_uid/variants",
+            "headers": [
+              {
+                "name": "api_key",
+                "value": ""
+              },
+              {
+                "name": "access_token",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "content_type_uid",
+                "value": "",
+                "type": "path",
+                "description": "The unique identifier (UID) of the content type."
+              },
+              {
+                "name": "entry_uid",
+                "value": "",
+                "type": "path",
+                "description": "The unique identifier (UID) of the entry."
+              }
+            ]
+          },
+          "docs": "Retrieves all personalization variants of a specific entry, including their variant UIDs and customized field values."
+        },
+        {
+          "info": {
+            "name": "Get a single entry variant",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://cdn.contentstack.io/v3/content_types/:content_type_uid/entries/:entry_uid/variants/:variant_uid",
+            "headers": [
+              {
+                "name": "api_key",
+                "value": ""
+              },
+              {
+                "name": "access_token",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "content_type_uid",
+                "value": "",
+                "type": "path",
+                "description": "The unique identifier (UID) of the content type."
+              },
+              {
+                "name": "entry_uid",
+                "value": "",
+                "type": "path",
+                "description": "The unique identifier (UID) of the entry."
+              },
+              {
+                "name": "variant_uid",
+                "value": "",
+                "type": "path",
+                "description": "The unique identifier (UID) of the entry variant."
+              }
+            ]
+          },
+          "docs": "Retrieves a specific variant of an entry identified by the variant UID. Returns the customized field values for that variant."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Assets",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get all assets",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://cdn.contentstack.io/v3/assets",
+            "headers": [
+              {
+                "name": "api_key",
+                "value": ""
+              },
+              {
+                "name": "access_token",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "skip",
+                "value": "",
+                "type": "query",
+                "description": "Number of entries to skip for pagination."
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "Maximum number of entries to return. Maximum allowed is 250."
+              },
+              {
+                "name": "include_count",
+                "value": "",
+                "type": "query",
+                "description": "Set to true to include the total count of assets in the response."
+              }
+            ]
+          },
+          "docs": "Fetches a list of all published assets in the stack including images, videos, and documents. Supports pagination, filtering, and field selection."
+        },
+        {
+          "info": {
+            "name": "Get a single asset",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://cdn.contentstack.io/v3/assets/:asset_uid",
+            "headers": [
+              {
+                "name": "api_key",
+                "value": ""
+              },
+              {
+                "name": "access_token",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "asset_uid",
+                "value": "",
+                "type": "path",
+                "description": "The unique identifier (UID) of the asset."
+              }
+            ]
+          },
+          "docs": "Retrieves a specific asset by its UID, returning all metadata including file URL, dimensions, file size, and content type."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Global Fields",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get all global fields",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://cdn.contentstack.io/v3/global_fields",
+            "headers": [
+              {
+                "name": "api_key",
+                "value": ""
+              },
+              {
+                "name": "access_token",
+                "value": ""
+              }
+            ]
+          },
+          "docs": "Fetches all reusable global field definitions available in the stack. Global fields can be embedded in content type schemas to create consistent field structures across multiple content types."
+        },
+        {
+          "info": {
+            "name": "Get a single global field",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://cdn.contentstack.io/v3/global_fields/:global_field_uid",
+            "headers": [
+              {
+                "name": "api_key",
+                "value": ""
+              },
+              {
+                "name": "access_token",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "global_field_uid",
+                "value": "",
+                "type": "path",
+                "description": "The unique identifier (UID) of the global field."
+              }
+            ]
+          },
+          "docs": "Returns the schema and metadata for a specific global field identified by its UID."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Synchronization",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Sync content",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://cdn.contentstack.io/v3/stacks/sync",
+            "headers": [
+              {
+                "name": "api_key",
+                "value": ""
+              },
+              {
+                "name": "access_token",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "init",
+                "value": "",
+                "type": "query",
+                "description": "Set to true to initiate the first sync and receive a sync token."
+              },
+              {
+                "name": "sync_token",
+                "value": "",
+                "type": "query",
+                "description": "The token received from a previous sync response. Use to fetch only changes since the last sync."
+              },
+              {
+                "name": "pagination_token",
+                "value": "",
+                "type": "query",
+                "description": "Token to retrieve the next page of results in a large sync response."
+              },
+              {
+                "name": "type",
+                "value": "",
+                "type": "query",
+                "description": "Filter sync results by content type. Options: entry_published, entry_unpublished, entry_deleted, asset_published, asset_unpublished, asset_deleted, content_type_deleted."
+              },
+              {
+                "name": "content_type_uid",
+                "value": "",
+                "type": "query",
+                "description": "Filter sync results to a specific content type UID."
+              },
+              {
+                "name": "locale",
+                "value": "",
+                "type": "query",
+                "description": "The locale code to retrieve localized content. Defaults to the default locale of the stack if not specified."
+              }
+            ]
+          },
+          "docs": "Initiates an initial sync or continues a paginated sync of all published entries and assets in the stack. Use init=true for the first sync to receive a sync token. Use the sync_token from subsequent responses to fetch only the changes since the last sync."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

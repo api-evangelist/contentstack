@@ -1,0 +1,462 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Contentstack Launch API",
+    "version": "v1"
+  },
+  "request": {
+    "auth": {
+      "type": "bearer",
+      "token": "{{bearerToken}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Projects",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get all projects",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://launch-api.contentstack.com/projects"
+          },
+          "docs": "Retrieves all Launch projects accessible to the authenticated user or organization. Returns project metadata including names, creation dates, and environment counts."
+        },
+        {
+          "info": {
+            "name": "Create a project",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://launch-api.contentstack.com/projects",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Creates a new Launch project for deploying a web application. Projects serve as the top-level container for environments and deployments."
+        },
+        {
+          "info": {
+            "name": "Get a project",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://launch-api.contentstack.com/projects/:project_uid",
+            "params": [
+              {
+                "name": "project_uid",
+                "value": "",
+                "type": "path",
+                "description": "The unique identifier of the Launch project."
+              }
+            ]
+          },
+          "docs": "Retrieves the details of a specific Launch project including its configuration, current status, and linked Contentstack stack."
+        },
+        {
+          "info": {
+            "name": "Update a project",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://launch-api.contentstack.com/projects/:project_uid",
+            "params": [
+              {
+                "name": "project_uid",
+                "value": "",
+                "type": "path",
+                "description": "The unique identifier of the Launch project."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Updates the configuration of an existing Launch project such as its name, description, or framework settings."
+        },
+        {
+          "info": {
+            "name": "Delete a project",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://launch-api.contentstack.com/projects/:project_uid",
+            "params": [
+              {
+                "name": "project_uid",
+                "value": "",
+                "type": "path",
+                "description": "The unique identifier of the Launch project."
+              }
+            ]
+          },
+          "docs": "Permanently deletes a Launch project and all its environments and deployment history. This action is irreversible."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "File Uploads",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get project upload URL",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://launch-api.contentstack.com/projects/upload-url"
+          },
+          "docs": "Generates a pre-signed URL valid for 10 minutes for uploading a project build artifact file. Use this URL to upload your build package before triggering a deployment."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Environments",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get all environments",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://launch-api.contentstack.com/projects/:project_uid/environments",
+            "params": [
+              {
+                "name": "project_uid",
+                "value": "",
+                "type": "path",
+                "description": "The unique identifier of the Launch project."
+              }
+            ]
+          },
+          "docs": "Retrieves all deployment environments configured for a Launch project, including their domain configurations and current deployment status."
+        },
+        {
+          "info": {
+            "name": "Create an environment",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://launch-api.contentstack.com/projects/:project_uid/environments",
+            "params": [
+              {
+                "name": "project_uid",
+                "value": "",
+                "type": "path",
+                "description": "The unique identifier of the Launch project."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Creates a new deployment environment for a Launch project. Each environment can have its own domain, build configuration, and deployment settings."
+        },
+        {
+          "info": {
+            "name": "Get an environment",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://launch-api.contentstack.com/projects/:project_uid/environments/:env_uid",
+            "params": [
+              {
+                "name": "project_uid",
+                "value": "",
+                "type": "path",
+                "description": "The unique identifier of the Launch project."
+              },
+              {
+                "name": "env_uid",
+                "value": "",
+                "type": "path",
+                "description": "The unique identifier of the deployment environment."
+              }
+            ]
+          },
+          "docs": "Retrieves details for a specific deployment environment including its domain configuration, framework settings, and latest deployment status."
+        },
+        {
+          "info": {
+            "name": "Update an environment",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://launch-api.contentstack.com/projects/:project_uid/environments/:env_uid",
+            "params": [
+              {
+                "name": "project_uid",
+                "value": "",
+                "type": "path",
+                "description": "The unique identifier of the Launch project."
+              },
+              {
+                "name": "env_uid",
+                "value": "",
+                "type": "path",
+                "description": "The unique identifier of the deployment environment."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Updates the configuration of a deployment environment such as domain settings or build configuration."
+        },
+        {
+          "info": {
+            "name": "Delete an environment",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://launch-api.contentstack.com/projects/:project_uid/environments/:env_uid",
+            "params": [
+              {
+                "name": "project_uid",
+                "value": "",
+                "type": "path",
+                "description": "The unique identifier of the Launch project."
+              },
+              {
+                "name": "env_uid",
+                "value": "",
+                "type": "path",
+                "description": "The unique identifier of the deployment environment."
+              }
+            ]
+          },
+          "docs": "Permanently deletes a deployment environment and its deployment history. This action is irreversible."
+        },
+        {
+          "info": {
+            "name": "Revalidate CDN cache",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://launch-api.contentstack.com/projects/:project_uid/environments/:env_uid/revalidate-cache",
+            "params": [
+              {
+                "name": "project_uid",
+                "value": "",
+                "type": "path",
+                "description": "The unique identifier of the Launch project."
+              },
+              {
+                "name": "env_uid",
+                "value": "",
+                "type": "path",
+                "description": "The unique identifier of the deployment environment."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Triggers a CDN cache revalidation for the specified environment, forcing the CDN to fetch fresh content on the next request. Subject to cache revalidation quota limits per organization."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Deployments",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get all deployments",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://launch-api.contentstack.com/projects/:project_uid/environments/:env_uid/deployments",
+            "params": [
+              {
+                "name": "project_uid",
+                "value": "",
+                "type": "path",
+                "description": "The unique identifier of the Launch project."
+              },
+              {
+                "name": "env_uid",
+                "value": "",
+                "type": "path",
+                "description": "The unique identifier of the deployment environment."
+              }
+            ]
+          },
+          "docs": "Retrieves all deployments for a specific environment, showing deployment history with status, creation times, and build metadata."
+        },
+        {
+          "info": {
+            "name": "Create a deployment",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://launch-api.contentstack.com/projects/:project_uid/environments/:env_uid/deployments",
+            "params": [
+              {
+                "name": "project_uid",
+                "value": "",
+                "type": "path",
+                "description": "The unique identifier of the Launch project."
+              },
+              {
+                "name": "env_uid",
+                "value": "",
+                "type": "path",
+                "description": "The unique identifier of the deployment environment."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Triggers a new deployment to the specified environment. Requires a previously uploaded build artifact referenced by its upload URL. The deployment process builds and publishes the application to the environment's CDN infrastructure."
+        },
+        {
+          "info": {
+            "name": "Get a deployment",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://launch-api.contentstack.com/projects/:project_uid/environments/:env_uid/deployments/:deploy_uid",
+            "params": [
+              {
+                "name": "project_uid",
+                "value": "",
+                "type": "path",
+                "description": "The unique identifier of the Launch project."
+              },
+              {
+                "name": "env_uid",
+                "value": "",
+                "type": "path",
+                "description": "The unique identifier of the deployment environment."
+              },
+              {
+                "name": "deploy_uid",
+                "value": "",
+                "type": "path",
+                "description": "The unique identifier of the deployment."
+              }
+            ]
+          },
+          "docs": "Retrieves the full details of a specific deployment including its status, build configuration, and completion information."
+        },
+        {
+          "info": {
+            "name": "Get deployment logs",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://launch-api.contentstack.com/projects/:project_uid/environments/:env_uid/deployments/:deploy_uid/logs",
+            "params": [
+              {
+                "name": "project_uid",
+                "value": "",
+                "type": "path",
+                "description": "The unique identifier of the Launch project."
+              },
+              {
+                "name": "env_uid",
+                "value": "",
+                "type": "path",
+                "description": "The unique identifier of the deployment environment."
+              },
+              {
+                "name": "deploy_uid",
+                "value": "",
+                "type": "path",
+                "description": "The unique identifier of the deployment."
+              }
+            ]
+          },
+          "docs": "Retrieves the build and deployment logs for a specific deployment, useful for debugging failed deployments and monitoring build progress."
+        },
+        {
+          "info": {
+            "name": "Get server logs",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://launch-api.contentstack.com/projects/:project_uid/environments/:env_uid/deployments/:deploy_uid/server-logs",
+            "params": [
+              {
+                "name": "project_uid",
+                "value": "",
+                "type": "path",
+                "description": "The unique identifier of the Launch project."
+              },
+              {
+                "name": "env_uid",
+                "value": "",
+                "type": "path",
+                "description": "The unique identifier of the deployment environment."
+              },
+              {
+                "name": "deploy_uid",
+                "value": "",
+                "type": "path",
+                "description": "The unique identifier of the deployment."
+              }
+            ]
+          },
+          "docs": "Retrieves server-side runtime logs for a deployed environment, useful for debugging server-side rendering issues and monitoring application runtime behavior."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Analytics",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get cache revalidation usage",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://launch-api.contentstack.com/organizations/cache-revalidation-usage"
+          },
+          "docs": "Retrieves the organization's current cache revalidation quota usage, showing how many revalidation requests have been used against the organization's plan limit."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

@@ -1,0 +1,376 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Contentstack Brand Kit Management API",
+    "version": "v1"
+  },
+  "request": {
+    "auth": {
+      "type": "bearer",
+      "token": "{{bearerToken}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Brand Kits",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get all Brand Kits",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://brand-kits-api.contentstack.com/v1/brand-kits",
+            "headers": [
+              {
+                "name": "organization_uid",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "skip",
+                "value": "",
+                "type": "query",
+                "description": "Number of records to skip for pagination."
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "Maximum number of records to return."
+              }
+            ]
+          },
+          "docs": "Retrieves all Brand Kits in the organization with pagination support and optional filtering. Each Brand Kit contains brand identity information used for AI content generation."
+        },
+        {
+          "info": {
+            "name": "Create a Brand Kit",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://brand-kits-api.contentstack.com/v1/brand-kits",
+            "headers": [
+              {
+                "name": "organization_uid",
+                "value": ""
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Creates a new Brand Kit in the organization with brand identity configuration including name, description, guidelines, and associated metadata."
+        },
+        {
+          "info": {
+            "name": "Get a Brand Kit",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://brand-kits-api.contentstack.com/v1/brand-kits/:brand_kit_uid",
+            "headers": [
+              {
+                "name": "organization_uid",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "brand_kit_uid",
+                "value": "",
+                "type": "path",
+                "description": "The unique identifier of the Brand Kit."
+              }
+            ]
+          },
+          "docs": "Retrieves the full details of a specific Brand Kit including its brand identity configuration, voice profiles, and associated knowledge vault content."
+        },
+        {
+          "info": {
+            "name": "Update a Brand Kit",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://brand-kits-api.contentstack.com/v1/brand-kits/:brand_kit_uid",
+            "headers": [
+              {
+                "name": "organization_uid",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "brand_kit_uid",
+                "value": "",
+                "type": "path",
+                "description": "The unique identifier of the Brand Kit."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Updates the configuration and brand identity information for an existing Brand Kit."
+        },
+        {
+          "info": {
+            "name": "Delete a Brand Kit",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://brand-kits-api.contentstack.com/v1/brand-kits/:brand_kit_uid",
+            "headers": [
+              {
+                "name": "organization_uid",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "brand_kit_uid",
+                "value": "",
+                "type": "path",
+                "description": "The unique identifier of the Brand Kit."
+              }
+            ]
+          },
+          "docs": "Permanently removes a Brand Kit from the organization including all associated voice profiles and knowledge vault content."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Voice Profiles",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get all Voice Profiles",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://brand-kits-api.contentstack.com/v1/brand-kits/:brand_kit_uid/voice-profiles",
+            "headers": [
+              {
+                "name": "organization_uid",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "brand_kit_uid",
+                "value": "",
+                "type": "path",
+                "description": "The unique identifier of the Brand Kit."
+              }
+            ]
+          },
+          "docs": "Retrieves all Voice Profiles associated with a specific Brand Kit. Voice Profiles define the writing style and tone used in AI content generation for that Brand Kit."
+        },
+        {
+          "info": {
+            "name": "Create a Voice Profile",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://brand-kits-api.contentstack.com/v1/brand-kits/:brand_kit_uid/voice-profiles",
+            "headers": [
+              {
+                "name": "organization_uid",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "brand_kit_uid",
+                "value": "",
+                "type": "path",
+                "description": "The unique identifier of the Brand Kit."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Creates a new Voice Profile within a Brand Kit defining the writing style, tone characteristics, persona guidelines, and example content for AI generation."
+        },
+        {
+          "info": {
+            "name": "Get a Voice Profile",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://brand-kits-api.contentstack.com/v1/brand-kits/:brand_kit_uid/voice-profiles/:profile_uid",
+            "headers": [
+              {
+                "name": "organization_uid",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "brand_kit_uid",
+                "value": "",
+                "type": "path",
+                "description": "The unique identifier of the Brand Kit."
+              },
+              {
+                "name": "profile_uid",
+                "value": "",
+                "type": "path",
+                "description": "The unique identifier of the Voice Profile."
+              }
+            ]
+          },
+          "docs": "Retrieves the full configuration of a specific Voice Profile including style guidelines, tone settings, and example content."
+        },
+        {
+          "info": {
+            "name": "Update a Voice Profile",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://brand-kits-api.contentstack.com/v1/brand-kits/:brand_kit_uid/voice-profiles/:profile_uid",
+            "headers": [
+              {
+                "name": "organization_uid",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "brand_kit_uid",
+                "value": "",
+                "type": "path",
+                "description": "The unique identifier of the Brand Kit."
+              },
+              {
+                "name": "profile_uid",
+                "value": "",
+                "type": "path",
+                "description": "The unique identifier of the Voice Profile."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Updates the configuration of an existing Voice Profile including style guidelines and tone characteristics."
+        },
+        {
+          "info": {
+            "name": "Delete a Voice Profile",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://brand-kits-api.contentstack.com/v1/brand-kits/:brand_kit_uid/voice-profiles/:profile_uid",
+            "headers": [
+              {
+                "name": "organization_uid",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "brand_kit_uid",
+                "value": "",
+                "type": "path",
+                "description": "The unique identifier of the Brand Kit."
+              },
+              {
+                "name": "profile_uid",
+                "value": "",
+                "type": "path",
+                "description": "The unique identifier of the Voice Profile."
+              }
+            ]
+          },
+          "docs": "Permanently removes a Voice Profile from the Brand Kit. This action cannot be undone."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "LLM Configuration",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get LLM configuration",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://brand-kits-api.contentstack.com/v1/brand-kits/:brand_kit_uid/llm-config",
+            "headers": [
+              {
+                "name": "organization_uid",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "brand_kit_uid",
+                "value": "",
+                "type": "path",
+                "description": "The unique identifier of the Brand Kit."
+              }
+            ]
+          },
+          "docs": "Retrieves the custom LLM provider credentials configured for a Brand Kit. This allows organizations to use their own LLM API subscriptions for content generation within the Brand Kit."
+        },
+        {
+          "info": {
+            "name": "Configure custom LLM credentials",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://brand-kits-api.contentstack.com/v1/brand-kits/:brand_kit_uid/llm-config",
+            "headers": [
+              {
+                "name": "organization_uid",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "brand_kit_uid",
+                "value": "",
+                "type": "path",
+                "description": "The unique identifier of the Brand Kit."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Registers custom API credentials for an LLM provider to enable content generation through the organization's own LLM subscription rather than Contentstack's default AI infrastructure."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

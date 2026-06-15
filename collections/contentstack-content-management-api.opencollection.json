@@ -1,0 +1,769 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Contentstack Content Management API",
+    "version": "v3"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "key": "authtoken",
+      "value": "{{authtoken}}",
+      "placement": "header"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "User Sessions",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Log in a user",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.contentstack.io/v3/user-session",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Authenticates a user with their email and password and returns an authtoken for use in subsequent API requests. The authtoken is valid for the duration of the session."
+        },
+        {
+          "info": {
+            "name": "Log out a user",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.contentstack.io/v3/user-session"
+          },
+          "docs": "Invalidates the current user session and authtoken, signing the user out of all Contentstack sessions."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Users",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get current user",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.contentstack.io/v3/user"
+          },
+          "docs": "Retrieves the account details of the currently authenticated user, including profile information and organization memberships."
+        },
+        {
+          "info": {
+            "name": "Update current user",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://api.contentstack.io/v3/user",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Updates profile information for the currently authenticated user, including first name, last name, and other account attributes."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Organizations",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get all organizations",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.contentstack.io/v3/organizations"
+          },
+          "docs": "Returns a list of all Contentstack organizations that the authenticated user is a member of, along with their roles and permissions."
+        },
+        {
+          "info": {
+            "name": "Get an organization",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.contentstack.io/v3/organizations/:organization_uid",
+            "params": [
+              {
+                "name": "organization_uid",
+                "value": "",
+                "type": "path",
+                "description": "The unique identifier of the organization."
+              }
+            ]
+          },
+          "docs": "Retrieves details for a specific organization identified by its UID, including plan information and configuration settings."
+        },
+        {
+          "info": {
+            "name": "Get organization stacks",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.contentstack.io/v3/organizations/:organization_uid/stacks",
+            "params": [
+              {
+                "name": "organization_uid",
+                "value": "",
+                "type": "path",
+                "description": "The unique identifier of the organization."
+              }
+            ]
+          },
+          "docs": "Returns a list of all stacks within a given organization that the authenticated user has access to."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Stacks",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get all stacks",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.contentstack.io/v3/stacks"
+          },
+          "docs": "Returns all stacks accessible to the authenticated user, optionally filtered by organization."
+        },
+        {
+          "info": {
+            "name": "Create a stack",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.contentstack.io/v3/stacks",
+            "headers": [
+              {
+                "name": "organization_uid",
+                "value": ""
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Creates a new Contentstack stack within an organization. A stack is an independent repository for content, assets, and configuration within a Contentstack account."
+        },
+        {
+          "info": {
+            "name": "Get a stack",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.contentstack.io/v3/stacks/:api_key",
+            "headers": [
+              {
+                "name": "api_key",
+                "value": ""
+              }
+            ]
+          },
+          "docs": "Retrieves details for a specific stack identified by its API key, including configuration, plan, and region information."
+        },
+        {
+          "info": {
+            "name": "Update a stack",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://api.contentstack.io/v3/stacks/:api_key",
+            "headers": [
+              {
+                "name": "api_key",
+                "value": ""
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Updates settings and metadata for a specific stack such as name, description, and master locale configuration."
+        },
+        {
+          "info": {
+            "name": "Delete a stack",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.contentstack.io/v3/stacks/:api_key",
+            "headers": [
+              {
+                "name": "api_key",
+                "value": ""
+              }
+            ]
+          },
+          "docs": "Permanently deletes a stack and all its contents. This action is irreversible and will remove all content types, entries, assets, and configuration from the stack."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Content Types",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get all content types",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.contentstack.io/v3/content_types",
+            "headers": [
+              {
+                "name": "api_key",
+                "value": ""
+              }
+            ]
+          },
+          "docs": "Retrieves all content types defined within the stack specified by the api_key header. Includes schema definitions and configuration options."
+        },
+        {
+          "info": {
+            "name": "Create a content type",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.contentstack.io/v3/content_types",
+            "headers": [
+              {
+                "name": "api_key",
+                "value": ""
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Creates a new content type in the stack with a defined schema of fields. The schema determines the structure of all entries created from this content type."
+        },
+        {
+          "info": {
+            "name": "Get a content type",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.contentstack.io/v3/content_types/:content_type_uid",
+            "headers": [
+              {
+                "name": "api_key",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "content_type_uid",
+                "value": "",
+                "type": "path",
+                "description": "The unique identifier (UID) of the content type."
+              }
+            ]
+          },
+          "docs": "Retrieves the schema and configuration for a specific content type identified by its UID."
+        },
+        {
+          "info": {
+            "name": "Update a content type",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://api.contentstack.io/v3/content_types/:content_type_uid",
+            "headers": [
+              {
+                "name": "api_key",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "content_type_uid",
+                "value": "",
+                "type": "path",
+                "description": "The unique identifier (UID) of the content type."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Updates the schema and options of an existing content type. Changes to the schema may affect existing entries that use this content type."
+        },
+        {
+          "info": {
+            "name": "Delete a content type",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.contentstack.io/v3/content_types/:content_type_uid",
+            "headers": [
+              {
+                "name": "api_key",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "content_type_uid",
+                "value": "",
+                "type": "path",
+                "description": "The unique identifier (UID) of the content type."
+              }
+            ]
+          },
+          "docs": "Permanently deletes a content type from the stack. All entries of this content type must be deleted before the content type can be removed."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Entries",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get all entries",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.contentstack.io/v3/content_types/:content_type_uid/entries",
+            "headers": [
+              {
+                "name": "api_key",
+                "value": ""
+              },
+              {
+                "name": "authtoken",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "content_type_uid",
+                "value": "",
+                "type": "path",
+                "description": "The unique identifier (UID) of the content type."
+              },
+              {
+                "name": "locale",
+                "value": "",
+                "type": "query",
+                "description": "The locale code for localized content operations."
+              },
+              {
+                "name": "skip",
+                "value": "",
+                "type": "query",
+                "description": "Number of records to skip for pagination."
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "Maximum number of records to return."
+              }
+            ]
+          },
+          "docs": "Retrieves all entries for a specific content type in the stack. Supports filtering, sorting, pagination, localization, and field selection."
+        },
+        {
+          "info": {
+            "name": "Create an entry",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.contentstack.io/v3/content_types/:content_type_uid/entries",
+            "headers": [
+              {
+                "name": "api_key",
+                "value": ""
+              },
+              {
+                "name": "authtoken",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "content_type_uid",
+                "value": "",
+                "type": "path",
+                "description": "The unique identifier (UID) of the content type."
+              },
+              {
+                "name": "locale",
+                "value": "",
+                "type": "query",
+                "description": "The locale code for localized content operations."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Creates a new entry for the specified content type. The entry data must conform to the content type schema. Newly created entries are in draft state and must be published separately."
+        },
+        {
+          "info": {
+            "name": "Get an entry",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.contentstack.io/v3/content_types/:content_type_uid/entries/:entry_uid",
+            "headers": [
+              {
+                "name": "api_key",
+                "value": ""
+              },
+              {
+                "name": "authtoken",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "content_type_uid",
+                "value": "",
+                "type": "path",
+                "description": "The unique identifier (UID) of the content type."
+              },
+              {
+                "name": "entry_uid",
+                "value": "",
+                "type": "path",
+                "description": "The unique identifier (UID) of the entry."
+              },
+              {
+                "name": "locale",
+                "value": "",
+                "type": "query",
+                "description": "The locale code for localized content operations."
+              }
+            ]
+          },
+          "docs": "Retrieves a specific entry by its UID within a content type. Returns all field values and system metadata for the entry."
+        },
+        {
+          "info": {
+            "name": "Update an entry",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://api.contentstack.io/v3/content_types/:content_type_uid/entries/:entry_uid",
+            "headers": [
+              {
+                "name": "api_key",
+                "value": ""
+              },
+              {
+                "name": "authtoken",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "content_type_uid",
+                "value": "",
+                "type": "path",
+                "description": "The unique identifier (UID) of the content type."
+              },
+              {
+                "name": "entry_uid",
+                "value": "",
+                "type": "path",
+                "description": "The unique identifier (UID) of the entry."
+              },
+              {
+                "name": "locale",
+                "value": "",
+                "type": "query",
+                "description": "The locale code for localized content operations."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Updates the field values of an existing entry. Only the fields included in the request body are updated; other fields retain their current values."
+        },
+        {
+          "info": {
+            "name": "Delete an entry",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.contentstack.io/v3/content_types/:content_type_uid/entries/:entry_uid",
+            "headers": [
+              {
+                "name": "api_key",
+                "value": ""
+              },
+              {
+                "name": "authtoken",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "content_type_uid",
+                "value": "",
+                "type": "path",
+                "description": "The unique identifier (UID) of the content type."
+              },
+              {
+                "name": "entry_uid",
+                "value": "",
+                "type": "path",
+                "description": "The unique identifier (UID) of the entry."
+              }
+            ]
+          },
+          "docs": "Permanently deletes an entry from the stack. Published entries must be unpublished before deletion. This action cannot be undone."
+        },
+        {
+          "info": {
+            "name": "Publish an entry",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.contentstack.io/v3/content_types/:content_type_uid/entries/:entry_uid/publish",
+            "headers": [
+              {
+                "name": "api_key",
+                "value": ""
+              },
+              {
+                "name": "authtoken",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "content_type_uid",
+                "value": "",
+                "type": "path",
+                "description": "The unique identifier (UID) of the content type."
+              },
+              {
+                "name": "entry_uid",
+                "value": "",
+                "type": "path",
+                "description": "The unique identifier (UID) of the entry."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Publishes an entry to one or more environments and locales. Publishing makes the entry available via the Content Delivery API for the specified environments."
+        },
+        {
+          "info": {
+            "name": "Unpublish an entry",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.contentstack.io/v3/content_types/:content_type_uid/entries/:entry_uid/unpublish",
+            "headers": [
+              {
+                "name": "api_key",
+                "value": ""
+              },
+              {
+                "name": "authtoken",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "content_type_uid",
+                "value": "",
+                "type": "path",
+                "description": "The unique identifier (UID) of the content type."
+              },
+              {
+                "name": "entry_uid",
+                "value": "",
+                "type": "path",
+                "description": "The unique identifier (UID) of the entry."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Removes an entry from one or more environments, making it unavailable via the Content Delivery API for the specified environments."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Assets",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get all assets",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.contentstack.io/v3/assets",
+            "headers": [
+              {
+                "name": "api_key",
+                "value": ""
+              },
+              {
+                "name": "authtoken",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "skip",
+                "value": "",
+                "type": "query",
+                "description": "Number of records to skip for pagination."
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "Maximum number of records to return."
+              }
+            ]
+          },
+          "docs": "Retrieves all assets in the stack including images, videos, and documents. Supports filtering by type, folder, and tags."
+        },
+        {
+          "info": {
+            "name": "Upload an asset",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.contentstack.io/v3/assets",
+            "headers": [
+              {
+                "name": "api_key",
+                "value": ""
+              },
+              {
+                "name": "authtoken",
+                "value": ""
+              }
+            ],
+            "body": {
+              "type": "multipart-form",
+              "data": [
+                {
+                  "name": "asset[upload]",
+                  "type": "text",
+                  "value": ""
+                },
+                {
+                  "name": "asset[title]",
+                  "type": "text",
+                  "value": ""
+                },
+                {
+                  "name": "asset[description]",
+                  "type": "text",
+                  "value": ""
+                }
+              ]
+            }
+          },
+          "docs": "Uploads a new asset file to the stack. Supports multipart form data for the file upload along with metadata such as title, description, and tags."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Environments",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get all environments",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.contentstack.io/v3/environments",
+            "headers": [
+              {
+                "name": "api_key",
+                "value": ""
+              },
+              {
+                "name": "authtoken",
+                "value": ""
+              }
+            ]
+          },
+          "docs": "Retrieves all deployment environments configured for the stack, such as production, staging, and development."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

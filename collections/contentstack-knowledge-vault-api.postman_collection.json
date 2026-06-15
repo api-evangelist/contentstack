@@ -1,0 +1,1115 @@
+{
+  "item": [
+    {
+      "id": "fa97d1fc-9068-44fd-8883-5d528f2fdc39",
+      "name": "Knowledge Vault",
+      "description": {
+        "content": "Knowledge Vault endpoints allow developers to programmatically manage the brand knowledge content stored in a Brand Kit's vector database. Content items are vectorized upon ingestion and used to provide contextually relevant information during AI content generation.",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "525a4365-4cde-4ae9-811a-94de62e0e8c9",
+          "name": "Ingest content into Knowledge Vault",
+          "request": {
+            "name": "Ingest content into Knowledge Vault",
+            "description": {
+              "content": "Adds new content to the Knowledge Vault associated with the specified Brand Kit. The content is vectorized and stored in the vector database for retrieval during AI content generation. Rate limited to 10 requests per second per organization.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v1",
+                "knowledge-vault",
+                ""
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "disabled": false,
+                "description": "(Required) User authentication token for authorization.",
+                "key": "authtoken",
+                "value": "<string>"
+              },
+              {
+                "disabled": false,
+                "description": "(Required) The unique identifier of the Brand Kit whose Knowledge Vault to access.",
+                "key": "brand_kit_uid",
+                "value": "<string>"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"content\": \"<string>\",\n  \"title\": \"<string>\",\n  \"metadata\": {\n    \"key_0\": \"<string>\"\n  }\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "6b32f5a8-ca5b-4c8e-b9d0-28ab0fdb1db6",
+              "name": "Content ingested and vectorized successfully.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "knowledge-vault",
+                    ""
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) User authentication token for authorization.",
+                    "key": "authtoken",
+                    "value": "<string>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) The unique identifier of the Brand Kit whose Knowledge Vault to access.",
+                    "key": "brand_kit_uid",
+                    "value": "<string>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"content\": \"<string>\",\n  \"title\": \"<string>\",\n  \"metadata\": {\n    \"key_0\": \"<string>\"\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"string\",\n  \"uid\": \"string\",\n  \"token_usage\": {\n    \"prompt_tokens\": 8262,\n    \"total_tokens\": 4963\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "4f23acc1-f1b4-486a-9155-985f5067c1be",
+              "name": "The request is malformed or contains invalid parameters.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "knowledge-vault",
+                    ""
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) User authentication token for authorization.",
+                    "key": "authtoken",
+                    "value": "<string>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) The unique identifier of the Brand Kit whose Knowledge Vault to access.",
+                    "key": "brand_kit_uid",
+                    "value": "<string>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"content\": \"<string>\",\n  \"title\": \"<string>\",\n  \"metadata\": {\n    \"key_0\": \"<string>\"\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"string\",\n  \"error_code\": 5145\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "f715e431-a73d-4477-bae5-c5bcb9926c32",
+              "name": "Authentication credentials are missing or invalid.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "knowledge-vault",
+                    ""
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) User authentication token for authorization.",
+                    "key": "authtoken",
+                    "value": "<string>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) The unique identifier of the Brand Kit whose Knowledge Vault to access.",
+                    "key": "brand_kit_uid",
+                    "value": "<string>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"content\": \"<string>\",\n  \"title\": \"<string>\",\n  \"metadata\": {\n    \"key_0\": \"<string>\"\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"string\",\n  \"error_code\": 5145\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "4af3c024-3148-4b75-b5a7-a08a0237ffc6",
+              "name": "Rate limit exceeded. Maximum 10 requests per second per organization.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "knowledge-vault",
+                    ""
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) User authentication token for authorization.",
+                    "key": "authtoken",
+                    "value": "<string>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) The unique identifier of the Brand Kit whose Knowledge Vault to access.",
+                    "key": "brand_kit_uid",
+                    "value": "<string>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"content\": \"<string>\",\n  \"title\": \"<string>\",\n  \"metadata\": {\n    \"key_0\": \"<string>\"\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Too Many Requests",
+              "code": 429,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"string\",\n  \"error_code\": 5145\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "aa6a3f67-3952-4c7f-8526-dac56d5e9df5",
+          "name": "Update Knowledge Vault content",
+          "request": {
+            "name": "Update Knowledge Vault content",
+            "description": {
+              "content": "Updates an existing content item in the Knowledge Vault. The content is re-vectorized after update to reflect the changes in the vector database.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v1",
+                "knowledge-vault",
+                ":content_uid"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "content_uid",
+                  "description": "(Required) The unique identifier of the Knowledge Vault content item."
+                }
+              ]
+            },
+            "header": [
+              {
+                "disabled": false,
+                "description": "(Required) User authentication token for authorization.",
+                "key": "authtoken",
+                "value": "<string>"
+              },
+              {
+                "disabled": false,
+                "description": "(Required) The unique identifier of the Brand Kit whose Knowledge Vault to access.",
+                "key": "brand_kit_uid",
+                "value": "<string>"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "PUT",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"content\": \"<string>\",\n  \"title\": \"<string>\",\n  \"metadata\": {\n    \"key_0\": \"<string>\"\n  }\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "f0d74880-5e3e-44d5-8b7d-34c8fc4465e8",
+              "name": "Content updated and re-vectorized successfully.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "knowledge-vault",
+                    ":content_uid"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "content_uid",
+                      "description": "(Required) The unique identifier of the Knowledge Vault content item."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) User authentication token for authorization.",
+                    "key": "authtoken",
+                    "value": "<string>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) The unique identifier of the Brand Kit whose Knowledge Vault to access.",
+                    "key": "brand_kit_uid",
+                    "value": "<string>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"content\": \"<string>\",\n  \"title\": \"<string>\",\n  \"metadata\": {\n    \"key_0\": \"<string>\"\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"string\",\n  \"uid\": \"string\",\n  \"token_usage\": {\n    \"prompt_tokens\": 8262,\n    \"total_tokens\": 4963\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "2c70545d-2aad-4e7c-bd13-ab85037ea4c0",
+              "name": "The request is malformed or contains invalid parameters.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "knowledge-vault",
+                    ":content_uid"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "content_uid",
+                      "description": "(Required) The unique identifier of the Knowledge Vault content item."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) User authentication token for authorization.",
+                    "key": "authtoken",
+                    "value": "<string>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) The unique identifier of the Brand Kit whose Knowledge Vault to access.",
+                    "key": "brand_kit_uid",
+                    "value": "<string>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"content\": \"<string>\",\n  \"title\": \"<string>\",\n  \"metadata\": {\n    \"key_0\": \"<string>\"\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"string\",\n  \"error_code\": 5145\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "2c7d5bb9-7645-44ff-a925-cfd555a591d3",
+              "name": "Authentication credentials are missing or invalid.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "knowledge-vault",
+                    ":content_uid"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "content_uid",
+                      "description": "(Required) The unique identifier of the Knowledge Vault content item."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) User authentication token for authorization.",
+                    "key": "authtoken",
+                    "value": "<string>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) The unique identifier of the Brand Kit whose Knowledge Vault to access.",
+                    "key": "brand_kit_uid",
+                    "value": "<string>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"content\": \"<string>\",\n  \"title\": \"<string>\",\n  \"metadata\": {\n    \"key_0\": \"<string>\"\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"string\",\n  \"error_code\": 5145\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "8fd7bd63-212a-4ed3-a090-f5ed92d789f8",
+              "name": "The requested content item was not found.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "knowledge-vault",
+                    ":content_uid"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "content_uid",
+                      "description": "(Required) The unique identifier of the Knowledge Vault content item."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) User authentication token for authorization.",
+                    "key": "authtoken",
+                    "value": "<string>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) The unique identifier of the Brand Kit whose Knowledge Vault to access.",
+                    "key": "brand_kit_uid",
+                    "value": "<string>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"content\": \"<string>\",\n  \"title\": \"<string>\",\n  \"metadata\": {\n    \"key_0\": \"<string>\"\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"string\",\n  \"error_code\": 5145\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "8eabf9b6-fc0b-4c2d-8c7b-abd3a41ccce9",
+              "name": "Rate limit exceeded. Maximum 10 requests per second per organization.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "knowledge-vault",
+                    ":content_uid"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "content_uid",
+                      "description": "(Required) The unique identifier of the Knowledge Vault content item."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) User authentication token for authorization.",
+                    "key": "authtoken",
+                    "value": "<string>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) The unique identifier of the Brand Kit whose Knowledge Vault to access.",
+                    "key": "brand_kit_uid",
+                    "value": "<string>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"content\": \"<string>\",\n  \"title\": \"<string>\",\n  \"metadata\": {\n    \"key_0\": \"<string>\"\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Too Many Requests",
+              "code": 429,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"string\",\n  \"error_code\": 5145\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "0ca579e7-4c66-4a62-80fe-d751e7c3f608",
+          "name": "Delete Knowledge Vault content",
+          "request": {
+            "name": "Delete Knowledge Vault content",
+            "description": {
+              "content": "Permanently removes a content item from the Knowledge Vault vector database. Deleted content will no longer be available for retrieval during AI content generation.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v1",
+                "knowledge-vault",
+                ":content_uid"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "content_uid",
+                  "description": "(Required) The unique identifier of the Knowledge Vault content item."
+                }
+              ]
+            },
+            "header": [
+              {
+                "disabled": false,
+                "description": "(Required) User authentication token for authorization.",
+                "key": "authtoken",
+                "value": "<string>"
+              },
+              {
+                "disabled": false,
+                "description": "(Required) The unique identifier of the Brand Kit whose Knowledge Vault to access.",
+                "key": "brand_kit_uid",
+                "value": "<string>"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "DELETE",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "8bcb1ec0-d7bc-4276-9689-d3d1f91d5076",
+              "name": "Content deleted from Knowledge Vault successfully.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "knowledge-vault",
+                    ":content_uid"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "content_uid",
+                      "description": "(Required) The unique identifier of the Knowledge Vault content item."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) User authentication token for authorization.",
+                    "key": "authtoken",
+                    "value": "<string>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) The unique identifier of the Brand Kit whose Knowledge Vault to access.",
+                    "key": "brand_kit_uid",
+                    "value": "<string>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "1d73fb6b-50ce-4e06-8c8a-f412643159a4",
+              "name": "Authentication credentials are missing or invalid.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "knowledge-vault",
+                    ":content_uid"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "content_uid",
+                      "description": "(Required) The unique identifier of the Knowledge Vault content item."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) User authentication token for authorization.",
+                    "key": "authtoken",
+                    "value": "<string>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) The unique identifier of the Brand Kit whose Knowledge Vault to access.",
+                    "key": "brand_kit_uid",
+                    "value": "<string>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"string\",\n  \"error_code\": 5145\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "8e33f3d4-fb48-4b95-b636-18d828a0d233",
+              "name": "The requested content item was not found.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "knowledge-vault",
+                    ":content_uid"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "content_uid",
+                      "description": "(Required) The unique identifier of the Knowledge Vault content item."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) User authentication token for authorization.",
+                    "key": "authtoken",
+                    "value": "<string>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) The unique identifier of the Brand Kit whose Knowledge Vault to access.",
+                    "key": "brand_kit_uid",
+                    "value": "<string>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"string\",\n  \"error_code\": 5145\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "7550c3a5-1b40-4da7-a263-84a372842cff",
+              "name": "Rate limit exceeded. Maximum 10 requests per second per organization.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "knowledge-vault",
+                    ":content_uid"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "content_uid",
+                      "description": "(Required) The unique identifier of the Knowledge Vault content item."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) User authentication token for authorization.",
+                    "key": "authtoken",
+                    "value": "<string>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) The unique identifier of the Brand Kit whose Knowledge Vault to access.",
+                    "key": "brand_kit_uid",
+                    "value": "<string>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Too Many Requests",
+              "code": 429,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"string\",\n  \"error_code\": 5145\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://ai.contentstack.com",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "bearer",
+    "bearer": [
+      {
+        "key": "token",
+        "value": "{{bearerToken}}"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "183d966d-1680-44ff-906a-6905a1ff30cd",
+    "name": "Contentstack Knowledge Vault API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "The Contentstack Knowledge Vault API provides endpoints for ingesting, updating, and deleting content items stored in a Brand Kit's Knowledge Vault. The Knowledge Vault is a vector database that stores brand-specific knowledge content which is retrieved during AI content generation to provide accurate, brand-aligned responses. Content ingested via this API is vectorized and made available to the Generative AI API for retrieval augmented generation (RAG) workflows.\n\nContact Support:\n Name: Contentstack Support",
+      "type": "text/plain"
+    }
+  }
+}

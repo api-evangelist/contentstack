@@ -1,0 +1,4079 @@
+{
+  "item": [
+    {
+      "id": "578c72a1-b6fd-406c-a86f-5f1fe6c217af",
+      "name": "Attributes",
+      "description": {
+        "content": "Attributes represent individual user data characteristics such as age, location, or browsing history used to define audience segments.",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "1600a506-7374-4f7d-9745-2fc21cfcede3",
+          "name": "Get all attributes",
+          "request": {
+            "name": "Get all attributes",
+            "description": {
+              "content": "Retrieves all user attribute definitions configured in the Personalize project. Attributes are used to build audience segment rules.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "attributes"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "disabled": false,
+                "description": "(Required) The UID of the Contentstack Personalize project.",
+                "key": "x-project-uid",
+                "value": "<string>"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "c2cd503b-5dcf-45d6-95f4-15d15e4b0177",
+              "name": "A list of all attributes in the project.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "attributes"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) The UID of the Contentstack Personalize project.",
+                    "key": "x-project-uid",
+                    "value": "<string>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"data\": [\n    {\n      \"uid\": \"string\",\n      \"name\": \"string\",\n      \"key\": \"string\",\n      \"data_type\": \"number\",\n      \"created_at\": \"1950-10-24T06:16:04.795Z\"\n    },\n    {\n      \"uid\": \"string\",\n      \"name\": \"string\",\n      \"key\": \"string\",\n      \"data_type\": \"string\",\n      \"created_at\": \"2012-12-16T08:35:28.913Z\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "6adf3929-9b55-4720-851e-428e7da45e7c",
+              "name": "Authentication credentials are missing or invalid.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "attributes"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) The UID of the Contentstack Personalize project.",
+                    "key": "x-project-uid",
+                    "value": "<string>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"string\",\n  \"status\": 7914\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "ccb56f93-72f8-4537-8b50-c41b5b77d1fd",
+          "name": "Create an attribute",
+          "request": {
+            "name": "Create an attribute",
+            "description": {
+              "content": "Creates a new user attribute definition in the Personalize project. Attributes can be of various types including string, number, boolean, and date, and are used to build audience segment rules.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "attributes"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "disabled": false,
+                "description": "(Required) The UID of the Contentstack Personalize project.",
+                "key": "x-project-uid",
+                "value": "<string>"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"<string>\",\n  \"key\": \"<string>\",\n  \"data_type\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "8673111b-cb40-4b7f-8a7a-fb82cfebd2b6",
+              "name": "The newly created attribute.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "attributes"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) The UID of the Contentstack Personalize project.",
+                    "key": "x-project-uid",
+                    "value": "<string>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"<string>\",\n  \"key\": \"<string>\",\n  \"data_type\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Created",
+              "code": 201,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"uid\": \"string\",\n  \"name\": \"string\",\n  \"key\": \"string\",\n  \"data_type\": \"boolean\",\n  \"created_at\": \"2002-07-22T16:20:27.530Z\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "88e0b5d4-5a21-498c-b167-980073e10d31",
+              "name": "The request is malformed or contains invalid parameters.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "attributes"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) The UID of the Contentstack Personalize project.",
+                    "key": "x-project-uid",
+                    "value": "<string>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"<string>\",\n  \"key\": \"<string>\",\n  \"data_type\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"string\",\n  \"status\": 7914\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "55e52396-9b69-4580-abdb-c1dab8a4f966",
+              "name": "Authentication credentials are missing or invalid.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "attributes"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) The UID of the Contentstack Personalize project.",
+                    "key": "x-project-uid",
+                    "value": "<string>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"<string>\",\n  \"key\": \"<string>\",\n  \"data_type\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"string\",\n  \"status\": 7914\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "d42ae72b-a43c-4436-bb53-ec6d300ede20",
+          "name": "Update an attribute",
+          "request": {
+            "name": "Update an attribute",
+            "description": {
+              "content": "Updates the configuration of an existing attribute in the Personalize project including its name, key, and data type.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "attributes",
+                ":id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "id",
+                  "description": "(Required) The unique identifier of the attribute."
+                }
+              ]
+            },
+            "header": [
+              {
+                "disabled": false,
+                "description": "(Required) The UID of the Contentstack Personalize project.",
+                "key": "x-project-uid",
+                "value": "<string>"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "PUT",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"<string>\",\n  \"key\": \"<string>\",\n  \"data_type\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "abc485c9-7c4a-4310-b6cd-517267e3e345",
+              "name": "The updated attribute.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "attributes",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) The unique identifier of the attribute."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) The UID of the Contentstack Personalize project.",
+                    "key": "x-project-uid",
+                    "value": "<string>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"<string>\",\n  \"key\": \"<string>\",\n  \"data_type\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"uid\": \"string\",\n  \"name\": \"string\",\n  \"key\": \"string\",\n  \"data_type\": \"boolean\",\n  \"created_at\": \"2002-07-22T16:20:27.530Z\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "b6e56b2d-c1ee-4233-a8d3-b74df137cf13",
+              "name": "The request is malformed or contains invalid parameters.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "attributes",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) The unique identifier of the attribute."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) The UID of the Contentstack Personalize project.",
+                    "key": "x-project-uid",
+                    "value": "<string>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"<string>\",\n  \"key\": \"<string>\",\n  \"data_type\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"string\",\n  \"status\": 7914\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "20074958-9c88-49a7-ba05-082c0c5ca23b",
+              "name": "Authentication credentials are missing or invalid.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "attributes",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) The unique identifier of the attribute."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) The UID of the Contentstack Personalize project.",
+                    "key": "x-project-uid",
+                    "value": "<string>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"<string>\",\n  \"key\": \"<string>\",\n  \"data_type\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"string\",\n  \"status\": 7914\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "fc3053fa-33c2-4007-a71c-3567fbbddc48",
+              "name": "The requested resource was not found.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "attributes",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) The unique identifier of the attribute."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) The UID of the Contentstack Personalize project.",
+                    "key": "x-project-uid",
+                    "value": "<string>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"<string>\",\n  \"key\": \"<string>\",\n  \"data_type\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"string\",\n  \"status\": 7914\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "8eb62fe8-39c4-4a8c-847e-8f7b0a860450",
+          "name": "Delete an attribute",
+          "request": {
+            "name": "Delete an attribute",
+            "description": {
+              "content": "Permanently deletes an attribute from the Personalize project. Attributes referenced in audience rules cannot be deleted until those references are removed.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "attributes",
+                ":id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "id",
+                  "description": "(Required) The unique identifier of the attribute."
+                }
+              ]
+            },
+            "header": [
+              {
+                "disabled": false,
+                "description": "(Required) The UID of the Contentstack Personalize project.",
+                "key": "x-project-uid",
+                "value": "<string>"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "DELETE",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "b34f648a-d811-4d77-a531-a282157ee2e2",
+              "name": "Attribute deleted successfully.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "attributes",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) The unique identifier of the attribute."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) The UID of the Contentstack Personalize project.",
+                    "key": "x-project-uid",
+                    "value": "<string>"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "a954f35e-85b7-4dea-b569-ebbeb8e37fc3",
+              "name": "Authentication credentials are missing or invalid.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "attributes",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) The unique identifier of the attribute."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) The UID of the Contentstack Personalize project.",
+                    "key": "x-project-uid",
+                    "value": "<string>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"string\",\n  \"status\": 7914\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "8ac591e6-b47b-4d69-a957-f5d3a854b8bd",
+              "name": "The requested resource was not found.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "attributes",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) The unique identifier of the attribute."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) The UID of the Contentstack Personalize project.",
+                    "key": "x-project-uid",
+                    "value": "<string>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"string\",\n  \"status\": 7914\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    },
+    {
+      "id": "3e2bfaca-a214-4c66-a2c7-826088ac0dee",
+      "name": "Audiences",
+      "description": {
+        "content": "Audiences are defined segments of users grouped by demographic, behavioral, or other attribute-based criteria for targeted content experiences.",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "80feabd5-8d48-4698-b387-f280b08c95bc",
+          "name": "Get all audiences",
+          "request": {
+            "name": "Get all audiences",
+            "description": {
+              "content": "Retrieves all audience segment definitions in the Personalize project. Audiences define the user groups that experiences are targeted to.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "audiences"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "disabled": false,
+                "description": "(Required) The UID of the Contentstack Personalize project.",
+                "key": "x-project-uid",
+                "value": "<string>"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "b11a77e7-3489-4c7a-bd51-312c3ff4cac6",
+              "name": "A list of all audiences in the project.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "audiences"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) The UID of the Contentstack Personalize project.",
+                    "key": "x-project-uid",
+                    "value": "<string>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"data\": [\n    {\n      \"uid\": \"string\",\n      \"name\": \"string\",\n      \"description\": \"string\",\n      \"rules\": {},\n      \"created_at\": \"1950-05-11T12:14:06.952Z\"\n    },\n    {\n      \"uid\": \"string\",\n      \"name\": \"string\",\n      \"description\": \"string\",\n      \"rules\": {},\n      \"created_at\": \"1952-01-20T15:53:55.367Z\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "7a992783-0510-4bc1-80da-9a78de29909f",
+              "name": "Authentication credentials are missing or invalid.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "audiences"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) The UID of the Contentstack Personalize project.",
+                    "key": "x-project-uid",
+                    "value": "<string>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"string\",\n  \"status\": 7914\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "2bf41b4d-a107-46e5-a3dc-9401eee9f3bb",
+          "name": "Create an audience",
+          "request": {
+            "name": "Create an audience",
+            "description": {
+              "content": "Creates a new audience segment in the Personalize project based on attribute conditions and behavioral rules.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "audiences"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "disabled": false,
+                "description": "(Required) The UID of the Contentstack Personalize project.",
+                "key": "x-project-uid",
+                "value": "<string>"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"<string>\",\n  \"description\": \"<string>\",\n  \"rules\": \"<object>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "a796450e-61c4-4386-bae6-318c1860ec70",
+              "name": "The newly created audience.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "audiences"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) The UID of the Contentstack Personalize project.",
+                    "key": "x-project-uid",
+                    "value": "<string>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"<string>\",\n  \"description\": \"<string>\",\n  \"rules\": \"<object>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Created",
+              "code": 201,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"uid\": \"string\",\n  \"name\": \"string\",\n  \"description\": \"string\",\n  \"rules\": {},\n  \"created_at\": \"1996-04-28T07:04:57.854Z\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "8952341e-9fa1-465f-a1c1-62b31f7f80e5",
+              "name": "The request is malformed or contains invalid parameters.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "audiences"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) The UID of the Contentstack Personalize project.",
+                    "key": "x-project-uid",
+                    "value": "<string>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"<string>\",\n  \"description\": \"<string>\",\n  \"rules\": \"<object>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"string\",\n  \"status\": 7914\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "a8d8b761-5f41-4b19-b885-ad5242b467ae",
+              "name": "Authentication credentials are missing or invalid.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "audiences"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) The UID of the Contentstack Personalize project.",
+                    "key": "x-project-uid",
+                    "value": "<string>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"<string>\",\n  \"description\": \"<string>\",\n  \"rules\": \"<object>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"string\",\n  \"status\": 7914\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "0d4988eb-0101-4bb3-b4b1-2bb31c659306",
+          "name": "Update an audience",
+          "request": {
+            "name": "Update an audience",
+            "description": {
+              "content": "Updates the rules and configuration of an existing audience segment.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "audiences",
+                ":id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "id",
+                  "description": "(Required) The unique identifier of the audience."
+                }
+              ]
+            },
+            "header": [
+              {
+                "disabled": false,
+                "description": "(Required) The UID of the Contentstack Personalize project.",
+                "key": "x-project-uid",
+                "value": "<string>"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "PUT",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"<string>\",\n  \"description\": \"<string>\",\n  \"rules\": \"<object>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "1bff041d-b61e-43a0-9d36-7fd518ead6f0",
+              "name": "The updated audience.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "audiences",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) The unique identifier of the audience."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) The UID of the Contentstack Personalize project.",
+                    "key": "x-project-uid",
+                    "value": "<string>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"<string>\",\n  \"description\": \"<string>\",\n  \"rules\": \"<object>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"uid\": \"string\",\n  \"name\": \"string\",\n  \"description\": \"string\",\n  \"rules\": {},\n  \"created_at\": \"1996-04-28T07:04:57.854Z\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "965134c5-aefc-4efc-b17c-647f2892cbe0",
+              "name": "The request is malformed or contains invalid parameters.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "audiences",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) The unique identifier of the audience."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) The UID of the Contentstack Personalize project.",
+                    "key": "x-project-uid",
+                    "value": "<string>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"<string>\",\n  \"description\": \"<string>\",\n  \"rules\": \"<object>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"string\",\n  \"status\": 7914\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "6ac411ed-10a3-4252-b1a0-681f913c3a74",
+              "name": "Authentication credentials are missing or invalid.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "audiences",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) The unique identifier of the audience."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) The UID of the Contentstack Personalize project.",
+                    "key": "x-project-uid",
+                    "value": "<string>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"<string>\",\n  \"description\": \"<string>\",\n  \"rules\": \"<object>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"string\",\n  \"status\": 7914\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "3f8a86d5-5870-47dd-b4db-a780ba65b7aa",
+              "name": "The requested resource was not found.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "audiences",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) The unique identifier of the audience."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) The UID of the Contentstack Personalize project.",
+                    "key": "x-project-uid",
+                    "value": "<string>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"<string>\",\n  \"description\": \"<string>\",\n  \"rules\": \"<object>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"string\",\n  \"status\": 7914\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "e26639de-12a0-4f11-a1f1-207c6d7b1f1d",
+          "name": "Delete an audience",
+          "request": {
+            "name": "Delete an audience",
+            "description": {
+              "content": "Permanently deletes an audience from the Personalize project. Audiences referenced in active experiences cannot be deleted.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "audiences",
+                ":id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "id",
+                  "description": "(Required) The unique identifier of the audience."
+                }
+              ]
+            },
+            "header": [
+              {
+                "disabled": false,
+                "description": "(Required) The UID of the Contentstack Personalize project.",
+                "key": "x-project-uid",
+                "value": "<string>"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "DELETE",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "b7708b80-71d8-46cf-b1df-86e2dcabbb86",
+              "name": "Audience deleted successfully.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "audiences",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) The unique identifier of the audience."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) The UID of the Contentstack Personalize project.",
+                    "key": "x-project-uid",
+                    "value": "<string>"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "4fc5e324-53fa-4025-9b86-0fdbeb597bd4",
+              "name": "Authentication credentials are missing or invalid.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "audiences",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) The unique identifier of the audience."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) The UID of the Contentstack Personalize project.",
+                    "key": "x-project-uid",
+                    "value": "<string>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"string\",\n  \"status\": 7914\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "0df799f5-826d-4162-93e6-0e5ce84b737f",
+              "name": "The requested resource was not found.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "audiences",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) The unique identifier of the audience."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) The UID of the Contentstack Personalize project.",
+                    "key": "x-project-uid",
+                    "value": "<string>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"string\",\n  \"status\": 7914\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    },
+    {
+      "id": "2ebcb81c-6007-42c9-8685-7d2b28201282",
+      "name": "Events",
+      "description": {
+        "content": "Events track user actions and behaviors that can be used to trigger audience membership changes or experience analytics.",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "72f89f2b-3d59-4797-b35f-f90e7fa71b4e",
+          "name": "Get all events",
+          "request": {
+            "name": "Get all events",
+            "description": {
+              "content": "Retrieves all custom event definitions in the Personalize project. Events are used to track user interactions and trigger audience membership updates.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "events"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "disabled": false,
+                "description": "(Required) The UID of the Contentstack Personalize project.",
+                "key": "x-project-uid",
+                "value": "<string>"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "1b347838-a82e-455a-8208-7eead308f08d",
+              "name": "A list of all events in the project.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "events"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) The UID of the Contentstack Personalize project.",
+                    "key": "x-project-uid",
+                    "value": "<string>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"data\": [\n    {\n      \"uid\": \"string\",\n      \"name\": \"string\",\n      \"key\": \"string\",\n      \"created_at\": \"1981-05-05T20:54:10.489Z\"\n    },\n    {\n      \"uid\": \"string\",\n      \"name\": \"string\",\n      \"key\": \"string\",\n      \"created_at\": \"1969-06-17T10:44:41.876Z\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "20762fa1-e4b1-4643-bf0d-d02397f065c4",
+              "name": "Authentication credentials are missing or invalid.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "events"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) The UID of the Contentstack Personalize project.",
+                    "key": "x-project-uid",
+                    "value": "<string>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"string\",\n  \"status\": 7914\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "9d2f5fb6-4acd-4bd3-8a56-da2968a77a8a",
+          "name": "Create an event",
+          "request": {
+            "name": "Create an event",
+            "description": {
+              "content": "Creates a new custom event definition in the Personalize project for tracking specific user actions and behaviors.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "events"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "disabled": false,
+                "description": "(Required) The UID of the Contentstack Personalize project.",
+                "key": "x-project-uid",
+                "value": "<string>"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"<string>\",\n  \"key\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "06be259b-4d12-4467-b6fa-64ae3de707ef",
+              "name": "The newly created event.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "events"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) The UID of the Contentstack Personalize project.",
+                    "key": "x-project-uid",
+                    "value": "<string>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"<string>\",\n  \"key\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Created",
+              "code": 201,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"uid\": \"string\",\n  \"name\": \"string\",\n  \"key\": \"string\",\n  \"created_at\": \"2024-10-11T01:25:16.121Z\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "f2fe5d3d-68ff-477e-b23c-6f3854e05a2a",
+              "name": "The request is malformed or contains invalid parameters.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "events"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) The UID of the Contentstack Personalize project.",
+                    "key": "x-project-uid",
+                    "value": "<string>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"<string>\",\n  \"key\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"string\",\n  \"status\": 7914\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "2f55b19d-c970-4b79-880e-f42daf8a384f",
+              "name": "Authentication credentials are missing or invalid.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "events"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) The UID of the Contentstack Personalize project.",
+                    "key": "x-project-uid",
+                    "value": "<string>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"<string>\",\n  \"key\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"string\",\n  \"status\": 7914\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    },
+    {
+      "id": "be8c58ef-6011-411d-9ffd-655bc8baa69b",
+      "name": "Experiences",
+      "description": {
+        "content": "Experiences define personalized content variations delivered to specific audience segments, supporting both segmented and A/B test configurations.",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "cf20863b-61e5-4b99-8bf3-95481020cffb",
+          "name": "Get all experiences",
+          "request": {
+            "name": "Get all experiences",
+            "description": {
+              "content": "Retrieves all experience configurations in the Personalize project, including their variant definitions and audience assignments.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "experiences"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "disabled": false,
+                "description": "(Required) The UID of the Contentstack Personalize project.",
+                "key": "x-project-uid",
+                "value": "<string>"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "5d751999-07d1-43bf-a007-e25a24f965fe",
+              "name": "A list of all experiences in the project.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "experiences"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) The UID of the Contentstack Personalize project.",
+                    "key": "x-project-uid",
+                    "value": "<string>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"data\": [\n    {\n      \"uid\": \"string\",\n      \"name\": \"string\",\n      \"type\": \"AB_TEST\",\n      \"status\": \"DRAFT\",\n      \"variants\": [\n        {\n          \"uid\": \"string\",\n          \"name\": \"string\",\n          \"audience_uid\": \"string\",\n          \"traffic_percentage\": 97.51457839589213\n        },\n        {\n          \"uid\": \"string\",\n          \"name\": \"string\",\n          \"audience_uid\": \"string\",\n          \"traffic_percentage\": 20.338043611868393\n        }\n      ],\n      \"created_at\": \"1980-04-25T23:01:53.041Z\"\n    },\n    {\n      \"uid\": \"string\",\n      \"name\": \"string\",\n      \"type\": \"AB_TEST\",\n      \"status\": \"INACTIVE\",\n      \"variants\": [\n        {\n          \"uid\": \"string\",\n          \"name\": \"string\",\n          \"audience_uid\": \"string\",\n          \"traffic_percentage\": 49.34961112897517\n        },\n        {\n          \"uid\": \"string\",\n          \"name\": \"string\",\n          \"audience_uid\": \"string\",\n          \"traffic_percentage\": 62.496334943761966\n        }\n      ],\n      \"created_at\": \"1951-11-30T19:54:18.774Z\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "7b7f90ba-fb39-4baa-81cf-388ca82f635f",
+              "name": "Authentication credentials are missing or invalid.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "experiences"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) The UID of the Contentstack Personalize project.",
+                    "key": "x-project-uid",
+                    "value": "<string>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"string\",\n  \"status\": 7914\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "29b90ab9-39a4-450c-9725-7fc3f4910cf1",
+          "name": "Create an experience",
+          "request": {
+            "name": "Create an experience",
+            "description": {
+              "content": "Creates a new experience in the Personalize project. Experiences can be of type SEGMENTED (rule-based audience targeting) or AB_TEST (split testing with traffic distribution).",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "experiences"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "disabled": false,
+                "description": "(Required) The UID of the Contentstack Personalize project.",
+                "key": "x-project-uid",
+                "value": "<string>"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"<string>\",\n  \"type\": \"<string>\",\n  \"variants\": [\n    {\n      \"uid\": \"<string>\",\n      \"name\": \"<string>\",\n      \"audience_uid\": \"<string>\",\n      \"traffic_percentage\": \"<number>\"\n    },\n    {\n      \"uid\": \"<string>\",\n      \"name\": \"<string>\",\n      \"audience_uid\": \"<string>\",\n      \"traffic_percentage\": \"<number>\"\n    }\n  ]\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "3e516fa5-8ad1-4ff4-8490-8cfed29e5cf6",
+              "name": "The newly created experience.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "experiences"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) The UID of the Contentstack Personalize project.",
+                    "key": "x-project-uid",
+                    "value": "<string>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"<string>\",\n  \"type\": \"<string>\",\n  \"variants\": [\n    {\n      \"uid\": \"string\",\n      \"name\": \"string\",\n      \"audience_uid\": \"string\",\n      \"traffic_percentage\": 53.176341687862816\n    },\n    {\n      \"uid\": \"string\",\n      \"name\": \"string\",\n      \"audience_uid\": \"string\",\n      \"traffic_percentage\": 71.56534392887933\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Created",
+              "code": 201,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"uid\": \"string\",\n  \"name\": \"string\",\n  \"type\": \"AB_TEST\",\n  \"status\": \"ENDED\",\n  \"variants\": [\n    {\n      \"uid\": \"string\",\n      \"name\": \"string\",\n      \"audience_uid\": \"string\",\n      \"traffic_percentage\": 21.55371915214319\n    },\n    {\n      \"uid\": \"string\",\n      \"name\": \"string\",\n      \"audience_uid\": \"string\",\n      \"traffic_percentage\": 71.28822623076248\n    }\n  ],\n  \"created_at\": \"1963-10-29T23:13:22.694Z\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "c243b66e-35f8-44a0-8f1f-c967df292340",
+              "name": "The request is malformed or contains invalid parameters.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "experiences"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) The UID of the Contentstack Personalize project.",
+                    "key": "x-project-uid",
+                    "value": "<string>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"<string>\",\n  \"type\": \"<string>\",\n  \"variants\": [\n    {\n      \"uid\": \"string\",\n      \"name\": \"string\",\n      \"audience_uid\": \"string\",\n      \"traffic_percentage\": 53.176341687862816\n    },\n    {\n      \"uid\": \"string\",\n      \"name\": \"string\",\n      \"audience_uid\": \"string\",\n      \"traffic_percentage\": 71.56534392887933\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"string\",\n  \"status\": 7914\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "6eda6f23-a510-43b8-8921-9fc1d949e20b",
+              "name": "Authentication credentials are missing or invalid.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "experiences"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) The UID of the Contentstack Personalize project.",
+                    "key": "x-project-uid",
+                    "value": "<string>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"<string>\",\n  \"type\": \"<string>\",\n  \"variants\": [\n    {\n      \"uid\": \"string\",\n      \"name\": \"string\",\n      \"audience_uid\": \"string\",\n      \"traffic_percentage\": 53.176341687862816\n    },\n    {\n      \"uid\": \"string\",\n      \"name\": \"string\",\n      \"audience_uid\": \"string\",\n      \"traffic_percentage\": 71.56534392887933\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"string\",\n  \"status\": 7914\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "479c7aa6-d3ac-4524-85f4-86d3f262ce78",
+          "name": "Get an experience",
+          "request": {
+            "name": "Get an experience",
+            "description": {
+              "content": "Retrieves details for a specific experience including its variants, audience assignments, status, and configuration.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "experiences",
+                ":id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "id",
+                  "description": "(Required) The unique identifier of the experience."
+                }
+              ]
+            },
+            "header": [
+              {
+                "disabled": false,
+                "description": "(Required) The UID of the Contentstack Personalize project.",
+                "key": "x-project-uid",
+                "value": "<string>"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "8b4725a2-ffec-4150-b408-698d4e59c694",
+              "name": "The requested experience.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "experiences",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) The unique identifier of the experience."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) The UID of the Contentstack Personalize project.",
+                    "key": "x-project-uid",
+                    "value": "<string>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"uid\": \"string\",\n  \"name\": \"string\",\n  \"type\": \"AB_TEST\",\n  \"status\": \"ENDED\",\n  \"variants\": [\n    {\n      \"uid\": \"string\",\n      \"name\": \"string\",\n      \"audience_uid\": \"string\",\n      \"traffic_percentage\": 21.55371915214319\n    },\n    {\n      \"uid\": \"string\",\n      \"name\": \"string\",\n      \"audience_uid\": \"string\",\n      \"traffic_percentage\": 71.28822623076248\n    }\n  ],\n  \"created_at\": \"1963-10-29T23:13:22.694Z\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "3e697507-c5f8-4cb1-bfef-9aa58e7c9185",
+              "name": "Authentication credentials are missing or invalid.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "experiences",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) The unique identifier of the experience."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) The UID of the Contentstack Personalize project.",
+                    "key": "x-project-uid",
+                    "value": "<string>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"string\",\n  \"status\": 7914\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "a0ad7c8f-45f2-41f5-80bf-d6e604dff088",
+              "name": "The requested resource was not found.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "experiences",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) The unique identifier of the experience."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) The UID of the Contentstack Personalize project.",
+                    "key": "x-project-uid",
+                    "value": "<string>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"string\",\n  \"status\": 7914\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "4610a329-828d-4f54-838a-2c77c8c921bf",
+          "name": "Update an experience",
+          "request": {
+            "name": "Update an experience",
+            "description": {
+              "content": "Updates the configuration of an existing experience including its name, variants, and audience targeting rules.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "experiences",
+                ":id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "id",
+                  "description": "(Required) The unique identifier of the experience."
+                }
+              ]
+            },
+            "header": [
+              {
+                "disabled": false,
+                "description": "(Required) The UID of the Contentstack Personalize project.",
+                "key": "x-project-uid",
+                "value": "<string>"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "PUT",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"<string>\",\n  \"type\": \"<string>\",\n  \"variants\": [\n    {\n      \"uid\": \"<string>\",\n      \"name\": \"<string>\",\n      \"audience_uid\": \"<string>\",\n      \"traffic_percentage\": \"<number>\"\n    },\n    {\n      \"uid\": \"<string>\",\n      \"name\": \"<string>\",\n      \"audience_uid\": \"<string>\",\n      \"traffic_percentage\": \"<number>\"\n    }\n  ]\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "5154cac7-a487-4e00-967a-7bae3e654c20",
+              "name": "The updated experience.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "experiences",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) The unique identifier of the experience."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) The UID of the Contentstack Personalize project.",
+                    "key": "x-project-uid",
+                    "value": "<string>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"<string>\",\n  \"type\": \"<string>\",\n  \"variants\": [\n    {\n      \"uid\": \"string\",\n      \"name\": \"string\",\n      \"audience_uid\": \"string\",\n      \"traffic_percentage\": 53.176341687862816\n    },\n    {\n      \"uid\": \"string\",\n      \"name\": \"string\",\n      \"audience_uid\": \"string\",\n      \"traffic_percentage\": 71.56534392887933\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"uid\": \"string\",\n  \"name\": \"string\",\n  \"type\": \"AB_TEST\",\n  \"status\": \"ENDED\",\n  \"variants\": [\n    {\n      \"uid\": \"string\",\n      \"name\": \"string\",\n      \"audience_uid\": \"string\",\n      \"traffic_percentage\": 21.55371915214319\n    },\n    {\n      \"uid\": \"string\",\n      \"name\": \"string\",\n      \"audience_uid\": \"string\",\n      \"traffic_percentage\": 71.28822623076248\n    }\n  ],\n  \"created_at\": \"1963-10-29T23:13:22.694Z\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "d0595472-a751-4f91-bf44-3bad1dd16975",
+              "name": "The request is malformed or contains invalid parameters.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "experiences",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) The unique identifier of the experience."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) The UID of the Contentstack Personalize project.",
+                    "key": "x-project-uid",
+                    "value": "<string>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"<string>\",\n  \"type\": \"<string>\",\n  \"variants\": [\n    {\n      \"uid\": \"string\",\n      \"name\": \"string\",\n      \"audience_uid\": \"string\",\n      \"traffic_percentage\": 53.176341687862816\n    },\n    {\n      \"uid\": \"string\",\n      \"name\": \"string\",\n      \"audience_uid\": \"string\",\n      \"traffic_percentage\": 71.56534392887933\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"string\",\n  \"status\": 7914\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "4f3c394f-24fa-4a3d-a331-df4ad80ccc22",
+              "name": "Authentication credentials are missing or invalid.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "experiences",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) The unique identifier of the experience."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) The UID of the Contentstack Personalize project.",
+                    "key": "x-project-uid",
+                    "value": "<string>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"<string>\",\n  \"type\": \"<string>\",\n  \"variants\": [\n    {\n      \"uid\": \"string\",\n      \"name\": \"string\",\n      \"audience_uid\": \"string\",\n      \"traffic_percentage\": 53.176341687862816\n    },\n    {\n      \"uid\": \"string\",\n      \"name\": \"string\",\n      \"audience_uid\": \"string\",\n      \"traffic_percentage\": 71.56534392887933\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"string\",\n  \"status\": 7914\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "2c5d45c7-bbf6-4155-98e8-9d1ed4f826d2",
+          "name": "Delete an experience",
+          "request": {
+            "name": "Delete an experience",
+            "description": {
+              "content": "Permanently deletes an experience from the Personalize project. Only experiences in draft or inactive status can be deleted.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "experiences",
+                ":id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "id",
+                  "description": "(Required) The unique identifier of the experience."
+                }
+              ]
+            },
+            "header": [
+              {
+                "disabled": false,
+                "description": "(Required) The UID of the Contentstack Personalize project.",
+                "key": "x-project-uid",
+                "value": "<string>"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "DELETE",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "eae63335-2c32-4fe1-8970-598e62aa94f4",
+              "name": "Experience deleted successfully.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "experiences",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) The unique identifier of the experience."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) The UID of the Contentstack Personalize project.",
+                    "key": "x-project-uid",
+                    "value": "<string>"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "0173d586-0cb5-4bdd-9640-64d7c3d7bb70",
+              "name": "Authentication credentials are missing or invalid.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "experiences",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) The unique identifier of the experience."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) The UID of the Contentstack Personalize project.",
+                    "key": "x-project-uid",
+                    "value": "<string>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"string\",\n  \"status\": 7914\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "9bf72ef6-0799-41b1-a57e-02384b570aaf",
+              "name": "The requested resource was not found.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "experiences",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) The unique identifier of the experience."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) The UID of the Contentstack Personalize project.",
+                    "key": "x-project-uid",
+                    "value": "<string>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"string\",\n  \"status\": 7914\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "932cb6d4-41fe-44ee-a35d-656861491d1a",
+          "name": "Get experience priority order",
+          "request": {
+            "name": "Get experience priority order",
+            "description": {
+              "content": "Retrieves the priority ordering of all active experiences, which determines which experience takes precedence when a user qualifies for multiple experiences.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "experiences",
+                "priority"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "disabled": false,
+                "description": "(Required) The UID of the Contentstack Personalize project.",
+                "key": "x-project-uid",
+                "value": "<string>"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "7b83161d-8b0b-452d-aa20-a642d5ae24e9",
+              "name": "The current experience priority ordering.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "experiences",
+                    "priority"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) The UID of the Contentstack Personalize project.",
+                    "key": "x-project-uid",
+                    "value": "<string>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"priority\": [\n    \"string\",\n    \"string\"\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "44d4b3d3-a08a-4f1d-84a5-ad4ee6908d7f",
+              "name": "Authentication credentials are missing or invalid.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "experiences",
+                    "priority"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) The UID of the Contentstack Personalize project.",
+                    "key": "x-project-uid",
+                    "value": "<string>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"string\",\n  \"status\": 7914\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "f35f32ba-b440-4f6a-9e46-e4840dae4b94",
+          "name": "Update experience priority order",
+          "request": {
+            "name": "Update experience priority order",
+            "description": {
+              "content": "Updates the priority ordering of experiences to control which experience is applied first when a user qualifies for multiple active experiences.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "experiences",
+                "priority"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "disabled": false,
+                "description": "(Required) The UID of the Contentstack Personalize project.",
+                "key": "x-project-uid",
+                "value": "<string>"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "PUT",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"priority\": [\n    \"<string>\",\n    \"<string>\"\n  ]\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "3a68cdf0-c40b-442c-a66d-d48c93b2e84c",
+              "name": "Updated experience priority ordering.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "experiences",
+                    "priority"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) The UID of the Contentstack Personalize project.",
+                    "key": "x-project-uid",
+                    "value": "<string>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"priority\": [\n    \"<string>\",\n    \"<string>\"\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"priority\": [\n    \"string\",\n    \"string\"\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "87cd38c4-5561-4ba1-bef7-81a7fafb6b08",
+              "name": "Authentication credentials are missing or invalid.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "experiences",
+                    "priority"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) The UID of the Contentstack Personalize project.",
+                    "key": "x-project-uid",
+                    "value": "<string>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"priority\": [\n    \"<string>\",\n    \"<string>\"\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"string\",\n  \"status\": 7914\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    },
+    {
+      "id": "5571a19d-dbf3-41f7-a422-419808feca40",
+      "name": "Geolocation",
+      "description": {
+        "content": "Geolocation endpoints provide geographic datasets including regions, countries, and cities for location-based audience targeting.",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "23d83e2e-5ed1-4838-8948-0d57b78117df",
+          "name": "Get geolocation regions",
+          "request": {
+            "name": "Get geolocation regions",
+            "description": {
+              "content": "Retrieves the list of geographic regions available for location-based audience targeting rules.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "geolocation",
+                "regions"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "disabled": false,
+                "description": "(Required) The UID of the Contentstack Personalize project.",
+                "key": "x-project-uid",
+                "value": "<string>"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "047011a7-1d90-41ef-be20-8eb11b5fd358",
+              "name": "A list of geographic regions.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "geolocation",
+                    "regions"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) The UID of the Contentstack Personalize project.",
+                    "key": "x-project-uid",
+                    "value": "<string>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"data\": [\n    {\n      \"uid\": \"string\",\n      \"name\": \"string\",\n      \"code\": \"string\"\n    },\n    {\n      \"uid\": \"string\",\n      \"name\": \"string\",\n      \"code\": \"string\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "6242dc3f-e8d5-46c1-a322-ca5c69f2c580",
+              "name": "Authentication credentials are missing or invalid.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "geolocation",
+                    "regions"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) The UID of the Contentstack Personalize project.",
+                    "key": "x-project-uid",
+                    "value": "<string>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"string\",\n  \"status\": 7914\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "418dffeb-958d-4519-a398-3c7c3c170015",
+          "name": "Get geolocation countries",
+          "request": {
+            "name": "Get geolocation countries",
+            "description": {
+              "content": "Retrieves the list of countries available for location-based audience targeting rules.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "geolocation",
+                "countries"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "disabled": false,
+                "description": "(Required) The UID of the Contentstack Personalize project.",
+                "key": "x-project-uid",
+                "value": "<string>"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "0f128ca8-fdb5-40a0-b2e6-a2bf9b87dcee",
+              "name": "A list of countries.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "geolocation",
+                    "countries"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) The UID of the Contentstack Personalize project.",
+                    "key": "x-project-uid",
+                    "value": "<string>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"data\": [\n    {\n      \"uid\": \"string\",\n      \"name\": \"string\",\n      \"code\": \"string\"\n    },\n    {\n      \"uid\": \"string\",\n      \"name\": \"string\",\n      \"code\": \"string\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "5ead7ca0-c9e3-431b-aa82-77e5b1d9e56e",
+              "name": "Authentication credentials are missing or invalid.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "geolocation",
+                    "countries"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) The UID of the Contentstack Personalize project.",
+                    "key": "x-project-uid",
+                    "value": "<string>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"string\",\n  \"status\": 7914\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "eda2d275-55f2-4973-acea-7e18cf75c5aa",
+          "name": "Get geolocation cities",
+          "request": {
+            "name": "Get geolocation cities",
+            "description": {
+              "content": "Retrieves the list of cities available for location-based audience targeting rules.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "geolocation",
+                "cities"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "disabled": false,
+                "description": "(Required) The UID of the Contentstack Personalize project.",
+                "key": "x-project-uid",
+                "value": "<string>"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "9bf2971b-bdc2-4e28-b829-c50ffb6807f3",
+              "name": "A list of cities.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "geolocation",
+                    "cities"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) The UID of the Contentstack Personalize project.",
+                    "key": "x-project-uid",
+                    "value": "<string>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"data\": [\n    {\n      \"uid\": \"string\",\n      \"name\": \"string\",\n      \"code\": \"string\"\n    },\n    {\n      \"uid\": \"string\",\n      \"name\": \"string\",\n      \"code\": \"string\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "40d52450-4714-4a5b-af25-698f1694c447",
+              "name": "Authentication credentials are missing or invalid.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "geolocation",
+                    "cities"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) The UID of the Contentstack Personalize project.",
+                    "key": "x-project-uid",
+                    "value": "<string>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"string\",\n  \"status\": 7914\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://personalize-api.contentstack.com",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "bearer",
+    "bearer": [
+      {
+        "key": "token",
+        "value": "{{bearerToken}}"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "80610182-1477-4182-9610-816cd0d2fa32",
+    "name": "Contentstack Personalize Management API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "The Contentstack Personalize Management API provides programmatic control over the resources in a Contentstack Personalize project, including Attributes, Audiences, Events, and Experiences. Developers can use this API to create and manage audience segments based on user attributes and behavioral events, and to configure personalized content experiences for those segments. It is a REST API that follows standard CRUD conventions and is intended for use in headless personalization workflows where content targeting logic needs to be managed programmatically or integrated with external data platforms.\n\nContact Support:\n Name: Contentstack Support",
+      "type": "text/plain"
+    }
+  }
+}

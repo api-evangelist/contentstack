@@ -1,0 +1,363 @@
+{
+  "item": [
+    {
+      "id": "c90993bb-3bf5-4e25-95da-8c09413695e2",
+      "name": "Generative AI",
+      "description": {
+        "content": "The Generative AI endpoint processes prompts using retrieval augmented generation, retrieving relevant brand knowledge and applying voice profile style guidelines to produce on-brand content. Responses are returned as streaming dictionary responses for real-time content delivery.",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "71779dcc-9b66-4ae4-ad90-4d5bf0138f1a",
+          "name": "Generate AI content",
+          "request": {
+            "name": "Generate AI content",
+            "description": {
+              "content": "Processes a prompt using retrieval augmented generation (RAG) to produce AI-generated content aligned with the specified Brand Kit. When knowledge_vault is enabled, relevant content from the Brand Kit's Knowledge Vault is retrieved and used as context for the LLM. An optional voice_profile_uid can be specified to apply specific writing style guidelines to the generated content. Returns a streaming dictionary response. Rate limited to 10 requests per second per organization.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v1",
+                "genai",
+                ""
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "disabled": false,
+                "description": "(Required) User authentication token for authorization.",
+                "key": "authtoken",
+                "value": "<string>"
+              },
+              {
+                "disabled": false,
+                "description": "(Required) The unique identifier of the Brand Kit to use for knowledge retrieval and brand guidelines during content generation.",
+                "key": "brand_kit_uid",
+                "value": "<string>"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"prompt\": \"<string>\",\n  \"knowledge_vault\": false,\n  \"voice_profile_uid\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "6c565e28-15a8-4cc8-9512-3b3c8166334d",
+              "name": "Streaming dictionary response containing the AI-generated content based on the prompt and retrieved knowledge context.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "genai",
+                    ""
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) User authentication token for authorization.",
+                    "key": "authtoken",
+                    "value": "<string>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) The unique identifier of the Brand Kit to use for knowledge retrieval and brand guidelines during content generation.",
+                    "key": "brand_kit_uid",
+                    "value": "<string>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"prompt\": \"<string>\",\n  \"knowledge_vault\": false,\n  \"voice_profile_uid\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"content\": \"string\",\n  \"token_usage\": {\n    \"prompt_tokens\": 9734,\n    \"completion_tokens\": 7323,\n    \"total_tokens\": 6546\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "91c16522-1b0e-4fa9-aaba-3fca69f22bdc",
+              "name": "The request is malformed or contains invalid parameters.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "genai",
+                    ""
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) User authentication token for authorization.",
+                    "key": "authtoken",
+                    "value": "<string>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) The unique identifier of the Brand Kit to use for knowledge retrieval and brand guidelines during content generation.",
+                    "key": "brand_kit_uid",
+                    "value": "<string>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"prompt\": \"<string>\",\n  \"knowledge_vault\": false,\n  \"voice_profile_uid\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"string\",\n  \"error_code\": 1805\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "46494483-8ee8-4e2c-9bf8-f6a62e863ff4",
+              "name": "Authentication credentials are missing or invalid.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "genai",
+                    ""
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) User authentication token for authorization.",
+                    "key": "authtoken",
+                    "value": "<string>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) The unique identifier of the Brand Kit to use for knowledge retrieval and brand guidelines during content generation.",
+                    "key": "brand_kit_uid",
+                    "value": "<string>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"prompt\": \"<string>\",\n  \"knowledge_vault\": false,\n  \"voice_profile_uid\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"string\",\n  \"error_code\": 1805\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "05f4b60d-450b-42ef-b4ff-bc09fe2870da",
+              "name": "Rate limit exceeded. Maximum 10 requests per second per organization.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "genai",
+                    ""
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) User authentication token for authorization.",
+                    "key": "authtoken",
+                    "value": "<string>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) The unique identifier of the Brand Kit to use for knowledge retrieval and brand guidelines during content generation.",
+                    "key": "brand_kit_uid",
+                    "value": "<string>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"prompt\": \"<string>\",\n  \"knowledge_vault\": false,\n  \"voice_profile_uid\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Too Many Requests",
+              "code": 429,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"string\",\n  \"error_code\": 1805\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://ai.contentstack.com/brand-kits",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "bearer",
+    "bearer": [
+      {
+        "key": "token",
+        "value": "{{bearerToken}}"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "511e3ec6-84be-48ec-82cd-f0ebfdcd8f3e",
+    "name": "Contentstack Generative AI API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "The Contentstack Generative AI API provides an endpoint for generating AI-powered content using a Brand Kit's knowledge vault and voice profiles. It acts as a communication channel between the vector database and large language models, processing prompts with retrieval augmented generation (RAG) to produce brand-aligned content. The API supports optional knowledge vault retrieval and voice profile application to ensure generated content adheres to the organization's brand guidelines and writing style.\n\nContact Support:\n Name: Contentstack Support",
+      "type": "text/plain"
+    }
+  }
+}

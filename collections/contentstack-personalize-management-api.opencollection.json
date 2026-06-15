@@ -1,0 +1,484 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Contentstack Personalize Management API",
+    "version": "v1"
+  },
+  "request": {
+    "auth": {
+      "type": "bearer",
+      "token": "{{bearerToken}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Attributes",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get all attributes",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://personalize-api.contentstack.com/attributes",
+            "headers": [
+              {
+                "name": "x-project-uid",
+                "value": ""
+              }
+            ]
+          },
+          "docs": "Retrieves all user attribute definitions configured in the Personalize project. Attributes are used to build audience segment rules."
+        },
+        {
+          "info": {
+            "name": "Create an attribute",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://personalize-api.contentstack.com/attributes",
+            "headers": [
+              {
+                "name": "x-project-uid",
+                "value": ""
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Creates a new user attribute definition in the Personalize project. Attributes can be of various types including string, number, boolean, and date, and are used to build audience segment rules."
+        },
+        {
+          "info": {
+            "name": "Update an attribute",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://personalize-api.contentstack.com/attributes/:id",
+            "headers": [
+              {
+                "name": "x-project-uid",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "The unique identifier of the attribute."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Updates the configuration of an existing attribute in the Personalize project including its name, key, and data type."
+        },
+        {
+          "info": {
+            "name": "Delete an attribute",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://personalize-api.contentstack.com/attributes/:id",
+            "headers": [
+              {
+                "name": "x-project-uid",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "The unique identifier of the attribute."
+              }
+            ]
+          },
+          "docs": "Permanently deletes an attribute from the Personalize project. Attributes referenced in audience rules cannot be deleted until those references are removed."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Audiences",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get all audiences",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://personalize-api.contentstack.com/audiences",
+            "headers": [
+              {
+                "name": "x-project-uid",
+                "value": ""
+              }
+            ]
+          },
+          "docs": "Retrieves all audience segment definitions in the Personalize project. Audiences define the user groups that experiences are targeted to."
+        },
+        {
+          "info": {
+            "name": "Create an audience",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://personalize-api.contentstack.com/audiences",
+            "headers": [
+              {
+                "name": "x-project-uid",
+                "value": ""
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Creates a new audience segment in the Personalize project based on attribute conditions and behavioral rules."
+        },
+        {
+          "info": {
+            "name": "Update an audience",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://personalize-api.contentstack.com/audiences/:id",
+            "headers": [
+              {
+                "name": "x-project-uid",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "The unique identifier of the audience."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Updates the rules and configuration of an existing audience segment."
+        },
+        {
+          "info": {
+            "name": "Delete an audience",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://personalize-api.contentstack.com/audiences/:id",
+            "headers": [
+              {
+                "name": "x-project-uid",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "The unique identifier of the audience."
+              }
+            ]
+          },
+          "docs": "Permanently deletes an audience from the Personalize project. Audiences referenced in active experiences cannot be deleted."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Experiences",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get all experiences",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://personalize-api.contentstack.com/experiences",
+            "headers": [
+              {
+                "name": "x-project-uid",
+                "value": ""
+              }
+            ]
+          },
+          "docs": "Retrieves all experience configurations in the Personalize project, including their variant definitions and audience assignments."
+        },
+        {
+          "info": {
+            "name": "Create an experience",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://personalize-api.contentstack.com/experiences",
+            "headers": [
+              {
+                "name": "x-project-uid",
+                "value": ""
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Creates a new experience in the Personalize project. Experiences can be of type SEGMENTED (rule-based audience targeting) or AB_TEST (split testing with traffic distribution)."
+        },
+        {
+          "info": {
+            "name": "Get an experience",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://personalize-api.contentstack.com/experiences/:id",
+            "headers": [
+              {
+                "name": "x-project-uid",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "The unique identifier of the experience."
+              }
+            ]
+          },
+          "docs": "Retrieves details for a specific experience including its variants, audience assignments, status, and configuration."
+        },
+        {
+          "info": {
+            "name": "Update an experience",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://personalize-api.contentstack.com/experiences/:id",
+            "headers": [
+              {
+                "name": "x-project-uid",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "The unique identifier of the experience."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Updates the configuration of an existing experience including its name, variants, and audience targeting rules."
+        },
+        {
+          "info": {
+            "name": "Delete an experience",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://personalize-api.contentstack.com/experiences/:id",
+            "headers": [
+              {
+                "name": "x-project-uid",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "The unique identifier of the experience."
+              }
+            ]
+          },
+          "docs": "Permanently deletes an experience from the Personalize project. Only experiences in draft or inactive status can be deleted."
+        },
+        {
+          "info": {
+            "name": "Get experience priority order",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://personalize-api.contentstack.com/experiences/priority",
+            "headers": [
+              {
+                "name": "x-project-uid",
+                "value": ""
+              }
+            ]
+          },
+          "docs": "Retrieves the priority ordering of all active experiences, which determines which experience takes precedence when a user qualifies for multiple experiences."
+        },
+        {
+          "info": {
+            "name": "Update experience priority order",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://personalize-api.contentstack.com/experiences/priority",
+            "headers": [
+              {
+                "name": "x-project-uid",
+                "value": ""
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Updates the priority ordering of experiences to control which experience is applied first when a user qualifies for multiple active experiences."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Events",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get all events",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://personalize-api.contentstack.com/events",
+            "headers": [
+              {
+                "name": "x-project-uid",
+                "value": ""
+              }
+            ]
+          },
+          "docs": "Retrieves all custom event definitions in the Personalize project. Events are used to track user interactions and trigger audience membership updates."
+        },
+        {
+          "info": {
+            "name": "Create an event",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://personalize-api.contentstack.com/events",
+            "headers": [
+              {
+                "name": "x-project-uid",
+                "value": ""
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Creates a new custom event definition in the Personalize project for tracking specific user actions and behaviors."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Geolocation",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get geolocation regions",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://personalize-api.contentstack.com/geolocation/regions",
+            "headers": [
+              {
+                "name": "x-project-uid",
+                "value": ""
+              }
+            ]
+          },
+          "docs": "Retrieves the list of geographic regions available for location-based audience targeting rules."
+        },
+        {
+          "info": {
+            "name": "Get geolocation countries",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://personalize-api.contentstack.com/geolocation/countries",
+            "headers": [
+              {
+                "name": "x-project-uid",
+                "value": ""
+              }
+            ]
+          },
+          "docs": "Retrieves the list of countries available for location-based audience targeting rules."
+        },
+        {
+          "info": {
+            "name": "Get geolocation cities",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://personalize-api.contentstack.com/geolocation/cities",
+            "headers": [
+              {
+                "name": "x-project-uid",
+                "value": ""
+              }
+            ]
+          },
+          "docs": "Retrieves the list of cities available for location-based audience targeting rules."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

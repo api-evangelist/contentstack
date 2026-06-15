@@ -1,0 +1,463 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Contentstack Automate Management API",
+    "version": "v1"
+  },
+  "request": {
+    "auth": {
+      "type": "bearer",
+      "token": "{{bearerToken}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Projects",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get all projects",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://automations-api.contentstack.com/v1/organizations/:organization_uid/projects",
+            "params": [
+              {
+                "name": "organization_uid",
+                "value": "",
+                "type": "path",
+                "description": "The unique identifier of the organization."
+              }
+            ]
+          },
+          "docs": "Retrieves all automation projects within the specified organization. Each project contains automations, variables, and external service account connections."
+        },
+        {
+          "info": {
+            "name": "Create a project",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://automations-api.contentstack.com/v1/organizations/:organization_uid/projects",
+            "params": [
+              {
+                "name": "organization_uid",
+                "value": "",
+                "type": "path",
+                "description": "The unique identifier of the organization."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Creates a new automation project within the specified organization. Projects serve as organizational containers for automations and shared configuration."
+        },
+        {
+          "info": {
+            "name": "Get a project",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://automations-api.contentstack.com/v1/organizations/:organization_uid/projects/:project_uid",
+            "params": [
+              {
+                "name": "organization_uid",
+                "value": "",
+                "type": "path",
+                "description": "The unique identifier of the organization."
+              },
+              {
+                "name": "project_uid",
+                "value": "",
+                "type": "path",
+                "description": "The unique identifier of the automation project."
+              }
+            ]
+          },
+          "docs": "Retrieves details for a specific automation project including its metadata, creation date, and current status."
+        },
+        {
+          "info": {
+            "name": "Update a project",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://automations-api.contentstack.com/v1/organizations/:organization_uid/projects/:project_uid",
+            "params": [
+              {
+                "name": "organization_uid",
+                "value": "",
+                "type": "path",
+                "description": "The unique identifier of the organization."
+              },
+              {
+                "name": "project_uid",
+                "value": "",
+                "type": "path",
+                "description": "The unique identifier of the automation project."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Updates the name or description of an existing automation project."
+        },
+        {
+          "info": {
+            "name": "Delete a project",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://automations-api.contentstack.com/v1/organizations/:organization_uid/projects/:project_uid",
+            "params": [
+              {
+                "name": "organization_uid",
+                "value": "",
+                "type": "path",
+                "description": "The unique identifier of the organization."
+              },
+              {
+                "name": "project_uid",
+                "value": "",
+                "type": "path",
+                "description": "The unique identifier of the automation project."
+              }
+            ]
+          },
+          "docs": "Permanently deletes an automation project and all its automations, variables, and configuration. This action is irreversible."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Automations",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get all automations",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://automations-api.contentstack.com/v1/organizations/:organization_uid/projects/:project_uid/automations",
+            "params": [
+              {
+                "name": "organization_uid",
+                "value": "",
+                "type": "path",
+                "description": "The unique identifier of the organization."
+              },
+              {
+                "name": "project_uid",
+                "value": "",
+                "type": "path",
+                "description": "The unique identifier of the automation project."
+              }
+            ]
+          },
+          "docs": "Retrieves all automation workflow definitions within a specific project, including their trigger configurations, steps, and activation status."
+        },
+        {
+          "info": {
+            "name": "Get an automation",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://automations-api.contentstack.com/v1/organizations/:organization_uid/projects/:project_uid/automations/:automation_uid",
+            "params": [
+              {
+                "name": "organization_uid",
+                "value": "",
+                "type": "path",
+                "description": "The unique identifier of the organization."
+              },
+              {
+                "name": "project_uid",
+                "value": "",
+                "type": "path",
+                "description": "The unique identifier of the automation project."
+              },
+              {
+                "name": "automation_uid",
+                "value": "",
+                "type": "path",
+                "description": "The unique identifier of the automation."
+              }
+            ]
+          },
+          "docs": "Retrieves the full configuration of a specific automation including trigger settings, action steps, error handling, and activation status."
+        },
+        {
+          "info": {
+            "name": "Activate an automation",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://automations-api.contentstack.com/v1/organizations/:organization_uid/projects/:project_uid/automations/:automation_uid/activate",
+            "params": [
+              {
+                "name": "organization_uid",
+                "value": "",
+                "type": "path",
+                "description": "The unique identifier of the organization."
+              },
+              {
+                "name": "project_uid",
+                "value": "",
+                "type": "path",
+                "description": "The unique identifier of the automation project."
+              },
+              {
+                "name": "automation_uid",
+                "value": "",
+                "type": "path",
+                "description": "The unique identifier of the automation."
+              }
+            ]
+          },
+          "docs": "Enables an automation so that it will execute when its configured trigger conditions are met. Only automations in a valid, configured state can be activated."
+        },
+        {
+          "info": {
+            "name": "Deactivate an automation",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://automations-api.contentstack.com/v1/organizations/:organization_uid/projects/:project_uid/automations/:automation_uid/deactivate",
+            "params": [
+              {
+                "name": "organization_uid",
+                "value": "",
+                "type": "path",
+                "description": "The unique identifier of the organization."
+              },
+              {
+                "name": "project_uid",
+                "value": "",
+                "type": "path",
+                "description": "The unique identifier of the automation project."
+              },
+              {
+                "name": "automation_uid",
+                "value": "",
+                "type": "path",
+                "description": "The unique identifier of the automation."
+              }
+            ]
+          },
+          "docs": "Disables an active automation, preventing it from executing when its trigger conditions are met. Existing in-progress executions will complete before the automation is fully deactivated."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Execution Logs",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get all execution logs",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://automations-api.contentstack.com/v1/organizations/:organization_uid/projects/:project_uid/executions",
+            "params": [
+              {
+                "name": "organization_uid",
+                "value": "",
+                "type": "path",
+                "description": "The unique identifier of the organization."
+              },
+              {
+                "name": "project_uid",
+                "value": "",
+                "type": "path",
+                "description": "The unique identifier of the automation project."
+              }
+            ]
+          },
+          "docs": "Retrieves a list of execution log entries for all automations in the project, showing each run with its trigger context, status, and completion time."
+        },
+        {
+          "info": {
+            "name": "Get an execution log",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://automations-api.contentstack.com/v1/organizations/:organization_uid/projects/:project_uid/executions/:execution_uid",
+            "params": [
+              {
+                "name": "organization_uid",
+                "value": "",
+                "type": "path",
+                "description": "The unique identifier of the organization."
+              },
+              {
+                "name": "project_uid",
+                "value": "",
+                "type": "path",
+                "description": "The unique identifier of the automation project."
+              },
+              {
+                "name": "execution_uid",
+                "value": "",
+                "type": "path",
+                "description": "The unique identifier of the execution log entry."
+              }
+            ]
+          },
+          "docs": "Retrieves the full details of a specific automation execution log entry, including step-by-step results and any error messages encountered."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Audit Logs",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get all audit logs",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://automations-api.contentstack.com/v1/organizations/:organization_uid/projects/:project_uid/audit-logs",
+            "params": [
+              {
+                "name": "organization_uid",
+                "value": "",
+                "type": "path",
+                "description": "The unique identifier of the organization."
+              },
+              {
+                "name": "project_uid",
+                "value": "",
+                "type": "path",
+                "description": "The unique identifier of the automation project."
+              }
+            ]
+          },
+          "docs": "Retrieves all audit log entries for administrative actions taken within the project such as creating, updating, or deleting automations and configuration changes."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Variables",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get all variables",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://automations-api.contentstack.com/v1/organizations/:organization_uid/projects/:project_uid/variables",
+            "params": [
+              {
+                "name": "organization_uid",
+                "value": "",
+                "type": "path",
+                "description": "The unique identifier of the organization."
+              },
+              {
+                "name": "project_uid",
+                "value": "",
+                "type": "path",
+                "description": "The unique identifier of the automation project."
+              }
+            ]
+          },
+          "docs": "Retrieves all project variables defined for the automation project. Variables are reusable key-value pairs that can be referenced across automation configurations."
+        },
+        {
+          "info": {
+            "name": "Create a variable",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://automations-api.contentstack.com/v1/organizations/:organization_uid/projects/:project_uid/variables",
+            "params": [
+              {
+                "name": "organization_uid",
+                "value": "",
+                "type": "path",
+                "description": "The unique identifier of the organization."
+              },
+              {
+                "name": "project_uid",
+                "value": "",
+                "type": "path",
+                "description": "The unique identifier of the automation project."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Creates a new project variable that can be referenced in automation configurations. Variables can store API keys, URLs, or other configuration values that are used across multiple automations."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Accounts",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get all accounts",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://automations-api.contentstack.com/v1/organizations/:organization_uid/projects/:project_uid/accounts",
+            "params": [
+              {
+                "name": "organization_uid",
+                "value": "",
+                "type": "path",
+                "description": "The unique identifier of the organization."
+              },
+              {
+                "name": "project_uid",
+                "value": "",
+                "type": "path",
+                "description": "The unique identifier of the automation project."
+              }
+            ]
+          },
+          "docs": "Retrieves all external service account connections configured for the automation project, such as connections to Slack, email services, or other third-party platforms."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

@@ -1,0 +1,49 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Contentstack Generative AI API",
+    "version": "v1"
+  },
+  "request": {
+    "auth": {
+      "type": "bearer",
+      "token": "{{bearerToken}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Generative AI",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Generate AI content",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://ai.contentstack.com/brand-kits/v1/genai/",
+            "headers": [
+              {
+                "name": "authtoken",
+                "value": ""
+              },
+              {
+                "name": "brand_kit_uid",
+                "value": ""
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Processes a prompt using retrieval augmented generation (RAG) to produce AI-generated content aligned with the specified Brand Kit. When knowledge_vault is enabled, relevant content from the Brand Kit's Knowledge Vault is retrieved and used as context for the LLM. An optional voice_profile_uid can be specified to apply specific writing style guidelines to the generated content. Returns a streaming dictionary response. Rate limited to 10 requests per second per organization."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}
