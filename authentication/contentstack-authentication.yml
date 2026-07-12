@@ -1,0 +1,63 @@
+generated: '2026-07-11'
+method: derived
+source: openapi/contentstack-analytics-api-openapi.yml, openapi/contentstack-automate-management-api-openapi.yml,
+  openapi/contentstack-brand-kit-management-api-openapi.yml, openapi/contentstack-content-delivery-api-openapi.yml,
+  openapi/contentstack-content-management-api-openapi.yml, openapi/contentstack-generative-ai-api-openapi.yml,
+  openapi/contentstack-knowledge-vault-api-openapi.yml, openapi/contentstack-launch-api-openapi.yml,
+  openapi/contentstack-personalize-management-api-openapi.yml, openapi/contentstack-scim-api-openapi.yml
+summary:
+  types:
+  - apiKey
+  - http
+  api_key_in:
+  - header
+schemes:
+- name: bearerAuth
+  type: http
+  scheme: bearer
+  description: OAuth 2.0 Bearer token (M2M) with analytics access.
+  sources:
+  - openapi/contentstack-analytics-api-openapi.yml
+  - openapi/contentstack-automate-management-api-openapi.yml
+  - openapi/contentstack-brand-kit-management-api-openapi.yml
+  - openapi/contentstack-generative-ai-api-openapi.yml
+  - openapi/contentstack-knowledge-vault-api-openapi.yml
+  - openapi/contentstack-launch-api-openapi.yml
+  - openapi/contentstack-personalize-management-api-openapi.yml
+  - openapi/contentstack-scim-api-openapi.yml
+- name: authtokenAuth
+  type: apiKey
+  in: header
+  parameter: authtoken
+  description: Contentstack user authtoken. Only organization Owners and Admins can access analytics.
+  sources:
+  - openapi/contentstack-analytics-api-openapi.yml
+  - openapi/contentstack-automate-management-api-openapi.yml
+  - openapi/contentstack-brand-kit-management-api-openapi.yml
+  - openapi/contentstack-content-management-api-openapi.yml
+  - openapi/contentstack-generative-ai-api-openapi.yml
+  - openapi/contentstack-knowledge-vault-api-openapi.yml
+  - openapi/contentstack-launch-api-openapi.yml
+  - openapi/contentstack-personalize-management-api-openapi.yml
+- name: apiKey
+  type: apiKey
+  in: header
+  parameter: api_key
+  description: The API key for the Contentstack stack.
+  sources:
+  - openapi/contentstack-content-delivery-api-openapi.yml
+- name: deliveryToken
+  type: apiKey
+  in: header
+  parameter: access_token
+  description: The delivery token granting read access to the stack environment.
+  sources:
+  - openapi/contentstack-content-delivery-api-openapi.yml
+- name: managementTokenAuth
+  type: apiKey
+  in: header
+  parameter: authorization
+  description: Management token in the format "Bearer {management_token}" for server-to-server
+    authentication without user sessions.
+  sources:
+  - openapi/contentstack-content-management-api-openapi.yml
