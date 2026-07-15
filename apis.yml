@@ -261,6 +261,8 @@ apis:
     including creating deployments from uploaded build artifacts, monitoring deployment logs, revalidating CDN caches,
     and retrieving signed upload URLs for build file transfers.
 common:
+- type: AgenticAccess
+  url: agentic-access/contentstack-agentic-access.yml
 - type: TrustCenter
   url: security/contentstack-trust-center.yml
 - type: DomainSecurity
