@@ -1,0 +1,191 @@
+openapi: 3.1.0
+info:
+  title: Contentstack Analytics Accounts Organizations API
+  description: The Contentstack Analytics API provides access to usage and performance metrics for CMS, Launch, and Automate products within a Contentstack organization. Developers can retrieve analytics data programmatically to build custom dashboards, monitor content delivery performance, and track platform usage against plan limits. The API returns structured data suitable for aggregation with external analytics and business intelligence tools. Access is restricted to organization Owners and Admins. Requests use async job-based processing where initial POST calls queue the job and a subsequent GET call retrieves the results.
+  version: v2
+  contact:
+    name: Contentstack Support
+    url: https://www.contentstack.com/contact
+  termsOfService: https://www.contentstack.com/legal/terms-of-service
+servers:
+- url: https://api.contentstack.io
+  description: AWS North America Production Server
+- url: https://eu-api.contentstack.com
+  description: AWS Europe Production Server
+- url: https://au-api.contentstack.com
+  description: AWS Australia Production Server
+security:
+- bearerAuth: []
+- authtokenAuth: []
+tags:
+- name: Organizations
+  description: Endpoints for managing Contentstack organizations, including user invitations, roles, stacks, and audit logs at the organization level.
+paths:
+  /organizations:
+    get:
+      operationId: getAllOrganizations
+      summary: Get all organizations
+      description: Returns a list of all Contentstack organizations that the authenticated user is a member of, along with their roles and permissions.
+      tags:
+      - Organizations
+      responses:
+        '200':
+          description: A list of organizations the user belongs to.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/OrganizationList'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+  /organizations/{organization_uid}:
+    get:
+      operationId: getOrganization
+      summary: Get an organization
+      description: Retrieves details for a specific organization identified by its UID, including plan information and configuration settings.
+      tags:
+      - Organizations
+      parameters:
+      - $ref: '#/components/parameters/OrganizationUid'
+      responses:
+        '200':
+          description: The requested organization details.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Organization'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+  /organizations/{organization_uid}/stacks:
+    get:
+      operationId: getOrganizationStacks
+      summary: Get organization stacks
+      description: Returns a list of all stacks within a given organization that the authenticated user has access to.
+      tags:
+      - Organizations
+      parameters:
+      - $ref: '#/components/parameters/OrganizationUid'
+      responses:
+        '200':
+          description: A list of stacks in the organization.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/StackList'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+components:
+  responses:
+    Unauthorized:
+      description: Authentication credentials are missing or invalid.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    NotFound:
+      description: The requested resource was not found.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+  parameters:
+    OrganizationUid:
+      name: organization_uid
+      in: path
+      required: true
+      description: The unique identifier of the organization.
+      schema:
+        type: string
+  schemas:
+    Stack:
+      type: object
+      description: A Contentstack stack, which is an independent content repository.
+      properties:
+        api_key:
+          type: string
+          description: Unique API key identifying the stack.
+        uid:
+          type: string
+          description: Unique identifier of the stack.
+        name:
+          type: string
+          description: Display name of the stack.
+        description:
+          type: string
+          description: Description of the stack's purpose.
+        master_locale:
+          type: string
+          description: The default locale code for the stack.
+        org_uid:
+          type: string
+          description: UID of the organization that owns the stack.
+        created_at:
+          type: string
+          format: date-time
+          description: ISO 8601 timestamp when the stack was created.
+        updated_at:
+          type: string
+          format: date-time
+          description: ISO 8601 timestamp when the stack was last updated.
+    OrganizationList:
+      type: object
+      description: A list of organizations.
+      properties:
+        organizations:
+          type: array
+          description: Array of organization objects.
+          items:
+            $ref: '#/components/schemas/Organization'
+    StackList:
+      type: object
+      description: A list of stacks.
+      properties:
+        stacks:
+          type: array
+          description: Array of stack objects.
+          items:
+            $ref: '#/components/schemas/Stack'
+    Error:
+      type: object
+      description: Standard error response.
+      properties:
+        error_message:
+          type: string
+          description: Human-readable description of the error.
+        error_code:
+          type: integer
+          description: Numeric error code.
+        errors:
+          type: object
+          description: Field-level validation errors.
+    Organization:
+      type: object
+      description: A Contentstack organization that groups stacks and users.
+      properties:
+        uid:
+          type: string
+          description: Unique identifier of the organization.
+        name:
+          type: string
+          description: Display name of the organization.
+        plan_id:
+          type: string
+          description: The subscription plan identifier for the organization.
+        created_at:
+          type: string
+          format: date-time
+          description: ISO 8601 timestamp when the organization was created.
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      description: OAuth 2.0 Bearer token (M2M) with analytics access.
+    authtokenAuth:
+      type: apiKey
+      in: header
+      name: authtoken
+      description: Contentstack user authtoken. Only organization Owners and Admins can access analytics.
+externalDocs:
+  description: Contentstack Analytics API Documentation
+  url: https://www.contentstack.com/docs/developers/apis/analytics-api

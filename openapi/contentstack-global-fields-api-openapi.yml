@@ -1,0 +1,178 @@
+openapi: 3.1.0
+info:
+  title: Contentstack Analytics Accounts Global Fields API
+  description: The Contentstack Analytics API provides access to usage and performance metrics for CMS, Launch, and Automate products within a Contentstack organization. Developers can retrieve analytics data programmatically to build custom dashboards, monitor content delivery performance, and track platform usage against plan limits. The API returns structured data suitable for aggregation with external analytics and business intelligence tools. Access is restricted to organization Owners and Admins. Requests use async job-based processing where initial POST calls queue the job and a subsequent GET call retrieves the results.
+  version: v2
+  contact:
+    name: Contentstack Support
+    url: https://www.contentstack.com/contact
+  termsOfService: https://www.contentstack.com/legal/terms-of-service
+servers:
+- url: https://api.contentstack.io
+  description: AWS North America Production Server
+- url: https://eu-api.contentstack.com
+  description: AWS Europe Production Server
+- url: https://au-api.contentstack.com
+  description: AWS Australia Production Server
+security:
+- bearerAuth: []
+- authtokenAuth: []
+tags:
+- name: Global Fields
+  description: Global fields are reusable field groups that can be referenced across multiple content types within a Contentstack stack.
+paths:
+  /global_fields:
+    get:
+      operationId: getAllGlobalFields
+      summary: Get all global fields
+      description: Fetches all reusable global field definitions available in the stack. Global fields can be embedded in content type schemas to create consistent field structures across multiple content types.
+      tags:
+      - Global Fields
+      parameters:
+      - $ref: '#/components/parameters/ApiKey'
+      - $ref: '#/components/parameters/AccessToken'
+      responses:
+        '200':
+          description: A list of global fields defined in the stack.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GlobalFieldList'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+  /global_fields/{global_field_uid}:
+    get:
+      operationId: getSingleGlobalField
+      summary: Get a single global field
+      description: Returns the schema and metadata for a specific global field identified by its UID.
+      tags:
+      - Global Fields
+      parameters:
+      - $ref: '#/components/parameters/ApiKey'
+      - $ref: '#/components/parameters/AccessToken'
+      - $ref: '#/components/parameters/GlobalFieldUid'
+      responses:
+        '200':
+          description: The requested global field object.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GlobalField'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+components:
+  responses:
+    Unauthorized:
+      description: Authentication credentials are missing or invalid.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    NotFound:
+      description: The requested resource was not found.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+  parameters:
+    AccessToken:
+      name: access_token
+      in: header
+      required: true
+      description: The delivery token for the stack environment.
+      schema:
+        type: string
+    ApiKey:
+      name: api_key
+      in: header
+      required: true
+      description: The API key for the Contentstack stack.
+      schema:
+        type: string
+    GlobalFieldUid:
+      name: global_field_uid
+      in: path
+      required: true
+      description: The unique identifier (UID) of the global field.
+      schema:
+        type: string
+  schemas:
+    Field:
+      type: object
+      description: A field definition within a content type schema.
+      properties:
+        uid:
+          type: string
+          description: Unique identifier of the field within the content type.
+        data_type:
+          type: string
+          description: 'The data type of the field. Common values: text, number, boolean, date, file, link, json, reference, global_field, group, blocks.'
+        display_name:
+          type: string
+          description: Human-readable label for the field.
+        mandatory:
+          type: boolean
+          description: Indicates whether the field is required for entry creation.
+        unique:
+          type: boolean
+          description: Indicates whether field values must be unique across entries.
+    GlobalFieldList:
+      type: object
+      description: A list of global field definitions in the stack.
+      properties:
+        global_fields:
+          type: array
+          description: Array of global field objects.
+          items:
+            $ref: '#/components/schemas/GlobalField'
+    GlobalField:
+      type: object
+      description: A reusable global field definition that can be embedded in content types.
+      properties:
+        uid:
+          type: string
+          description: Unique identifier of the global field.
+        title:
+          type: string
+          description: Display name of the global field.
+        schema:
+          type: array
+          description: Array of field definitions within the global field group.
+          items:
+            $ref: '#/components/schemas/Field'
+        created_at:
+          type: string
+          format: date-time
+          description: ISO 8601 timestamp when the global field was created.
+        updated_at:
+          type: string
+          format: date-time
+          description: ISO 8601 timestamp when the global field was last updated.
+    Error:
+      type: object
+      description: Standard error response returned by the API.
+      properties:
+        error_message:
+          type: string
+          description: Human-readable description of the error.
+        error_code:
+          type: integer
+          description: Numeric code identifying the error type.
+        errors:
+          type: object
+          description: Field-level validation errors when applicable.
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      description: OAuth 2.0 Bearer token (M2M) with analytics access.
+    authtokenAuth:
+      type: apiKey
+      in: header
+      name: authtoken
+      description: Contentstack user authtoken. Only organization Owners and Admins can access analytics.
+externalDocs:
+  description: Contentstack Analytics API Documentation
+  url: https://www.contentstack.com/docs/developers/apis/analytics-api

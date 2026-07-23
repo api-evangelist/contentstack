@@ -1,0 +1,181 @@
+openapi: 3.1.0
+info:
+  title: Contentstack Analytics Accounts Synchronization API
+  description: The Contentstack Analytics API provides access to usage and performance metrics for CMS, Launch, and Automate products within a Contentstack organization. Developers can retrieve analytics data programmatically to build custom dashboards, monitor content delivery performance, and track platform usage against plan limits. The API returns structured data suitable for aggregation with external analytics and business intelligence tools. Access is restricted to organization Owners and Admins. Requests use async job-based processing where initial POST calls queue the job and a subsequent GET call retrieves the results.
+  version: v2
+  contact:
+    name: Contentstack Support
+    url: https://www.contentstack.com/contact
+  termsOfService: https://www.contentstack.com/legal/terms-of-service
+servers:
+- url: https://api.contentstack.io
+  description: AWS North America Production Server
+- url: https://eu-api.contentstack.com
+  description: AWS Europe Production Server
+- url: https://au-api.contentstack.com
+  description: AWS Australia Production Server
+security:
+- bearerAuth: []
+- authtokenAuth: []
+tags:
+- name: Synchronization
+  description: The synchronization endpoints allow developers to sync published content incrementally, enabling efficient local caching and offline-first patterns.
+paths:
+  /stacks/sync:
+    get:
+      operationId: syncContent
+      summary: Sync content
+      description: Initiates an initial sync or continues a paginated sync of all published entries and assets in the stack. Use init=true for the first sync to receive a sync token. Use the sync_token from subsequent responses to fetch only the changes since the last sync.
+      tags:
+      - Synchronization
+      parameters:
+      - $ref: '#/components/parameters/ApiKey'
+      - $ref: '#/components/parameters/AccessToken'
+      - name: init
+        in: query
+        description: Set to true to initiate the first sync and receive a sync token.
+        schema:
+          type: boolean
+      - name: sync_token
+        in: query
+        description: The token received from a previous sync response. Use to fetch only changes since the last sync.
+        schema:
+          type: string
+      - name: pagination_token
+        in: query
+        description: Token to retrieve the next page of results in a large sync response.
+        schema:
+          type: string
+      - name: type
+        in: query
+        description: 'Filter sync results by content type. Options: entry_published, entry_unpublished, entry_deleted, asset_published, asset_unpublished, asset_deleted, content_type_deleted.'
+        schema:
+          type: string
+          enum:
+          - entry_published
+          - entry_unpublished
+          - entry_deleted
+          - asset_published
+          - asset_unpublished
+          - asset_deleted
+          - content_type_deleted
+      - name: content_type_uid
+        in: query
+        description: Filter sync results to a specific content type UID.
+        schema:
+          type: string
+      - $ref: '#/components/parameters/Locale'
+      responses:
+        '200':
+          description: Sync results with a sync_token or pagination_token for continuation.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SyncResponse'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+components:
+  responses:
+    Unauthorized:
+      description: Authentication credentials are missing or invalid.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+  parameters:
+    AccessToken:
+      name: access_token
+      in: header
+      required: true
+      description: The delivery token for the stack environment.
+      schema:
+        type: string
+    ApiKey:
+      name: api_key
+      in: header
+      required: true
+      description: The API key for the Contentstack stack.
+      schema:
+        type: string
+    Locale:
+      name: locale
+      in: query
+      description: The locale code to retrieve localized content. Defaults to the default locale of the stack if not specified.
+      schema:
+        type: string
+        example: en-us
+  schemas:
+    SyncItem:
+      type: object
+      description: A single item in a sync response representing a content change event.
+      properties:
+        type:
+          type: string
+          description: 'The type of sync event. Possible values: entry_published, entry_unpublished, entry_deleted, asset_published, asset_unpublished, asset_deleted, content_type_deleted.'
+          enum:
+          - entry_published
+          - entry_unpublished
+          - entry_deleted
+          - asset_published
+          - asset_unpublished
+          - asset_deleted
+          - content_type_deleted
+        data:
+          type: object
+          description: The content data associated with this sync event.
+        content_type_uid:
+          type: string
+          description: The UID of the content type for entry-related events.
+        locale:
+          type: string
+          description: The locale of the content for locale-specific events.
+    SyncResponse:
+      type: object
+      description: The response from a content sync operation, containing the synced items and tokens for subsequent sync requests.
+      properties:
+        items:
+          type: array
+          description: Array of sync item objects representing content changes.
+          items:
+            $ref: '#/components/schemas/SyncItem'
+        paginationToken:
+          type: string
+          description: Token to retrieve the next page of sync results. Present only when more pages are available.
+        syncToken:
+          type: string
+          description: Token representing the current sync state. Use this in subsequent sync requests to receive only new changes.
+        total_count:
+          type: integer
+          description: Total number of items in the sync response.
+        limit:
+          type: integer
+          description: Maximum items returned per page.
+        skip:
+          type: integer
+          description: Number of items skipped in this response.
+    Error:
+      type: object
+      description: Standard error response returned by the API.
+      properties:
+        error_message:
+          type: string
+          description: Human-readable description of the error.
+        error_code:
+          type: integer
+          description: Numeric code identifying the error type.
+        errors:
+          type: object
+          description: Field-level validation errors when applicable.
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      description: OAuth 2.0 Bearer token (M2M) with analytics access.
+    authtokenAuth:
+      type: apiKey
+      in: header
+      name: authtoken
+      description: Contentstack user authtoken. Only organization Owners and Admins can access analytics.
+externalDocs:
+  description: Contentstack Analytics API Documentation
+  url: https://www.contentstack.com/docs/developers/apis/analytics-api

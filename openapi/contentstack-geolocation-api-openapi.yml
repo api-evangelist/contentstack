@@ -1,0 +1,139 @@
+openapi: 3.1.0
+info:
+  title: Contentstack Analytics Accounts Geolocation API
+  description: The Contentstack Analytics API provides access to usage and performance metrics for CMS, Launch, and Automate products within a Contentstack organization. Developers can retrieve analytics data programmatically to build custom dashboards, monitor content delivery performance, and track platform usage against plan limits. The API returns structured data suitable for aggregation with external analytics and business intelligence tools. Access is restricted to organization Owners and Admins. Requests use async job-based processing where initial POST calls queue the job and a subsequent GET call retrieves the results.
+  version: v2
+  contact:
+    name: Contentstack Support
+    url: https://www.contentstack.com/contact
+  termsOfService: https://www.contentstack.com/legal/terms-of-service
+servers:
+- url: https://api.contentstack.io
+  description: AWS North America Production Server
+- url: https://eu-api.contentstack.com
+  description: AWS Europe Production Server
+- url: https://au-api.contentstack.com
+  description: AWS Australia Production Server
+security:
+- bearerAuth: []
+- authtokenAuth: []
+tags:
+- name: Geolocation
+  description: Geolocation endpoints provide geographic datasets including regions, countries, and cities for location-based audience targeting.
+paths:
+  /geolocation/regions:
+    get:
+      operationId: getGeoRegions
+      summary: Get geolocation regions
+      description: Retrieves the list of geographic regions available for location-based audience targeting rules.
+      tags:
+      - Geolocation
+      parameters:
+      - $ref: '#/components/parameters/ProjectUid'
+      responses:
+        '200':
+          description: A list of geographic regions.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GeoList'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+  /geolocation/countries:
+    get:
+      operationId: getGeoCountries
+      summary: Get geolocation countries
+      description: Retrieves the list of countries available for location-based audience targeting rules.
+      tags:
+      - Geolocation
+      parameters:
+      - $ref: '#/components/parameters/ProjectUid'
+      responses:
+        '200':
+          description: A list of countries.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GeoList'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+  /geolocation/cities:
+    get:
+      operationId: getGeoCities
+      summary: Get geolocation cities
+      description: Retrieves the list of cities available for location-based audience targeting rules.
+      tags:
+      - Geolocation
+      parameters:
+      - $ref: '#/components/parameters/ProjectUid'
+      responses:
+        '200':
+          description: A list of cities.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GeoList'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+components:
+  parameters:
+    ProjectUid:
+      name: x-project-uid
+      in: header
+      required: true
+      description: The UID of the Contentstack Personalize project.
+      schema:
+        type: string
+  responses:
+    Unauthorized:
+      description: Authentication credentials are missing or invalid.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+  schemas:
+    GeoItem:
+      type: object
+      description: A geographic location item for audience targeting.
+      properties:
+        uid:
+          type: string
+          description: Unique identifier of the geographic location.
+        name:
+          type: string
+          description: Display name of the location.
+        code:
+          type: string
+          description: ISO code for the location (country code, region code, etc.).
+    GeoList:
+      type: object
+      description: A list of geographic locations for audience targeting.
+      properties:
+        data:
+          type: array
+          description: Array of geographic location objects.
+          items:
+            $ref: '#/components/schemas/GeoItem'
+    Error:
+      type: object
+      description: Standard error response.
+      properties:
+        message:
+          type: string
+          description: Human-readable description of the error.
+        status:
+          type: integer
+          description: HTTP status code.
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      description: OAuth 2.0 Bearer token (M2M) with analytics access.
+    authtokenAuth:
+      type: apiKey
+      in: header
+      name: authtoken
+      description: Contentstack user authtoken. Only organization Owners and Admins can access analytics.
+externalDocs:
+  description: Contentstack Analytics API Documentation
+  url: https://www.contentstack.com/docs/developers/apis/analytics-api

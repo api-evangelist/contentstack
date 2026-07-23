@@ -1,6 +1,6 @@
 openapi: 3.1.0
 info:
-  title: Contentstack Accounts Analytics API
+  title: Contentstack Analytics Accounts File Uploads API
   description: The Contentstack Analytics API provides access to usage and performance metrics for CMS, Launch, and Automate products within a Contentstack organization. Developers can retrieve analytics data programmatically to build custom dashboards, monitor content delivery performance, and track platform usage against plan limits. The API returns structured data suitable for aggregation with external analytics and business intelligence tools. Access is restricted to organization Owners and Admins. Requests use async job-based processing where initial POST calls queue the job and a subsequent GET call retrieves the results.
   version: v2
   contact:
@@ -18,23 +18,23 @@ security:
 - bearerAuth: []
 - authtokenAuth: []
 tags:
-- name: Analytics
-  description: Analytics endpoints provide usage metrics for Launch projects such as cache revalidation quota consumption.
+- name: File Uploads
+  description: File upload endpoints provide pre-signed URLs for securely uploading build artifacts to Contentstack Launch infrastructure before triggering a deployment.
 paths:
-  /organizations/cache-revalidation-usage:
+  /projects/upload-url:
     get:
-      operationId: getCacheRevalidationUsage
-      summary: Get cache revalidation usage
-      description: Retrieves the organization's current cache revalidation quota usage, showing how many revalidation requests have been used against the organization's plan limit.
+      operationId: getProjectUploadUrl
+      summary: Get project upload URL
+      description: Generates a pre-signed URL valid for 10 minutes for uploading a project build artifact file. Use this URL to upload your build package before triggering a deployment.
       tags:
-      - Analytics
+      - File Uploads
       responses:
         '200':
-          description: Cache revalidation usage metrics.
+          description: A pre-signed upload URL for project files.
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/CacheUsage'
+                $ref: '#/components/schemas/UploadUrlResponse'
         '401':
           $ref: '#/components/responses/Unauthorized'
 components:
@@ -56,24 +56,21 @@ components:
         error_code:
           type: integer
           description: Numeric error code.
-    CacheUsage:
+    UploadUrlResponse:
       type: object
-      description: Cache revalidation usage metrics for the organization.
+      description: A pre-signed URL for uploading build artifacts.
       properties:
-        used:
-          type: integer
-          description: Number of cache revalidation requests used in the current period.
-        limit:
-          type: integer
-          description: Maximum number of cache revalidation requests allowed per period.
-        period_start:
+        upload_url:
+          type: string
+          format: uri
+          description: The pre-signed URL to use for uploading the build artifact file.
+        upload_uid:
+          type: string
+          description: Unique identifier for this upload, used when creating a deployment.
+        expires_at:
           type: string
           format: date-time
-          description: Start of the current usage period.
-        period_end:
-          type: string
-          format: date-time
-          description: End of the current usage period.
+          description: ISO 8601 timestamp when the pre-signed URL expires (10 minutes).
   securitySchemes:
     bearerAuth:
       type: http

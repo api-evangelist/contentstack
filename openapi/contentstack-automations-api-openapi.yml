@@ -1,0 +1,214 @@
+openapi: 3.1.0
+info:
+  title: Contentstack Analytics Accounts Automations API
+  description: The Contentstack Analytics API provides access to usage and performance metrics for CMS, Launch, and Automate products within a Contentstack organization. Developers can retrieve analytics data programmatically to build custom dashboards, monitor content delivery performance, and track platform usage against plan limits. The API returns structured data suitable for aggregation with external analytics and business intelligence tools. Access is restricted to organization Owners and Admins. Requests use async job-based processing where initial POST calls queue the job and a subsequent GET call retrieves the results.
+  version: v2
+  contact:
+    name: Contentstack Support
+    url: https://www.contentstack.com/contact
+  termsOfService: https://www.contentstack.com/legal/terms-of-service
+servers:
+- url: https://api.contentstack.io
+  description: AWS North America Production Server
+- url: https://eu-api.contentstack.com
+  description: AWS Europe Production Server
+- url: https://au-api.contentstack.com
+  description: AWS Australia Production Server
+security:
+- bearerAuth: []
+- authtokenAuth: []
+tags:
+- name: Automations
+  description: Automations are individual workflow definitions that connect triggers (such as Contentstack content events) to actions (such as sending notifications or updating external systems).
+paths:
+  /v1/organizations/{organization_uid}/projects/{project_uid}/automations:
+    get:
+      operationId: getAllAutomations
+      summary: Get all automations
+      description: Retrieves all automation workflow definitions within a specific project, including their trigger configurations, steps, and activation status.
+      tags:
+      - Automations
+      parameters:
+      - $ref: '#/components/parameters/OrganizationUid'
+      - $ref: '#/components/parameters/ProjectUid'
+      responses:
+        '200':
+          description: A list of automations in the project.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AutomationList'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+  /v1/organizations/{organization_uid}/projects/{project_uid}/automations/{automation_uid}:
+    get:
+      operationId: getAutomation
+      summary: Get an automation
+      description: Retrieves the full configuration of a specific automation including trigger settings, action steps, error handling, and activation status.
+      tags:
+      - Automations
+      parameters:
+      - $ref: '#/components/parameters/OrganizationUid'
+      - $ref: '#/components/parameters/ProjectUid'
+      - $ref: '#/components/parameters/AutomationUid'
+      responses:
+        '200':
+          description: The requested automation configuration.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Automation'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+  /v1/organizations/{organization_uid}/projects/{project_uid}/automations/{automation_uid}/activate:
+    put:
+      operationId: activateAutomation
+      summary: Activate an automation
+      description: Enables an automation so that it will execute when its configured trigger conditions are met. Only automations in a valid, configured state can be activated.
+      tags:
+      - Automations
+      parameters:
+      - $ref: '#/components/parameters/OrganizationUid'
+      - $ref: '#/components/parameters/ProjectUid'
+      - $ref: '#/components/parameters/AutomationUid'
+      responses:
+        '200':
+          description: Automation activated successfully.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Automation'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+  /v1/organizations/{organization_uid}/projects/{project_uid}/automations/{automation_uid}/deactivate:
+    put:
+      operationId: deactivateAutomation
+      summary: Deactivate an automation
+      description: Disables an active automation, preventing it from executing when its trigger conditions are met. Existing in-progress executions will complete before the automation is fully deactivated.
+      tags:
+      - Automations
+      parameters:
+      - $ref: '#/components/parameters/OrganizationUid'
+      - $ref: '#/components/parameters/ProjectUid'
+      - $ref: '#/components/parameters/AutomationUid'
+      responses:
+        '200':
+          description: Automation deactivated successfully.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Automation'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+components:
+  responses:
+    Unauthorized:
+      description: Authentication credentials are missing or invalid.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    BadRequest:
+      description: The request is malformed or contains invalid parameters.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    NotFound:
+      description: The requested resource was not found.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+  parameters:
+    ProjectUid:
+      name: project_uid
+      in: path
+      required: true
+      description: The unique identifier of the automation project.
+      schema:
+        type: string
+    OrganizationUid:
+      name: organization_uid
+      in: path
+      required: true
+      description: The unique identifier of the organization.
+      schema:
+        type: string
+    AutomationUid:
+      name: automation_uid
+      in: path
+      required: true
+      description: The unique identifier of the automation.
+      schema:
+        type: string
+  schemas:
+    AutomationList:
+      type: object
+      description: A list of automations in a project.
+      properties:
+        data:
+          type: array
+          description: Array of automation objects.
+          items:
+            $ref: '#/components/schemas/Automation'
+    Automation:
+      type: object
+      description: An automation workflow that connects a trigger to one or more actions.
+      properties:
+        uid:
+          type: string
+          description: Unique identifier of the automation.
+        name:
+          type: string
+          description: Display name of the automation.
+        status:
+          type: string
+          description: Current status of the automation.
+          enum:
+          - active
+          - inactive
+          - draft
+        trigger:
+          type: object
+          description: Configuration for the automation trigger condition.
+        steps:
+          type: array
+          description: Ordered list of action steps executed when the trigger fires.
+          items:
+            type: object
+        created_at:
+          type: string
+          format: date-time
+          description: ISO 8601 timestamp when the automation was created.
+        updated_at:
+          type: string
+          format: date-time
+          description: ISO 8601 timestamp when the automation was last updated.
+    Error:
+      type: object
+      description: Standard error response.
+      properties:
+        message:
+          type: string
+          description: Human-readable description of the error.
+        error_code:
+          type: integer
+          description: Numeric error code.
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      description: OAuth 2.0 Bearer token (M2M) with analytics access.
+    authtokenAuth:
+      type: apiKey
+      in: header
+      name: authtoken
+      description: Contentstack user authtoken. Only organization Owners and Admins can access analytics.
+externalDocs:
+  description: Contentstack Analytics API Documentation
+  url: https://www.contentstack.com/docs/developers/apis/analytics-api

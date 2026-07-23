@@ -1,6 +1,6 @@
 openapi: 3.1.0
 info:
-  title: Contentstack Accounts Analytics API
+  title: Contentstack Analytics Accounts Audit Logs API
   description: The Contentstack Analytics API provides access to usage and performance metrics for CMS, Launch, and Automate products within a Contentstack organization. Developers can retrieve analytics data programmatically to build custom dashboards, monitor content delivery performance, and track platform usage against plan limits. The API returns structured data suitable for aggregation with external analytics and business intelligence tools. Access is restricted to organization Owners and Admins. Requests use async job-based processing where initial POST calls queue the job and a subsequent GET call retrieves the results.
   version: v2
   contact:
@@ -18,23 +18,26 @@ security:
 - bearerAuth: []
 - authtokenAuth: []
 tags:
-- name: Analytics
-  description: Analytics endpoints provide usage metrics for Launch projects such as cache revalidation quota consumption.
+- name: Audit Logs
+  description: Audit logs track all administrative actions taken within an automation project, providing a history of configuration changes.
 paths:
-  /organizations/cache-revalidation-usage:
+  /v1/organizations/{organization_uid}/projects/{project_uid}/audit-logs:
     get:
-      operationId: getCacheRevalidationUsage
-      summary: Get cache revalidation usage
-      description: Retrieves the organization's current cache revalidation quota usage, showing how many revalidation requests have been used against the organization's plan limit.
+      operationId: getAllAuditLogs
+      summary: Get all audit logs
+      description: Retrieves all audit log entries for administrative actions taken within the project such as creating, updating, or deleting automations and configuration changes.
       tags:
-      - Analytics
+      - Audit Logs
+      parameters:
+      - $ref: '#/components/parameters/OrganizationUid'
+      - $ref: '#/components/parameters/ProjectUid'
       responses:
         '200':
-          description: Cache revalidation usage metrics.
+          description: A list of audit log entries.
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/CacheUsage'
+                $ref: '#/components/schemas/AuditLogList'
         '401':
           $ref: '#/components/responses/Unauthorized'
 components:
@@ -45,7 +48,48 @@ components:
         application/json:
           schema:
             $ref: '#/components/schemas/Error'
+  parameters:
+    ProjectUid:
+      name: project_uid
+      in: path
+      required: true
+      description: The unique identifier of the automation project.
+      schema:
+        type: string
+    OrganizationUid:
+      name: organization_uid
+      in: path
+      required: true
+      description: The unique identifier of the organization.
+      schema:
+        type: string
   schemas:
+    AuditLog:
+      type: object
+      description: An audit log entry recording an administrative action.
+      properties:
+        uid:
+          type: string
+          description: Unique identifier of the audit log entry.
+        action:
+          type: string
+          description: The administrative action that was performed.
+        performed_by:
+          type: string
+          description: UID of the user who performed the action.
+        created_at:
+          type: string
+          format: date-time
+          description: ISO 8601 timestamp when the action was performed.
+    AuditLogList:
+      type: object
+      description: A list of audit log entries.
+      properties:
+        data:
+          type: array
+          description: Array of audit log objects.
+          items:
+            $ref: '#/components/schemas/AuditLog'
     Error:
       type: object
       description: Standard error response.
@@ -56,24 +100,6 @@ components:
         error_code:
           type: integer
           description: Numeric error code.
-    CacheUsage:
-      type: object
-      description: Cache revalidation usage metrics for the organization.
-      properties:
-        used:
-          type: integer
-          description: Number of cache revalidation requests used in the current period.
-        limit:
-          type: integer
-          description: Maximum number of cache revalidation requests allowed per period.
-        period_start:
-          type: string
-          format: date-time
-          description: Start of the current usage period.
-        period_end:
-          type: string
-          format: date-time
-          description: End of the current usage period.
   securitySchemes:
     bearerAuth:
       type: http

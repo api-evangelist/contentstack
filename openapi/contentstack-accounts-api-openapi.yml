@@ -1,6 +1,6 @@
 openapi: 3.1.0
 info:
-  title: Contentstack Accounts Analytics API
+  title: Contentstack Analytics Accounts API
   description: The Contentstack Analytics API provides access to usage and performance metrics for CMS, Launch, and Automate products within a Contentstack organization. Developers can retrieve analytics data programmatically to build custom dashboards, monitor content delivery performance, and track platform usage against plan limits. The API returns structured data suitable for aggregation with external analytics and business intelligence tools. Access is restricted to organization Owners and Admins. Requests use async job-based processing where initial POST calls queue the job and a subsequent GET call retrieves the results.
   version: v2
   contact:
@@ -18,26 +18,44 @@ security:
 - bearerAuth: []
 - authtokenAuth: []
 tags:
-- name: Analytics
-  description: Analytics endpoints provide usage metrics for Launch projects such as cache revalidation quota consumption.
+- name: Accounts
+  description: Accounts represent authenticated connections to external services and third-party platforms used by automations as action targets.
 paths:
-  /organizations/cache-revalidation-usage:
+  /v1/organizations/{organization_uid}/projects/{project_uid}/accounts:
     get:
-      operationId: getCacheRevalidationUsage
-      summary: Get cache revalidation usage
-      description: Retrieves the organization's current cache revalidation quota usage, showing how many revalidation requests have been used against the organization's plan limit.
+      operationId: getAllAccounts
+      summary: Get all accounts
+      description: Retrieves all external service account connections configured for the automation project, such as connections to Slack, email services, or other third-party platforms.
       tags:
-      - Analytics
+      - Accounts
+      parameters:
+      - $ref: '#/components/parameters/OrganizationUid'
+      - $ref: '#/components/parameters/ProjectUid'
       responses:
         '200':
-          description: Cache revalidation usage metrics.
+          description: A list of external service account connections.
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/CacheUsage'
+                $ref: '#/components/schemas/AccountList'
         '401':
           $ref: '#/components/responses/Unauthorized'
 components:
+  parameters:
+    ProjectUid:
+      name: project_uid
+      in: path
+      required: true
+      description: The unique identifier of the automation project.
+      schema:
+        type: string
+    OrganizationUid:
+      name: organization_uid
+      in: path
+      required: true
+      description: The unique identifier of the organization.
+      schema:
+        type: string
   responses:
     Unauthorized:
       description: Authentication credentials are missing or invalid.
@@ -46,6 +64,15 @@ components:
           schema:
             $ref: '#/components/schemas/Error'
   schemas:
+    AccountList:
+      type: object
+      description: A list of external service account connections.
+      properties:
+        data:
+          type: array
+          description: Array of account connection objects.
+          items:
+            $ref: '#/components/schemas/Account'
     Error:
       type: object
       description: Standard error response.
@@ -56,24 +83,23 @@ components:
         error_code:
           type: integer
           description: Numeric error code.
-    CacheUsage:
+    Account:
       type: object
-      description: Cache revalidation usage metrics for the organization.
+      description: An authenticated connection to an external service for use in automations.
       properties:
-        used:
-          type: integer
-          description: Number of cache revalidation requests used in the current period.
-        limit:
-          type: integer
-          description: Maximum number of cache revalidation requests allowed per period.
-        period_start:
+        uid:
+          type: string
+          description: Unique identifier of the account connection.
+        name:
+          type: string
+          description: Display name of the account connection.
+        service:
+          type: string
+          description: The name of the external service (e.g., Slack, SendGrid).
+        created_at:
           type: string
           format: date-time
-          description: Start of the current usage period.
-        period_end:
-          type: string
-          format: date-time
-          description: End of the current usage period.
+          description: ISO 8601 timestamp when the account connection was created.
   securitySchemes:
     bearerAuth:
       type: http

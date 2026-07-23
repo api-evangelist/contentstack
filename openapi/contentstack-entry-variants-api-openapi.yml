@@ -1,0 +1,169 @@
+openapi: 3.1.0
+info:
+  title: Contentstack Analytics Accounts Entry Variants API
+  description: The Contentstack Analytics API provides access to usage and performance metrics for CMS, Launch, and Automate products within a Contentstack organization. Developers can retrieve analytics data programmatically to build custom dashboards, monitor content delivery performance, and track platform usage against plan limits. The API returns structured data suitable for aggregation with external analytics and business intelligence tools. Access is restricted to organization Owners and Admins. Requests use async job-based processing where initial POST calls queue the job and a subsequent GET call retrieves the results.
+  version: v2
+  contact:
+    name: Contentstack Support
+    url: https://www.contentstack.com/contact
+  termsOfService: https://www.contentstack.com/legal/terms-of-service
+servers:
+- url: https://api.contentstack.io
+  description: AWS North America Production Server
+- url: https://eu-api.contentstack.com
+  description: AWS Europe Production Server
+- url: https://au-api.contentstack.com
+  description: AWS Australia Production Server
+security:
+- bearerAuth: []
+- authtokenAuth: []
+tags:
+- name: Entry Variants
+  description: Entry variants are customized versions of an entry created for personalization or A/B testing purposes.
+paths:
+  /content_types/{content_type_uid}/entries/{entry_uid}/variants:
+    get:
+      operationId: getAllEntryVariants
+      summary: Get all entry variants
+      description: Retrieves all personalization variants of a specific entry, including their variant UIDs and customized field values.
+      tags:
+      - Entry Variants
+      parameters:
+      - $ref: '#/components/parameters/ApiKey'
+      - $ref: '#/components/parameters/AccessToken'
+      - $ref: '#/components/parameters/ContentTypeUid'
+      - $ref: '#/components/parameters/EntryUid'
+      responses:
+        '200':
+          description: A list of variants for the specified entry.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/EntryVariantList'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+  /content_types/{content_type_uid}/entries/{entry_uid}/variants/{variant_uid}:
+    get:
+      operationId: getSingleEntryVariant
+      summary: Get a single entry variant
+      description: Retrieves a specific variant of an entry identified by the variant UID. Returns the customized field values for that variant.
+      tags:
+      - Entry Variants
+      parameters:
+      - $ref: '#/components/parameters/ApiKey'
+      - $ref: '#/components/parameters/AccessToken'
+      - $ref: '#/components/parameters/ContentTypeUid'
+      - $ref: '#/components/parameters/EntryUid'
+      - $ref: '#/components/parameters/VariantUid'
+      responses:
+        '200':
+          description: The requested entry variant object.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/EntryVariant'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+components:
+  parameters:
+    VariantUid:
+      name: variant_uid
+      in: path
+      required: true
+      description: The unique identifier (UID) of the entry variant.
+      schema:
+        type: string
+    AccessToken:
+      name: access_token
+      in: header
+      required: true
+      description: The delivery token for the stack environment.
+      schema:
+        type: string
+    ApiKey:
+      name: api_key
+      in: header
+      required: true
+      description: The API key for the Contentstack stack.
+      schema:
+        type: string
+    ContentTypeUid:
+      name: content_type_uid
+      in: path
+      required: true
+      description: The unique identifier (UID) of the content type.
+      schema:
+        type: string
+    EntryUid:
+      name: entry_uid
+      in: path
+      required: true
+      description: The unique identifier (UID) of the entry.
+      schema:
+        type: string
+  responses:
+    Unauthorized:
+      description: Authentication credentials are missing or invalid.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    NotFound:
+      description: The requested resource was not found.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+  schemas:
+    EntryVariantList:
+      type: object
+      description: A list of personalization variants for an entry.
+      properties:
+        entries:
+          type: array
+          description: Array of entry variant objects.
+          items:
+            $ref: '#/components/schemas/EntryVariant'
+    EntryVariant:
+      type: object
+      description: A personalization variant of a content entry.
+      properties:
+        uid:
+          type: string
+          description: Unique identifier of the entry variant.
+        variant_uid:
+          type: string
+          description: The variant identifier linking this entry to a personalization variant.
+        locale:
+          type: string
+          description: The locale code of the entry variant.
+    Error:
+      type: object
+      description: Standard error response returned by the API.
+      properties:
+        error_message:
+          type: string
+          description: Human-readable description of the error.
+        error_code:
+          type: integer
+          description: Numeric code identifying the error type.
+        errors:
+          type: object
+          description: Field-level validation errors when applicable.
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      description: OAuth 2.0 Bearer token (M2M) with analytics access.
+    authtokenAuth:
+      type: apiKey
+      in: header
+      name: authtoken
+      description: Contentstack user authtoken. Only organization Owners and Admins can access analytics.
+externalDocs:
+  description: Contentstack Analytics API Documentation
+  url: https://www.contentstack.com/docs/developers/apis/analytics-api
