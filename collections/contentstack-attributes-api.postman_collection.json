@@ -1,27 +1,25 @@
 {
   "item": [
     {
-      "id": "4bb033e6-848d-45bb-aeb3-d1b72c56fa6b",
-      "name": "Knowledge Vault",
+      "id": "054881e6-d685-4bd9-bc98-ecf2e200d1e7",
+      "name": "Attributes",
       "description": {
-        "content": "Knowledge Vault endpoints allow developers to programmatically manage the brand knowledge content stored in a Brand Kit's vector database. Content items are vectorized upon ingestion and used to provide contextually relevant information during AI content generation.",
+        "content": "Attributes represent individual user data characteristics such as age, location, or browsing history used to define audience segments.",
         "type": "text/plain"
       },
       "item": [
         {
-          "id": "9437b8e3-1660-46f6-bdf7-738fa5373dcc",
-          "name": "Ingest content into Knowledge Vault",
+          "id": "cfb6d8b6-bf44-4b91-a784-270e2ec2a542",
+          "name": "Get all attributes",
           "request": {
-            "name": "Ingest content into Knowledge Vault",
+            "name": "Get all attributes",
             "description": {
-              "content": "Adds new content to the Knowledge Vault associated with the specified Brand Kit. The content is vectorized and stored in the vector database for retrieval during AI content generation. Rate limited to 10 requests per second per organization.",
+              "content": "Retrieves all user attribute definitions configured in the Personalize project. Attributes are used to build audience segment rules.",
               "type": "text/plain"
             },
             "url": {
               "path": [
-                "v1",
-                "knowledge-vault",
-                ""
+                "attributes"
               ],
               "host": [
                 "{{baseUrl}}"
@@ -32,14 +30,147 @@
             "header": [
               {
                 "disabled": false,
-                "description": "(Required) User authentication token for authorization.",
-                "key": "authtoken",
+                "description": "(Required) The UID of the Contentstack Personalize project.",
+                "key": "x-project-uid",
                 "value": "<string>"
               },
               {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "bbd4705d-f67b-47e7-9b55-54504719d07a",
+              "name": "A list of all attributes in the project.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "attributes"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) The UID of the Contentstack Personalize project.",
+                    "key": "x-project-uid",
+                    "value": "<string>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"data\": [\n    {\n      \"uid\": \"string\",\n      \"name\": \"string\",\n      \"key\": \"string\",\n      \"data_type\": \"string\",\n      \"created_at\": \"2012-11-23T23:49:26.233Z\"\n    },\n    {\n      \"uid\": \"string\",\n      \"name\": \"string\",\n      \"key\": \"string\",\n      \"data_type\": \"date\",\n      \"created_at\": \"2025-07-15T02:41:41.851Z\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "551f405c-6979-4449-a614-58127421b806",
+              "name": "Authentication credentials are missing or invalid.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "attributes"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) The UID of the Contentstack Personalize project.",
+                    "key": "x-project-uid",
+                    "value": "<string>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"string\",\n  \"status\": 7068\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "1d9d4972-4c7a-44e3-9be0-c4386b1f0dc9",
+          "name": "Create an attribute",
+          "request": {
+            "name": "Create an attribute",
+            "description": {
+              "content": "Creates a new user attribute definition in the Personalize project. Attributes can be of various types including string, number, boolean, and date, and are used to build audience segment rules.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "attributes"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
                 "disabled": false,
-                "description": "(Required) The unique identifier of the Brand Kit whose Knowledge Vault to access.",
-                "key": "brand_kit_uid",
+                "description": "(Required) The UID of the Contentstack Personalize project.",
+                "key": "x-project-uid",
                 "value": "<string>"
               },
               {
@@ -55,7 +186,7 @@
             "auth": null,
             "body": {
               "mode": "raw",
-              "raw": "{\n  \"content\": \"<string>\",\n  \"title\": \"<string>\",\n  \"metadata\": {\n    \"key_0\": \"<string>\"\n  }\n}",
+              "raw": "{\n  \"name\": \"<string>\",\n  \"key\": \"<string>\",\n  \"data_type\": \"<string>\"\n}",
               "options": {
                 "raw": {
                   "language": "json"
@@ -65,14 +196,12 @@
           },
           "response": [
             {
-              "id": "355fc309-5763-48dd-97d0-360cd947d395",
-              "name": "Content ingested and vectorized successfully.",
+              "id": "6710bf28-4625-4021-9fe7-6b6a756c0959",
+              "name": "The newly created attribute.",
               "originalRequest": {
                 "url": {
                   "path": [
-                    "v1",
-                    "knowledge-vault",
-                    ""
+                    "attributes"
                   ],
                   "host": [
                     "{{baseUrl}}"
@@ -91,14 +220,8 @@
                   },
                   {
                     "disabled": false,
-                    "description": "(Required) User authentication token for authorization.",
-                    "key": "authtoken",
-                    "value": "<string>"
-                  },
-                  {
-                    "disabled": false,
-                    "description": "(Required) The unique identifier of the Brand Kit whose Knowledge Vault to access.",
-                    "key": "brand_kit_uid",
+                    "description": "(Required) The UID of the Contentstack Personalize project.",
+                    "key": "x-project-uid",
                     "value": "<string>"
                   },
                   {
@@ -109,7 +232,7 @@
                 "method": "POST",
                 "body": {
                   "mode": "raw",
-                  "raw": "{\n  \"content\": \"<string>\",\n  \"title\": \"<string>\",\n  \"metadata\": {\n    \"key_0\": \"<string>\"\n  }\n}",
+                  "raw": "{\n  \"name\": \"<string>\",\n  \"key\": \"<string>\",\n  \"data_type\": \"<string>\"\n}",
                   "options": {
                     "raw": {
                       "language": "json"
@@ -117,27 +240,25 @@
                   }
                 }
               },
-              "status": "OK",
-              "code": 200,
+              "status": "Created",
+              "code": 201,
               "header": [
                 {
                   "key": "Content-Type",
                   "value": "application/json"
                 }
               ],
-              "body": "{\n  \"message\": \"string\",\n  \"uid\": \"string\",\n  \"token_usage\": {\n    \"prompt_tokens\": 1035,\n    \"total_tokens\": 7469\n  }\n}",
+              "body": "{\n  \"uid\": \"string\",\n  \"name\": \"string\",\n  \"key\": \"string\",\n  \"data_type\": \"date\",\n  \"created_at\": \"2002-10-01T09:45:00.206Z\"\n}",
               "cookie": [],
               "_postman_previewlanguage": "json"
             },
             {
-              "id": "f31f6f1b-991f-4621-9212-3c89099ebe7a",
+              "id": "d4695f74-fea7-41eb-ac37-dfc23c7a596c",
               "name": "The request is malformed or contains invalid parameters.",
               "originalRequest": {
                 "url": {
                   "path": [
-                    "v1",
-                    "knowledge-vault",
-                    ""
+                    "attributes"
                   ],
                   "host": [
                     "{{baseUrl}}"
@@ -156,14 +277,8 @@
                   },
                   {
                     "disabled": false,
-                    "description": "(Required) User authentication token for authorization.",
-                    "key": "authtoken",
-                    "value": "<string>"
-                  },
-                  {
-                    "disabled": false,
-                    "description": "(Required) The unique identifier of the Brand Kit whose Knowledge Vault to access.",
-                    "key": "brand_kit_uid",
+                    "description": "(Required) The UID of the Contentstack Personalize project.",
+                    "key": "x-project-uid",
                     "value": "<string>"
                   },
                   {
@@ -174,7 +289,7 @@
                 "method": "POST",
                 "body": {
                   "mode": "raw",
-                  "raw": "{\n  \"content\": \"<string>\",\n  \"title\": \"<string>\",\n  \"metadata\": {\n    \"key_0\": \"<string>\"\n  }\n}",
+                  "raw": "{\n  \"name\": \"<string>\",\n  \"key\": \"<string>\",\n  \"data_type\": \"<string>\"\n}",
                   "options": {
                     "raw": {
                       "language": "json"
@@ -190,19 +305,17 @@
                   "value": "application/json"
                 }
               ],
-              "body": "{\n  \"message\": \"string\",\n  \"error_code\": 9527\n}",
+              "body": "{\n  \"message\": \"string\",\n  \"status\": 7068\n}",
               "cookie": [],
               "_postman_previewlanguage": "json"
             },
             {
-              "id": "3a5c451b-f698-4fe9-ae16-a86c973a295f",
+              "id": "9de9f2ba-c24c-4f1f-ac1a-d28b276c2c27",
               "name": "Authentication credentials are missing or invalid.",
               "originalRequest": {
                 "url": {
                   "path": [
-                    "v1",
-                    "knowledge-vault",
-                    ""
+                    "attributes"
                   ],
                   "host": [
                     "{{baseUrl}}"
@@ -221,14 +334,8 @@
                   },
                   {
                     "disabled": false,
-                    "description": "(Required) User authentication token for authorization.",
-                    "key": "authtoken",
-                    "value": "<string>"
-                  },
-                  {
-                    "disabled": false,
-                    "description": "(Required) The unique identifier of the Brand Kit whose Knowledge Vault to access.",
-                    "key": "brand_kit_uid",
+                    "description": "(Required) The UID of the Contentstack Personalize project.",
+                    "key": "x-project-uid",
                     "value": "<string>"
                   },
                   {
@@ -239,7 +346,7 @@
                 "method": "POST",
                 "body": {
                   "mode": "raw",
-                  "raw": "{\n  \"content\": \"<string>\",\n  \"title\": \"<string>\",\n  \"metadata\": {\n    \"key_0\": \"<string>\"\n  }\n}",
+                  "raw": "{\n  \"name\": \"<string>\",\n  \"key\": \"<string>\",\n  \"data_type\": \"<string>\"\n}",
                   "options": {
                     "raw": {
                       "language": "json"
@@ -255,72 +362,7 @@
                   "value": "application/json"
                 }
               ],
-              "body": "{\n  \"message\": \"string\",\n  \"error_code\": 9527\n}",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
-            },
-            {
-              "id": "e7271129-1d3f-4bea-af07-f489ab43b044",
-              "name": "Rate limit exceeded. Maximum 10 requests per second per organization.",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "v1",
-                    "knowledge-vault",
-                    ""
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": []
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: bearer",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Bearer <token>"
-                  },
-                  {
-                    "disabled": false,
-                    "description": "(Required) User authentication token for authorization.",
-                    "key": "authtoken",
-                    "value": "<string>"
-                  },
-                  {
-                    "disabled": false,
-                    "description": "(Required) The unique identifier of the Brand Kit whose Knowledge Vault to access.",
-                    "key": "brand_kit_uid",
-                    "value": "<string>"
-                  },
-                  {
-                    "key": "Accept",
-                    "value": "application/json"
-                  }
-                ],
-                "method": "POST",
-                "body": {
-                  "mode": "raw",
-                  "raw": "{\n  \"content\": \"<string>\",\n  \"title\": \"<string>\",\n  \"metadata\": {\n    \"key_0\": \"<string>\"\n  }\n}",
-                  "options": {
-                    "raw": {
-                      "language": "json"
-                    }
-                  }
-                }
-              },
-              "status": "Too Many Requests",
-              "code": 429,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "application/json"
-                }
-              ],
-              "body": "{\n  \"message\": \"string\",\n  \"error_code\": 9527\n}",
+              "body": "{\n  \"message\": \"string\",\n  \"status\": 7068\n}",
               "cookie": [],
               "_postman_previewlanguage": "json"
             }
@@ -331,19 +373,18 @@
           }
         },
         {
-          "id": "f5066652-24e3-439c-9098-ebe10f193c02",
-          "name": "Update Knowledge Vault content",
+          "id": "83388b4f-03d6-4e92-ba0c-f5c520bab9b0",
+          "name": "Update an attribute",
           "request": {
-            "name": "Update Knowledge Vault content",
+            "name": "Update an attribute",
             "description": {
-              "content": "Updates an existing content item in the Knowledge Vault. The content is re-vectorized after update to reflect the changes in the vector database.",
+              "content": "Updates the configuration of an existing attribute in the Personalize project including its name, key, and data type.",
               "type": "text/plain"
             },
             "url": {
               "path": [
-                "v1",
-                "knowledge-vault",
-                ":content_uid"
+                "attributes",
+                ":id"
               ],
               "host": [
                 "{{baseUrl}}"
@@ -354,22 +395,16 @@
                   "disabled": false,
                   "type": "any",
                   "value": "<string>",
-                  "key": "content_uid",
-                  "description": "(Required) The unique identifier of the Knowledge Vault content item."
+                  "key": "id",
+                  "description": "(Required) The unique identifier of the attribute."
                 }
               ]
             },
             "header": [
               {
                 "disabled": false,
-                "description": "(Required) User authentication token for authorization.",
-                "key": "authtoken",
-                "value": "<string>"
-              },
-              {
-                "disabled": false,
-                "description": "(Required) The unique identifier of the Brand Kit whose Knowledge Vault to access.",
-                "key": "brand_kit_uid",
+                "description": "(Required) The UID of the Contentstack Personalize project.",
+                "key": "x-project-uid",
                 "value": "<string>"
               },
               {
@@ -385,7 +420,7 @@
             "auth": null,
             "body": {
               "mode": "raw",
-              "raw": "{\n  \"content\": \"<string>\",\n  \"title\": \"<string>\",\n  \"metadata\": {\n    \"key_0\": \"<string>\"\n  }\n}",
+              "raw": "{\n  \"name\": \"<string>\",\n  \"key\": \"<string>\",\n  \"data_type\": \"<string>\"\n}",
               "options": {
                 "raw": {
                   "language": "json"
@@ -395,14 +430,13 @@
           },
           "response": [
             {
-              "id": "073b63f5-7157-44cc-aba1-b05ba7eb9d6e",
-              "name": "Content updated and re-vectorized successfully.",
+              "id": "69591845-6eda-438e-9043-409920c4d947",
+              "name": "The updated attribute.",
               "originalRequest": {
                 "url": {
                   "path": [
-                    "v1",
-                    "knowledge-vault",
-                    ":content_uid"
+                    "attributes",
+                    ":id"
                   ],
                   "host": [
                     "{{baseUrl}}"
@@ -413,8 +447,8 @@
                       "disabled": false,
                       "type": "any",
                       "value": "<string>",
-                      "key": "content_uid",
-                      "description": "(Required) The unique identifier of the Knowledge Vault content item."
+                      "key": "id",
+                      "description": "(Required) The unique identifier of the attribute."
                     }
                   ]
                 },
@@ -429,14 +463,8 @@
                   },
                   {
                     "disabled": false,
-                    "description": "(Required) User authentication token for authorization.",
-                    "key": "authtoken",
-                    "value": "<string>"
-                  },
-                  {
-                    "disabled": false,
-                    "description": "(Required) The unique identifier of the Brand Kit whose Knowledge Vault to access.",
-                    "key": "brand_kit_uid",
+                    "description": "(Required) The UID of the Contentstack Personalize project.",
+                    "key": "x-project-uid",
                     "value": "<string>"
                   },
                   {
@@ -447,7 +475,7 @@
                 "method": "PUT",
                 "body": {
                   "mode": "raw",
-                  "raw": "{\n  \"content\": \"<string>\",\n  \"title\": \"<string>\",\n  \"metadata\": {\n    \"key_0\": \"<string>\"\n  }\n}",
+                  "raw": "{\n  \"name\": \"<string>\",\n  \"key\": \"<string>\",\n  \"data_type\": \"<string>\"\n}",
                   "options": {
                     "raw": {
                       "language": "json"
@@ -463,19 +491,18 @@
                   "value": "application/json"
                 }
               ],
-              "body": "{\n  \"message\": \"string\",\n  \"uid\": \"string\",\n  \"token_usage\": {\n    \"prompt_tokens\": 1035,\n    \"total_tokens\": 7469\n  }\n}",
+              "body": "{\n  \"uid\": \"string\",\n  \"name\": \"string\",\n  \"key\": \"string\",\n  \"data_type\": \"date\",\n  \"created_at\": \"2002-10-01T09:45:00.206Z\"\n}",
               "cookie": [],
               "_postman_previewlanguage": "json"
             },
             {
-              "id": "42f846ea-301a-455f-8f68-5f7590b3eeae",
+              "id": "4f181ebc-80b6-4935-8a4f-51dd52b3aa9a",
               "name": "The request is malformed or contains invalid parameters.",
               "originalRequest": {
                 "url": {
                   "path": [
-                    "v1",
-                    "knowledge-vault",
-                    ":content_uid"
+                    "attributes",
+                    ":id"
                   ],
                   "host": [
                     "{{baseUrl}}"
@@ -486,8 +513,8 @@
                       "disabled": false,
                       "type": "any",
                       "value": "<string>",
-                      "key": "content_uid",
-                      "description": "(Required) The unique identifier of the Knowledge Vault content item."
+                      "key": "id",
+                      "description": "(Required) The unique identifier of the attribute."
                     }
                   ]
                 },
@@ -502,14 +529,8 @@
                   },
                   {
                     "disabled": false,
-                    "description": "(Required) User authentication token for authorization.",
-                    "key": "authtoken",
-                    "value": "<string>"
-                  },
-                  {
-                    "disabled": false,
-                    "description": "(Required) The unique identifier of the Brand Kit whose Knowledge Vault to access.",
-                    "key": "brand_kit_uid",
+                    "description": "(Required) The UID of the Contentstack Personalize project.",
+                    "key": "x-project-uid",
                     "value": "<string>"
                   },
                   {
@@ -520,7 +541,7 @@
                 "method": "PUT",
                 "body": {
                   "mode": "raw",
-                  "raw": "{\n  \"content\": \"<string>\",\n  \"title\": \"<string>\",\n  \"metadata\": {\n    \"key_0\": \"<string>\"\n  }\n}",
+                  "raw": "{\n  \"name\": \"<string>\",\n  \"key\": \"<string>\",\n  \"data_type\": \"<string>\"\n}",
                   "options": {
                     "raw": {
                       "language": "json"
@@ -536,19 +557,18 @@
                   "value": "application/json"
                 }
               ],
-              "body": "{\n  \"message\": \"string\",\n  \"error_code\": 9527\n}",
+              "body": "{\n  \"message\": \"string\",\n  \"status\": 7068\n}",
               "cookie": [],
               "_postman_previewlanguage": "json"
             },
             {
-              "id": "6311f357-d8e1-4390-8ed3-27dbc5c03d6c",
+              "id": "09a4364f-0464-4420-9935-44158492e586",
               "name": "Authentication credentials are missing or invalid.",
               "originalRequest": {
                 "url": {
                   "path": [
-                    "v1",
-                    "knowledge-vault",
-                    ":content_uid"
+                    "attributes",
+                    ":id"
                   ],
                   "host": [
                     "{{baseUrl}}"
@@ -559,8 +579,8 @@
                       "disabled": false,
                       "type": "any",
                       "value": "<string>",
-                      "key": "content_uid",
-                      "description": "(Required) The unique identifier of the Knowledge Vault content item."
+                      "key": "id",
+                      "description": "(Required) The unique identifier of the attribute."
                     }
                   ]
                 },
@@ -575,14 +595,8 @@
                   },
                   {
                     "disabled": false,
-                    "description": "(Required) User authentication token for authorization.",
-                    "key": "authtoken",
-                    "value": "<string>"
-                  },
-                  {
-                    "disabled": false,
-                    "description": "(Required) The unique identifier of the Brand Kit whose Knowledge Vault to access.",
-                    "key": "brand_kit_uid",
+                    "description": "(Required) The UID of the Contentstack Personalize project.",
+                    "key": "x-project-uid",
                     "value": "<string>"
                   },
                   {
@@ -593,7 +607,7 @@
                 "method": "PUT",
                 "body": {
                   "mode": "raw",
-                  "raw": "{\n  \"content\": \"<string>\",\n  \"title\": \"<string>\",\n  \"metadata\": {\n    \"key_0\": \"<string>\"\n  }\n}",
+                  "raw": "{\n  \"name\": \"<string>\",\n  \"key\": \"<string>\",\n  \"data_type\": \"<string>\"\n}",
                   "options": {
                     "raw": {
                       "language": "json"
@@ -609,19 +623,18 @@
                   "value": "application/json"
                 }
               ],
-              "body": "{\n  \"message\": \"string\",\n  \"error_code\": 9527\n}",
+              "body": "{\n  \"message\": \"string\",\n  \"status\": 7068\n}",
               "cookie": [],
               "_postman_previewlanguage": "json"
             },
             {
-              "id": "b9162323-f5a5-4934-ad27-31b5094cba96",
-              "name": "The requested content item was not found.",
+              "id": "62dde7e4-b002-44df-9b25-a1c350605079",
+              "name": "The requested resource was not found.",
               "originalRequest": {
                 "url": {
                   "path": [
-                    "v1",
-                    "knowledge-vault",
-                    ":content_uid"
+                    "attributes",
+                    ":id"
                   ],
                   "host": [
                     "{{baseUrl}}"
@@ -632,8 +645,8 @@
                       "disabled": false,
                       "type": "any",
                       "value": "<string>",
-                      "key": "content_uid",
-                      "description": "(Required) The unique identifier of the Knowledge Vault content item."
+                      "key": "id",
+                      "description": "(Required) The unique identifier of the attribute."
                     }
                   ]
                 },
@@ -648,14 +661,8 @@
                   },
                   {
                     "disabled": false,
-                    "description": "(Required) User authentication token for authorization.",
-                    "key": "authtoken",
-                    "value": "<string>"
-                  },
-                  {
-                    "disabled": false,
-                    "description": "(Required) The unique identifier of the Brand Kit whose Knowledge Vault to access.",
-                    "key": "brand_kit_uid",
+                    "description": "(Required) The UID of the Contentstack Personalize project.",
+                    "key": "x-project-uid",
                     "value": "<string>"
                   },
                   {
@@ -666,7 +673,7 @@
                 "method": "PUT",
                 "body": {
                   "mode": "raw",
-                  "raw": "{\n  \"content\": \"<string>\",\n  \"title\": \"<string>\",\n  \"metadata\": {\n    \"key_0\": \"<string>\"\n  }\n}",
+                  "raw": "{\n  \"name\": \"<string>\",\n  \"key\": \"<string>\",\n  \"data_type\": \"<string>\"\n}",
                   "options": {
                     "raw": {
                       "language": "json"
@@ -682,80 +689,7 @@
                   "value": "application/json"
                 }
               ],
-              "body": "{\n  \"message\": \"string\",\n  \"error_code\": 9527\n}",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
-            },
-            {
-              "id": "026501e3-22cb-4e93-97db-700f5ccf411e",
-              "name": "Rate limit exceeded. Maximum 10 requests per second per organization.",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "v1",
-                    "knowledge-vault",
-                    ":content_uid"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": [
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<string>",
-                      "key": "content_uid",
-                      "description": "(Required) The unique identifier of the Knowledge Vault content item."
-                    }
-                  ]
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: bearer",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Bearer <token>"
-                  },
-                  {
-                    "disabled": false,
-                    "description": "(Required) User authentication token for authorization.",
-                    "key": "authtoken",
-                    "value": "<string>"
-                  },
-                  {
-                    "disabled": false,
-                    "description": "(Required) The unique identifier of the Brand Kit whose Knowledge Vault to access.",
-                    "key": "brand_kit_uid",
-                    "value": "<string>"
-                  },
-                  {
-                    "key": "Accept",
-                    "value": "application/json"
-                  }
-                ],
-                "method": "PUT",
-                "body": {
-                  "mode": "raw",
-                  "raw": "{\n  \"content\": \"<string>\",\n  \"title\": \"<string>\",\n  \"metadata\": {\n    \"key_0\": \"<string>\"\n  }\n}",
-                  "options": {
-                    "raw": {
-                      "language": "json"
-                    }
-                  }
-                }
-              },
-              "status": "Too Many Requests",
-              "code": 429,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "application/json"
-                }
-              ],
-              "body": "{\n  \"message\": \"string\",\n  \"error_code\": 9527\n}",
+              "body": "{\n  \"message\": \"string\",\n  \"status\": 7068\n}",
               "cookie": [],
               "_postman_previewlanguage": "json"
             }
@@ -766,19 +700,18 @@
           }
         },
         {
-          "id": "b2a6ea4a-f399-41c9-a9f7-58748ff1b5fb",
-          "name": "Delete Knowledge Vault content",
+          "id": "e7cb8034-11ac-461a-8ea1-0981ddf7ad40",
+          "name": "Delete an attribute",
           "request": {
-            "name": "Delete Knowledge Vault content",
+            "name": "Delete an attribute",
             "description": {
-              "content": "Permanently removes a content item from the Knowledge Vault vector database. Deleted content will no longer be available for retrieval during AI content generation.",
+              "content": "Permanently deletes an attribute from the Personalize project. Attributes referenced in audience rules cannot be deleted until those references are removed.",
               "type": "text/plain"
             },
             "url": {
               "path": [
-                "v1",
-                "knowledge-vault",
-                ":content_uid"
+                "attributes",
+                ":id"
               ],
               "host": [
                 "{{baseUrl}}"
@@ -789,22 +722,16 @@
                   "disabled": false,
                   "type": "any",
                   "value": "<string>",
-                  "key": "content_uid",
-                  "description": "(Required) The unique identifier of the Knowledge Vault content item."
+                  "key": "id",
+                  "description": "(Required) The unique identifier of the attribute."
                 }
               ]
             },
             "header": [
               {
                 "disabled": false,
-                "description": "(Required) User authentication token for authorization.",
-                "key": "authtoken",
-                "value": "<string>"
-              },
-              {
-                "disabled": false,
-                "description": "(Required) The unique identifier of the Brand Kit whose Knowledge Vault to access.",
-                "key": "brand_kit_uid",
+                "description": "(Required) The UID of the Contentstack Personalize project.",
+                "key": "x-project-uid",
                 "value": "<string>"
               },
               {
@@ -817,14 +744,13 @@
           },
           "response": [
             {
-              "id": "8bb80998-4dda-4247-901b-cdb0364b5b43",
-              "name": "Content deleted from Knowledge Vault successfully.",
+              "id": "ab2d7a0a-6f67-47fe-a052-da6923682afc",
+              "name": "Attribute deleted successfully.",
               "originalRequest": {
                 "url": {
                   "path": [
-                    "v1",
-                    "knowledge-vault",
-                    ":content_uid"
+                    "attributes",
+                    ":id"
                   ],
                   "host": [
                     "{{baseUrl}}"
@@ -835,8 +761,8 @@
                       "disabled": false,
                       "type": "any",
                       "value": "<string>",
-                      "key": "content_uid",
-                      "description": "(Required) The unique identifier of the Knowledge Vault content item."
+                      "key": "id",
+                      "description": "(Required) The unique identifier of the attribute."
                     }
                   ]
                 },
@@ -851,19 +777,9 @@
                   },
                   {
                     "disabled": false,
-                    "description": "(Required) User authentication token for authorization.",
-                    "key": "authtoken",
+                    "description": "(Required) The UID of the Contentstack Personalize project.",
+                    "key": "x-project-uid",
                     "value": "<string>"
-                  },
-                  {
-                    "disabled": false,
-                    "description": "(Required) The unique identifier of the Brand Kit whose Knowledge Vault to access.",
-                    "key": "brand_kit_uid",
-                    "value": "<string>"
-                  },
-                  {
-                    "key": "Accept",
-                    "value": "application/json"
                   }
                 ],
                 "method": "DELETE",
@@ -874,22 +790,21 @@
               "header": [
                 {
                   "key": "Content-Type",
-                  "value": "application/json"
+                  "value": "text/plain"
                 }
               ],
-              "body": "{\n  \"message\": \"string\"\n}",
+              "body": "",
               "cookie": [],
-              "_postman_previewlanguage": "json"
+              "_postman_previewlanguage": "text"
             },
             {
-              "id": "e93ea620-5261-4f93-90d7-4d1df7003ce7",
+              "id": "298168af-b717-472d-a454-0db8252decb9",
               "name": "Authentication credentials are missing or invalid.",
               "originalRequest": {
                 "url": {
                   "path": [
-                    "v1",
-                    "knowledge-vault",
-                    ":content_uid"
+                    "attributes",
+                    ":id"
                   ],
                   "host": [
                     "{{baseUrl}}"
@@ -900,8 +815,8 @@
                       "disabled": false,
                       "type": "any",
                       "value": "<string>",
-                      "key": "content_uid",
-                      "description": "(Required) The unique identifier of the Knowledge Vault content item."
+                      "key": "id",
+                      "description": "(Required) The unique identifier of the attribute."
                     }
                   ]
                 },
@@ -916,14 +831,8 @@
                   },
                   {
                     "disabled": false,
-                    "description": "(Required) User authentication token for authorization.",
-                    "key": "authtoken",
-                    "value": "<string>"
-                  },
-                  {
-                    "disabled": false,
-                    "description": "(Required) The unique identifier of the Brand Kit whose Knowledge Vault to access.",
-                    "key": "brand_kit_uid",
+                    "description": "(Required) The UID of the Contentstack Personalize project.",
+                    "key": "x-project-uid",
                     "value": "<string>"
                   },
                   {
@@ -942,19 +851,18 @@
                   "value": "application/json"
                 }
               ],
-              "body": "{\n  \"message\": \"string\",\n  \"error_code\": 9527\n}",
+              "body": "{\n  \"message\": \"string\",\n  \"status\": 7068\n}",
               "cookie": [],
               "_postman_previewlanguage": "json"
             },
             {
-              "id": "70c7169c-df81-4607-b39b-5fae05de2775",
-              "name": "The requested content item was not found.",
+              "id": "74df467f-1c10-4a12-8fe4-b34f012d3c32",
+              "name": "The requested resource was not found.",
               "originalRequest": {
                 "url": {
                   "path": [
-                    "v1",
-                    "knowledge-vault",
-                    ":content_uid"
+                    "attributes",
+                    ":id"
                   ],
                   "host": [
                     "{{baseUrl}}"
@@ -965,8 +873,8 @@
                       "disabled": false,
                       "type": "any",
                       "value": "<string>",
-                      "key": "content_uid",
-                      "description": "(Required) The unique identifier of the Knowledge Vault content item."
+                      "key": "id",
+                      "description": "(Required) The unique identifier of the attribute."
                     }
                   ]
                 },
@@ -981,14 +889,8 @@
                   },
                   {
                     "disabled": false,
-                    "description": "(Required) User authentication token for authorization.",
-                    "key": "authtoken",
-                    "value": "<string>"
-                  },
-                  {
-                    "disabled": false,
-                    "description": "(Required) The unique identifier of the Brand Kit whose Knowledge Vault to access.",
-                    "key": "brand_kit_uid",
+                    "description": "(Required) The UID of the Contentstack Personalize project.",
+                    "key": "x-project-uid",
                     "value": "<string>"
                   },
                   {
@@ -1007,72 +909,7 @@
                   "value": "application/json"
                 }
               ],
-              "body": "{\n  \"message\": \"string\",\n  \"error_code\": 9527\n}",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
-            },
-            {
-              "id": "b7e77520-ccec-4565-8438-6081cf94a44e",
-              "name": "Rate limit exceeded. Maximum 10 requests per second per organization.",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "v1",
-                    "knowledge-vault",
-                    ":content_uid"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": [
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<string>",
-                      "key": "content_uid",
-                      "description": "(Required) The unique identifier of the Knowledge Vault content item."
-                    }
-                  ]
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: bearer",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Bearer <token>"
-                  },
-                  {
-                    "disabled": false,
-                    "description": "(Required) User authentication token for authorization.",
-                    "key": "authtoken",
-                    "value": "<string>"
-                  },
-                  {
-                    "disabled": false,
-                    "description": "(Required) The unique identifier of the Brand Kit whose Knowledge Vault to access.",
-                    "key": "brand_kit_uid",
-                    "value": "<string>"
-                  },
-                  {
-                    "key": "Accept",
-                    "value": "application/json"
-                  }
-                ],
-                "method": "DELETE",
-                "body": {}
-              },
-              "status": "Too Many Requests",
-              "code": 429,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "application/json"
-                }
-              ],
-              "body": "{\n  \"message\": \"string\",\n  \"error_code\": 9527\n}",
+              "body": "{\n  \"message\": \"string\",\n  \"status\": 7068\n}",
               "cookie": [],
               "_postman_previewlanguage": "json"
             }
@@ -1104,8 +941,8 @@
     ]
   },
   "info": {
-    "_postman_id": "31fe42ad-2ad3-46fd-a423-db74ddfaa798",
-    "name": "Contentstack Analytics Accounts Knowledge Vault API",
+    "_postman_id": "46ec074f-87ec-4c08-8139-81341775a0b9",
+    "name": "Contentstack Analytics Accounts Attributes API",
     "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
     "description": {
       "content": "The Contentstack Analytics API provides access to usage and performance metrics for CMS, Launch, and Automate products within a Contentstack organization. Developers can retrieve analytics data programmatically to build custom dashboards, monitor content delivery performance, and track platform usage against plan limits. The API returns structured data suitable for aggregation with external analytics and business intelligence tools. Access is restricted to organization Owners and Admins. Requests use async job-based processing where initial POST calls queue the job and a subsequent GET call retrieves the results.\n\nContact Support:\n Name: Contentstack Support",

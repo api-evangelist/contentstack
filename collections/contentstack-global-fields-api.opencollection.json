@@ -1,0 +1,74 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Contentstack Analytics Accounts Global Fields API",
+    "version": "v2"
+  },
+  "request": {
+    "auth": {
+      "type": "bearer",
+      "token": "{{bearerToken}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Global Fields",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get all global fields",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.contentstack.io/global_fields",
+            "headers": [
+              {
+                "name": "api_key",
+                "value": ""
+              },
+              {
+                "name": "access_token",
+                "value": ""
+              }
+            ]
+          },
+          "docs": "Fetches all reusable global field definitions available in the stack. Global fields can be embedded in content type schemas to create consistent field structures across multiple content types."
+        },
+        {
+          "info": {
+            "name": "Get a single global field",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.contentstack.io/global_fields/:global_field_uid",
+            "headers": [
+              {
+                "name": "api_key",
+                "value": ""
+              },
+              {
+                "name": "access_token",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "global_field_uid",
+                "value": "",
+                "type": "path",
+                "description": "The unique identifier (UID) of the global field."
+              }
+            ]
+          },
+          "docs": "Returns the schema and metadata for a specific global field identified by its UID."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

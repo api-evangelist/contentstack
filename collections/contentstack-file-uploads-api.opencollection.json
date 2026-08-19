@@ -1,7 +1,7 @@
 {
   "opencollection": "1.0.0",
   "info": {
-    "name": "Contentstack Accounts Analytics API",
+    "name": "Contentstack Analytics Accounts File Uploads API",
     "version": "v2"
   },
   "request": {
@@ -13,20 +13,20 @@
   "items": [
     {
       "info": {
-        "name": "Analytics",
+        "name": "File Uploads",
         "type": "folder"
       },
       "items": [
         {
           "info": {
-            "name": "Get cache revalidation usage",
+            "name": "Get project upload URL",
             "type": "http"
           },
           "http": {
             "method": "GET",
-            "url": "https://api.contentstack.io/organizations/cache-revalidation-usage"
+            "url": "https://api.contentstack.io/projects/upload-url"
           },
-          "docs": "Retrieves the organization's current cache revalidation quota usage, showing how many revalidation requests have been used against the organization's plan limit."
+          "docs": "Generates a pre-signed URL valid for 10 minutes for uploading a project build artifact file. Use this URL to upload your build package before triggering a deployment."
         }
       ]
     }

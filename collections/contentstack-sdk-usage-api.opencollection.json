@@ -1,0 +1,45 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Contentstack Analytics Accounts SDK Usage API",
+    "version": "v2"
+  },
+  "request": {
+    "auth": {
+      "type": "bearer",
+      "token": "{{bearerToken}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "SDK Usage",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get SDK usage metrics",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.contentstack.io/analytics/v2/sdk-usage",
+            "headers": [
+              {
+                "name": "organization_uid",
+                "value": ""
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Returns request count metrics broken down by Contentstack SDK type and version, enabling teams to understand SDK adoption and identify outdated SDK versions in use."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

@@ -1,0 +1,45 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Contentstack Analytics Accounts Device Usage API",
+    "version": "v2"
+  },
+  "request": {
+    "auth": {
+      "type": "bearer",
+      "token": "{{bearerToken}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Device Usage",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get device usage metrics",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.contentstack.io/analytics/v2/device-usage",
+            "headers": [
+              {
+                "name": "organization_uid",
+                "value": ""
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Returns API request counts broken down by device type. Tracks usage from desktop, mobile, tablet, and server (API) clients to understand content consumption patterns."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

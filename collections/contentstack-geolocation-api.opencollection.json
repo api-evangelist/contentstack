@@ -1,0 +1,75 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Contentstack Analytics Accounts Geolocation API",
+    "version": "v2"
+  },
+  "request": {
+    "auth": {
+      "type": "bearer",
+      "token": "{{bearerToken}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Geolocation",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get geolocation regions",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.contentstack.io/geolocation/regions",
+            "headers": [
+              {
+                "name": "x-project-uid",
+                "value": ""
+              }
+            ]
+          },
+          "docs": "Retrieves the list of geographic regions available for location-based audience targeting rules."
+        },
+        {
+          "info": {
+            "name": "Get geolocation countries",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.contentstack.io/geolocation/countries",
+            "headers": [
+              {
+                "name": "x-project-uid",
+                "value": ""
+              }
+            ]
+          },
+          "docs": "Retrieves the list of countries available for location-based audience targeting rules."
+        },
+        {
+          "info": {
+            "name": "Get geolocation cities",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.contentstack.io/geolocation/cities",
+            "headers": [
+              {
+                "name": "x-project-uid",
+                "value": ""
+              }
+            ]
+          },
+          "docs": "Retrieves the list of cities available for location-based audience targeting rules."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

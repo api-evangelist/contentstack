@@ -1,0 +1,373 @@
+{
+  "item": [
+    {
+      "id": "75290181-0f2f-4955-9d0a-6424b1fc628a",
+      "name": "Manifest",
+      "description": {
+        "content": "The manifest endpoint returns a list of all active experiences and their corresponding variants that are activated for the current user based on their attributes and audience membership.",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "1d5d6acc-95a6-4425-b392-2fe5c433b0fd",
+          "name": "Get personalization manifest",
+          "request": {
+            "name": "Get personalization manifest",
+            "description": {
+              "content": "Returns a list of all active personalization experiences and their corresponding content variant mappings for the current user. The manifest is evaluated in real-time based on the user's attributes and current audience memberships. This endpoint is called at the beginning of a user session to determine which content variants to display.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "manifest"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "disabled": false,
+                "description": "(Required) The UID of the Contentstack Personalize project.",
+                "key": "x-project-uid",
+                "value": "<string>"
+              },
+              {
+                "disabled": false,
+                "description": "The unique identifier for the end user. If not provided, a new anonymous user will be created and the UID returned in the response headers.",
+                "key": "x-cs-personalize-user-uid",
+                "value": "<string>"
+              },
+              {
+                "disabled": false,
+                "description": "Original client IP address for geolocation-based targeting.",
+                "key": "x-forwarded-for",
+                "value": "<string>"
+              },
+              {
+                "disabled": false,
+                "description": "User agent string for device-based targeting rules.",
+                "key": "user-agent",
+                "value": "<string>"
+              },
+              {
+                "disabled": false,
+                "description": "Referring URL for referral-based audience rules.",
+                "key": "referer",
+                "value": "<string>"
+              },
+              {
+                "disabled": false,
+                "description": "Current page URL for page-based audience targeting rules.",
+                "key": "x-page-url",
+                "value": "<string>"
+              },
+              {
+                "disabled": false,
+                "description": "JSON-encoded object of real-time attribute values to evaluate audience rules against without persisting them.",
+                "key": "x-live-attributes",
+                "value": "<string>"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "7b40144a-5e9e-4e4f-9423-c7e44c45ca64",
+              "name": "The personalization manifest with active experiences and variants.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "manifest"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) The UID of the Contentstack Personalize project.",
+                    "key": "x-project-uid",
+                    "value": "<string>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "The unique identifier for the end user. If not provided, a new anonymous user will be created and the UID returned in the response headers.",
+                    "key": "x-cs-personalize-user-uid",
+                    "value": "<string>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Original client IP address for geolocation-based targeting.",
+                    "key": "x-forwarded-for",
+                    "value": "<string>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "User agent string for device-based targeting rules.",
+                    "key": "user-agent",
+                    "value": "<string>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Referring URL for referral-based audience rules.",
+                    "key": "referer",
+                    "value": "<string>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Current page URL for page-based audience targeting rules.",
+                    "key": "x-page-url",
+                    "value": "<string>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "JSON-encoded object of real-time attribute values to evaluate audience rules against without persisting them.",
+                    "key": "x-live-attributes",
+                    "value": "<string>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"experiences\": [\n    {\n      \"experience_uid\": \"string\",\n      \"experience_short_uid\": \"string\",\n      \"variant_uid\": \"string\",\n      \"variant_short_uid\": \"string\"\n    },\n    {\n      \"experience_uid\": \"string\",\n      \"experience_short_uid\": \"string\",\n      \"variant_uid\": \"string\",\n      \"variant_short_uid\": \"string\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "1606df37-56b6-4b43-9f74-2d28f0949919",
+              "name": "The request is malformed or contains invalid parameters.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "manifest"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) The UID of the Contentstack Personalize project.",
+                    "key": "x-project-uid",
+                    "value": "<string>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "The unique identifier for the end user. If not provided, a new anonymous user will be created and the UID returned in the response headers.",
+                    "key": "x-cs-personalize-user-uid",
+                    "value": "<string>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Original client IP address for geolocation-based targeting.",
+                    "key": "x-forwarded-for",
+                    "value": "<string>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "User agent string for device-based targeting rules.",
+                    "key": "user-agent",
+                    "value": "<string>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Referring URL for referral-based audience rules.",
+                    "key": "referer",
+                    "value": "<string>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Current page URL for page-based audience targeting rules.",
+                    "key": "x-page-url",
+                    "value": "<string>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "JSON-encoded object of real-time attribute values to evaluate audience rules against without persisting them.",
+                    "key": "x-live-attributes",
+                    "value": "<string>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"string\",\n  \"status\": 3940\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "a7c1c7f3-b61d-4524-ba20-ed198c13a01f",
+              "name": "The request is not authorized for this project.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "manifest"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) The UID of the Contentstack Personalize project.",
+                    "key": "x-project-uid",
+                    "value": "<string>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "The unique identifier for the end user. If not provided, a new anonymous user will be created and the UID returned in the response headers.",
+                    "key": "x-cs-personalize-user-uid",
+                    "value": "<string>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Original client IP address for geolocation-based targeting.",
+                    "key": "x-forwarded-for",
+                    "value": "<string>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "User agent string for device-based targeting rules.",
+                    "key": "user-agent",
+                    "value": "<string>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Referring URL for referral-based audience rules.",
+                    "key": "referer",
+                    "value": "<string>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Current page URL for page-based audience targeting rules.",
+                    "key": "x-page-url",
+                    "value": "<string>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "JSON-encoded object of real-time attribute values to evaluate audience rules against without persisting them.",
+                    "key": "x-live-attributes",
+                    "value": "<string>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"string\",\n  \"status\": 3940\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.contentstack.io",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "bearer",
+    "bearer": [
+      {
+        "key": "token",
+        "value": "{{bearerToken}}"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "e990543c-efca-4fd4-b6ca-05214c801820",
+    "name": "Contentstack Analytics Accounts Manifest API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "The Contentstack Analytics API provides access to usage and performance metrics for CMS, Launch, and Automate products within a Contentstack organization. Developers can retrieve analytics data programmatically to build custom dashboards, monitor content delivery performance, and track platform usage against plan limits. The API returns structured data suitable for aggregation with external analytics and business intelligence tools. Access is restricted to organization Owners and Admins. Requests use async job-based processing where initial POST calls queue the job and a subsequent GET call retrieves the results.\n\nContact Support:\n Name: Contentstack Support",
+      "type": "text/plain"
+    }
+  }
+}

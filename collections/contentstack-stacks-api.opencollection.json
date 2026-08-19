@@ -1,0 +1,111 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Contentstack Analytics Accounts Stacks API",
+    "version": "v2"
+  },
+  "request": {
+    "auth": {
+      "type": "bearer",
+      "token": "{{bearerToken}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Stacks",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get all stacks",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.contentstack.io/stacks"
+          },
+          "docs": "Returns all stacks accessible to the authenticated user, optionally filtered by organization."
+        },
+        {
+          "info": {
+            "name": "Create a stack",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.contentstack.io/stacks",
+            "headers": [
+              {
+                "name": "organization_uid",
+                "value": ""
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Creates a new Contentstack stack within an organization. A stack is an independent repository for content, assets, and configuration within a Contentstack account."
+        },
+        {
+          "info": {
+            "name": "Get a stack",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.contentstack.io/stacks/:api_key",
+            "headers": [
+              {
+                "name": "api_key",
+                "value": ""
+              }
+            ]
+          },
+          "docs": "Retrieves details for a specific stack identified by its API key, including configuration, plan, and region information."
+        },
+        {
+          "info": {
+            "name": "Update a stack",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://api.contentstack.io/stacks/:api_key",
+            "headers": [
+              {
+                "name": "api_key",
+                "value": ""
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Updates settings and metadata for a specific stack such as name, description, and master locale configuration."
+        },
+        {
+          "info": {
+            "name": "Delete a stack",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.contentstack.io/stacks/:api_key",
+            "headers": [
+              {
+                "name": "api_key",
+                "value": ""
+              }
+            ]
+          },
+          "docs": "Permanently deletes a stack and all its contents. This action is irreversible and will remove all content types, entries, assets, and configuration from the stack."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

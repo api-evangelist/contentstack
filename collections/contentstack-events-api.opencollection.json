@@ -1,0 +1,66 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Contentstack Analytics Accounts Events API",
+    "version": "v2"
+  },
+  "request": {
+    "auth": {
+      "type": "bearer",
+      "token": "{{bearerToken}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Events",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get all events",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.contentstack.io/events",
+            "headers": [
+              {
+                "name": "x-project-uid",
+                "value": ""
+              }
+            ]
+          },
+          "docs": "Retrieves all custom event definitions in the Personalize project. Events are used to track user interactions and trigger audience membership updates."
+        },
+        {
+          "info": {
+            "name": "Track user events",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.contentstack.io/events",
+            "headers": [
+              {
+                "name": "x-project-uid",
+                "value": ""
+              },
+              {
+                "name": "x-cs-personalize-user-uid",
+                "value": ""
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Records one or more user behavior events for experience analytics and audience evaluation. Supports both impression events (automatic tracking when experiences are shown) and custom events (defined in the Personalize Management API and triggered by specific user actions)."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

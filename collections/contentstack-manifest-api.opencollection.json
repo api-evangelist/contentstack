@@ -1,0 +1,65 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Contentstack Analytics Accounts Manifest API",
+    "version": "v2"
+  },
+  "request": {
+    "auth": {
+      "type": "bearer",
+      "token": "{{bearerToken}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Manifest",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get personalization manifest",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.contentstack.io/manifest",
+            "headers": [
+              {
+                "name": "x-project-uid",
+                "value": ""
+              },
+              {
+                "name": "x-cs-personalize-user-uid",
+                "value": ""
+              },
+              {
+                "name": "x-forwarded-for",
+                "value": ""
+              },
+              {
+                "name": "user-agent",
+                "value": ""
+              },
+              {
+                "name": "referer",
+                "value": ""
+              },
+              {
+                "name": "x-page-url",
+                "value": ""
+              },
+              {
+                "name": "x-live-attributes",
+                "value": ""
+              }
+            ]
+          },
+          "docs": "Returns a list of all active personalization experiences and their corresponding content variant mappings for the current user. The manifest is evaluated in real-time based on the user's attributes and current audience memberships. This endpoint is called at the beginning of a user session to determine which content variants to display."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

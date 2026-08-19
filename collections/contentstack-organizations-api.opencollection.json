@@ -1,0 +1,73 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Contentstack Analytics Accounts Organizations API",
+    "version": "v2"
+  },
+  "request": {
+    "auth": {
+      "type": "bearer",
+      "token": "{{bearerToken}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Organizations",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get all organizations",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.contentstack.io/organizations"
+          },
+          "docs": "Returns a list of all Contentstack organizations that the authenticated user is a member of, along with their roles and permissions."
+        },
+        {
+          "info": {
+            "name": "Get an organization",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.contentstack.io/organizations/:organization_uid",
+            "params": [
+              {
+                "name": "organization_uid",
+                "value": "",
+                "type": "path",
+                "description": "The unique identifier of the organization."
+              }
+            ]
+          },
+          "docs": "Retrieves details for a specific organization identified by its UID, including plan information and configuration settings."
+        },
+        {
+          "info": {
+            "name": "Get organization stacks",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.contentstack.io/organizations/:organization_uid/stacks",
+            "params": [
+              {
+                "name": "organization_uid",
+                "value": "",
+                "type": "path",
+                "description": "The unique identifier of the organization."
+              }
+            ]
+          },
+          "docs": "Returns a list of all stacks within a given organization that the authenticated user has access to."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

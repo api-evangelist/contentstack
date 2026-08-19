@@ -1,0 +1,180 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Contentstack Analytics Accounts SCIM Groups API",
+    "version": "v2"
+  },
+  "request": {
+    "auth": {
+      "type": "bearer",
+      "token": "{{bearerToken}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "SCIM Groups",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List SCIM groups",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.contentstack.io/scim/v2.0/organizations/:organization_uid/Groups",
+            "params": [
+              {
+                "name": "organization_uid",
+                "value": "",
+                "type": "path",
+                "description": "The unique identifier of the Contentstack organization."
+              },
+              {
+                "name": "filter",
+                "value": "",
+                "type": "query",
+                "description": "SCIM filter expression for searching groups. Example: displayName eq \"Editors\""
+              }
+            ]
+          },
+          "docs": "Retrieves all groups in the organization following the SCIM 2.0 ListResponse format. Supports filtering by displayName for group lookup during IdP sync operations."
+        },
+        {
+          "info": {
+            "name": "Create a SCIM group",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.contentstack.io/scim/v2.0/organizations/:organization_uid/Groups",
+            "params": [
+              {
+                "name": "organization_uid",
+                "value": "",
+                "type": "path",
+                "description": "The unique identifier of the Contentstack organization."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Creates a new group in the Contentstack organization via SCIM. Groups can be mapped to specific roles and stacks in Contentstack to control member access permissions."
+        },
+        {
+          "info": {
+            "name": "Get a SCIM group",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.contentstack.io/scim/v2.0/organizations/:organization_uid/Groups/:group_id",
+            "params": [
+              {
+                "name": "organization_uid",
+                "value": "",
+                "type": "path",
+                "description": "The unique identifier of the Contentstack organization."
+              },
+              {
+                "name": "group_id",
+                "value": "",
+                "type": "path",
+                "description": "The SCIM group ID of the group within the organization."
+              }
+            ]
+          },
+          "docs": "Retrieves the SCIM Group resource for a specific group by its SCIM group ID within the organization."
+        },
+        {
+          "info": {
+            "name": "Replace a SCIM group",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://api.contentstack.io/scim/v2.0/organizations/:organization_uid/Groups/:group_id",
+            "params": [
+              {
+                "name": "organization_uid",
+                "value": "",
+                "type": "path",
+                "description": "The unique identifier of the Contentstack organization."
+              },
+              {
+                "name": "group_id",
+                "value": "",
+                "type": "path",
+                "description": "The SCIM group ID of the group within the organization."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Fully replaces a SCIM group resource including all member assignments. Use this to synchronize the complete group membership from the IdP."
+        },
+        {
+          "info": {
+            "name": "Update a SCIM group",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "https://api.contentstack.io/scim/v2.0/organizations/:organization_uid/Groups/:group_id",
+            "params": [
+              {
+                "name": "organization_uid",
+                "value": "",
+                "type": "path",
+                "description": "The unique identifier of the Contentstack organization."
+              },
+              {
+                "name": "group_id",
+                "value": "",
+                "type": "path",
+                "description": "The SCIM group ID of the group within the organization."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Partially updates a SCIM group using SCIM 2.0 PATCH operations. Commonly used to add or remove individual members from the group without replacing the entire membership list."
+        },
+        {
+          "info": {
+            "name": "Delete a SCIM group",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.contentstack.io/scim/v2.0/organizations/:organization_uid/Groups/:group_id",
+            "params": [
+              {
+                "name": "organization_uid",
+                "value": "",
+                "type": "path",
+                "description": "The unique identifier of the Contentstack organization."
+              },
+              {
+                "name": "group_id",
+                "value": "",
+                "type": "path",
+                "description": "The SCIM group ID of the group within the organization."
+              }
+            ]
+          },
+          "docs": "Removes a SCIM group from the Contentstack organization. Members of the group retain their individual user accounts but lose the role permissions granted by the group mapping."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

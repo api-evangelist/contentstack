@@ -1,0 +1,135 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Contentstack Analytics Accounts Assets API",
+    "version": "v2"
+  },
+  "request": {
+    "auth": {
+      "type": "bearer",
+      "token": "{{bearerToken}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Assets",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get all assets",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.contentstack.io/assets",
+            "headers": [
+              {
+                "name": "api_key",
+                "value": ""
+              },
+              {
+                "name": "access_token",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "skip",
+                "value": "",
+                "type": "query",
+                "description": "Number of entries to skip for pagination."
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "Maximum number of entries to return. Maximum allowed is 250."
+              },
+              {
+                "name": "include_count",
+                "value": "",
+                "type": "query",
+                "description": "Set to true to include the total count of assets in the response."
+              }
+            ]
+          },
+          "docs": "Fetches a list of all published assets in the stack including images, videos, and documents. Supports pagination, filtering, and field selection."
+        },
+        {
+          "info": {
+            "name": "Upload an asset",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.contentstack.io/assets",
+            "headers": [
+              {
+                "name": "api_key",
+                "value": ""
+              },
+              {
+                "name": "authtoken",
+                "value": ""
+              }
+            ],
+            "body": {
+              "type": "multipart-form",
+              "data": [
+                {
+                  "name": "asset[upload]",
+                  "type": "text",
+                  "value": ""
+                },
+                {
+                  "name": "asset[title]",
+                  "type": "text",
+                  "value": ""
+                },
+                {
+                  "name": "asset[description]",
+                  "type": "text",
+                  "value": ""
+                }
+              ]
+            }
+          },
+          "docs": "Uploads a new asset file to the stack. Supports multipart form data for the file upload along with metadata such as title, description, and tags."
+        },
+        {
+          "info": {
+            "name": "Get a single asset",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.contentstack.io/assets/:asset_uid",
+            "headers": [
+              {
+                "name": "api_key",
+                "value": ""
+              },
+              {
+                "name": "access_token",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "asset_uid",
+                "value": "",
+                "type": "path",
+                "description": "The unique identifier (UID) of the asset."
+              }
+            ]
+          },
+          "docs": "Retrieves a specific asset by its UID, returning all metadata including file URL, dimensions, file size, and content type."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

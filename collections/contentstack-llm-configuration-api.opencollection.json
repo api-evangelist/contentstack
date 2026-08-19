@@ -1,0 +1,78 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Contentstack Analytics Accounts LLM Configuration API",
+    "version": "v2"
+  },
+  "request": {
+    "auth": {
+      "type": "bearer",
+      "token": "{{bearerToken}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "LLM Configuration",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get LLM configuration",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.contentstack.io/v1/brand-kits/:brand_kit_uid/llm-config",
+            "headers": [
+              {
+                "name": "organization_uid",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "brand_kit_uid",
+                "value": "",
+                "type": "path",
+                "description": "The unique identifier of the Brand Kit."
+              }
+            ]
+          },
+          "docs": "Retrieves the custom LLM provider credentials configured for a Brand Kit. This allows organizations to use their own LLM API subscriptions for content generation within the Brand Kit."
+        },
+        {
+          "info": {
+            "name": "Configure custom LLM credentials",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.contentstack.io/v1/brand-kits/:brand_kit_uid/llm-config",
+            "headers": [
+              {
+                "name": "organization_uid",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "brand_kit_uid",
+                "value": "",
+                "type": "path",
+                "description": "The unique identifier of the Brand Kit."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Registers custom API credentials for an LLM provider to enable content generation through the organization's own LLM subscription rather than Contentstack's default AI infrastructure."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

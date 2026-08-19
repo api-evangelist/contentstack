@@ -1,0 +1,179 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Contentstack Analytics Accounts Experiences API",
+    "version": "v2"
+  },
+  "request": {
+    "auth": {
+      "type": "bearer",
+      "token": "{{bearerToken}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Experiences",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get all experiences",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.contentstack.io/experiences",
+            "headers": [
+              {
+                "name": "x-project-uid",
+                "value": ""
+              }
+            ]
+          },
+          "docs": "Retrieves all experience configurations in the Personalize project, including their variant definitions and audience assignments."
+        },
+        {
+          "info": {
+            "name": "Create an experience",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.contentstack.io/experiences",
+            "headers": [
+              {
+                "name": "x-project-uid",
+                "value": ""
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Creates a new experience in the Personalize project. Experiences can be of type SEGMENTED (rule-based audience targeting) or AB_TEST (split testing with traffic distribution)."
+        },
+        {
+          "info": {
+            "name": "Get an experience",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.contentstack.io/experiences/:id",
+            "headers": [
+              {
+                "name": "x-project-uid",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "The unique identifier of the experience."
+              }
+            ]
+          },
+          "docs": "Retrieves details for a specific experience including its variants, audience assignments, status, and configuration."
+        },
+        {
+          "info": {
+            "name": "Update an experience",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://api.contentstack.io/experiences/:id",
+            "headers": [
+              {
+                "name": "x-project-uid",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "The unique identifier of the experience."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Updates the configuration of an existing experience including its name, variants, and audience targeting rules."
+        },
+        {
+          "info": {
+            "name": "Delete an experience",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.contentstack.io/experiences/:id",
+            "headers": [
+              {
+                "name": "x-project-uid",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "The unique identifier of the experience."
+              }
+            ]
+          },
+          "docs": "Permanently deletes an experience from the Personalize project. Only experiences in draft or inactive status can be deleted."
+        },
+        {
+          "info": {
+            "name": "Get experience priority order",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.contentstack.io/experiences/priority",
+            "headers": [
+              {
+                "name": "x-project-uid",
+                "value": ""
+              }
+            ]
+          },
+          "docs": "Retrieves the priority ordering of all active experiences, which determines which experience takes precedence when a user qualifies for multiple experiences."
+        },
+        {
+          "info": {
+            "name": "Update experience priority order",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://api.contentstack.io/experiences/priority",
+            "headers": [
+              {
+                "name": "x-project-uid",
+                "value": ""
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Updates the priority ordering of experiences to control which experience is applied first when a user qualifies for multiple active experiences."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

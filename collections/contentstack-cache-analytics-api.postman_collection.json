@@ -1,27 +1,27 @@
 {
   "item": [
     {
-      "id": "e8ae5930-c664-48c5-946c-9cbd1dbb6ebb",
-      "name": "Generative AI",
+      "id": "6b85a12a-b186-48b5-ac1f-26b4a96583b5",
+      "name": "Cache Analytics",
       "description": {
-        "content": "The Generative AI endpoint processes prompts using retrieval augmented generation, retrieving relevant brand knowledge and applying voice profile style guidelines to produce on-brand content. Responses are returned as streaming dictionary responses for real-time content delivery.",
+        "content": "Cache analytics track CDN cache hit and miss rates to measure delivery efficiency and identify cache optimization opportunities.",
         "type": "text/plain"
       },
       "item": [
         {
-          "id": "e389a825-f66c-4241-aa63-82b1d55fa396",
-          "name": "Generate AI content",
+          "id": "5d731f02-47a4-4180-bd10-7b890baf8752",
+          "name": "Get CDN cache usage metrics",
           "request": {
-            "name": "Generate AI content",
+            "name": "Get CDN cache usage metrics",
             "description": {
-              "content": "Processes a prompt using retrieval augmented generation (RAG) to produce AI-generated content aligned with the specified Brand Kit. When knowledge_vault is enabled, relevant content from the Brand Kit's Knowledge Vault is retrieved and used as context for the LLM. An optional voice_profile_uid can be specified to apply specific writing style guidelines to the generated content. Returns a streaming dictionary response. Rate limited to 10 requests per second per organization.",
+              "content": "Returns CDN cache hit and miss counts for the organization's content delivery. High cache miss rates may indicate cache configuration issues or stale cache invalidation frequency.",
               "type": "text/plain"
             },
             "url": {
               "path": [
-                "v1",
-                "genai",
-                ""
+                "analytics",
+                "v2",
+                "cache-usage"
               ],
               "host": [
                 "{{baseUrl}}"
@@ -32,14 +32,8 @@
             "header": [
               {
                 "disabled": false,
-                "description": "(Required) User authentication token for authorization.",
-                "key": "authtoken",
-                "value": "<string>"
-              },
-              {
-                "disabled": false,
-                "description": "(Required) The unique identifier of the Brand Kit to use for knowledge retrieval and brand guidelines during content generation.",
-                "key": "brand_kit_uid",
+                "description": "(Required) The unique identifier of the organization.",
+                "key": "organization_uid",
                 "value": "<string>"
               },
               {
@@ -55,7 +49,7 @@
             "auth": null,
             "body": {
               "mode": "raw",
-              "raw": "{\n  \"prompt\": \"<string>\",\n  \"knowledge_vault\": false,\n  \"voice_profile_uid\": \"<string>\"\n}",
+              "raw": "{\n  \"from\": \"<date>\",\n  \"to\": \"<date>\",\n  \"duration\": \"<string>\",\n  \"skip\": 0,\n  \"limit\": 100\n}",
               "options": {
                 "raw": {
                   "language": "json"
@@ -65,14 +59,14 @@
           },
           "response": [
             {
-              "id": "f920be8c-e865-44f9-bba4-a70edbdc1801",
-              "name": "Streaming dictionary response containing the AI-generated content based on the prompt and retrieved knowledge context.",
+              "id": "6ce814e0-7fdb-4e66-81bf-d00fcfe760ff",
+              "name": "Job queued successfully.",
               "originalRequest": {
                 "url": {
                   "path": [
-                    "v1",
-                    "genai",
-                    ""
+                    "analytics",
+                    "v2",
+                    "cache-usage"
                   ],
                   "host": [
                     "{{baseUrl}}"
@@ -91,14 +85,8 @@
                   },
                   {
                     "disabled": false,
-                    "description": "(Required) User authentication token for authorization.",
-                    "key": "authtoken",
-                    "value": "<string>"
-                  },
-                  {
-                    "disabled": false,
-                    "description": "(Required) The unique identifier of the Brand Kit to use for knowledge retrieval and brand guidelines during content generation.",
-                    "key": "brand_kit_uid",
+                    "description": "(Required) The unique identifier of the organization.",
+                    "key": "organization_uid",
                     "value": "<string>"
                   },
                   {
@@ -109,7 +97,7 @@
                 "method": "POST",
                 "body": {
                   "mode": "raw",
-                  "raw": "{\n  \"prompt\": \"<string>\",\n  \"knowledge_vault\": false,\n  \"voice_profile_uid\": \"<string>\"\n}",
+                  "raw": "{\n  \"from\": \"<date>\",\n  \"to\": \"<date>\",\n  \"duration\": \"<string>\",\n  \"skip\": 0,\n  \"limit\": 100\n}",
                   "options": {
                     "raw": {
                       "language": "json"
@@ -125,19 +113,19 @@
                   "value": "application/json"
                 }
               ],
-              "body": "{\n  \"content\": \"string\",\n  \"token_usage\": {\n    \"prompt_tokens\": 3698,\n    \"completion_tokens\": 4714,\n    \"total_tokens\": 3824\n  }\n}",
+              "body": "{\n  \"jobId\": \"string\",\n  \"status\": \"queued\"\n}",
               "cookie": [],
               "_postman_previewlanguage": "json"
             },
             {
-              "id": "21191ec7-cfde-488e-8d00-9a701ddfb884",
+              "id": "c512003e-a6af-428c-b872-254ff79f87b2",
               "name": "The request is malformed or contains invalid parameters.",
               "originalRequest": {
                 "url": {
                   "path": [
-                    "v1",
-                    "genai",
-                    ""
+                    "analytics",
+                    "v2",
+                    "cache-usage"
                   ],
                   "host": [
                     "{{baseUrl}}"
@@ -156,14 +144,8 @@
                   },
                   {
                     "disabled": false,
-                    "description": "(Required) User authentication token for authorization.",
-                    "key": "authtoken",
-                    "value": "<string>"
-                  },
-                  {
-                    "disabled": false,
-                    "description": "(Required) The unique identifier of the Brand Kit to use for knowledge retrieval and brand guidelines during content generation.",
-                    "key": "brand_kit_uid",
+                    "description": "(Required) The unique identifier of the organization.",
+                    "key": "organization_uid",
                     "value": "<string>"
                   },
                   {
@@ -174,7 +156,7 @@
                 "method": "POST",
                 "body": {
                   "mode": "raw",
-                  "raw": "{\n  \"prompt\": \"<string>\",\n  \"knowledge_vault\": false,\n  \"voice_profile_uid\": \"<string>\"\n}",
+                  "raw": "{\n  \"from\": \"<date>\",\n  \"to\": \"<date>\",\n  \"duration\": \"<string>\",\n  \"skip\": 0,\n  \"limit\": 100\n}",
                   "options": {
                     "raw": {
                       "language": "json"
@@ -190,19 +172,19 @@
                   "value": "application/json"
                 }
               ],
-              "body": "{\n  \"message\": \"string\",\n  \"error_code\": 8731\n}",
+              "body": "{\n  \"error_message\": \"string\",\n  \"error_code\": 7249\n}",
               "cookie": [],
               "_postman_previewlanguage": "json"
             },
             {
-              "id": "8a111796-8119-4fbb-8081-394ae3cf0542",
+              "id": "20d2acab-2f6e-464c-835a-bc19795955af",
               "name": "Authentication credentials are missing or invalid.",
               "originalRequest": {
                 "url": {
                   "path": [
-                    "v1",
-                    "genai",
-                    ""
+                    "analytics",
+                    "v2",
+                    "cache-usage"
                   ],
                   "host": [
                     "{{baseUrl}}"
@@ -221,14 +203,8 @@
                   },
                   {
                     "disabled": false,
-                    "description": "(Required) User authentication token for authorization.",
-                    "key": "authtoken",
-                    "value": "<string>"
-                  },
-                  {
-                    "disabled": false,
-                    "description": "(Required) The unique identifier of the Brand Kit to use for knowledge retrieval and brand guidelines during content generation.",
-                    "key": "brand_kit_uid",
+                    "description": "(Required) The unique identifier of the organization.",
+                    "key": "organization_uid",
                     "value": "<string>"
                   },
                   {
@@ -239,7 +215,7 @@
                 "method": "POST",
                 "body": {
                   "mode": "raw",
-                  "raw": "{\n  \"prompt\": \"<string>\",\n  \"knowledge_vault\": false,\n  \"voice_profile_uid\": \"<string>\"\n}",
+                  "raw": "{\n  \"from\": \"<date>\",\n  \"to\": \"<date>\",\n  \"duration\": \"<string>\",\n  \"skip\": 0,\n  \"limit\": 100\n}",
                   "options": {
                     "raw": {
                       "language": "json"
@@ -255,19 +231,19 @@
                   "value": "application/json"
                 }
               ],
-              "body": "{\n  \"message\": \"string\",\n  \"error_code\": 8731\n}",
+              "body": "{\n  \"error_message\": \"string\",\n  \"error_code\": 7249\n}",
               "cookie": [],
               "_postman_previewlanguage": "json"
             },
             {
-              "id": "fbdaa0e8-6ed8-4d91-8940-b5841417484a",
-              "name": "Rate limit exceeded. Maximum 10 requests per second per organization.",
+              "id": "e6e250a5-6f8e-42a2-ab89-a13873f15cef",
+              "name": "The user does not have permission to access analytics. Owner or Admin role required.",
               "originalRequest": {
                 "url": {
                   "path": [
-                    "v1",
-                    "genai",
-                    ""
+                    "analytics",
+                    "v2",
+                    "cache-usage"
                   ],
                   "host": [
                     "{{baseUrl}}"
@@ -286,14 +262,8 @@
                   },
                   {
                     "disabled": false,
-                    "description": "(Required) User authentication token for authorization.",
-                    "key": "authtoken",
-                    "value": "<string>"
-                  },
-                  {
-                    "disabled": false,
-                    "description": "(Required) The unique identifier of the Brand Kit to use for knowledge retrieval and brand guidelines during content generation.",
-                    "key": "brand_kit_uid",
+                    "description": "(Required) The unique identifier of the organization.",
+                    "key": "organization_uid",
                     "value": "<string>"
                   },
                   {
@@ -304,7 +274,7 @@
                 "method": "POST",
                 "body": {
                   "mode": "raw",
-                  "raw": "{\n  \"prompt\": \"<string>\",\n  \"knowledge_vault\": false,\n  \"voice_profile_uid\": \"<string>\"\n}",
+                  "raw": "{\n  \"from\": \"<date>\",\n  \"to\": \"<date>\",\n  \"duration\": \"<string>\",\n  \"skip\": 0,\n  \"limit\": 100\n}",
                   "options": {
                     "raw": {
                       "language": "json"
@@ -312,15 +282,15 @@
                   }
                 }
               },
-              "status": "Too Many Requests",
-              "code": 429,
+              "status": "Forbidden",
+              "code": 403,
               "header": [
                 {
                   "key": "Content-Type",
                   "value": "application/json"
                 }
               ],
-              "body": "{\n  \"message\": \"string\",\n  \"error_code\": 8731\n}",
+              "body": "{\n  \"error_message\": \"string\",\n  \"error_code\": 7249\n}",
               "cookie": [],
               "_postman_previewlanguage": "json"
             }
@@ -352,8 +322,8 @@
     ]
   },
   "info": {
-    "_postman_id": "446a2ce8-f022-4505-9231-e15eb24e4369",
-    "name": "Contentstack Analytics Accounts Generative AI API",
+    "_postman_id": "3f404f71-8241-4835-96b4-8ca1d669562f",
+    "name": "Contentstack Analytics Accounts Cache Analytics API",
     "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
     "description": {
       "content": "The Contentstack Analytics API provides access to usage and performance metrics for CMS, Launch, and Automate products within a Contentstack organization. Developers can retrieve analytics data programmatically to build custom dashboards, monitor content delivery performance, and track platform usage against plan limits. The API returns structured data suitable for aggregation with external analytics and business intelligence tools. Access is restricted to organization Owners and Admins. Requests use async job-based processing where initial POST calls queue the job and a subsequent GET call retrieves the results.\n\nContact Support:\n Name: Contentstack Support",

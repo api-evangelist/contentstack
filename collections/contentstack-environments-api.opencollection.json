@@ -1,0 +1,195 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Contentstack Analytics Accounts Environments API",
+    "version": "v2"
+  },
+  "request": {
+    "auth": {
+      "type": "bearer",
+      "token": "{{bearerToken}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Environments",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get all environments",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.contentstack.io/environments",
+            "headers": [
+              {
+                "name": "api_key",
+                "value": ""
+              },
+              {
+                "name": "authtoken",
+                "value": ""
+              }
+            ]
+          },
+          "docs": "Retrieves all deployment environments configured for the stack, such as production, staging, and development."
+        },
+        {
+          "info": {
+            "name": "Get all environments",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.contentstack.io/projects/:project_uid/environments",
+            "params": [
+              {
+                "name": "project_uid",
+                "value": "",
+                "type": "path",
+                "description": "The unique identifier of the Launch project."
+              }
+            ]
+          },
+          "docs": "Retrieves all deployment environments configured for a Launch project, including their domain configurations and current deployment status."
+        },
+        {
+          "info": {
+            "name": "Create an environment",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.contentstack.io/projects/:project_uid/environments",
+            "params": [
+              {
+                "name": "project_uid",
+                "value": "",
+                "type": "path",
+                "description": "The unique identifier of the Launch project."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Creates a new deployment environment for a Launch project. Each environment can have its own domain, build configuration, and deployment settings."
+        },
+        {
+          "info": {
+            "name": "Get an environment",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.contentstack.io/projects/:project_uid/environments/:env_uid",
+            "params": [
+              {
+                "name": "project_uid",
+                "value": "",
+                "type": "path",
+                "description": "The unique identifier of the Launch project."
+              },
+              {
+                "name": "env_uid",
+                "value": "",
+                "type": "path",
+                "description": "The unique identifier of the deployment environment."
+              }
+            ]
+          },
+          "docs": "Retrieves details for a specific deployment environment including its domain configuration, framework settings, and latest deployment status."
+        },
+        {
+          "info": {
+            "name": "Update an environment",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://api.contentstack.io/projects/:project_uid/environments/:env_uid",
+            "params": [
+              {
+                "name": "project_uid",
+                "value": "",
+                "type": "path",
+                "description": "The unique identifier of the Launch project."
+              },
+              {
+                "name": "env_uid",
+                "value": "",
+                "type": "path",
+                "description": "The unique identifier of the deployment environment."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Updates the configuration of a deployment environment such as domain settings or build configuration."
+        },
+        {
+          "info": {
+            "name": "Delete an environment",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.contentstack.io/projects/:project_uid/environments/:env_uid",
+            "params": [
+              {
+                "name": "project_uid",
+                "value": "",
+                "type": "path",
+                "description": "The unique identifier of the Launch project."
+              },
+              {
+                "name": "env_uid",
+                "value": "",
+                "type": "path",
+                "description": "The unique identifier of the deployment environment."
+              }
+            ]
+          },
+          "docs": "Permanently deletes a deployment environment and its deployment history. This action is irreversible."
+        },
+        {
+          "info": {
+            "name": "Revalidate CDN cache",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.contentstack.io/projects/:project_uid/environments/:env_uid/revalidate-cache",
+            "params": [
+              {
+                "name": "project_uid",
+                "value": "",
+                "type": "path",
+                "description": "The unique identifier of the Launch project."
+              },
+              {
+                "name": "env_uid",
+                "value": "",
+                "type": "path",
+                "description": "The unique identifier of the deployment environment."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Triggers a CDN cache revalidation for the specified environment, forcing the CDN to fetch fresh content on the next request. Subject to cache revalidation quota limits per organization."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

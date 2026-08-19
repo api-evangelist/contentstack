@@ -1,0 +1,116 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Contentstack Analytics Accounts Attributes API",
+    "version": "v2"
+  },
+  "request": {
+    "auth": {
+      "type": "bearer",
+      "token": "{{bearerToken}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Attributes",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get all attributes",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.contentstack.io/attributes",
+            "headers": [
+              {
+                "name": "x-project-uid",
+                "value": ""
+              }
+            ]
+          },
+          "docs": "Retrieves all user attribute definitions configured in the Personalize project. Attributes are used to build audience segment rules."
+        },
+        {
+          "info": {
+            "name": "Create an attribute",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.contentstack.io/attributes",
+            "headers": [
+              {
+                "name": "x-project-uid",
+                "value": ""
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Creates a new user attribute definition in the Personalize project. Attributes can be of various types including string, number, boolean, and date, and are used to build audience segment rules."
+        },
+        {
+          "info": {
+            "name": "Update an attribute",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://api.contentstack.io/attributes/:id",
+            "headers": [
+              {
+                "name": "x-project-uid",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "The unique identifier of the attribute."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Updates the configuration of an existing attribute in the Personalize project including its name, key, and data type."
+        },
+        {
+          "info": {
+            "name": "Delete an attribute",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.contentstack.io/attributes/:id",
+            "headers": [
+              {
+                "name": "x-project-uid",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "The unique identifier of the attribute."
+              }
+            ]
+          },
+          "docs": "Permanently deletes an attribute from the Personalize project. Attributes referenced in audience rules cannot be deleted until those references are removed."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

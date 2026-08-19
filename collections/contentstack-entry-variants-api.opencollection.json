@@ -1,0 +1,100 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Contentstack Analytics Accounts Entry Variants API",
+    "version": "v2"
+  },
+  "request": {
+    "auth": {
+      "type": "bearer",
+      "token": "{{bearerToken}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Entry Variants",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get all entry variants",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.contentstack.io/content_types/:content_type_uid/entries/:entry_uid/variants",
+            "headers": [
+              {
+                "name": "api_key",
+                "value": ""
+              },
+              {
+                "name": "access_token",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "content_type_uid",
+                "value": "",
+                "type": "path",
+                "description": "The unique identifier (UID) of the content type."
+              },
+              {
+                "name": "entry_uid",
+                "value": "",
+                "type": "path",
+                "description": "The unique identifier (UID) of the entry."
+              }
+            ]
+          },
+          "docs": "Retrieves all personalization variants of a specific entry, including their variant UIDs and customized field values."
+        },
+        {
+          "info": {
+            "name": "Get a single entry variant",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.contentstack.io/content_types/:content_type_uid/entries/:entry_uid/variants/:variant_uid",
+            "headers": [
+              {
+                "name": "api_key",
+                "value": ""
+              },
+              {
+                "name": "access_token",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "content_type_uid",
+                "value": "",
+                "type": "path",
+                "description": "The unique identifier (UID) of the content type."
+              },
+              {
+                "name": "entry_uid",
+                "value": "",
+                "type": "path",
+                "description": "The unique identifier (UID) of the entry."
+              },
+              {
+                "name": "variant_uid",
+                "value": "",
+                "type": "path",
+                "description": "The unique identifier (UID) of the entry variant."
+              }
+            ]
+          },
+          "docs": "Retrieves a specific variant of an entry identified by the variant UID. Returns the customized field values for that variant."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

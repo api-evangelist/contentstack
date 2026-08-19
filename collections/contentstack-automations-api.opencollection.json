@@ -1,0 +1,142 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Contentstack Analytics Accounts Automations API",
+    "version": "v2"
+  },
+  "request": {
+    "auth": {
+      "type": "bearer",
+      "token": "{{bearerToken}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Automations",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get all automations",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.contentstack.io/v1/organizations/:organization_uid/projects/:project_uid/automations",
+            "params": [
+              {
+                "name": "organization_uid",
+                "value": "",
+                "type": "path",
+                "description": "The unique identifier of the organization."
+              },
+              {
+                "name": "project_uid",
+                "value": "",
+                "type": "path",
+                "description": "The unique identifier of the automation project."
+              }
+            ]
+          },
+          "docs": "Retrieves all automation workflow definitions within a specific project, including their trigger configurations, steps, and activation status."
+        },
+        {
+          "info": {
+            "name": "Get an automation",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.contentstack.io/v1/organizations/:organization_uid/projects/:project_uid/automations/:automation_uid",
+            "params": [
+              {
+                "name": "organization_uid",
+                "value": "",
+                "type": "path",
+                "description": "The unique identifier of the organization."
+              },
+              {
+                "name": "project_uid",
+                "value": "",
+                "type": "path",
+                "description": "The unique identifier of the automation project."
+              },
+              {
+                "name": "automation_uid",
+                "value": "",
+                "type": "path",
+                "description": "The unique identifier of the automation."
+              }
+            ]
+          },
+          "docs": "Retrieves the full configuration of a specific automation including trigger settings, action steps, error handling, and activation status."
+        },
+        {
+          "info": {
+            "name": "Activate an automation",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://api.contentstack.io/v1/organizations/:organization_uid/projects/:project_uid/automations/:automation_uid/activate",
+            "params": [
+              {
+                "name": "organization_uid",
+                "value": "",
+                "type": "path",
+                "description": "The unique identifier of the organization."
+              },
+              {
+                "name": "project_uid",
+                "value": "",
+                "type": "path",
+                "description": "The unique identifier of the automation project."
+              },
+              {
+                "name": "automation_uid",
+                "value": "",
+                "type": "path",
+                "description": "The unique identifier of the automation."
+              }
+            ]
+          },
+          "docs": "Enables an automation so that it will execute when its configured trigger conditions are met. Only automations in a valid, configured state can be activated."
+        },
+        {
+          "info": {
+            "name": "Deactivate an automation",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://api.contentstack.io/v1/organizations/:organization_uid/projects/:project_uid/automations/:automation_uid/deactivate",
+            "params": [
+              {
+                "name": "organization_uid",
+                "value": "",
+                "type": "path",
+                "description": "The unique identifier of the organization."
+              },
+              {
+                "name": "project_uid",
+                "value": "",
+                "type": "path",
+                "description": "The unique identifier of the automation project."
+              },
+              {
+                "name": "automation_uid",
+                "value": "",
+                "type": "path",
+                "description": "The unique identifier of the automation."
+              }
+            ]
+          },
+          "docs": "Disables an active automation, preventing it from executing when its trigger conditions are met. Existing in-progress executions will complete before the automation is fully deactivated."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

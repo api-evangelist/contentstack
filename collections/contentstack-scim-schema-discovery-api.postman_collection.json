@@ -1,26 +1,27 @@
 {
   "item": [
     {
-      "id": "8e4c3c22-2fb1-4ebc-9633-62b9f6828eff",
-      "name": "Analytics",
+      "id": "4816dcbb-9c65-4827-a53b-f31263b62ab1",
+      "name": "SCIM Schema Discovery",
       "description": {
-        "content": "Analytics endpoints provide usage metrics for Launch projects such as cache revalidation quota consumption.",
+        "content": "Schema discovery endpoints implement the SCIM 2.0 service provider configuration, returning supported schemas and resource types for IdP compatibility validation.",
         "type": "text/plain"
       },
       "item": [
         {
-          "id": "07a48e4f-b276-44b6-92a1-1465a8abbe03",
-          "name": "Get cache revalidation usage",
+          "id": "495de99e-3885-426a-9361-710cdb725378",
+          "name": "Get SCIM schemas",
           "request": {
-            "name": "Get cache revalidation usage",
+            "name": "Get SCIM schemas",
             "description": {
-              "content": "Retrieves the organization's current cache revalidation quota usage, showing how many revalidation requests have been used against the organization's plan limit.",
+              "content": "Returns the SCIM schemas supported by the Contentstack SCIM API, enabling IdP clients to understand the available attributes for User and Group resources.",
               "type": "text/plain"
             },
             "url": {
               "path": [
-                "organizations",
-                "cache-revalidation-usage"
+                "scim",
+                "v2.0",
+                "Schemas"
               ],
               "host": [
                 "{{baseUrl}}"
@@ -39,13 +40,14 @@
           },
           "response": [
             {
-              "id": "d7ece8ae-c55a-49d8-81c8-b9afad00f77c",
-              "name": "Cache revalidation usage metrics.",
+              "id": "e9bce4cb-499f-49cf-af1c-cb721ca43525",
+              "name": "A list of SCIM schemas supported by the API.",
               "originalRequest": {
                 "url": {
                   "path": [
-                    "organizations",
-                    "cache-revalidation-usage"
+                    "scim",
+                    "v2.0",
+                    "Schemas"
                   ],
                   "host": [
                     "{{baseUrl}}"
@@ -78,18 +80,56 @@
                   "value": "application/json"
                 }
               ],
-              "body": "{\n  \"used\": 3417,\n  \"limit\": 8002,\n  \"period_start\": \"1999-12-07T12:19:27.385Z\",\n  \"period_end\": \"2018-06-26T06:05:15.104Z\"\n}",
+              "body": "{\n  \"schemas\": [\n    \"urn:ietf:params:scim:api:messages:2.0:ListResponse\"\n  ],\n  \"totalResults\": 6316,\n  \"startIndex\": 2324,\n  \"itemsPerPage\": 2311\n}",
               "cookie": [],
               "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "1266387c-e994-43cd-8fd4-fb266c9d1f92",
+          "name": "Get SCIM resource types",
+          "request": {
+            "name": "Get SCIM resource types",
+            "description": {
+              "content": "Returns the SCIM resource types supported by the Contentstack SCIM API including Users and Groups, enabling IdP clients to discover available endpoints and their schemas.",
+              "type": "text/plain"
             },
+            "url": {
+              "path": [
+                "scim",
+                "v2.0",
+                "ResourceTypes"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
             {
-              "id": "0e0cd146-45e3-49ee-9f07-f7778ac42e14",
-              "name": "Authentication credentials are missing or invalid.",
+              "id": "2e79c160-8097-4739-bfab-f59cff8f27a0",
+              "name": "A list of SCIM resource types.",
               "originalRequest": {
                 "url": {
                   "path": [
-                    "organizations",
-                    "cache-revalidation-usage"
+                    "scim",
+                    "v2.0",
+                    "ResourceTypes"
                   ],
                   "host": [
                     "{{baseUrl}}"
@@ -114,15 +154,15 @@
                 "method": "GET",
                 "body": {}
               },
-              "status": "Unauthorized",
-              "code": 401,
+              "status": "OK",
+              "code": 200,
               "header": [
                 {
                   "key": "Content-Type",
                   "value": "application/json"
                 }
               ],
-              "body": "{\n  \"message\": \"string\",\n  \"error_code\": 6276\n}",
+              "body": "{\n  \"schemas\": [\n    \"urn:ietf:params:scim:api:messages:2.0:ListResponse\"\n  ],\n  \"totalResults\": 6316,\n  \"startIndex\": 2324,\n  \"itemsPerPage\": 2311\n}",
               "cookie": [],
               "_postman_previewlanguage": "json"
             }
@@ -154,8 +194,8 @@
     ]
   },
   "info": {
-    "_postman_id": "022118a1-f655-4722-bc20-b8bd894a43a6",
-    "name": "Contentstack Accounts Analytics API",
+    "_postman_id": "6a665f38-eac6-44c7-a226-40e7b87ed814",
+    "name": "Contentstack Analytics Accounts SCIM Schema Discovery API",
     "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
     "description": {
       "content": "The Contentstack Analytics API provides access to usage and performance metrics for CMS, Launch, and Automate products within a Contentstack organization. Developers can retrieve analytics data programmatically to build custom dashboards, monitor content delivery performance, and track platform usage against plan limits. The API returns structured data suitable for aggregation with external analytics and business intelligence tools. Access is restricted to organization Owners and Admins. Requests use async job-based processing where initial POST calls queue the job and a subsequent GET call retrieves the results.\n\nContact Support:\n Name: Contentstack Support",

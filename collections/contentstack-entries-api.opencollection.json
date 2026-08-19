@@ -1,0 +1,369 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Contentstack Analytics Accounts Entries API",
+    "version": "v2"
+  },
+  "request": {
+    "auth": {
+      "type": "bearer",
+      "token": "{{bearerToken}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Entries",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get all entries",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.contentstack.io/content_types/:content_type_uid/entries",
+            "headers": [
+              {
+                "name": "api_key",
+                "value": ""
+              },
+              {
+                "name": "access_token",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "content_type_uid",
+                "value": "",
+                "type": "path",
+                "description": "The unique identifier (UID) of the content type."
+              },
+              {
+                "name": "locale",
+                "value": "",
+                "type": "query",
+                "description": "The locale code to retrieve localized content. Defaults to the default locale of the stack if not specified."
+              },
+              {
+                "name": "skip",
+                "value": "",
+                "type": "query",
+                "description": "Number of entries to skip for pagination."
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "Maximum number of entries to return. Maximum allowed is 250."
+              },
+              {
+                "name": "query",
+                "value": "",
+                "type": "query",
+                "description": "A JSON-encoded query object to filter entries. Supports MongoDB-style query operators for field matching and comparison."
+              },
+              {
+                "name": "include_count",
+                "value": "",
+                "type": "query",
+                "description": "Set to true to include the total count of matching entries."
+              },
+              {
+                "name": "include_content_type",
+                "value": "",
+                "type": "query",
+                "description": "Set to true to include the content type schema in the response."
+              },
+              {
+                "name": "include_reference",
+                "value": "",
+                "type": "query",
+                "description": "Set to true to include referenced entries inline in the response."
+              },
+              {
+                "name": "only",
+                "value": "",
+                "type": "query",
+                "description": "Comma-separated list of fields to include in the response."
+              },
+              {
+                "name": "except",
+                "value": "",
+                "type": "query",
+                "description": "Comma-separated list of fields to exclude from the response."
+              },
+              {
+                "name": "asc",
+                "value": "",
+                "type": "query",
+                "description": "Field name to sort results in ascending order."
+              },
+              {
+                "name": "desc",
+                "value": "",
+                "type": "query",
+                "description": "Field name to sort results in descending order."
+              }
+            ]
+          },
+          "docs": "Fetches a list of all published entries for a particular content type. Supports filtering by query, localization, reference inclusion, pagination, sorting, and field selection."
+        },
+        {
+          "info": {
+            "name": "Create an entry",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.contentstack.io/content_types/:content_type_uid/entries",
+            "headers": [
+              {
+                "name": "api_key",
+                "value": ""
+              },
+              {
+                "name": "authtoken",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "content_type_uid",
+                "value": "",
+                "type": "path",
+                "description": "The unique identifier (UID) of the content type."
+              },
+              {
+                "name": "locale",
+                "value": "",
+                "type": "query",
+                "description": "The locale code for localized content operations."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Creates a new entry for the specified content type. The entry data must conform to the content type schema. Newly created entries are in draft state and must be published separately."
+        },
+        {
+          "info": {
+            "name": "Get a single entry",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.contentstack.io/content_types/:content_type_uid/entries/:entry_uid",
+            "headers": [
+              {
+                "name": "api_key",
+                "value": ""
+              },
+              {
+                "name": "access_token",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "content_type_uid",
+                "value": "",
+                "type": "path",
+                "description": "The unique identifier (UID) of the content type."
+              },
+              {
+                "name": "entry_uid",
+                "value": "",
+                "type": "path",
+                "description": "The unique identifier (UID) of the entry."
+              },
+              {
+                "name": "locale",
+                "value": "",
+                "type": "query",
+                "description": "The locale code to retrieve localized content. Defaults to the default locale of the stack if not specified."
+              },
+              {
+                "name": "include_reference",
+                "value": "",
+                "type": "query",
+                "description": "Set to true to include referenced entries inline in the response."
+              },
+              {
+                "name": "version",
+                "value": "",
+                "type": "query",
+                "description": "Retrieve a specific published version of the entry."
+              }
+            ]
+          },
+          "docs": "Retrieves a specific published entry identified by its UID within a given content type. Supports localization, reference inclusion, and field selection parameters."
+        },
+        {
+          "info": {
+            "name": "Update an entry",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://api.contentstack.io/content_types/:content_type_uid/entries/:entry_uid",
+            "headers": [
+              {
+                "name": "api_key",
+                "value": ""
+              },
+              {
+                "name": "authtoken",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "content_type_uid",
+                "value": "",
+                "type": "path",
+                "description": "The unique identifier (UID) of the content type."
+              },
+              {
+                "name": "entry_uid",
+                "value": "",
+                "type": "path",
+                "description": "The unique identifier (UID) of the entry."
+              },
+              {
+                "name": "locale",
+                "value": "",
+                "type": "query",
+                "description": "The locale code for localized content operations."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Updates the field values of an existing entry. Only the fields included in the request body are updated; other fields retain their current values."
+        },
+        {
+          "info": {
+            "name": "Delete an entry",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.contentstack.io/content_types/:content_type_uid/entries/:entry_uid",
+            "headers": [
+              {
+                "name": "api_key",
+                "value": ""
+              },
+              {
+                "name": "authtoken",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "content_type_uid",
+                "value": "",
+                "type": "path",
+                "description": "The unique identifier (UID) of the content type."
+              },
+              {
+                "name": "entry_uid",
+                "value": "",
+                "type": "path",
+                "description": "The unique identifier (UID) of the entry."
+              }
+            ]
+          },
+          "docs": "Permanently deletes an entry from the stack. Published entries must be unpublished before deletion. This action cannot be undone."
+        },
+        {
+          "info": {
+            "name": "Publish an entry",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.contentstack.io/content_types/:content_type_uid/entries/:entry_uid/publish",
+            "headers": [
+              {
+                "name": "api_key",
+                "value": ""
+              },
+              {
+                "name": "authtoken",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "content_type_uid",
+                "value": "",
+                "type": "path",
+                "description": "The unique identifier (UID) of the content type."
+              },
+              {
+                "name": "entry_uid",
+                "value": "",
+                "type": "path",
+                "description": "The unique identifier (UID) of the entry."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Publishes an entry to one or more environments and locales. Publishing makes the entry available via the Content Delivery API for the specified environments."
+        },
+        {
+          "info": {
+            "name": "Unpublish an entry",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.contentstack.io/content_types/:content_type_uid/entries/:entry_uid/unpublish",
+            "headers": [
+              {
+                "name": "api_key",
+                "value": ""
+              },
+              {
+                "name": "authtoken",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "content_type_uid",
+                "value": "",
+                "type": "path",
+                "description": "The unique identifier (UID) of the content type."
+              },
+              {
+                "name": "entry_uid",
+                "value": "",
+                "type": "path",
+                "description": "The unique identifier (UID) of the entry."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Removes an entry from one or more environments, making it unavailable via the Content Delivery API for the specified environments."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

@@ -1,0 +1,155 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Contentstack Analytics Accounts Brand Kits API",
+    "version": "v2"
+  },
+  "request": {
+    "auth": {
+      "type": "bearer",
+      "token": "{{bearerToken}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Brand Kits",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get all Brand Kits",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.contentstack.io/v1/brand-kits",
+            "headers": [
+              {
+                "name": "organization_uid",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "skip",
+                "value": "",
+                "type": "query",
+                "description": "Number of records to skip for pagination."
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "Maximum number of records to return."
+              }
+            ]
+          },
+          "docs": "Retrieves all Brand Kits in the organization with pagination support and optional filtering. Each Brand Kit contains brand identity information used for AI content generation."
+        },
+        {
+          "info": {
+            "name": "Create a Brand Kit",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.contentstack.io/v1/brand-kits",
+            "headers": [
+              {
+                "name": "organization_uid",
+                "value": ""
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Creates a new Brand Kit in the organization with brand identity configuration including name, description, guidelines, and associated metadata."
+        },
+        {
+          "info": {
+            "name": "Get a Brand Kit",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.contentstack.io/v1/brand-kits/:brand_kit_uid",
+            "headers": [
+              {
+                "name": "organization_uid",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "brand_kit_uid",
+                "value": "",
+                "type": "path",
+                "description": "The unique identifier of the Brand Kit."
+              }
+            ]
+          },
+          "docs": "Retrieves the full details of a specific Brand Kit including its brand identity configuration, voice profiles, and associated knowledge vault content."
+        },
+        {
+          "info": {
+            "name": "Update a Brand Kit",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://api.contentstack.io/v1/brand-kits/:brand_kit_uid",
+            "headers": [
+              {
+                "name": "organization_uid",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "brand_kit_uid",
+                "value": "",
+                "type": "path",
+                "description": "The unique identifier of the Brand Kit."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Updates the configuration and brand identity information for an existing Brand Kit."
+        },
+        {
+          "info": {
+            "name": "Delete a Brand Kit",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.contentstack.io/v1/brand-kits/:brand_kit_uid",
+            "headers": [
+              {
+                "name": "organization_uid",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "brand_kit_uid",
+                "value": "",
+                "type": "path",
+                "description": "The unique identifier of the Brand Kit."
+              }
+            ]
+          },
+          "docs": "Permanently removes a Brand Kit from the organization including all associated voice profiles and knowledge vault content."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

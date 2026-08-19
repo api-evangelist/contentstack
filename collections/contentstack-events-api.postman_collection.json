@@ -1,27 +1,25 @@
 {
   "item": [
     {
-      "id": "e8ae5930-c664-48c5-946c-9cbd1dbb6ebb",
-      "name": "Generative AI",
+      "id": "e859b653-68e8-492f-aba7-76ea9acbabc8",
+      "name": "Events",
       "description": {
-        "content": "The Generative AI endpoint processes prompts using retrieval augmented generation, retrieving relevant brand knowledge and applying voice profile style guidelines to produce on-brand content. Responses are returned as streaming dictionary responses for real-time content delivery.",
+        "content": "The events endpoint allows applications to track user actions and behavioral events for experience analytics and audience rule evaluation.",
         "type": "text/plain"
       },
       "item": [
         {
-          "id": "e389a825-f66c-4241-aa63-82b1d55fa396",
-          "name": "Generate AI content",
+          "id": "3cdf504b-2b97-4d6f-be5e-028c4708d606",
+          "name": "Track user events",
           "request": {
-            "name": "Generate AI content",
+            "name": "Track user events",
             "description": {
-              "content": "Processes a prompt using retrieval augmented generation (RAG) to produce AI-generated content aligned with the specified Brand Kit. When knowledge_vault is enabled, relevant content from the Brand Kit's Knowledge Vault is retrieved and used as context for the LLM. An optional voice_profile_uid can be specified to apply specific writing style guidelines to the generated content. Returns a streaming dictionary response. Rate limited to 10 requests per second per organization.",
+              "content": "Records one or more user behavior events for experience analytics and audience evaluation. Supports both impression events (automatic tracking when experiences are shown) and custom events (defined in the Personalize Management API and triggered by specific user actions).",
               "type": "text/plain"
             },
             "url": {
               "path": [
-                "v1",
-                "genai",
-                ""
+                "events"
               ],
               "host": [
                 "{{baseUrl}}"
@@ -32,14 +30,14 @@
             "header": [
               {
                 "disabled": false,
-                "description": "(Required) User authentication token for authorization.",
-                "key": "authtoken",
+                "description": "(Required) The UID of the Contentstack Personalize project.",
+                "key": "x-project-uid",
                 "value": "<string>"
               },
               {
                 "disabled": false,
-                "description": "(Required) The unique identifier of the Brand Kit to use for knowledge retrieval and brand guidelines during content generation.",
-                "key": "brand_kit_uid",
+                "description": "(Required) The unique identifier for the end user whose events are being tracked.",
+                "key": "x-cs-personalize-user-uid",
                 "value": "<string>"
               },
               {
@@ -55,7 +53,7 @@
             "auth": null,
             "body": {
               "mode": "raw",
-              "raw": "{\n  \"prompt\": \"<string>\",\n  \"knowledge_vault\": false,\n  \"voice_profile_uid\": \"<string>\"\n}",
+              "raw": "[\n  {\n    \"eventKey\": \"<string>\",\n    \"experience_uid\": \"<string>\",\n    \"variant_uid\": \"<string>\"\n  },\n  {\n    \"eventKey\": \"<string>\",\n    \"experience_uid\": \"<string>\",\n    \"variant_uid\": \"<string>\"\n  }\n]",
               "options": {
                 "raw": {
                   "language": "json"
@@ -65,14 +63,12 @@
           },
           "response": [
             {
-              "id": "f920be8c-e865-44f9-bba4-a70edbdc1801",
-              "name": "Streaming dictionary response containing the AI-generated content based on the prompt and retrieved knowledge context.",
+              "id": "feb1c298-5bff-4722-ace1-fec3e4faba0d",
+              "name": "Events accepted for processing.",
               "originalRequest": {
                 "url": {
                   "path": [
-                    "v1",
-                    "genai",
-                    ""
+                    "events"
                   ],
                   "host": [
                     "{{baseUrl}}"
@@ -91,25 +87,21 @@
                   },
                   {
                     "disabled": false,
-                    "description": "(Required) User authentication token for authorization.",
-                    "key": "authtoken",
+                    "description": "(Required) The UID of the Contentstack Personalize project.",
+                    "key": "x-project-uid",
                     "value": "<string>"
                   },
                   {
                     "disabled": false,
-                    "description": "(Required) The unique identifier of the Brand Kit to use for knowledge retrieval and brand guidelines during content generation.",
-                    "key": "brand_kit_uid",
+                    "description": "(Required) The unique identifier for the end user whose events are being tracked.",
+                    "key": "x-cs-personalize-user-uid",
                     "value": "<string>"
-                  },
-                  {
-                    "key": "Accept",
-                    "value": "application/json"
                   }
                 ],
                 "method": "POST",
                 "body": {
                   "mode": "raw",
-                  "raw": "{\n  \"prompt\": \"<string>\",\n  \"knowledge_vault\": false,\n  \"voice_profile_uid\": \"<string>\"\n}",
+                  "raw": "[\n  {\n    \"eventKey\": \"string\",\n    \"experience_uid\": \"string\",\n    \"variant_uid\": \"string\"\n  },\n  {\n    \"eventKey\": \"string\",\n    \"experience_uid\": \"string\",\n    \"variant_uid\": \"string\"\n  }\n]",
                   "options": {
                     "raw": {
                       "language": "json"
@@ -117,27 +109,25 @@
                   }
                 }
               },
-              "status": "OK",
-              "code": 200,
+              "status": "Accepted",
+              "code": 202,
               "header": [
                 {
                   "key": "Content-Type",
-                  "value": "application/json"
+                  "value": "text/plain"
                 }
               ],
-              "body": "{\n  \"content\": \"string\",\n  \"token_usage\": {\n    \"prompt_tokens\": 3698,\n    \"completion_tokens\": 4714,\n    \"total_tokens\": 3824\n  }\n}",
+              "body": "",
               "cookie": [],
-              "_postman_previewlanguage": "json"
+              "_postman_previewlanguage": "text"
             },
             {
-              "id": "21191ec7-cfde-488e-8d00-9a701ddfb884",
+              "id": "d2316feb-1f8e-4b0d-b73c-4a8a5a19e332",
               "name": "The request is malformed or contains invalid parameters.",
               "originalRequest": {
                 "url": {
                   "path": [
-                    "v1",
-                    "genai",
-                    ""
+                    "events"
                   ],
                   "host": [
                     "{{baseUrl}}"
@@ -156,14 +146,14 @@
                   },
                   {
                     "disabled": false,
-                    "description": "(Required) User authentication token for authorization.",
-                    "key": "authtoken",
+                    "description": "(Required) The UID of the Contentstack Personalize project.",
+                    "key": "x-project-uid",
                     "value": "<string>"
                   },
                   {
                     "disabled": false,
-                    "description": "(Required) The unique identifier of the Brand Kit to use for knowledge retrieval and brand guidelines during content generation.",
-                    "key": "brand_kit_uid",
+                    "description": "(Required) The unique identifier for the end user whose events are being tracked.",
+                    "key": "x-cs-personalize-user-uid",
                     "value": "<string>"
                   },
                   {
@@ -174,7 +164,7 @@
                 "method": "POST",
                 "body": {
                   "mode": "raw",
-                  "raw": "{\n  \"prompt\": \"<string>\",\n  \"knowledge_vault\": false,\n  \"voice_profile_uid\": \"<string>\"\n}",
+                  "raw": "[\n  {\n    \"eventKey\": \"string\",\n    \"experience_uid\": \"string\",\n    \"variant_uid\": \"string\"\n  },\n  {\n    \"eventKey\": \"string\",\n    \"experience_uid\": \"string\",\n    \"variant_uid\": \"string\"\n  }\n]",
                   "options": {
                     "raw": {
                       "language": "json"
@@ -190,19 +180,17 @@
                   "value": "application/json"
                 }
               ],
-              "body": "{\n  \"message\": \"string\",\n  \"error_code\": 8731\n}",
+              "body": "{\n  \"message\": \"string\",\n  \"status\": 3324\n}",
               "cookie": [],
               "_postman_previewlanguage": "json"
             },
             {
-              "id": "8a111796-8119-4fbb-8081-394ae3cf0542",
-              "name": "Authentication credentials are missing or invalid.",
+              "id": "cf045a87-7471-4815-bad5-98dd42e5a555",
+              "name": "The request is not authorized for this project.",
               "originalRequest": {
                 "url": {
                   "path": [
-                    "v1",
-                    "genai",
-                    ""
+                    "events"
                   ],
                   "host": [
                     "{{baseUrl}}"
@@ -221,14 +209,14 @@
                   },
                   {
                     "disabled": false,
-                    "description": "(Required) User authentication token for authorization.",
-                    "key": "authtoken",
+                    "description": "(Required) The UID of the Contentstack Personalize project.",
+                    "key": "x-project-uid",
                     "value": "<string>"
                   },
                   {
                     "disabled": false,
-                    "description": "(Required) The unique identifier of the Brand Kit to use for knowledge retrieval and brand guidelines during content generation.",
-                    "key": "brand_kit_uid",
+                    "description": "(Required) The unique identifier for the end user whose events are being tracked.",
+                    "key": "x-cs-personalize-user-uid",
                     "value": "<string>"
                   },
                   {
@@ -239,13 +227,152 @@
                 "method": "POST",
                 "body": {
                   "mode": "raw",
-                  "raw": "{\n  \"prompt\": \"<string>\",\n  \"knowledge_vault\": false,\n  \"voice_profile_uid\": \"<string>\"\n}",
+                  "raw": "[\n  {\n    \"eventKey\": \"string\",\n    \"experience_uid\": \"string\",\n    \"variant_uid\": \"string\"\n  },\n  {\n    \"eventKey\": \"string\",\n    \"experience_uid\": \"string\",\n    \"variant_uid\": \"string\"\n  }\n]",
                   "options": {
                     "raw": {
                       "language": "json"
                     }
                   }
                 }
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"message\": \"string\",\n  \"status\": 3324\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "0db3d995-29e6-4c87-b10a-a02ea4454a44",
+          "name": "Get all events",
+          "request": {
+            "name": "Get all events",
+            "description": {
+              "content": "Retrieves all custom event definitions in the Personalize project. Events are used to track user interactions and trigger audience membership updates.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "events"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "disabled": false,
+                "description": "(Required) The UID of the Contentstack Personalize project.",
+                "key": "x-project-uid",
+                "value": "<string>"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "f8e5b4cf-9ecc-4345-9bd3-5668efb6d29a",
+              "name": "A list of all events in the project.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "events"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) The UID of the Contentstack Personalize project.",
+                    "key": "x-project-uid",
+                    "value": "<string>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"data\": [\n    {\n      \"uid\": \"string\",\n      \"name\": \"string\",\n      \"key\": \"string\",\n      \"created_at\": \"2007-01-18T00:09:17.879Z\"\n    },\n    {\n      \"uid\": \"string\",\n      \"name\": \"string\",\n      \"key\": \"string\",\n      \"created_at\": \"2025-12-07T05:14:56.354Z\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "6bcebcff-0b5a-42eb-bae7-a6a02f62345f",
+              "name": "Authentication credentials are missing or invalid.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "events"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) The UID of the Contentstack Personalize project.",
+                    "key": "x-project-uid",
+                    "value": "<string>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
               },
               "status": "Unauthorized",
               "code": 401,
@@ -255,72 +382,7 @@
                   "value": "application/json"
                 }
               ],
-              "body": "{\n  \"message\": \"string\",\n  \"error_code\": 8731\n}",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
-            },
-            {
-              "id": "fbdaa0e8-6ed8-4d91-8940-b5841417484a",
-              "name": "Rate limit exceeded. Maximum 10 requests per second per organization.",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "v1",
-                    "genai",
-                    ""
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": []
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: bearer",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Bearer <token>"
-                  },
-                  {
-                    "disabled": false,
-                    "description": "(Required) User authentication token for authorization.",
-                    "key": "authtoken",
-                    "value": "<string>"
-                  },
-                  {
-                    "disabled": false,
-                    "description": "(Required) The unique identifier of the Brand Kit to use for knowledge retrieval and brand guidelines during content generation.",
-                    "key": "brand_kit_uid",
-                    "value": "<string>"
-                  },
-                  {
-                    "key": "Accept",
-                    "value": "application/json"
-                  }
-                ],
-                "method": "POST",
-                "body": {
-                  "mode": "raw",
-                  "raw": "{\n  \"prompt\": \"<string>\",\n  \"knowledge_vault\": false,\n  \"voice_profile_uid\": \"<string>\"\n}",
-                  "options": {
-                    "raw": {
-                      "language": "json"
-                    }
-                  }
-                }
-              },
-              "status": "Too Many Requests",
-              "code": 429,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "application/json"
-                }
-              ],
-              "body": "{\n  \"message\": \"string\",\n  \"error_code\": 8731\n}",
+              "body": "{\n  \"message\": \"string\",\n  \"status\": 3324\n}",
               "cookie": [],
               "_postman_previewlanguage": "json"
             }
@@ -352,8 +414,8 @@
     ]
   },
   "info": {
-    "_postman_id": "446a2ce8-f022-4505-9231-e15eb24e4369",
-    "name": "Contentstack Analytics Accounts Generative AI API",
+    "_postman_id": "ed11de38-6cd1-4e4b-82ad-334ec76c546a",
+    "name": "Contentstack Analytics Accounts Events API",
     "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
     "description": {
       "content": "The Contentstack Analytics API provides access to usage and performance metrics for CMS, Launch, and Automate products within a Contentstack organization. Developers can retrieve analytics data programmatically to build custom dashboards, monitor content delivery performance, and track platform usage against plan limits. The API returns structured data suitable for aggregation with external analytics and business intelligence tools. Access is restricted to organization Owners and Admins. Requests use async job-based processing where initial POST calls queue the job and a subsequent GET call retrieves the results.\n\nContact Support:\n Name: Contentstack Support",

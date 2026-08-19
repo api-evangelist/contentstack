@@ -1,0 +1,649 @@
+{
+  "item": [
+    {
+      "id": "09011c2b-0a32-4474-a4a0-726d14cefe57",
+      "name": "Entry Variants",
+      "description": {
+        "content": "Entry variants are customized versions of an entry created for personalization or A/B testing purposes.",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "fada10e2-c625-4dd2-b07f-419d1660b2b9",
+          "name": "Get all entry variants",
+          "request": {
+            "name": "Get all entry variants",
+            "description": {
+              "content": "Retrieves all personalization variants of a specific entry, including their variant UIDs and customized field values.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "content_types",
+                ":content_type_uid",
+                "entries",
+                ":entry_uid",
+                "variants"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "content_type_uid",
+                  "description": "(Required) The unique identifier (UID) of the content type."
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "entry_uid",
+                  "description": "(Required) The unique identifier (UID) of the entry."
+                }
+              ]
+            },
+            "header": [
+              {
+                "disabled": false,
+                "description": "(Required) The API key for the Contentstack stack.",
+                "key": "api_key",
+                "value": "<string>"
+              },
+              {
+                "disabled": false,
+                "description": "(Required) The delivery token for the stack environment.",
+                "key": "access_token",
+                "value": "<string>"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "4e13e9d2-b12a-45ae-9d75-74f4ffbc0d88",
+              "name": "A list of variants for the specified entry.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "content_types",
+                    ":content_type_uid",
+                    "entries",
+                    ":entry_uid",
+                    "variants"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "content_type_uid",
+                      "description": "(Required) The unique identifier (UID) of the content type."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "entry_uid",
+                      "description": "(Required) The unique identifier (UID) of the entry."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) The API key for the Contentstack stack.",
+                    "key": "api_key",
+                    "value": "<string>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) The delivery token for the stack environment.",
+                    "key": "access_token",
+                    "value": "<string>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"entries\": [\n    {\n      \"uid\": \"string\",\n      \"variant_uid\": \"string\",\n      \"locale\": \"string\"\n    },\n    {\n      \"uid\": \"string\",\n      \"variant_uid\": \"string\",\n      \"locale\": \"string\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "d6795057-3762-40b4-a2d6-218632db3ebd",
+              "name": "Authentication credentials are missing or invalid.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "content_types",
+                    ":content_type_uid",
+                    "entries",
+                    ":entry_uid",
+                    "variants"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "content_type_uid",
+                      "description": "(Required) The unique identifier (UID) of the content type."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "entry_uid",
+                      "description": "(Required) The unique identifier (UID) of the entry."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) The API key for the Contentstack stack.",
+                    "key": "api_key",
+                    "value": "<string>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) The delivery token for the stack environment.",
+                    "key": "access_token",
+                    "value": "<string>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error_message\": \"string\",\n  \"error_code\": 1630,\n  \"errors\": {}\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "89225beb-951c-469b-a6f0-894157432e93",
+              "name": "The requested resource was not found.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "content_types",
+                    ":content_type_uid",
+                    "entries",
+                    ":entry_uid",
+                    "variants"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "content_type_uid",
+                      "description": "(Required) The unique identifier (UID) of the content type."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "entry_uid",
+                      "description": "(Required) The unique identifier (UID) of the entry."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) The API key for the Contentstack stack.",
+                    "key": "api_key",
+                    "value": "<string>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) The delivery token for the stack environment.",
+                    "key": "access_token",
+                    "value": "<string>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error_message\": \"string\",\n  \"error_code\": 1630,\n  \"errors\": {}\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "5e849e02-2640-4823-b838-f755dce1eb89",
+          "name": "Get a single entry variant",
+          "request": {
+            "name": "Get a single entry variant",
+            "description": {
+              "content": "Retrieves a specific variant of an entry identified by the variant UID. Returns the customized field values for that variant.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "content_types",
+                ":content_type_uid",
+                "entries",
+                ":entry_uid",
+                "variants",
+                ":variant_uid"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "content_type_uid",
+                  "description": "(Required) The unique identifier (UID) of the content type."
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "entry_uid",
+                  "description": "(Required) The unique identifier (UID) of the entry."
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "variant_uid",
+                  "description": "(Required) The unique identifier (UID) of the entry variant."
+                }
+              ]
+            },
+            "header": [
+              {
+                "disabled": false,
+                "description": "(Required) The API key for the Contentstack stack.",
+                "key": "api_key",
+                "value": "<string>"
+              },
+              {
+                "disabled": false,
+                "description": "(Required) The delivery token for the stack environment.",
+                "key": "access_token",
+                "value": "<string>"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "a547f744-63c6-4027-8bc0-347da682269e",
+              "name": "The requested entry variant object.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "content_types",
+                    ":content_type_uid",
+                    "entries",
+                    ":entry_uid",
+                    "variants",
+                    ":variant_uid"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "content_type_uid",
+                      "description": "(Required) The unique identifier (UID) of the content type."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "entry_uid",
+                      "description": "(Required) The unique identifier (UID) of the entry."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "variant_uid",
+                      "description": "(Required) The unique identifier (UID) of the entry variant."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) The API key for the Contentstack stack.",
+                    "key": "api_key",
+                    "value": "<string>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) The delivery token for the stack environment.",
+                    "key": "access_token",
+                    "value": "<string>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"uid\": \"string\",\n  \"variant_uid\": \"string\",\n  \"locale\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "b792a7a4-2214-42fc-9442-12ede736c70f",
+              "name": "Authentication credentials are missing or invalid.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "content_types",
+                    ":content_type_uid",
+                    "entries",
+                    ":entry_uid",
+                    "variants",
+                    ":variant_uid"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "content_type_uid",
+                      "description": "(Required) The unique identifier (UID) of the content type."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "entry_uid",
+                      "description": "(Required) The unique identifier (UID) of the entry."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "variant_uid",
+                      "description": "(Required) The unique identifier (UID) of the entry variant."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) The API key for the Contentstack stack.",
+                    "key": "api_key",
+                    "value": "<string>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) The delivery token for the stack environment.",
+                    "key": "access_token",
+                    "value": "<string>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error_message\": \"string\",\n  \"error_code\": 1630,\n  \"errors\": {}\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "773441b9-089b-4cb7-bb13-c6a0f3852408",
+              "name": "The requested resource was not found.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "content_types",
+                    ":content_type_uid",
+                    "entries",
+                    ":entry_uid",
+                    "variants",
+                    ":variant_uid"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "content_type_uid",
+                      "description": "(Required) The unique identifier (UID) of the content type."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "entry_uid",
+                      "description": "(Required) The unique identifier (UID) of the entry."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "variant_uid",
+                      "description": "(Required) The unique identifier (UID) of the entry variant."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) The API key for the Contentstack stack.",
+                    "key": "api_key",
+                    "value": "<string>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) The delivery token for the stack environment.",
+                    "key": "access_token",
+                    "value": "<string>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error_message\": \"string\",\n  \"error_code\": 1630,\n  \"errors\": {}\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.contentstack.io",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "bearer",
+    "bearer": [
+      {
+        "key": "token",
+        "value": "{{bearerToken}}"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "c33c6298-ef3e-4491-bb32-609c6f0e32ab",
+    "name": "Contentstack Analytics Accounts Entry Variants API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "The Contentstack Analytics API provides access to usage and performance metrics for CMS, Launch, and Automate products within a Contentstack organization. Developers can retrieve analytics data programmatically to build custom dashboards, monitor content delivery performance, and track platform usage against plan limits. The API returns structured data suitable for aggregation with external analytics and business intelligence tools. Access is restricted to organization Owners and Admins. Requests use async job-based processing where initial POST calls queue the job and a subsequent GET call retrieves the results.\n\nContact Support:\n Name: Contentstack Support",
+      "type": "text/plain"
+    }
+  }
+}

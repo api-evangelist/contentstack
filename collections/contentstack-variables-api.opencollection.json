@@ -1,0 +1,78 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Contentstack Analytics Accounts Variables API",
+    "version": "v2"
+  },
+  "request": {
+    "auth": {
+      "type": "bearer",
+      "token": "{{bearerToken}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Variables",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get all variables",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.contentstack.io/v1/organizations/:organization_uid/projects/:project_uid/variables",
+            "params": [
+              {
+                "name": "organization_uid",
+                "value": "",
+                "type": "path",
+                "description": "The unique identifier of the organization."
+              },
+              {
+                "name": "project_uid",
+                "value": "",
+                "type": "path",
+                "description": "The unique identifier of the automation project."
+              }
+            ]
+          },
+          "docs": "Retrieves all project variables defined for the automation project. Variables are reusable key-value pairs that can be referenced across automation configurations."
+        },
+        {
+          "info": {
+            "name": "Create a variable",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.contentstack.io/v1/organizations/:organization_uid/projects/:project_uid/variables",
+            "params": [
+              {
+                "name": "organization_uid",
+                "value": "",
+                "type": "path",
+                "description": "The unique identifier of the organization."
+              },
+              {
+                "name": "project_uid",
+                "value": "",
+                "type": "path",
+                "description": "The unique identifier of the automation project."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Creates a new project variable that can be referenced in automation configurations. Variables can store API keys, URLs, or other configuration values that are used across multiple automations."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

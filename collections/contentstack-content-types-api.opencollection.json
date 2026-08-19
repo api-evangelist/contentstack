@@ -1,0 +1,163 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Contentstack Analytics Accounts Content Types API",
+    "version": "v2"
+  },
+  "request": {
+    "auth": {
+      "type": "bearer",
+      "token": "{{bearerToken}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Content Types",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get all content types",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.contentstack.io/content_types",
+            "headers": [
+              {
+                "name": "api_key",
+                "value": ""
+              },
+              {
+                "name": "access_token",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "include_count",
+                "value": "",
+                "type": "query",
+                "description": "Set to true to include the total count of content types in the response."
+              }
+            ]
+          },
+          "docs": "Retrieves comprehensive information of all content types available in a stack. Supports include_count parameter to return the total count of content types."
+        },
+        {
+          "info": {
+            "name": "Create a content type",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.contentstack.io/content_types",
+            "headers": [
+              {
+                "name": "api_key",
+                "value": ""
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Creates a new content type in the stack with a defined schema of fields. The schema determines the structure of all entries created from this content type."
+        },
+        {
+          "info": {
+            "name": "Get a single content type",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.contentstack.io/content_types/:content_type_uid",
+            "headers": [
+              {
+                "name": "api_key",
+                "value": ""
+              },
+              {
+                "name": "access_token",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "content_type_uid",
+                "value": "",
+                "type": "path",
+                "description": "The unique identifier (UID) of the content type."
+              },
+              {
+                "name": "version",
+                "value": "",
+                "type": "query",
+                "description": "Retrieve a specific version of the content type schema."
+              }
+            ]
+          },
+          "docs": "Returns detailed information for a specific content type identified by its UID, including all field definitions and schema metadata."
+        },
+        {
+          "info": {
+            "name": "Update a content type",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://api.contentstack.io/content_types/:content_type_uid",
+            "headers": [
+              {
+                "name": "api_key",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "content_type_uid",
+                "value": "",
+                "type": "path",
+                "description": "The unique identifier (UID) of the content type."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Updates the schema and options of an existing content type. Changes to the schema may affect existing entries that use this content type."
+        },
+        {
+          "info": {
+            "name": "Delete a content type",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.contentstack.io/content_types/:content_type_uid",
+            "headers": [
+              {
+                "name": "api_key",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "content_type_uid",
+                "value": "",
+                "type": "path",
+                "description": "The unique identifier (UID) of the content type."
+              }
+            ]
+          },
+          "docs": "Permanently deletes a content type from the stack. All entries of this content type must be deleted before the content type can be removed."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

@@ -1,8 +1,8 @@
 {
   "opencollection": "1.0.0",
   "info": {
-    "name": "Contentstack Generative AI API",
-    "version": "v1"
+    "name": "Contentstack Analytics Accounts Generative AI API",
+    "version": "v2"
   },
   "request": {
     "auth": {
@@ -24,7 +24,7 @@
           },
           "http": {
             "method": "POST",
-            "url": "https://ai.contentstack.com/brand-kits/v1/genai/",
+            "url": "https://api.contentstack.io/v1/genai/",
             "headers": [
               {
                 "name": "authtoken",

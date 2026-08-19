@@ -1,0 +1,288 @@
+{
+  "item": [
+    {
+      "id": "559796bd-432c-4efb-b38d-0a969a13ca57",
+      "name": "Synchronization",
+      "description": {
+        "content": "The synchronization endpoints allow developers to sync published content incrementally, enabling efficient local caching and offline-first patterns.",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "d4cb1593-d8a0-40c5-9eab-04d3a17d03bf",
+          "name": "Sync content",
+          "request": {
+            "name": "Sync content",
+            "description": {
+              "content": "Initiates an initial sync or continues a paginated sync of all published entries and assets in the stack. Use init=true for the first sync to receive a sync token. Use the sync_token from subsequent responses to fetch only the changes since the last sync.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "stacks",
+                "sync"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "init",
+                  "value": "<boolean>",
+                  "description": "Set to true to initiate the first sync and receive a sync token."
+                },
+                {
+                  "disabled": false,
+                  "key": "sync_token",
+                  "value": "<string>",
+                  "description": "The token received from a previous sync response. Use to fetch only changes since the last sync."
+                },
+                {
+                  "disabled": false,
+                  "key": "pagination_token",
+                  "value": "<string>",
+                  "description": "Token to retrieve the next page of results in a large sync response."
+                },
+                {
+                  "disabled": false,
+                  "key": "type",
+                  "value": "<string>",
+                  "description": "Filter sync results by content type. Options: entry_published, entry_unpublished, entry_deleted, asset_published, asset_unpublished, asset_deleted, content_type_deleted."
+                },
+                {
+                  "disabled": false,
+                  "key": "content_type_uid",
+                  "value": "<string>",
+                  "description": "Filter sync results to a specific content type UID."
+                },
+                {
+                  "disabled": false,
+                  "key": "locale",
+                  "value": "<string>",
+                  "description": "The locale code to retrieve localized content. Defaults to the default locale of the stack if not specified."
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "disabled": false,
+                "description": "(Required) The API key for the Contentstack stack.",
+                "key": "api_key",
+                "value": "<string>"
+              },
+              {
+                "disabled": false,
+                "description": "(Required) The delivery token for the stack environment.",
+                "key": "access_token",
+                "value": "<string>"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "5760ed72-36d7-4c21-9882-334146bc790f",
+              "name": "Sync results with a sync_token or pagination_token for continuation.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "stacks",
+                    "sync"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "init",
+                      "value": "<boolean>"
+                    },
+                    {
+                      "key": "sync_token",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "pagination_token",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "type",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "content_type_uid",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "locale",
+                      "value": "en-us"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) The API key for the Contentstack stack.",
+                    "key": "api_key",
+                    "value": "<string>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) The delivery token for the stack environment.",
+                    "key": "access_token",
+                    "value": "<string>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"items\": [\n    {\n      \"type\": \"asset_unpublished\",\n      \"data\": {},\n      \"content_type_uid\": \"string\",\n      \"locale\": \"string\"\n    },\n    {\n      \"type\": \"asset_published\",\n      \"data\": {},\n      \"content_type_uid\": \"string\",\n      \"locale\": \"string\"\n    }\n  ],\n  \"paginationToken\": \"string\",\n  \"syncToken\": \"string\",\n  \"total_count\": 7755,\n  \"limit\": 1262,\n  \"skip\": 6820\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "20d9f635-9354-4dc7-b96d-a9df7d41a3f7",
+              "name": "Authentication credentials are missing or invalid.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "stacks",
+                    "sync"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "init",
+                      "value": "<boolean>"
+                    },
+                    {
+                      "key": "sync_token",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "pagination_token",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "type",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "content_type_uid",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "locale",
+                      "value": "en-us"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) The API key for the Contentstack stack.",
+                    "key": "api_key",
+                    "value": "<string>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) The delivery token for the stack environment.",
+                    "key": "access_token",
+                    "value": "<string>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error_message\": \"string\",\n  \"error_code\": 7332,\n  \"errors\": {}\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.contentstack.io",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "bearer",
+    "bearer": [
+      {
+        "key": "token",
+        "value": "{{bearerToken}}"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "dbb45808-61d4-4123-825c-d8d382c8ad39",
+    "name": "Contentstack Analytics Accounts Synchronization API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "The Contentstack Analytics API provides access to usage and performance metrics for CMS, Launch, and Automate products within a Contentstack organization. Developers can retrieve analytics data programmatically to build custom dashboards, monitor content delivery performance, and track platform usage against plan limits. The API returns structured data suitable for aggregation with external analytics and business intelligence tools. Access is restricted to organization Owners and Admins. Requests use async job-based processing where initial POST calls queue the job and a subsequent GET call retrieves the results.\n\nContact Support:\n Name: Contentstack Support",
+      "type": "text/plain"
+    }
+  }
+}

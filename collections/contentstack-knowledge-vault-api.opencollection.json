@@ -1,8 +1,8 @@
 {
   "opencollection": "1.0.0",
   "info": {
-    "name": "Contentstack Knowledge Vault API",
-    "version": "v1"
+    "name": "Contentstack Analytics Accounts Knowledge Vault API",
+    "version": "v2"
   },
   "request": {
     "auth": {
@@ -24,7 +24,7 @@
           },
           "http": {
             "method": "POST",
-            "url": "https://ai.contentstack.com/v1/knowledge-vault/",
+            "url": "https://api.contentstack.io/v1/knowledge-vault/",
             "headers": [
               {
                 "name": "authtoken",
@@ -49,7 +49,7 @@
           },
           "http": {
             "method": "PUT",
-            "url": "https://ai.contentstack.com/v1/knowledge-vault/:content_uid",
+            "url": "https://api.contentstack.io/v1/knowledge-vault/:content_uid",
             "headers": [
               {
                 "name": "authtoken",
@@ -82,7 +82,7 @@
           },
           "http": {
             "method": "DELETE",
-            "url": "https://ai.contentstack.com/v1/knowledge-vault/:content_uid",
+            "url": "https://api.contentstack.io/v1/knowledge-vault/:content_uid",
             "headers": [
               {
                 "name": "authtoken",

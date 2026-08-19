@@ -1,0 +1,80 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Contentstack Analytics Accounts Execution Logs API",
+    "version": "v2"
+  },
+  "request": {
+    "auth": {
+      "type": "bearer",
+      "token": "{{bearerToken}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Execution Logs",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get all execution logs",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.contentstack.io/v1/organizations/:organization_uid/projects/:project_uid/executions",
+            "params": [
+              {
+                "name": "organization_uid",
+                "value": "",
+                "type": "path",
+                "description": "The unique identifier of the organization."
+              },
+              {
+                "name": "project_uid",
+                "value": "",
+                "type": "path",
+                "description": "The unique identifier of the automation project."
+              }
+            ]
+          },
+          "docs": "Retrieves a list of execution log entries for all automations in the project, showing each run with its trigger context, status, and completion time."
+        },
+        {
+          "info": {
+            "name": "Get an execution log",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.contentstack.io/v1/organizations/:organization_uid/projects/:project_uid/executions/:execution_uid",
+            "params": [
+              {
+                "name": "organization_uid",
+                "value": "",
+                "type": "path",
+                "description": "The unique identifier of the organization."
+              },
+              {
+                "name": "project_uid",
+                "value": "",
+                "type": "path",
+                "description": "The unique identifier of the automation project."
+              },
+              {
+                "name": "execution_uid",
+                "value": "",
+                "type": "path",
+                "description": "The unique identifier of the execution log entry."
+              }
+            ]
+          },
+          "docs": "Retrieves the full details of a specific automation execution log entry, including step-by-step results and any error messages encountered."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}
