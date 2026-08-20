@@ -42,6 +42,11 @@ apis:
   name: Contentstack Image Delivery API
   tags:
   - Asset Delivery
+  - Image
+  - Media
+  - Transformation
+  tags_raw:
+  - Asset Delivery
   - Images
   - Media
   - Transformation
@@ -80,6 +85,11 @@ apis:
 - aid: contentstack:knowledge-vault-api
   name: Contentstack Knowledge Vault API
   tags:
+  - Artificial Intelligence
+  - Knowledge-Management
+  - RAG
+  - Vector Database
+  tags_raw:
   - AI
   - Knowledge Management
   - RAG
@@ -101,6 +111,11 @@ apis:
 - aid: contentstack:generative-ai-api
   name: Contentstack Generative AI API
   tags:
+  - Artificial Intelligence
+  - Brand Kit
+  - Content Generation
+  - Generative AI
+  tags_raw:
   - AI
   - Brand Kit
   - Content Generation
@@ -126,6 +141,8 @@ apis:
   humanURL: https://www.contentstack.com/docs/developers/apis/content-delivery-api
   baseURL: https://cdn.contentstack.io
   tags:
+  - Account
+  tags_raw:
   - Accounts
   properties:
   - type: OpenAPI
@@ -377,6 +394,8 @@ apis:
   humanURL: https://www.contentstack.com/docs/developers/apis/content-delivery-api
   baseURL: https://cdn.contentstack.io
   tags:
+  - Deployment
+  tags_raw:
   - Deployments
   properties:
   - type: OpenAPI
@@ -515,6 +534,8 @@ apis:
   humanURL: https://www.contentstack.com/docs/developers/apis/content-delivery-api
   baseURL: https://cdn.contentstack.io
   tags:
+  - Event
+  tags_raw:
   - Events
   properties:
   - type: OpenAPI
@@ -571,6 +592,8 @@ apis:
   humanURL: https://www.contentstack.com/docs/developers/apis/content-delivery-api
   baseURL: https://cdn.contentstack.io
   tags:
+  - Experience
+  tags_raw:
   - Experiences
   properties:
   - type: OpenAPI
@@ -683,6 +706,8 @@ apis:
   humanURL: https://www.contentstack.com/docs/developers/apis/content-delivery-api
   baseURL: https://cdn.contentstack.io
   tags:
+  - Job
+  tags_raw:
   - Jobs
   properties:
   - type: OpenAPI
@@ -739,6 +764,8 @@ apis:
   humanURL: https://www.contentstack.com/docs/developers/apis/content-delivery-api
   baseURL: https://cdn.contentstack.io
   tags:
+  - Manifests
+  tags_raw:
   - Manifest
   properties:
   - type: OpenAPI
@@ -767,6 +794,8 @@ apis:
   humanURL: https://www.contentstack.com/docs/developers/apis/content-delivery-api
   baseURL: https://cdn.contentstack.io
   tags:
+  - Organization
+  tags_raw:
   - Organizations
   properties:
   - type: OpenAPI
@@ -795,6 +824,8 @@ apis:
   humanURL: https://www.contentstack.com/docs/developers/apis/content-delivery-api
   baseURL: https://cdn.contentstack.io
   tags:
+  - Project
+  tags_raw:
   - Projects
   properties:
   - type: OpenAPI
@@ -879,6 +910,8 @@ apis:
   humanURL: https://www.contentstack.com/docs/developers/apis/content-delivery-api
   baseURL: https://cdn.contentstack.io
   tags:
+  - (Scim) Users
+  tags_raw:
   - SCIM Users
   properties:
   - type: OpenAPI
@@ -1156,6 +1189,8 @@ apis:
   humanURL: https://www.contentstack.com/docs/developers/apis/content-delivery-api
   baseURL: https://cdn.contentstack.io
   tags:
+  - User
+  tags_raw:
   - Users
   properties:
   - type: OpenAPI
