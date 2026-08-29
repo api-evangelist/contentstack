@@ -1,0 +1,57 @@
+slug: contentstack
+provider: contentstack
+generated_by: planning/capability-mapping/scripts/classify_capabilities.py
+model: claude-opus-5
+frame:
+- Software & Technology
+min_confidence: 0.7
+capability_model:
+  source: https://github.com/vincentmakes/turbo-ea-capabilities
+  license: CC-BY-4.0
+  attribution: Turbo EA Capabilities by Vincent Verdet — Turbo EA, https://github.com/vincentmakes/turbo-ea-capabilities,
+    CC BY 4.0
+  notice: NOTICE
+edge_count: 4
+edges:
+- tag: Deployments
+  spec_file: contentstack-deployments-api-openapi.yml
+  capability_id: BC-4210.40
+  capability_id_l1: BC-4210
+  capability_name: Deployment Orchestration
+  confidence: 0.85
+  evidence: POST /projects/{project_uid}/environments/{env_uid}/deployments createDeployment Create a
+    deployment; GET .../deployments/{deploy_uid}/logs getDeploymentLogs
+  reason: Operations create and inspect deployments (and their logs) into named environments — this is
+    deployment execution to a target environment, i.e. deployment orchestration.
+- tag: SCIM Users
+  spec_file: contentstack-scim-users-api-openapi.yml
+  capability_id: BC-4230.50
+  capability_id_l1: BC-4230
+  capability_name: Tenant Identity Federation
+  confidence: 0.82
+  evidence: POST /scim/v2.0/organizations/{organization_uid}/Users  createScimUser  Create a SCIM user
+  reason: SCIM user account lifecycle for an organization on the SaaS platform — tenant user provisioning
+    via SCIM, i.e. tenant identity federation.
+- tag: SCIM Groups
+  spec_file: contentstack-scim-groups-api-openapi.yml
+  capability_id: BC-4230.50
+  capability_id_l1: BC-4230
+  capability_name: Tenant Identity Federation
+  confidence: 0.8
+  evidence: GET /scim/v2.0/organizations/{organization_uid}/Groups  listScimGroups  List SCIM groups;
+    POST createScimGroup
+  reason: SCIM group provisioning within an organization/tenant of the SaaS platform — this is tenant
+    identity federation and user/group lifecycle via SCIM, matching BC-4230.50 ('lifecycle of tenant user
+    accounts via single sign-on and SCIM'). The OpenAPI title's 'Analytics' framing is spurious; the operations
+    are pure SCIM.
+- tag: Environments
+  spec_file: contentstack-environments-api-openapi.yml
+  capability_id: BC-4210.20
+  capability_id_l1: BC-4210
+  capability_name: Environment Management
+  confidence: 0.78
+  evidence: POST /projects/{project_uid}/environments createEnvironment Create an environment; POST .../environments/{env_uid}/revalidate-cache
+    revalidateCache
+  reason: Provisioning, updating and deleting named project environments that deployments target is environment
+    provisioning and stewardship. Slight ambiguity because CMS publishing environments also serve a content-targeting
+    role.

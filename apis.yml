@@ -1280,6 +1280,9 @@ apis:
   - type: Documentation
     url: https://www.contentstack.com/docs/developers/apis/launch-api
 common:
+- type: CapabilityMap
+  url: capabilities/contentstack-capability-edges.yml
+  name: contentstack Business Capability Map
 - type: AgenticAccess
   url: agentic-access/contentstack-agentic-access.yml
 - type: TrustCenter
