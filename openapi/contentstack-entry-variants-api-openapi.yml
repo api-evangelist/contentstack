@@ -1,22 +1,22 @@
-openapi: 3.1.0
+openapi: 3.2.0
 info:
-  title: Contentstack Analytics Accounts Entry Variants API
-  description: The Contentstack Analytics API provides access to usage and performance metrics for CMS, Launch, and Automate products within a Contentstack organization. Developers can retrieve analytics data programmatically to build custom dashboards, monitor content delivery performance, and track platform usage against plan limits. The API returns structured data suitable for aggregation with external analytics and business intelligence tools. Access is restricted to organization Owners and Admins. Requests use async job-based processing where initial POST calls queue the job and a subsequent GET call retrieves the results.
-  version: v2
+  title: Contentstack Content Delivery Entry Variants API
+  description: The Contentstack Content Delivery API (CDA) allows developers to retrieve published content from their Contentstack stacks and deliver it to web or mobile applications. It supports fetching entries, assets, content types, and global fields through REST endpoints using stack API keys and delivery tokens for authentication. The API is read-only and optimized for high-performance content retrieval at scale. It supports filtering, sorting, pagination, localization, and synchronization, making it suitable for building localized, multi-channel digital experiences.
+  version: v3
   contact:
     name: Contentstack Support
     url: https://www.contentstack.com/contact
   termsOfService: https://www.contentstack.com/legal/terms-of-service
 servers:
-- url: https://api.contentstack.io
+- url: https://cdn.contentstack.io/v3
   description: AWS North America Production Server
-- url: https://eu-api.contentstack.com
+- url: https://eu-cdn.contentstack.com/v3
   description: AWS Europe Production Server
-- url: https://au-api.contentstack.com
+- url: https://au-cdn.contentstack.com/v3
   description: AWS Australia Production Server
 security:
-- bearerAuth: []
-- authtokenAuth: []
+- apiKey: []
+  deliveryToken: []
 tags:
 - name: Entry Variants
   description: Entry variants are customized versions of an entry created for personalization or A/B testing purposes.
@@ -77,25 +77,11 @@ components:
       description: The unique identifier (UID) of the entry variant.
       schema:
         type: string
-    AccessToken:
-      name: access_token
-      in: header
-      required: true
-      description: The delivery token for the stack environment.
-      schema:
-        type: string
     ApiKey:
       name: api_key
       in: header
       required: true
       description: The API key for the Contentstack stack.
-      schema:
-        type: string
-    ContentTypeUid:
-      name: content_type_uid
-      in: path
-      required: true
-      description: The unique identifier (UID) of the content type.
       schema:
         type: string
     EntryUid:
@@ -105,19 +91,20 @@ components:
       description: The unique identifier (UID) of the entry.
       schema:
         type: string
-  responses:
-    Unauthorized:
-      description: Authentication credentials are missing or invalid.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
-    NotFound:
-      description: The requested resource was not found.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
+    ContentTypeUid:
+      name: content_type_uid
+      in: path
+      required: true
+      description: The unique identifier (UID) of the content type.
+      schema:
+        type: string
+    AccessToken:
+      name: access_token
+      in: header
+      required: true
+      description: The delivery token for the stack environment.
+      schema:
+        type: string
   schemas:
     EntryVariantList:
       type: object
@@ -154,16 +141,30 @@ components:
         errors:
           type: object
           description: Field-level validation errors when applicable.
+  responses:
+    Unauthorized:
+      description: Authentication credentials are missing or invalid.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    NotFound:
+      description: The requested resource was not found.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
   securitySchemes:
-    bearerAuth:
-      type: http
-      scheme: bearer
-      description: OAuth 2.0 Bearer token (M2M) with analytics access.
-    authtokenAuth:
+    apiKey:
       type: apiKey
       in: header
-      name: authtoken
-      description: Contentstack user authtoken. Only organization Owners and Admins can access analytics.
+      name: api_key
+      description: The API key for the Contentstack stack.
+    deliveryToken:
+      type: apiKey
+      in: header
+      name: access_token
+      description: The delivery token granting read access to the stack environment.
 externalDocs:
-  description: Contentstack Analytics API Documentation
-  url: https://www.contentstack.com/docs/developers/apis/analytics-api
+  description: Contentstack Content Delivery API Documentation
+  url: https://www.contentstack.com/docs/developers/apis/content-delivery-api

@@ -1,22 +1,33 @@
-openapi: 3.1.0
+openapi: 3.2.0
 info:
-  title: Contentstack Analytics Accounts Environments API
-  description: The Contentstack Analytics API provides access to usage and performance metrics for CMS, Launch, and Automate products within a Contentstack organization. Developers can retrieve analytics data programmatically to build custom dashboards, monitor content delivery performance, and track platform usage against plan limits. The API returns structured data suitable for aggregation with external analytics and business intelligence tools. Access is restricted to organization Owners and Admins. Requests use async job-based processing where initial POST calls queue the job and a subsequent GET call retrieves the results.
-  version: v2
+  title: Contentstack Environments API
   contact:
     name: Contentstack Support
     url: https://www.contentstack.com/contact
   termsOfService: https://www.contentstack.com/legal/terms-of-service
+  version: '1.0'
+  description: 'Operations tagged Environments across 2 of this provider''s published API definitions: contentstack-content-management-api-openapi.yml, contentstack-launch-api-openapi.yml. Each path carries the servers of the definition it was published in.'
 servers:
-- url: https://api.contentstack.io
+- url: https://api.contentstack.io/v3
   description: AWS North America Production Server
-- url: https://eu-api.contentstack.com
+- url: https://eu-api.contentstack.com/v3
   description: AWS Europe Production Server
-- url: https://au-api.contentstack.com
+- url: https://au-api.contentstack.com/v3
   description: AWS Australia Production Server
-security:
-- bearerAuth: []
-- authtokenAuth: []
+- url: https://azure-na-api.contentstack.com/v3
+  description: Azure North America Production Server
+- url: https://azure-eu-api.contentstack.com/v3
+  description: Azure Europe Production Server
+- url: https://launch-api.contentstack.com
+  description: AWS North America Production Server
+- url: https://eu-launch-api.contentstack.com
+  description: AWS Europe Production Server
+- url: https://au-launch-api.contentstack.com
+  description: AWS Australia Production Server
+- url: https://azure-na-launch-api.contentstack.com
+  description: Azure North America Production Server
+- url: https://azure-eu-launch-api.contentstack.com
+  description: Azure Europe Production Server
 tags:
 - name: Environments
   description: Endpoints for managing deployment environments (e.g., production, staging) within a stack.
@@ -40,6 +51,20 @@ paths:
                 $ref: '#/components/schemas/EnvironmentList'
         '401':
           $ref: '#/components/responses/Unauthorized'
+      security:
+      - authtokenAuth: []
+      - managementTokenAuth: []
+    servers:
+    - url: https://api.contentstack.io/v3
+      description: AWS North America Production Server
+    - url: https://eu-api.contentstack.com/v3
+      description: AWS Europe Production Server
+    - url: https://au-api.contentstack.com/v3
+      description: AWS Australia Production Server
+    - url: https://azure-na-api.contentstack.com/v3
+      description: Azure North America Production Server
+    - url: https://azure-eu-api.contentstack.com/v3
+      description: Azure Europe Production Server
   /projects/{project_uid}/environments:
     get:
       operationId: getAllEnvironments
@@ -58,6 +83,9 @@ paths:
                 $ref: '#/components/schemas/EnvironmentList_2'
         '401':
           $ref: '#/components/responses/Unauthorized'
+      security:
+      - bearerAuth: []
+      - authtokenAuth: []
     post:
       operationId: createEnvironment
       summary: Create an environment
@@ -83,6 +111,20 @@ paths:
           $ref: '#/components/responses/BadRequest'
         '401':
           $ref: '#/components/responses/Unauthorized'
+      security:
+      - bearerAuth: []
+      - authtokenAuth: []
+    servers:
+    - url: https://launch-api.contentstack.com
+      description: AWS North America Production Server
+    - url: https://eu-launch-api.contentstack.com
+      description: AWS Europe Production Server
+    - url: https://au-launch-api.contentstack.com
+      description: AWS Australia Production Server
+    - url: https://azure-na-launch-api.contentstack.com
+      description: Azure North America Production Server
+    - url: https://azure-eu-launch-api.contentstack.com
+      description: Azure Europe Production Server
   /projects/{project_uid}/environments/{env_uid}:
     get:
       operationId: getEnvironment
@@ -104,6 +146,9 @@ paths:
           $ref: '#/components/responses/Unauthorized'
         '404':
           $ref: '#/components/responses/NotFound'
+      security:
+      - bearerAuth: []
+      - authtokenAuth: []
     put:
       operationId: updateEnvironment
       summary: Update an environment
@@ -130,6 +175,9 @@ paths:
           $ref: '#/components/responses/BadRequest'
         '401':
           $ref: '#/components/responses/Unauthorized'
+      security:
+      - bearerAuth: []
+      - authtokenAuth: []
     delete:
       operationId: deleteEnvironment
       summary: Delete an environment
@@ -146,6 +194,20 @@ paths:
           $ref: '#/components/responses/Unauthorized'
         '404':
           $ref: '#/components/responses/NotFound'
+      security:
+      - bearerAuth: []
+      - authtokenAuth: []
+    servers:
+    - url: https://launch-api.contentstack.com
+      description: AWS North America Production Server
+    - url: https://eu-launch-api.contentstack.com
+      description: AWS Europe Production Server
+    - url: https://au-launch-api.contentstack.com
+      description: AWS Australia Production Server
+    - url: https://azure-na-launch-api.contentstack.com
+      description: Azure North America Production Server
+    - url: https://azure-eu-launch-api.contentstack.com
+      description: Azure Europe Production Server
   /projects/{project_uid}/environments/{env_uid}/revalidate-cache:
     post:
       operationId: revalidateCache
@@ -174,6 +236,20 @@ paths:
           $ref: '#/components/responses/Unauthorized'
         '404':
           $ref: '#/components/responses/NotFound'
+      security:
+      - bearerAuth: []
+      - authtokenAuth: []
+    servers:
+    - url: https://launch-api.contentstack.com
+      description: AWS North America Production Server
+    - url: https://eu-launch-api.contentstack.com
+      description: AWS Europe Production Server
+    - url: https://au-launch-api.contentstack.com
+      description: AWS Australia Production Server
+    - url: https://azure-na-launch-api.contentstack.com
+      description: Azure North America Production Server
+    - url: https://azure-eu-launch-api.contentstack.com
+      description: Azure Europe Production Server
 components:
   schemas:
     EnvironmentList:
@@ -185,16 +261,6 @@ components:
           description: Array of environment objects.
           items:
             $ref: '#/components/schemas/Environment'
-    Error_2:
-      type: object
-      description: Standard error response.
-      properties:
-        message:
-          type: string
-          description: Human-readable description of the error.
-        error_code:
-          type: integer
-          description: Numeric error code.
     Environment:
       type: object
       description: A deployment environment for publishing content.
@@ -222,6 +288,28 @@ components:
           type: string
           format: date-time
           description: ISO 8601 timestamp when the environment was created.
+    Error:
+      type: object
+      description: Standard error response.
+      properties:
+        error_message:
+          type: string
+          description: Human-readable description of the error.
+        error_code:
+          type: integer
+          description: Numeric error code.
+        errors:
+          type: object
+          description: Field-level validation errors.
+    EnvironmentList_2:
+      type: object
+      description: A list of deployment environments.
+      properties:
+        data:
+          type: array
+          description: Array of environment objects.
+          items:
+            $ref: '#/components/schemas/Environment_2'
     CreateEnvironmentRequest:
       type: object
       description: Parameters for creating or updating an environment.
@@ -234,15 +322,6 @@ components:
         domain:
           type: string
           description: Custom domain for the environment.
-    EnvironmentList_2:
-      type: object
-      description: A list of deployment environments.
-      properties:
-        data:
-          type: array
-          description: Array of environment objects.
-          items:
-            $ref: '#/components/schemas/Environment_2'
     Environment_2:
       type: object
       description: A deployment environment within a Launch project.
@@ -267,20 +346,50 @@ components:
           type: string
           format: date-time
           description: ISO 8601 timestamp when the environment was created.
-    Error:
+    Error_2:
       type: object
       description: Standard error response.
       properties:
-        error_message:
+        message:
           type: string
           description: Human-readable description of the error.
         error_code:
           type: integer
           description: Numeric error code.
-        errors:
-          type: object
-          description: Field-level validation errors.
+  responses:
+    Unauthorized:
+      description: Authentication credentials are missing or invalid.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    NotFound:
+      description: The requested resource was not found.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error_2'
+    BadRequest:
+      description: The request is malformed or contains invalid parameters.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error_2'
   parameters:
+    StackApiKey:
+      name: api_key
+      in: header
+      required: true
+      description: The API key identifying the Contentstack stack.
+      schema:
+        type: string
+    AuthToken:
+      name: authtoken
+      in: header
+      required: false
+      description: User session token for authentication. Required if not using management token.
+      schema:
+        type: string
     ProjectUid:
       name: project_uid
       in: path
@@ -295,49 +404,21 @@ components:
       description: The unique identifier of the deployment environment.
       schema:
         type: string
-    AuthToken:
-      name: authtoken
-      in: header
-      required: false
-      description: User session token for authentication. Required if not using management token.
-      schema:
-        type: string
-    StackApiKey:
-      name: api_key
-      in: header
-      required: true
-      description: The API key identifying the Contentstack stack.
-      schema:
-        type: string
-  responses:
-    Unauthorized:
-      description: Authentication credentials are missing or invalid.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
-    BadRequest:
-      description: The request is malformed or contains invalid parameters.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error_2'
-    NotFound:
-      description: The requested resource was not found.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error_2'
   securitySchemes:
-    bearerAuth:
-      type: http
-      scheme: bearer
-      description: OAuth 2.0 Bearer token (M2M) with analytics access.
     authtokenAuth:
       type: apiKey
       in: header
       name: authtoken
-      description: Contentstack user authtoken. Only organization Owners and Admins can access analytics.
-externalDocs:
-  description: Contentstack Analytics API Documentation
-  url: https://www.contentstack.com/docs/developers/apis/analytics-api
+      description: User session token obtained from the login endpoint.
+    managementTokenAuth:
+      type: apiKey
+      in: header
+      name: authorization
+      description: Management token in the format "Bearer {management_token}" for server-to-server authentication without user sessions.
+    bearerAuth:
+      type: http
+      scheme: bearer
+      description: OAuth 2.0 Bearer token with launch:manage or launch.projects scopes.
+x-refined-from:
+- contentstack-content-management-api-openapi.yml
+- contentstack-launch-api-openapi.yml

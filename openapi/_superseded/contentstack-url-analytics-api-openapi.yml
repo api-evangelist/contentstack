@@ -1,6 +1,6 @@
-openapi: 3.1.0
+openapi: 3.2.0
 info:
-  title: Contentstack Analytics Accounts SDK Usage API
+  title: Contentstack Analytics Accounts URL Analytics API
   description: The Contentstack Analytics API provides access to usage and performance metrics for CMS, Launch, and Automate products within a Contentstack organization. Developers can retrieve analytics data programmatically to build custom dashboards, monitor content delivery performance, and track platform usage against plan limits. The API returns structured data suitable for aggregation with external analytics and business intelligence tools. Access is restricted to organization Owners and Admins. Requests use async job-based processing where initial POST calls queue the job and a subsequent GET call retrieves the results.
   version: v2
   contact:
@@ -18,16 +18,16 @@ security:
 - bearerAuth: []
 - authtokenAuth: []
 tags:
-- name: SDK Usage
-  description: SDK usage analytics report request volumes from Contentstack SDKs broken down by SDK type and version.
+- name: URL Analytics
+  description: URL analytics show request volume broken down by specific URLs to identify high-traffic content and optimize delivery.
 paths:
-  /analytics/v2/sdk-usage:
+  /analytics/v2/top-urls:
     post:
-      operationId: getSdkUsage
-      summary: Get SDK usage metrics
-      description: Returns request count metrics broken down by Contentstack SDK type and version, enabling teams to understand SDK adoption and identify outdated SDK versions in use.
+      operationId: getTopUrls
+      summary: Get top URLs by request count
+      description: Returns the most frequently requested URLs within the organization's Contentstack delivery infrastructure over the specified time period.
       tags:
-      - SDK Usage
+      - URL Analytics
       parameters:
       - $ref: '#/components/parameters/OrganizationUid'
       requestBody:
@@ -50,26 +50,22 @@ paths:
         '403':
           $ref: '#/components/responses/Forbidden'
 components:
-  responses:
-    Forbidden:
-      description: The user does not have permission to access analytics. Owner or Admin role required.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
-    Unauthorized:
-      description: Authentication credentials are missing or invalid.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
-    BadRequest:
-      description: The request is malformed or contains invalid parameters.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
   schemas:
+    JobResponse:
+      type: object
+      description: Response returned when an analytics job is queued.
+      properties:
+        jobId:
+          type: string
+          description: The unique identifier of the queued analytics job. Use this to retrieve results via the GET /analytics/v2/job/{jobId}/data endpoint.
+        status:
+          type: string
+          description: Initial status of the job.
+          enum:
+          - queued
+          - processing
+          - completed
+          - failed
     AnalyticsRequest:
       type: object
       description: Common parameters for analytics data requests.
@@ -100,21 +96,6 @@ components:
           minimum: 1
           maximum: 1000
           default: 100
-    JobResponse:
-      type: object
-      description: Response returned when an analytics job is queued.
-      properties:
-        jobId:
-          type: string
-          description: The unique identifier of the queued analytics job. Use this to retrieve results via the GET /analytics/v2/job/{jobId}/data endpoint.
-        status:
-          type: string
-          description: Initial status of the job.
-          enum:
-          - queued
-          - processing
-          - completed
-          - failed
     Error:
       type: object
       description: Standard error response.
@@ -125,6 +106,25 @@ components:
         error_code:
           type: integer
           description: Numeric error code.
+  responses:
+    Forbidden:
+      description: The user does not have permission to access analytics. Owner or Admin role required.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    BadRequest:
+      description: The request is malformed or contains invalid parameters.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    Unauthorized:
+      description: Authentication credentials are missing or invalid.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
   parameters:
     OrganizationUid:
       name: organization_uid
