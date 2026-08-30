@@ -638,7 +638,7 @@ apis:
   humanURL: https://www.contentstack.com/docs/developers/apis/content-delivery-api
   baseURL: https://cdn.contentstack.io
   tags:
-  - Manifests
+  - Manifest
   tags_raw:
   - Manifest
   properties:
@@ -784,7 +784,7 @@ apis:
   humanURL: https://www.contentstack.com/docs/developers/apis/content-delivery-api
   baseURL: https://cdn.contentstack.io
   tags:
-  - (Scim) Users
+  - SCIM Users
   tags_raw:
   - SCIM Users
   properties:
