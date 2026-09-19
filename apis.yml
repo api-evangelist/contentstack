@@ -28,7 +28,7 @@ accessModel:
   method: derived
 image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/icons/contentstack.png
 url: https://raw.githubusercontent.com/api-evangelist/contentstack/refs/heads/main/apis.yml
-modified: '2026-09-16'
+modified: '2026-09-17'
 apis:
 - aid: contentstack:graphql-content-delivery-api
   name: Contentstack GraphQL Content Delivery API
@@ -45,11 +45,11 @@ apis:
     type: Documentation
   - url: graphql/contentstack-graphql.md
     type: GraphQL
-  description: The Contentstack GraphQL Content Delivery API enables developers to query content from
-    their Contentstack stack using GraphQL syntax, allowing precise retrieval of only the fields and relationships
-    needed in a single request. It is built on top of the Content Delivery API and supports querying entries,
-    assets, and nested references across content types. The GraphQL API does not support mutations or
-    subscriptions; it is strictly read-only and intended for front-end and application data fetching.
+  description: The Contentstack GraphQL Content Delivery API enables developers to query content from their Contentstack
+    stack using GraphQL syntax, allowing precise retrieval of only the fields and relationships needed in a single
+    request. It is built on top of the Content Delivery API and supports querying entries, assets, and nested references
+    across content types. The GraphQL API does not support mutations or subscriptions; it is strictly read-only
+    and intended for front-end and application data fetching.
 - aid: contentstack:image-delivery-api
   name: Contentstack Image Delivery API
   tags:
@@ -68,11 +68,11 @@ apis:
   properties:
   - url: https://www.contentstack.com/docs/developers/apis/image-delivery-api
     type: Documentation
-  description: The Contentstack Image Delivery API allows developers to retrieve and transform images
-    stored as assets in their Contentstack stacks. It supports on-the-fly image manipulation operations
-    including resizing, cropping, format conversion, quality adjustment, and overlay compositing via URL
-    query parameters. Images are served from a CDN for fast delivery, and transformations are applied
-    at request time without creating additional stored copies.
+  description: The Contentstack Image Delivery API allows developers to retrieve and transform images stored as
+    assets in their Contentstack stacks. It supports on-the-fly image manipulation operations including resizing,
+    cropping, format conversion, quality adjustment, and overlay compositing via URL query parameters. Images are
+    served from a CDN for fast delivery, and transformations are applied at request time without creating additional
+    stored copies.
 - aid: contentstack:analytics-api
   name: Contentstack Analytics API
   tags:
@@ -81,23 +81,22 @@ apis:
   - Monitoring
   - Reporting
   image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
-  baseURL: https://api.contentstack.io
-  humanURL: https://www.contentstack.com/docs/developers/apis/analytics-api
+  baseURL: https://launch-api.contentstack.com
+  humanURL: https://www.contentstack.com/docs/developers/apis/launch-api
   properties:
-  - url: https://www.contentstack.com/docs/developers/apis/analytics-api
-    type: Documentation
   - url: openapi/contentstack-analytics-api-openapi.yml
     type: OpenAPI
-  description: The Contentstack Analytics API provides access to usage and performance metrics for CMS,
-    Launch, and Automate products within a Contentstack organization. Developers can retrieve analytics
-    data programmatically to build custom dashboards, monitor content delivery performance, and track
-    platform usage against plan limits.
+  - type: Documentation
+    url: https://www.contentstack.com/docs/developers/apis/launch-api
+  description: The Contentstack Analytics API provides access to usage and performance metrics for CMS, Launch,
+    and Automate products within a Contentstack organization. Developers can retrieve analytics data programmatically
+    to build custom dashboards, monitor content delivery performance, and track platform usage against plan limits.
 - aid: contentstack:contentstack-accounts-api
   name: contentstack Accounts API
-  description: Accounts represent authenticated connections to external services and third-party platforms
-    used by automations as action targets.
-  humanURL: https://www.contentstack.com/docs/developers/apis/content-delivery-api
-  baseURL: https://cdn.contentstack.io
+  description: Accounts represent authenticated connections to external services and third-party platforms used
+    by automations as action targets.
+  humanURL: https://www.contentstack.com/docs/developers/apis/automation-hub-management-api
+  baseURL: https://automations-api.contentstack.com
   tags:
   - Account
   tags_raw:
@@ -106,27 +105,12 @@ apis:
   - type: OpenAPI
     url: openapi/contentstack-accounts-api-openapi.yml
   - type: Documentation
-    url: https://www.contentstack.com/docs/developers/apis/content-delivery-api
-  - type: Documentation
-    url: https://www.contentstack.com/docs/developers/apis/content-management-api
-  - type: Documentation
-    url: https://www.contentstack.com/docs/developers/apis/personalize-management-api
-  - type: Documentation
-    url: https://www.contentstack.com/docs/developers/apis/personalize-edge-api
-  - type: Documentation
     url: https://www.contentstack.com/docs/developers/apis/automation-hub-management-api
-  - type: Documentation
-    url: https://www.contentstack.com/docs/developers/apis/scim-api
-  - type: Documentation
-    url: https://www.contentstack.com/docs/developers/apis/brand-kit-management-api
-  - type: Documentation
-    url: https://www.contentstack.com/docs/developers/apis/launch-api
 - aid: contentstack:contentstack-assets-api
   name: contentstack Assets API
-  description: Assets are media files such as images, videos, and documents stored in the Contentstack
-    asset library.
+  description: Assets are media files such as images, videos, and documents stored in the Contentstack asset library.
   humanURL: https://www.contentstack.com/docs/developers/apis/content-delivery-api
-  baseURL: https://cdn.contentstack.io
+  baseURL: https://cdn.contentstack.io/v3
   tags:
   - Assets
   properties:
@@ -134,162 +118,79 @@ apis:
     url: openapi/contentstack-assets-api-openapi.yml
   - type: Documentation
     url: https://www.contentstack.com/docs/developers/apis/content-delivery-api
-  - type: Documentation
-    url: https://www.contentstack.com/docs/developers/apis/content-management-api
-  - type: Documentation
-    url: https://www.contentstack.com/docs/developers/apis/personalize-management-api
-  - type: Documentation
-    url: https://www.contentstack.com/docs/developers/apis/personalize-edge-api
-  - type: Documentation
-    url: https://www.contentstack.com/docs/developers/apis/automation-hub-management-api
-  - type: Documentation
-    url: https://www.contentstack.com/docs/developers/apis/scim-api
-  - type: Documentation
-    url: https://www.contentstack.com/docs/developers/apis/brand-kit-management-api
-  - type: Documentation
-    url: https://www.contentstack.com/docs/developers/apis/launch-api
 - aid: contentstack:contentstack-attributes-api
   name: contentstack Attributes API
-  description: Attributes represent individual user data characteristics such as age, location, or browsing
-    history used to define audience segments.
-  humanURL: https://www.contentstack.com/docs/developers/apis/content-delivery-api
-  baseURL: https://cdn.contentstack.io
+  description: Attributes represent individual user data characteristics such as age, location, or browsing history
+    used to define audience segments.
+  humanURL: https://www.contentstack.com/docs/developers/apis/personalize-management-api
+  baseURL: https://personalize-api.contentstack.com
   tags:
   - Attributes
   properties:
   - type: OpenAPI
     url: openapi/contentstack-attributes-api-openapi.yml
   - type: Documentation
-    url: https://www.contentstack.com/docs/developers/apis/content-delivery-api
-  - type: Documentation
-    url: https://www.contentstack.com/docs/developers/apis/content-management-api
-  - type: Documentation
     url: https://www.contentstack.com/docs/developers/apis/personalize-management-api
-  - type: Documentation
-    url: https://www.contentstack.com/docs/developers/apis/personalize-edge-api
-  - type: Documentation
-    url: https://www.contentstack.com/docs/developers/apis/automation-hub-management-api
-  - type: Documentation
-    url: https://www.contentstack.com/docs/developers/apis/scim-api
-  - type: Documentation
-    url: https://www.contentstack.com/docs/developers/apis/brand-kit-management-api
-  - type: Documentation
-    url: https://www.contentstack.com/docs/developers/apis/launch-api
 - aid: contentstack:contentstack-audiences-api
   name: contentstack Audiences API
   description: Audiences are defined segments of users grouped by demographic, behavioral, or other attribute-based
     criteria for targeted content experiences.
-  humanURL: https://www.contentstack.com/docs/developers/apis/content-delivery-api
-  baseURL: https://cdn.contentstack.io
+  humanURL: https://www.contentstack.com/docs/developers/apis/personalize-management-api
+  baseURL: https://personalize-api.contentstack.com
   tags:
   - Audiences
   properties:
   - type: OpenAPI
     url: openapi/contentstack-audiences-api-openapi.yml
   - type: Documentation
-    url: https://www.contentstack.com/docs/developers/apis/content-delivery-api
-  - type: Documentation
-    url: https://www.contentstack.com/docs/developers/apis/content-management-api
-  - type: Documentation
     url: https://www.contentstack.com/docs/developers/apis/personalize-management-api
-  - type: Documentation
-    url: https://www.contentstack.com/docs/developers/apis/personalize-edge-api
-  - type: Documentation
-    url: https://www.contentstack.com/docs/developers/apis/automation-hub-management-api
-  - type: Documentation
-    url: https://www.contentstack.com/docs/developers/apis/scim-api
-  - type: Documentation
-    url: https://www.contentstack.com/docs/developers/apis/brand-kit-management-api
-  - type: Documentation
-    url: https://www.contentstack.com/docs/developers/apis/launch-api
 - aid: contentstack:contentstack-audit-logs-api
   name: contentstack Audit Logs API
-  description: Audit logs track all administrative actions taken within an automation project, providing
-    a history of configuration changes.
-  humanURL: https://www.contentstack.com/docs/developers/apis/content-delivery-api
-  baseURL: https://cdn.contentstack.io
+  description: Audit logs track all administrative actions taken within an automation project, providing a history
+    of configuration changes.
+  humanURL: https://www.contentstack.com/docs/developers/apis/automation-hub-management-api
+  baseURL: https://automations-api.contentstack.com
   tags:
   - Audit Logs
   properties:
   - type: OpenAPI
     url: openapi/contentstack-audit-logs-api-openapi.yml
   - type: Documentation
-    url: https://www.contentstack.com/docs/developers/apis/content-delivery-api
-  - type: Documentation
-    url: https://www.contentstack.com/docs/developers/apis/content-management-api
-  - type: Documentation
-    url: https://www.contentstack.com/docs/developers/apis/personalize-management-api
-  - type: Documentation
-    url: https://www.contentstack.com/docs/developers/apis/personalize-edge-api
-  - type: Documentation
     url: https://www.contentstack.com/docs/developers/apis/automation-hub-management-api
-  - type: Documentation
-    url: https://www.contentstack.com/docs/developers/apis/scim-api
-  - type: Documentation
-    url: https://www.contentstack.com/docs/developers/apis/brand-kit-management-api
-  - type: Documentation
-    url: https://www.contentstack.com/docs/developers/apis/launch-api
 - aid: contentstack:contentstack-automations-api
   name: contentstack Automations API
-  description: Automations are individual workflow definitions that connect triggers (such as Contentstack
-    content events) to actions (such as sending notifications or updating external systems).
-  humanURL: https://www.contentstack.com/docs/developers/apis/content-delivery-api
-  baseURL: https://cdn.contentstack.io
+  description: Automations are individual workflow definitions that connect triggers (such as Contentstack content
+    events) to actions (such as sending notifications or updating external systems).
+  humanURL: https://www.contentstack.com/docs/developers/apis/automation-hub-management-api
+  baseURL: https://automations-api.contentstack.com
   tags:
+  - Automation
+  tags_raw:
   - Automations
   properties:
   - type: OpenAPI
     url: openapi/contentstack-automations-api-openapi.yml
   - type: Documentation
-    url: https://www.contentstack.com/docs/developers/apis/content-delivery-api
-  - type: Documentation
-    url: https://www.contentstack.com/docs/developers/apis/content-management-api
-  - type: Documentation
-    url: https://www.contentstack.com/docs/developers/apis/personalize-management-api
-  - type: Documentation
-    url: https://www.contentstack.com/docs/developers/apis/personalize-edge-api
-  - type: Documentation
     url: https://www.contentstack.com/docs/developers/apis/automation-hub-management-api
-  - type: Documentation
-    url: https://www.contentstack.com/docs/developers/apis/scim-api
-  - type: Documentation
-    url: https://www.contentstack.com/docs/developers/apis/brand-kit-management-api
-  - type: Documentation
-    url: https://www.contentstack.com/docs/developers/apis/launch-api
 - aid: contentstack:contentstack-brand-kits-api
   name: contentstack Brand Kits API
   description: Brand Kits are centralized repositories for an organization's brand identity assets, guidelines,
-    and AI configuration. They are used to ensure consistent brand voice and style across AI-generated
-    content.
-  humanURL: https://www.contentstack.com/docs/developers/apis/content-delivery-api
-  baseURL: https://cdn.contentstack.io
+    and AI configuration. They are used to ensure consistent brand voice and style across AI-generated content.
+  humanURL: https://www.contentstack.com/docs/developers/apis/brand-kit-management-api
+  baseURL: https://brand-kits-api.contentstack.com
   tags:
   - Brand Kits
   properties:
   - type: OpenAPI
     url: openapi/contentstack-brand-kits-api-openapi.yml
   - type: Documentation
-    url: https://www.contentstack.com/docs/developers/apis/content-delivery-api
-  - type: Documentation
-    url: https://www.contentstack.com/docs/developers/apis/content-management-api
-  - type: Documentation
-    url: https://www.contentstack.com/docs/developers/apis/personalize-management-api
-  - type: Documentation
-    url: https://www.contentstack.com/docs/developers/apis/personalize-edge-api
-  - type: Documentation
-    url: https://www.contentstack.com/docs/developers/apis/automation-hub-management-api
-  - type: Documentation
-    url: https://www.contentstack.com/docs/developers/apis/scim-api
-  - type: Documentation
     url: https://www.contentstack.com/docs/developers/apis/brand-kit-management-api
-  - type: Documentation
-    url: https://www.contentstack.com/docs/developers/apis/launch-api
 - aid: contentstack:contentstack-content-types-api
   name: contentstack Content Types API
-  description: Content types define the structure of content entries in a Contentstack stack. They specify
-    the fields and their data types that entries must conform to.
+  description: Content types define the structure of content entries in a Contentstack stack. They specify the fields
+    and their data types that entries must conform to.
   humanURL: https://www.contentstack.com/docs/developers/apis/content-delivery-api
-  baseURL: https://cdn.contentstack.io
+  baseURL: https://cdn.contentstack.io/v3
   tags:
   - Content Types
   properties:
@@ -297,26 +198,12 @@ apis:
     url: openapi/contentstack-content-types-api-openapi.yml
   - type: Documentation
     url: https://www.contentstack.com/docs/developers/apis/content-delivery-api
-  - type: Documentation
-    url: https://www.contentstack.com/docs/developers/apis/content-management-api
-  - type: Documentation
-    url: https://www.contentstack.com/docs/developers/apis/personalize-management-api
-  - type: Documentation
-    url: https://www.contentstack.com/docs/developers/apis/personalize-edge-api
-  - type: Documentation
-    url: https://www.contentstack.com/docs/developers/apis/automation-hub-management-api
-  - type: Documentation
-    url: https://www.contentstack.com/docs/developers/apis/scim-api
-  - type: Documentation
-    url: https://www.contentstack.com/docs/developers/apis/brand-kit-management-api
-  - type: Documentation
-    url: https://www.contentstack.com/docs/developers/apis/launch-api
 - aid: contentstack:contentstack-deployments-api
   name: contentstack Deployments API
-  description: Deployments represent individual build and publish operations to a Launch environment.
-    Each deployment has associated build logs, server logs, and status tracking.
-  humanURL: https://www.contentstack.com/docs/developers/apis/content-delivery-api
-  baseURL: https://cdn.contentstack.io
+  description: Deployments represent individual build and publish operations to a Launch environment. Each deployment
+    has associated build logs, server logs, and status tracking.
+  humanURL: https://www.contentstack.com/docs/developers/apis/launch-api
+  baseURL: https://launch-api.contentstack.com
   tags:
   - Deployment
   tags_raw:
@@ -325,27 +212,13 @@ apis:
   - type: OpenAPI
     url: openapi/contentstack-deployments-api-openapi.yml
   - type: Documentation
-    url: https://www.contentstack.com/docs/developers/apis/content-delivery-api
-  - type: Documentation
-    url: https://www.contentstack.com/docs/developers/apis/content-management-api
-  - type: Documentation
-    url: https://www.contentstack.com/docs/developers/apis/personalize-management-api
-  - type: Documentation
-    url: https://www.contentstack.com/docs/developers/apis/personalize-edge-api
-  - type: Documentation
-    url: https://www.contentstack.com/docs/developers/apis/automation-hub-management-api
-  - type: Documentation
-    url: https://www.contentstack.com/docs/developers/apis/scim-api
-  - type: Documentation
-    url: https://www.contentstack.com/docs/developers/apis/brand-kit-management-api
-  - type: Documentation
     url: https://www.contentstack.com/docs/developers/apis/launch-api
 - aid: contentstack:contentstack-entries-api
   name: contentstack Entries API
-  description: Entries are instances of content types that hold the actual content data. They can be filtered,
-    sorted, paginated, and localized.
+  description: Entries are instances of content types that hold the actual content data. They can be filtered, sorted,
+    paginated, and localized.
   humanURL: https://www.contentstack.com/docs/developers/apis/content-delivery-api
-  baseURL: https://cdn.contentstack.io
+  baseURL: https://cdn.contentstack.io/v3
   tags:
   - Entries
   properties:
@@ -353,26 +226,11 @@ apis:
     url: openapi/contentstack-entries-api-openapi.yml
   - type: Documentation
     url: https://www.contentstack.com/docs/developers/apis/content-delivery-api
-  - type: Documentation
-    url: https://www.contentstack.com/docs/developers/apis/content-management-api
-  - type: Documentation
-    url: https://www.contentstack.com/docs/developers/apis/personalize-management-api
-  - type: Documentation
-    url: https://www.contentstack.com/docs/developers/apis/personalize-edge-api
-  - type: Documentation
-    url: https://www.contentstack.com/docs/developers/apis/automation-hub-management-api
-  - type: Documentation
-    url: https://www.contentstack.com/docs/developers/apis/scim-api
-  - type: Documentation
-    url: https://www.contentstack.com/docs/developers/apis/brand-kit-management-api
-  - type: Documentation
-    url: https://www.contentstack.com/docs/developers/apis/launch-api
 - aid: contentstack:contentstack-entry-variants-api
   name: contentstack Entry Variants API
-  description: Entry variants are customized versions of an entry created for personalization or A/B testing
-    purposes.
+  description: Entry variants are customized versions of an entry created for personalization or A/B testing purposes.
   humanURL: https://www.contentstack.com/docs/developers/apis/content-delivery-api
-  baseURL: https://cdn.contentstack.io
+  baseURL: https://cdn.contentstack.io/v3
   tags:
   - Entry Variants
   properties:
@@ -380,52 +238,26 @@ apis:
     url: openapi/contentstack-entry-variants-api-openapi.yml
   - type: Documentation
     url: https://www.contentstack.com/docs/developers/apis/content-delivery-api
-  - type: Documentation
-    url: https://www.contentstack.com/docs/developers/apis/content-management-api
-  - type: Documentation
-    url: https://www.contentstack.com/docs/developers/apis/personalize-management-api
-  - type: Documentation
-    url: https://www.contentstack.com/docs/developers/apis/personalize-edge-api
-  - type: Documentation
-    url: https://www.contentstack.com/docs/developers/apis/automation-hub-management-api
-  - type: Documentation
-    url: https://www.contentstack.com/docs/developers/apis/scim-api
-  - type: Documentation
-    url: https://www.contentstack.com/docs/developers/apis/brand-kit-management-api
-  - type: Documentation
-    url: https://www.contentstack.com/docs/developers/apis/launch-api
 - aid: contentstack:contentstack-environments-api
   name: contentstack Environments API
   description: Endpoints for managing deployment environments (e.g., production, staging) within a stack.
-  humanURL: https://www.contentstack.com/docs/developers/apis/content-delivery-api
-  baseURL: https://cdn.contentstack.io
+  humanURL: https://www.contentstack.com/docs/developers/apis/content-management-api
+  baseURL: https://api.contentstack.io/v3
   tags:
+  - Environment
+  tags_raw:
   - Environments
   properties:
   - type: OpenAPI
     url: openapi/contentstack-environments-api-openapi.yml
   - type: Documentation
-    url: https://www.contentstack.com/docs/developers/apis/content-delivery-api
-  - type: Documentation
     url: https://www.contentstack.com/docs/developers/apis/content-management-api
-  - type: Documentation
-    url: https://www.contentstack.com/docs/developers/apis/personalize-management-api
-  - type: Documentation
-    url: https://www.contentstack.com/docs/developers/apis/personalize-edge-api
-  - type: Documentation
-    url: https://www.contentstack.com/docs/developers/apis/automation-hub-management-api
-  - type: Documentation
-    url: https://www.contentstack.com/docs/developers/apis/scim-api
-  - type: Documentation
-    url: https://www.contentstack.com/docs/developers/apis/brand-kit-management-api
-  - type: Documentation
-    url: https://www.contentstack.com/docs/developers/apis/launch-api
 - aid: contentstack:contentstack-events-api
   name: contentstack Events API
-  description: The events endpoint allows applications to track user actions and behavioral events for
-    experience analytics and audience rule evaluation.
+  description: The events endpoint allows applications to track user actions and behavioral events for experience
+    analytics and audience rule evaluation.
   humanURL: https://www.contentstack.com/docs/developers/apis/content-delivery-api
-  baseURL: https://cdn.contentstack.io
+  baseURL: https://personalize-edge.contentstack.com
   tags:
   - Event
   tags_raw:
@@ -435,53 +267,25 @@ apis:
     url: openapi/contentstack-events-api-openapi.yml
   - type: Documentation
     url: https://www.contentstack.com/docs/developers/apis/content-delivery-api
-  - type: Documentation
-    url: https://www.contentstack.com/docs/developers/apis/content-management-api
-  - type: Documentation
-    url: https://www.contentstack.com/docs/developers/apis/personalize-management-api
-  - type: Documentation
-    url: https://www.contentstack.com/docs/developers/apis/personalize-edge-api
-  - type: Documentation
-    url: https://www.contentstack.com/docs/developers/apis/automation-hub-management-api
-  - type: Documentation
-    url: https://www.contentstack.com/docs/developers/apis/scim-api
-  - type: Documentation
-    url: https://www.contentstack.com/docs/developers/apis/brand-kit-management-api
-  - type: Documentation
-    url: https://www.contentstack.com/docs/developers/apis/launch-api
 - aid: contentstack:contentstack-execution-logs-api
   name: contentstack Execution Logs API
-  description: Execution logs record each time an automation runs, including the trigger context, steps
-    executed, and success or failure status.
-  humanURL: https://www.contentstack.com/docs/developers/apis/content-delivery-api
-  baseURL: https://cdn.contentstack.io
+  description: Execution logs record each time an automation runs, including the trigger context, steps executed,
+    and success or failure status.
+  humanURL: https://www.contentstack.com/docs/developers/apis/automation-hub-management-api
+  baseURL: https://automations-api.contentstack.com
   tags:
   - Execution Logs
   properties:
   - type: OpenAPI
     url: openapi/contentstack-execution-logs-api-openapi.yml
   - type: Documentation
-    url: https://www.contentstack.com/docs/developers/apis/content-delivery-api
-  - type: Documentation
-    url: https://www.contentstack.com/docs/developers/apis/content-management-api
-  - type: Documentation
-    url: https://www.contentstack.com/docs/developers/apis/personalize-management-api
-  - type: Documentation
-    url: https://www.contentstack.com/docs/developers/apis/personalize-edge-api
-  - type: Documentation
     url: https://www.contentstack.com/docs/developers/apis/automation-hub-management-api
-  - type: Documentation
-    url: https://www.contentstack.com/docs/developers/apis/scim-api
-  - type: Documentation
-    url: https://www.contentstack.com/docs/developers/apis/brand-kit-management-api
-  - type: Documentation
-    url: https://www.contentstack.com/docs/developers/apis/launch-api
 - aid: contentstack:contentstack-experiences-api
   name: contentstack Experiences API
-  description: Experiences define personalized content variations delivered to specific audience segments,
-    supporting both segmented and A/B test configurations.
-  humanURL: https://www.contentstack.com/docs/developers/apis/content-delivery-api
-  baseURL: https://cdn.contentstack.io
+  description: Experiences define personalized content variations delivered to specific audience segments, supporting
+    both segmented and A/B test configurations.
+  humanURL: https://www.contentstack.com/docs/developers/apis/personalize-management-api
+  baseURL: https://personalize-api.contentstack.com
   tags:
   - Experience
   tags_raw:
@@ -490,81 +294,39 @@ apis:
   - type: OpenAPI
     url: openapi/contentstack-experiences-api-openapi.yml
   - type: Documentation
-    url: https://www.contentstack.com/docs/developers/apis/content-delivery-api
-  - type: Documentation
-    url: https://www.contentstack.com/docs/developers/apis/content-management-api
-  - type: Documentation
     url: https://www.contentstack.com/docs/developers/apis/personalize-management-api
-  - type: Documentation
-    url: https://www.contentstack.com/docs/developers/apis/personalize-edge-api
-  - type: Documentation
-    url: https://www.contentstack.com/docs/developers/apis/automation-hub-management-api
-  - type: Documentation
-    url: https://www.contentstack.com/docs/developers/apis/scim-api
-  - type: Documentation
-    url: https://www.contentstack.com/docs/developers/apis/brand-kit-management-api
-  - type: Documentation
-    url: https://www.contentstack.com/docs/developers/apis/launch-api
 - aid: contentstack:contentstack-file-uploads-api
   name: contentstack File Uploads API
-  description: File upload endpoints provide pre-signed URLs for securely uploading build artifacts to
-    Contentstack Launch infrastructure before triggering a deployment.
-  humanURL: https://www.contentstack.com/docs/developers/apis/content-delivery-api
-  baseURL: https://cdn.contentstack.io
+  description: File upload endpoints provide pre-signed URLs for securely uploading build artifacts to Contentstack
+    Launch infrastructure before triggering a deployment.
+  humanURL: https://www.contentstack.com/docs/developers/apis/launch-api
+  baseURL: https://launch-api.contentstack.com
   tags:
   - File Uploads
   properties:
   - type: OpenAPI
     url: openapi/contentstack-file-uploads-api-openapi.yml
   - type: Documentation
-    url: https://www.contentstack.com/docs/developers/apis/content-delivery-api
-  - type: Documentation
-    url: https://www.contentstack.com/docs/developers/apis/content-management-api
-  - type: Documentation
-    url: https://www.contentstack.com/docs/developers/apis/personalize-management-api
-  - type: Documentation
-    url: https://www.contentstack.com/docs/developers/apis/personalize-edge-api
-  - type: Documentation
-    url: https://www.contentstack.com/docs/developers/apis/automation-hub-management-api
-  - type: Documentation
-    url: https://www.contentstack.com/docs/developers/apis/scim-api
-  - type: Documentation
-    url: https://www.contentstack.com/docs/developers/apis/brand-kit-management-api
-  - type: Documentation
     url: https://www.contentstack.com/docs/developers/apis/launch-api
 - aid: contentstack:contentstack-geolocation-api
   name: contentstack Geolocation API
-  description: Geolocation endpoints provide geographic datasets including regions, countries, and cities
-    for location-based audience targeting.
-  humanURL: https://www.contentstack.com/docs/developers/apis/content-delivery-api
-  baseURL: https://cdn.contentstack.io
+  description: Geolocation endpoints provide geographic datasets including regions, countries, and cities for location-based
+    audience targeting.
+  humanURL: https://www.contentstack.com/docs/developers/apis/personalize-management-api
+  baseURL: https://personalize-api.contentstack.com
   tags:
   - Geolocation
   properties:
   - type: OpenAPI
     url: openapi/contentstack-geolocation-api-openapi.yml
   - type: Documentation
-    url: https://www.contentstack.com/docs/developers/apis/content-delivery-api
-  - type: Documentation
-    url: https://www.contentstack.com/docs/developers/apis/content-management-api
-  - type: Documentation
     url: https://www.contentstack.com/docs/developers/apis/personalize-management-api
-  - type: Documentation
-    url: https://www.contentstack.com/docs/developers/apis/personalize-edge-api
-  - type: Documentation
-    url: https://www.contentstack.com/docs/developers/apis/automation-hub-management-api
-  - type: Documentation
-    url: https://www.contentstack.com/docs/developers/apis/scim-api
-  - type: Documentation
-    url: https://www.contentstack.com/docs/developers/apis/brand-kit-management-api
-  - type: Documentation
-    url: https://www.contentstack.com/docs/developers/apis/launch-api
 - aid: contentstack:contentstack-global-fields-api
   name: contentstack Global Fields API
-  description: Global fields are reusable field groups that can be referenced across multiple content
-    types within a Contentstack stack.
+  description: Global fields are reusable field groups that can be referenced across multiple content types within
+    a Contentstack stack.
   humanURL: https://www.contentstack.com/docs/developers/apis/content-delivery-api
-  baseURL: https://cdn.contentstack.io
+  baseURL: https://cdn.contentstack.io/v3
   tags:
   - Global Fields
   properties:
@@ -572,53 +334,25 @@ apis:
     url: openapi/contentstack-global-fields-api-openapi.yml
   - type: Documentation
     url: https://www.contentstack.com/docs/developers/apis/content-delivery-api
-  - type: Documentation
-    url: https://www.contentstack.com/docs/developers/apis/content-management-api
-  - type: Documentation
-    url: https://www.contentstack.com/docs/developers/apis/personalize-management-api
-  - type: Documentation
-    url: https://www.contentstack.com/docs/developers/apis/personalize-edge-api
-  - type: Documentation
-    url: https://www.contentstack.com/docs/developers/apis/automation-hub-management-api
-  - type: Documentation
-    url: https://www.contentstack.com/docs/developers/apis/scim-api
-  - type: Documentation
-    url: https://www.contentstack.com/docs/developers/apis/brand-kit-management-api
-  - type: Documentation
-    url: https://www.contentstack.com/docs/developers/apis/launch-api
 - aid: contentstack:contentstack-llm-configuration-api
   name: contentstack LLM Configuration API
-  description: LLM Configuration endpoints allow organizations to register custom API credentials for
-    large language model providers, enabling content generation through their own LLM subscriptions.
-  humanURL: https://www.contentstack.com/docs/developers/apis/content-delivery-api
-  baseURL: https://cdn.contentstack.io
+  description: LLM Configuration endpoints allow organizations to register custom API credentials for large language
+    model providers, enabling content generation through their own LLM subscriptions.
+  humanURL: https://www.contentstack.com/docs/developers/apis/brand-kit-management-api
+  baseURL: https://brand-kits-api.contentstack.com
   tags:
   - LLM Configuration
   properties:
   - type: OpenAPI
     url: openapi/contentstack-llm-configuration-api-openapi.yml
   - type: Documentation
-    url: https://www.contentstack.com/docs/developers/apis/content-delivery-api
-  - type: Documentation
-    url: https://www.contentstack.com/docs/developers/apis/content-management-api
-  - type: Documentation
-    url: https://www.contentstack.com/docs/developers/apis/personalize-management-api
-  - type: Documentation
-    url: https://www.contentstack.com/docs/developers/apis/personalize-edge-api
-  - type: Documentation
-    url: https://www.contentstack.com/docs/developers/apis/automation-hub-management-api
-  - type: Documentation
-    url: https://www.contentstack.com/docs/developers/apis/scim-api
-  - type: Documentation
     url: https://www.contentstack.com/docs/developers/apis/brand-kit-management-api
-  - type: Documentation
-    url: https://www.contentstack.com/docs/developers/apis/launch-api
 - aid: contentstack:contentstack-manifest-api
   name: contentstack Manifest API
-  description: The manifest endpoint returns a list of all active experiences and their corresponding
-    variants that are activated for the current user based on their attributes and audience membership.
-  humanURL: https://www.contentstack.com/docs/developers/apis/content-delivery-api
-  baseURL: https://cdn.contentstack.io
+  description: The manifest endpoint returns a list of all active experiences and their corresponding variants that
+    are activated for the current user based on their attributes and audience membership.
+  humanURL: https://www.contentstack.com/docs/developers/apis/personalize-edge-api
+  baseURL: https://personalize-edge.contentstack.com
   tags:
   - Manifests
   tags_raw:
@@ -627,27 +361,13 @@ apis:
   - type: OpenAPI
     url: openapi/contentstack-manifest-api-openapi.yml
   - type: Documentation
-    url: https://www.contentstack.com/docs/developers/apis/content-delivery-api
-  - type: Documentation
-    url: https://www.contentstack.com/docs/developers/apis/content-management-api
-  - type: Documentation
-    url: https://www.contentstack.com/docs/developers/apis/personalize-management-api
-  - type: Documentation
     url: https://www.contentstack.com/docs/developers/apis/personalize-edge-api
-  - type: Documentation
-    url: https://www.contentstack.com/docs/developers/apis/automation-hub-management-api
-  - type: Documentation
-    url: https://www.contentstack.com/docs/developers/apis/scim-api
-  - type: Documentation
-    url: https://www.contentstack.com/docs/developers/apis/brand-kit-management-api
-  - type: Documentation
-    url: https://www.contentstack.com/docs/developers/apis/launch-api
 - aid: contentstack:contentstack-organizations-api
   name: contentstack Organizations API
-  description: Endpoints for managing Contentstack organizations, including user invitations, roles, stacks,
-    and audit logs at the organization level.
-  humanURL: https://www.contentstack.com/docs/developers/apis/content-delivery-api
-  baseURL: https://cdn.contentstack.io
+  description: Endpoints for managing Contentstack organizations, including user invitations, roles, stacks, and
+    audit logs at the organization level.
+  humanURL: https://www.contentstack.com/docs/developers/apis/content-management-api
+  baseURL: https://api.contentstack.io/v3
   tags:
   - Organization
   tags_raw:
@@ -656,27 +376,13 @@ apis:
   - type: OpenAPI
     url: openapi/contentstack-organizations-api-openapi.yml
   - type: Documentation
-    url: https://www.contentstack.com/docs/developers/apis/content-delivery-api
-  - type: Documentation
     url: https://www.contentstack.com/docs/developers/apis/content-management-api
-  - type: Documentation
-    url: https://www.contentstack.com/docs/developers/apis/personalize-management-api
-  - type: Documentation
-    url: https://www.contentstack.com/docs/developers/apis/personalize-edge-api
-  - type: Documentation
-    url: https://www.contentstack.com/docs/developers/apis/automation-hub-management-api
-  - type: Documentation
-    url: https://www.contentstack.com/docs/developers/apis/scim-api
-  - type: Documentation
-    url: https://www.contentstack.com/docs/developers/apis/brand-kit-management-api
-  - type: Documentation
-    url: https://www.contentstack.com/docs/developers/apis/launch-api
 - aid: contentstack:contentstack-projects-api
   name: contentstack Projects API
-  description: Automation projects are containers for automations within a Contentstack organization.
-    Each project groups related automations and can have its own variables and account connections.
+  description: Automation projects are containers for automations within a Contentstack organization. Each project
+    groups related automations and can have its own variables and account connections.
   humanURL: https://www.contentstack.com/docs/developers/apis/content-delivery-api
-  baseURL: https://cdn.contentstack.io
+  baseURL: https://automations-api.contentstack.com
   tags:
   - Project
   tags_raw:
@@ -686,80 +392,38 @@ apis:
     url: openapi/contentstack-projects-api-openapi.yml
   - type: Documentation
     url: https://www.contentstack.com/docs/developers/apis/content-delivery-api
-  - type: Documentation
-    url: https://www.contentstack.com/docs/developers/apis/content-management-api
-  - type: Documentation
-    url: https://www.contentstack.com/docs/developers/apis/personalize-management-api
-  - type: Documentation
-    url: https://www.contentstack.com/docs/developers/apis/personalize-edge-api
-  - type: Documentation
-    url: https://www.contentstack.com/docs/developers/apis/automation-hub-management-api
-  - type: Documentation
-    url: https://www.contentstack.com/docs/developers/apis/scim-api
-  - type: Documentation
-    url: https://www.contentstack.com/docs/developers/apis/brand-kit-management-api
-  - type: Documentation
-    url: https://www.contentstack.com/docs/developers/apis/launch-api
 - aid: contentstack:contentstack-scim-groups-api
   name: contentstack SCIM Groups API
-  description: SCIM group endpoints allow Identity Providers to manage group memberships in Contentstack,
-    which map to role-based access control within the CMS.
-  humanURL: https://www.contentstack.com/docs/developers/apis/content-delivery-api
-  baseURL: https://cdn.contentstack.io
+  description: SCIM group endpoints allow Identity Providers to manage group memberships in Contentstack, which
+    map to role-based access control within the CMS.
+  humanURL: https://www.contentstack.com/docs/developers/apis/scim-api
+  baseURL: https://auth-api.contentstack.com
   tags:
   - SCIM Groups
   properties:
   - type: OpenAPI
     url: openapi/contentstack-scim-groups-api-openapi.yml
   - type: Documentation
-    url: https://www.contentstack.com/docs/developers/apis/content-delivery-api
-  - type: Documentation
-    url: https://www.contentstack.com/docs/developers/apis/content-management-api
-  - type: Documentation
-    url: https://www.contentstack.com/docs/developers/apis/personalize-management-api
-  - type: Documentation
-    url: https://www.contentstack.com/docs/developers/apis/personalize-edge-api
-  - type: Documentation
-    url: https://www.contentstack.com/docs/developers/apis/automation-hub-management-api
-  - type: Documentation
     url: https://www.contentstack.com/docs/developers/apis/scim-api
-  - type: Documentation
-    url: https://www.contentstack.com/docs/developers/apis/brand-kit-management-api
-  - type: Documentation
-    url: https://www.contentstack.com/docs/developers/apis/launch-api
 - aid: contentstack:contentstack-scim-schema-discovery-api
   name: contentstack SCIM Schema Discovery API
-  description: Schema discovery endpoints implement the SCIM 2.0 service provider configuration, returning
-    supported schemas and resource types for IdP compatibility validation.
-  humanURL: https://www.contentstack.com/docs/developers/apis/content-delivery-api
-  baseURL: https://cdn.contentstack.io
+  description: Schema discovery endpoints implement the SCIM 2.0 service provider configuration, returning supported
+    schemas and resource types for IdP compatibility validation.
+  humanURL: https://www.contentstack.com/docs/developers/apis/scim-api
+  baseURL: https://auth-api.contentstack.com
   tags:
   - SCIM Schema Discovery
   properties:
   - type: OpenAPI
     url: openapi/contentstack-scim-schema-discovery-api-openapi.yml
   - type: Documentation
-    url: https://www.contentstack.com/docs/developers/apis/content-delivery-api
-  - type: Documentation
-    url: https://www.contentstack.com/docs/developers/apis/content-management-api
-  - type: Documentation
-    url: https://www.contentstack.com/docs/developers/apis/personalize-management-api
-  - type: Documentation
-    url: https://www.contentstack.com/docs/developers/apis/personalize-edge-api
-  - type: Documentation
-    url: https://www.contentstack.com/docs/developers/apis/automation-hub-management-api
-  - type: Documentation
     url: https://www.contentstack.com/docs/developers/apis/scim-api
-  - type: Documentation
-    url: https://www.contentstack.com/docs/developers/apis/brand-kit-management-api
-  - type: Documentation
-    url: https://www.contentstack.com/docs/developers/apis/launch-api
 - aid: contentstack:contentstack-scim-users-api
   name: contentstack SCIM Users API
-  description: SCIM user endpoints enable Identity Providers to provision, update, and deprovision user
-    accounts within a Contentstack organization following the SCIM 2.0 User schema.
-  humanURL: https://www.contentstack.com/docs/developers/apis/content-delivery-api
-  baseURL: https://cdn.contentstack.io
+  description: SCIM user endpoints enable Identity Providers to provision, update, and deprovision user accounts
+    within a Contentstack organization following the SCIM 2.0 User schema.
+  humanURL: https://www.contentstack.com/docs/developers/apis/scim-api
+  baseURL: https://auth-api.contentstack.com
   tags:
   - (Scim) Users
   tags_raw:
@@ -768,54 +432,26 @@ apis:
   - type: OpenAPI
     url: openapi/contentstack-scim-users-api-openapi.yml
   - type: Documentation
-    url: https://www.contentstack.com/docs/developers/apis/content-delivery-api
-  - type: Documentation
-    url: https://www.contentstack.com/docs/developers/apis/content-management-api
-  - type: Documentation
-    url: https://www.contentstack.com/docs/developers/apis/personalize-management-api
-  - type: Documentation
-    url: https://www.contentstack.com/docs/developers/apis/personalize-edge-api
-  - type: Documentation
-    url: https://www.contentstack.com/docs/developers/apis/automation-hub-management-api
-  - type: Documentation
     url: https://www.contentstack.com/docs/developers/apis/scim-api
-  - type: Documentation
-    url: https://www.contentstack.com/docs/developers/apis/brand-kit-management-api
-  - type: Documentation
-    url: https://www.contentstack.com/docs/developers/apis/launch-api
 - aid: contentstack:contentstack-stacks-api
   name: contentstack Stacks API
-  description: Endpoints for creating and managing Contentstack stacks, including settings, users, sharing,
-    and ownership transfer.
-  humanURL: https://www.contentstack.com/docs/developers/apis/content-delivery-api
-  baseURL: https://cdn.contentstack.io
+  description: Endpoints for creating and managing Contentstack stacks, including settings, users, sharing, and
+    ownership transfer.
+  humanURL: https://www.contentstack.com/docs/developers/apis/content-management-api
+  baseURL: https://api.contentstack.io/v3
   tags:
   - Stacks
   properties:
   - type: OpenAPI
     url: openapi/contentstack-stacks-api-openapi.yml
   - type: Documentation
-    url: https://www.contentstack.com/docs/developers/apis/content-delivery-api
-  - type: Documentation
     url: https://www.contentstack.com/docs/developers/apis/content-management-api
-  - type: Documentation
-    url: https://www.contentstack.com/docs/developers/apis/personalize-management-api
-  - type: Documentation
-    url: https://www.contentstack.com/docs/developers/apis/personalize-edge-api
-  - type: Documentation
-    url: https://www.contentstack.com/docs/developers/apis/automation-hub-management-api
-  - type: Documentation
-    url: https://www.contentstack.com/docs/developers/apis/scim-api
-  - type: Documentation
-    url: https://www.contentstack.com/docs/developers/apis/brand-kit-management-api
-  - type: Documentation
-    url: https://www.contentstack.com/docs/developers/apis/launch-api
 - aid: contentstack:contentstack-synchronization-api
   name: contentstack Synchronization API
-  description: The synchronization endpoints allow developers to sync published content incrementally,
-    enabling efficient local caching and offline-first patterns.
+  description: The synchronization endpoints allow developers to sync published content incrementally, enabling
+    efficient local caching and offline-first patterns.
   humanURL: https://www.contentstack.com/docs/developers/apis/content-delivery-api
-  baseURL: https://cdn.contentstack.io
+  baseURL: https://cdn.contentstack.io/v3
   tags:
   - Synchronization
   properties:
@@ -823,79 +459,37 @@ apis:
     url: openapi/contentstack-synchronization-api-openapi.yml
   - type: Documentation
     url: https://www.contentstack.com/docs/developers/apis/content-delivery-api
-  - type: Documentation
-    url: https://www.contentstack.com/docs/developers/apis/content-management-api
-  - type: Documentation
-    url: https://www.contentstack.com/docs/developers/apis/personalize-management-api
-  - type: Documentation
-    url: https://www.contentstack.com/docs/developers/apis/personalize-edge-api
-  - type: Documentation
-    url: https://www.contentstack.com/docs/developers/apis/automation-hub-management-api
-  - type: Documentation
-    url: https://www.contentstack.com/docs/developers/apis/scim-api
-  - type: Documentation
-    url: https://www.contentstack.com/docs/developers/apis/brand-kit-management-api
-  - type: Documentation
-    url: https://www.contentstack.com/docs/developers/apis/launch-api
 - aid: contentstack:contentstack-user-attributes-api
   name: contentstack User Attributes API
-  description: Endpoints for setting, updating, and merging user attribute data used to determine audience
-    membership and personalized content targeting.
-  humanURL: https://www.contentstack.com/docs/developers/apis/content-delivery-api
-  baseURL: https://cdn.contentstack.io
+  description: Endpoints for setting, updating, and merging user attribute data used to determine audience membership
+    and personalized content targeting.
+  humanURL: https://www.contentstack.com/docs/developers/apis/personalize-edge-api
+  baseURL: https://personalize-edge.contentstack.com
   tags:
   - User Attributes
   properties:
   - type: OpenAPI
     url: openapi/contentstack-user-attributes-api-openapi.yml
   - type: Documentation
-    url: https://www.contentstack.com/docs/developers/apis/content-delivery-api
-  - type: Documentation
-    url: https://www.contentstack.com/docs/developers/apis/content-management-api
-  - type: Documentation
-    url: https://www.contentstack.com/docs/developers/apis/personalize-management-api
-  - type: Documentation
     url: https://www.contentstack.com/docs/developers/apis/personalize-edge-api
-  - type: Documentation
-    url: https://www.contentstack.com/docs/developers/apis/automation-hub-management-api
-  - type: Documentation
-    url: https://www.contentstack.com/docs/developers/apis/scim-api
-  - type: Documentation
-    url: https://www.contentstack.com/docs/developers/apis/brand-kit-management-api
-  - type: Documentation
-    url: https://www.contentstack.com/docs/developers/apis/launch-api
 - aid: contentstack:contentstack-user-sessions-api
   name: contentstack User Sessions API
   description: Endpoints for authenticating users and managing session tokens within Contentstack.
-  humanURL: https://www.contentstack.com/docs/developers/apis/content-delivery-api
-  baseURL: https://cdn.contentstack.io
+  humanURL: https://www.contentstack.com/docs/developers/apis/content-management-api
+  baseURL: https://api.contentstack.io/v3
   tags:
   - User Sessions
   properties:
   - type: OpenAPI
     url: openapi/contentstack-user-sessions-api-openapi.yml
   - type: Documentation
-    url: https://www.contentstack.com/docs/developers/apis/content-delivery-api
-  - type: Documentation
     url: https://www.contentstack.com/docs/developers/apis/content-management-api
-  - type: Documentation
-    url: https://www.contentstack.com/docs/developers/apis/personalize-management-api
-  - type: Documentation
-    url: https://www.contentstack.com/docs/developers/apis/personalize-edge-api
-  - type: Documentation
-    url: https://www.contentstack.com/docs/developers/apis/automation-hub-management-api
-  - type: Documentation
-    url: https://www.contentstack.com/docs/developers/apis/scim-api
-  - type: Documentation
-    url: https://www.contentstack.com/docs/developers/apis/brand-kit-management-api
-  - type: Documentation
-    url: https://www.contentstack.com/docs/developers/apis/launch-api
 - aid: contentstack:contentstack-users-api
   name: contentstack Users API
-  description: Endpoints for managing Contentstack user accounts including profile updates, password resets,
-    and account activation.
-  humanURL: https://www.contentstack.com/docs/developers/apis/content-delivery-api
-  baseURL: https://cdn.contentstack.io
+  description: Endpoints for managing Contentstack user accounts including profile updates, password resets, and
+    account activation.
+  humanURL: https://www.contentstack.com/docs/developers/apis/content-management-api
+  baseURL: https://api.contentstack.io/v3
   tags:
   - User
   tags_raw:
@@ -904,82 +498,36 @@ apis:
   - type: OpenAPI
     url: openapi/contentstack-users-api-openapi.yml
   - type: Documentation
-    url: https://www.contentstack.com/docs/developers/apis/content-delivery-api
-  - type: Documentation
     url: https://www.contentstack.com/docs/developers/apis/content-management-api
-  - type: Documentation
-    url: https://www.contentstack.com/docs/developers/apis/personalize-management-api
-  - type: Documentation
-    url: https://www.contentstack.com/docs/developers/apis/personalize-edge-api
-  - type: Documentation
-    url: https://www.contentstack.com/docs/developers/apis/automation-hub-management-api
-  - type: Documentation
-    url: https://www.contentstack.com/docs/developers/apis/scim-api
-  - type: Documentation
-    url: https://www.contentstack.com/docs/developers/apis/brand-kit-management-api
-  - type: Documentation
-    url: https://www.contentstack.com/docs/developers/apis/launch-api
 - aid: contentstack:contentstack-variables-api
   name: contentstack Variables API
   description: Project variables are reusable key-value pairs that can be referenced across multiple automations
     within a project.
-  humanURL: https://www.contentstack.com/docs/developers/apis/content-delivery-api
-  baseURL: https://cdn.contentstack.io
+  humanURL: https://www.contentstack.com/docs/developers/apis/automation-hub-management-api
+  baseURL: https://automations-api.contentstack.com
   tags:
   - Variables
   properties:
   - type: OpenAPI
     url: openapi/contentstack-variables-api-openapi.yml
   - type: Documentation
-    url: https://www.contentstack.com/docs/developers/apis/content-delivery-api
-  - type: Documentation
-    url: https://www.contentstack.com/docs/developers/apis/content-management-api
-  - type: Documentation
-    url: https://www.contentstack.com/docs/developers/apis/personalize-management-api
-  - type: Documentation
-    url: https://www.contentstack.com/docs/developers/apis/personalize-edge-api
-  - type: Documentation
     url: https://www.contentstack.com/docs/developers/apis/automation-hub-management-api
-  - type: Documentation
-    url: https://www.contentstack.com/docs/developers/apis/scim-api
-  - type: Documentation
-    url: https://www.contentstack.com/docs/developers/apis/brand-kit-management-api
-  - type: Documentation
-    url: https://www.contentstack.com/docs/developers/apis/launch-api
 - aid: contentstack:contentstack-voice-profiles-api
   name: contentstack Voice Profiles API
-  description: Voice Profiles define the writing style, tone, and persona characteristics for AI content
-    generation within a Brand Kit. Multiple voice profiles can be created to support different content
-    contexts or audiences.
-  humanURL: https://www.contentstack.com/docs/developers/apis/content-delivery-api
-  baseURL: https://cdn.contentstack.io
+  description: Voice Profiles define the writing style, tone, and persona characteristics for AI content generation
+    within a Brand Kit. Multiple voice profiles can be created to support different content contexts or audiences.
+  humanURL: https://www.contentstack.com/docs/developers/apis/brand-kit-management-api
+  baseURL: https://brand-kits-api.contentstack.com
   tags:
   - Voice Profiles
   properties:
   - type: OpenAPI
     url: openapi/contentstack-voice-profiles-api-openapi.yml
   - type: Documentation
-    url: https://www.contentstack.com/docs/developers/apis/content-delivery-api
-  - type: Documentation
-    url: https://www.contentstack.com/docs/developers/apis/content-management-api
-  - type: Documentation
-    url: https://www.contentstack.com/docs/developers/apis/personalize-management-api
-  - type: Documentation
-    url: https://www.contentstack.com/docs/developers/apis/personalize-edge-api
-  - type: Documentation
-    url: https://www.contentstack.com/docs/developers/apis/automation-hub-management-api
-  - type: Documentation
-    url: https://www.contentstack.com/docs/developers/apis/scim-api
-  - type: Documentation
     url: https://www.contentstack.com/docs/developers/apis/brand-kit-management-api
-  - type: Documentation
-    url: https://www.contentstack.com/docs/developers/apis/launch-api
 common:
 - type: Website
   url: https://contentstack.com
-- type: CapabilityMap
-  url: capabilities/contentstack-capability-edges.yml
-  name: contentstack Business Capability Map
 - type: AgenticAccess
   url: agentic-access/contentstack-agentic-access.yml
 - type: TrustCenter
@@ -1006,5 +554,107 @@ common:
   type: Vocabulary
 - url: rules/contentstack-rules.yml
   type: SpectralRules
-description: This document is a detailed reference to Contentstack’s Content Delivery API. Retrieve content
-  from your account and deliver it to web and mobile properties.
+- type: MCPServer
+  url: mcp/contentstack-mcp.yml
+- type: ToolCrosswalk
+  url: mcp/contentstack-tool-crosswalk.yml
+- type: LLMsTxt
+  url: llms/contentstack-llms.txt
+- type: Packages
+  url: packages/contentstack-packages.yml
+- type: SDKs
+  url: packages/contentstack-packages.yml
+- type: CLI
+  url: cli/contentstack-cli.yml
+- type: Components
+  url: components/contentstack-components.yml
+- type: Conventions
+  url: conventions/contentstack-conventions.yml
+- type: Conformance
+  url: conformance/contentstack-conformance.yml
+- type: Compliance
+  url: conformance/contentstack-conformance.yml
+- type: ErrorCatalog
+  url: errors/contentstack-problem-types.yml
+- type: Lifecycle
+  url: lifecycle/contentstack-lifecycle.yml
+- type: StatusPage
+  url: https://status.contentstack.com/
+- type: ChangeLog
+  url: changelog/contentstack-changelog.yml
+- type: OAuthScopes
+  url: scopes/contentstack-scopes.yml
+- type: DataModel
+  url: data-model/contentstack-data-model.yml
+- type: Plans
+  url: plans/contentstack-plans-pricing.yml
+- type: RateLimits
+  url: rate-limits/contentstack-rate-limits.yml
+- type: AgentSkill
+  url: skills/_index.yml
+- type: Webhooks
+  url: asyncapi/contentstack-webhooks-asyncapi.yml
+- type: Documentation
+  url: https://www.contentstack.com/docs
+- type: DeveloperPortal
+  url: https://www.contentstack.com/docs/developers
+- type: APIReference
+  url: https://www.contentstack.com/docs/developers/apis
+- type: Pricing
+  url: https://www.contentstack.com/pricing
+- type: Support
+  url: https://www.contentstack.com/support
+- type: Blog
+  url: https://www.contentstack.com/blog
+- type: SignUp
+  url: https://www.contentstack.com/login
+- type: TermsOfService
+  url: https://www.contentstack.com/legal/terms-of-service
+- type: PrivacyPolicy
+  url: https://www.contentstack.com/legal/privacy
+- type: Postman
+  url: https://www.postman.com/contentstack
+- type: Security
+  url: https://www.contentstack.com/docs/developers/security
+description: Contentstack is a composable, API-first content platform — an Agentic Experience Platform built around
+  a headless CMS, a real-time customer data layer and an agent runtime. Developers reach it through a read-only
+  Content Delivery API on a global CDN, a write-side Content Management API, a read-only GraphQL delivery surface,
+  an on-the-fly Image Delivery API, and product APIs for Launch (front-end hosting), Automation Hub, Personalize,
+  BrandKit AI and SCIM 2.0 user provisioning. Contentstack publishes a 95-scope OAuth 2.0 reference, an llms.txt,
+  markdown twins of its API reference pages, and a first-party Model Context Protocol server exposing 206 tools
+  whose definitions — including the REST call each one makes — it serves anonymously as JSON.
+tags:
+- Headless CMS
+- Content Management
+- Content Delivery
+- Digital Experience
+- Personalization
+- GraphQL
+- MCP
+- SCIM
+- Composable Commerce
+- Agentic AI
+- Webhook
+- Image Delivery
+tags_raw:
+- Headless CMS
+- Content Management
+- Content Delivery
+- Digital Experience
+- Personalization
+- GraphQL
+- MCP
+- SCIM
+- Composable Commerce
+- Agentic AI
+- Webhooks
+- Image Delivery
+maintainers:
+- FN: Kin Lane
+  email: info@apievangelist.com
+created: '2026-05-04'
+x-enrichment:
+  date: '2026-09-17'
+  status: enriched
+  artifacts_added: 61
+  pass: local-v3
