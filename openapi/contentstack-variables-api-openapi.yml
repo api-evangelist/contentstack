@@ -1,7 +1,7 @@
 openapi: 3.2.0
 info:
   title: Contentstack Automate Management Variables API
-  description: The Contentstack Automate Management API allows developers to programmatically manage automation projects and workflows within a Contentstack organization. It supports creating, updating, retrieving, and deleting automations that connect Contentstack content events to third-party services and internal processes. This API is part of the Contentstack Automate product, which provides a no-code/low-code automation layer built on top of the CMS. It is useful for organizations that need to provision or manage automations at scale across multiple stacks or environments. The API also provides access to execution logs, audit logs, and project variables.
+  description: The Contentstack Automate Management API allows developers to programmatically manage automation projects and workflows within a Contentstack organization.
   version: v1
   contact:
     name: Contentstack Support
@@ -67,22 +67,26 @@ paths:
         '401':
           $ref: '#/components/responses/Unauthorized'
 components:
-  parameters:
-    ProjectUid:
-      name: project_uid
-      in: path
-      required: true
-      description: The unique identifier of the automation project.
-      schema:
-        type: string
-    OrganizationUid:
-      name: organization_uid
-      in: path
-      required: true
-      description: The unique identifier of the organization.
-      schema:
-        type: string
   schemas:
+    Variable:
+      type: object
+      description: A reusable configuration variable for use across automations.
+      properties:
+        uid:
+          type: string
+          description: Unique identifier of the variable.
+        name:
+          type: string
+          description: Display name of the variable.
+        key:
+          type: string
+          description: Machine-readable key for referencing the variable in automations.
+        value:
+          type: string
+          description: The value stored in the variable. Sensitive values may be masked.
+        is_secret:
+          type: boolean
+          description: Indicates whether the variable value is treated as a secret.
     CreateVariableRequest:
       type: object
       description: Parameters for creating a project variable.
@@ -104,25 +108,15 @@ components:
           type: boolean
           description: Set to true to mark the variable as a secret.
           default: false
-    Variable:
+    VariableList:
       type: object
-      description: A reusable configuration variable for use across automations.
+      description: A list of project variables.
       properties:
-        uid:
-          type: string
-          description: Unique identifier of the variable.
-        name:
-          type: string
-          description: Display name of the variable.
-        key:
-          type: string
-          description: Machine-readable key for referencing the variable in automations.
-        value:
-          type: string
-          description: The value stored in the variable. Sensitive values may be masked.
-        is_secret:
-          type: boolean
-          description: Indicates whether the variable value is treated as a secret.
+        data:
+          type: array
+          description: Array of variable objects.
+          items:
+            $ref: '#/components/schemas/Variable'
     Error:
       type: object
       description: Standard error response.
@@ -133,28 +127,34 @@ components:
         error_code:
           type: integer
           description: Numeric error code.
-    VariableList:
-      type: object
-      description: A list of project variables.
-      properties:
-        data:
-          type: array
-          description: Array of variable objects.
-          items:
-            $ref: '#/components/schemas/Variable'
   responses:
-    Unauthorized:
-      description: Authentication credentials are missing or invalid.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
     BadRequest:
       description: The request is malformed or contains invalid parameters.
       content:
         application/json:
           schema:
             $ref: '#/components/schemas/Error'
+    Unauthorized:
+      description: Authentication credentials are missing or invalid.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+  parameters:
+    OrganizationUid:
+      name: organization_uid
+      in: path
+      required: true
+      description: The unique identifier of the organization.
+      schema:
+        type: string
+    ProjectUid:
+      name: project_uid
+      in: path
+      required: true
+      description: The unique identifier of the automation project.
+      schema:
+        type: string
   securitySchemes:
     bearerAuth:
       type: http

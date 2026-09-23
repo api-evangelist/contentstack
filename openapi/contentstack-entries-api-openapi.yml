@@ -310,97 +310,25 @@ paths:
     - url: https://azure-eu-api.contentstack.com/v3
       description: Azure Europe Production Server
 components:
-  parameters:
-    Limit:
-      name: limit
-      in: query
-      description: Maximum number of entries to return. Maximum allowed is 250.
-      schema:
-        type: integer
-        minimum: 1
-        maximum: 250
-        default: 100
-    ApiKey:
-      name: api_key
-      in: header
-      required: true
-      description: The API key for the Contentstack stack.
-      schema:
-        type: string
-    EntryUid:
-      name: entry_uid
-      in: path
-      required: true
-      description: The unique identifier (UID) of the entry.
-      schema:
-        type: string
-    ContentTypeUid:
-      name: content_type_uid
-      in: path
-      required: true
-      description: The unique identifier (UID) of the content type.
-      schema:
-        type: string
-    Skip:
-      name: skip
-      in: query
-      description: Number of entries to skip for pagination.
-      schema:
-        type: integer
-        minimum: 0
-        default: 0
-    Locale:
-      name: locale
-      in: query
-      description: The locale code to retrieve localized content. Defaults to the default locale of the stack if not specified.
-      schema:
-        type: string
-        example: en-us
-    AccessToken:
-      name: access_token
-      in: header
-      required: true
-      description: The delivery token for the stack environment.
-      schema:
-        type: string
-    Limit_2:
-      name: limit
-      in: query
-      description: Maximum number of records to return.
-      schema:
-        type: integer
-        minimum: 1
-        maximum: 250
-        default: 100
-    Skip_2:
-      name: skip
-      in: query
-      description: Number of records to skip for pagination.
-      schema:
-        type: integer
-        minimum: 0
-        default: 0
-    Locale_2:
-      name: locale
-      in: query
-      description: The locale code for localized content operations.
-      schema:
-        type: string
-        example: en-us
-    StackApiKey:
-      name: api_key
-      in: header
-      required: true
-      description: The API key identifying the Contentstack stack.
-      schema:
-        type: string
-    AuthToken:
-      name: authtoken
-      in: header
-      required: false
-      description: User session token for authentication. Required if not using management token.
-      schema:
-        type: string
+  responses:
+    Unauthorized:
+      description: Authentication credentials are missing or invalid.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    NotFound:
+      description: The requested resource was not found.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    BadRequest:
+      description: The request is malformed or contains invalid parameters.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error_2'
   schemas:
     EntryList:
       type: object
@@ -452,15 +380,6 @@ components:
         errors:
           type: object
           description: Field-level validation errors when applicable.
-    CreateEntryRequest:
-      type: object
-      description: Parameters for creating a new entry.
-      required:
-      - entry
-      properties:
-        entry:
-          type: object
-          description: Entry field values conforming to the content type schema.
     EntryList_2:
       type: object
       description: A paginated list of entries.
@@ -473,15 +392,6 @@ components:
         count:
           type: integer
           description: Total number of entries.
-    UpdateEntryRequest:
-      type: object
-      description: Parameters for updating an entry.
-      required:
-      - entry
-      properties:
-        entry:
-          type: object
-          description: Updated field values for the entry.
     Entry_2:
       type: object
       description: A content entry with field values and system metadata.
@@ -506,6 +416,15 @@ components:
           type: string
           format: date-time
           description: ISO 8601 timestamp when the entry was last updated.
+    UpdateEntryRequest:
+      type: object
+      description: Parameters for updating an entry.
+      required:
+      - entry
+      properties:
+        entry:
+          type: object
+          description: Updated field values for the entry.
     PublishRequest:
       type: object
       description: Parameters for publishing or unpublishing an entry or asset.
@@ -524,6 +443,15 @@ components:
               description: List of locale codes to publish.
               items:
                 type: string
+    CreateEntryRequest:
+      type: object
+      description: Parameters for creating a new entry.
+      required:
+      - entry
+      properties:
+        entry:
+          type: object
+          description: Entry field values conforming to the content type schema.
     Error_2:
       type: object
       description: Standard error response.
@@ -537,25 +465,97 @@ components:
         errors:
           type: object
           description: Field-level validation errors.
-  responses:
-    Unauthorized:
-      description: Authentication credentials are missing or invalid.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
-    NotFound:
-      description: The requested resource was not found.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
-    BadRequest:
-      description: The request is malformed or contains invalid parameters.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error_2'
+  parameters:
+    Skip:
+      name: skip
+      in: query
+      description: Number of entries to skip for pagination.
+      schema:
+        type: integer
+        minimum: 0
+        default: 0
+    AccessToken:
+      name: access_token
+      in: header
+      required: true
+      description: The delivery token for the stack environment.
+      schema:
+        type: string
+    Locale:
+      name: locale
+      in: query
+      description: The locale code to retrieve localized content. Defaults to the default locale of the stack if not specified.
+      schema:
+        type: string
+        example: en-us
+    EntryUid:
+      name: entry_uid
+      in: path
+      required: true
+      description: The unique identifier (UID) of the entry.
+      schema:
+        type: string
+    ContentTypeUid:
+      name: content_type_uid
+      in: path
+      required: true
+      description: The unique identifier (UID) of the content type.
+      schema:
+        type: string
+    Limit:
+      name: limit
+      in: query
+      description: Maximum number of entries to return. Maximum allowed is 250.
+      schema:
+        type: integer
+        minimum: 1
+        maximum: 250
+        default: 100
+    ApiKey:
+      name: api_key
+      in: header
+      required: true
+      description: The API key for the Contentstack stack.
+      schema:
+        type: string
+    AuthToken:
+      name: authtoken
+      in: header
+      required: false
+      description: User session token for authentication. Required if not using management token.
+      schema:
+        type: string
+    Skip_2:
+      name: skip
+      in: query
+      description: Number of records to skip for pagination.
+      schema:
+        type: integer
+        minimum: 0
+        default: 0
+    StackApiKey:
+      name: api_key
+      in: header
+      required: true
+      description: The API key identifying the Contentstack stack.
+      schema:
+        type: string
+    Locale_2:
+      name: locale
+      in: query
+      description: The locale code for localized content operations.
+      schema:
+        type: string
+        example: en-us
+    Limit_2:
+      name: limit
+      in: query
+      description: Maximum number of records to return.
+      schema:
+        type: integer
+        minimum: 1
+        maximum: 250
+        default: 100
   securitySchemes:
     apiKey:
       type: apiKey

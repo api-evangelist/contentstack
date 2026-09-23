@@ -1,0 +1,84 @@
+specification: API Commons ErrorCatalog
+specificationVersion: '0.1'
+provider: Contentstack
+providerId: contentstack
+generated: '2026-09-17'
+method: searched
+source: https://www.contentstack.com/docs/developers/apis/content-management-api#errors (markdown twin, HTTP 200)
+  enriched with the 4xx/5xx responses declared across openapi/*.yml
+description: Contentstack publishes a single cross-API error table on the Content Management API reference. Errors
+  are conventional HTTP status codes with a Contentstack-shaped JSON body; the format is NOT RFC 9457 problem+json
+  — no OpenAPI document in this repository declares application/problem+json.
+format: vendor-json
+rfc9457: false
+envelope:
+  note: Contentstack returns a JSON body containing details about the error alongside the HTTP status. The reference
+    documents the status codes; it does not publish a formal schema for the body.
+docs: https://www.contentstack.com/docs/developers/apis/content-management-api
+openapi_error_responses:
+  '401': 108
+  '400': 39
+  '404': 41
+  '403': 4
+  '409': 1
+problem_types:
+- status: 400
+  title: Bad Request
+  detail: The request was incorrect or corrupted.
+  documented: true
+  in_openapi: 39
+- status: 401
+  title: Access Denied
+  detail: The login credentials are invalid.
+  documented: true
+  in_openapi: 108
+  remediation: Refresh the authtoken, management token or OAuth access token; confirm the token is scoped to the
+    stack and region being called.
+- status: 403
+  title: Forbidden Error
+  detail: The page or resource that is being accessed is forbidden.
+  documented: true
+  in_openapi: 4
+- status: 404
+  title: Not Found
+  detail: The requested page or resource could not be found.
+  documented: true
+  in_openapi: 41
+- status: 409
+  title: Conflict
+  detail: The request conflicts with the current state of the resource.
+  documented: true
+  in_openapi: 1
+- status: 412
+  title: Pre Condition Failed
+  detail: The entered API key is invalid.
+  documented: true
+  in_openapi: 0
+  remediation: Check the api_key header carries the stack API key for the correct region.
+- status: 422
+  title: Unprocessable Entity
+  detail: The request is syntactically correct but contains semantic errors. Also covers validation errors and unknown
+    fields.
+  documented: true
+  in_openapi: 0
+- status: 429
+  title: Rate Limit Exceeded
+  detail: The number of requests exceeds the allowed limit for the given time period.
+  documented: true
+  in_openapi: 0
+  remediation: Back off exponentially with jitter and pace subsequent calls using X-RateLimit-Remaining. See rate-limits/contentstack-rate-limits.yml.
+- status: 500
+  title: Internal Server Error
+  detail: The server is malfunctioning and is not specific on what the problem is.
+  documented: true
+  in_openapi: 0
+- status: 502
+  title: Bad Gateway Error
+  detail: A server received an invalid response from another server.
+  documented: true
+  in_openapi: 0
+- status: 504
+  title: Gateway Timeout Error
+  detail: A server did not receive a timely response from another server it was accessing.
+  documented: true
+  in_openapi: 0

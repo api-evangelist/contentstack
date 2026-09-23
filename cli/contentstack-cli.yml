@@ -1,0 +1,66 @@
+specification: API Commons CLI
+specificationVersion: '0.1'
+provider: Contentstack
+providerId: contentstack
+generated: '2026-09-17'
+method: searched
+source: https://www.contentstack.com/docs/developers/cli (HTTP 200) and https://registry.npmjs.org/@contentstack/cli
+description: 'Contentstack ships a first-party, plugin-architecture command-line interface published to npm as @contentstack/cli,
+  currently 2.0.1 (2026-09-15). The CLI is oclif-based: each command group is a separately versioned npm plugin.'
+name: Contentstack CLI
+official: true
+binary: csdx
+docs: https://www.contentstack.com/docs/developers/cli
+package: '@contentstack/cli'
+registry: npm
+version: 2.0.1
+published: '2026-09-15'
+install:
+- method: npm
+  command: npm install -g @contentstack/cli
+- method: npx
+  command: npx @contentstack/cli
+auth: OAuth via csdx auth:login, or a management token configured with csdx config
+plugins:
+- name: '@contentstack/cli-auth'
+  version: 2.0.1
+  published: '2026-09-15'
+  purpose: Authentication — login, logout, token management
+- name: '@contentstack/cli-config'
+  version: 2.0.1
+  published: '2026-09-15'
+  purpose: Region, base-URL and management-token configuration
+- name: '@contentstack/cli-cm-export'
+  version: 2.0.1
+  published: '2026-09-15'
+  purpose: Export content from a stack
+- name: '@contentstack/cli-cm-import'
+  version: 2.0.1
+  published: '2026-09-15'
+  purpose: Import content into a stack
+- name: '@contentstack/cli-cm-import-setup'
+  version: 2.0.1
+  published: '2026-09-15'
+  purpose: Prepare mappers and configuration for an import
+- name: '@contentstack/cli-cm-clone'
+  version: 2.0.1
+  published: '2026-09-15'
+  purpose: Clone a stack
+- name: '@contentstack/cli-cm-branches'
+  version: 2.0.1
+  published: '2026-09-15'
+  purpose: Branch operations — create, merge, compare
+- name: '@contentstack/cli-cm-bootstrap'
+  version: 2.0.1
+  published: '2026-09-15'
+  purpose: Bootstrap a starter app against a stack
+- name: '@contentstack/cli-migration'
+  version: 2.0.1
+  published: '2026-09-15'
+  purpose: Scripted content-type and content migrations
+- name: '@contentstack/cli-cm-migrate-rte'
+  version: 2.0.1
+  published: '2026-09-15'
+  purpose: Migrate HTML RTE fields to JSON RTE
+note: Every plugin shipped 2.0.1 on the same day, 2026-09-15 — the CLI is actively maintained and released as a
+  lockstep monorepo.

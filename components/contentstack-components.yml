@@ -1,0 +1,59 @@
+specification: API Commons Components
+specificationVersion: '0.1'
+provider: Contentstack
+providerId: contentstack
+generated: '2026-09-17'
+method: searched
+source: https://www.contentstack.com/docs/developers/developer-hub and the npm registry metadata for each package
+description: 'Contentstack publishes client-side and embeddable surfaces distinct from its data SDKs: a React design
+  system used to build Developer Hub apps that render inside the Contentstack UI, an App SDK that brokers between
+  a custom app iframe and the host UI, and a Live Preview runtime that establishes the preview communication channel
+  on the customer front end.'
+families:
+- family: Developer Hub custom apps
+  description: Custom apps and UI extensions rendered inside the Contentstack UI as sidebar widgets, custom fields,
+    dashboard widgets and full-page apps.
+  docs: https://www.contentstack.com/docs/developers/developer-hub
+  components:
+  - name: '@contentstack/app-sdk'
+    registry: npm
+    version: 2.4.1
+    published: '2026-06-18'
+    kind: host bridge
+    description: Loader SDK a custom app imports to talk to the Contentstack UI that hosts its iframe — field value,
+      entry, stack and modal APIs.
+  - name: '@contentstack/venus-components'
+    registry: npm
+    version: 3.0.5
+    published: '2026-06-11'
+    kind: react component library
+    description: Venus design system — the React components Contentstack builds its own UI from, published so custom
+      apps match the host look and feel.
+- family: Live Preview
+  description: Real-time preview of unsaved content in the customer front end.
+  docs: https://www.contentstack.com/docs/developers/set-up-live-preview
+  components:
+  - name: '@contentstack/live-preview-utils'
+    registry: npm
+    version: 4.5.2
+    published: '2026-09-16'
+    kind: browser runtime
+    description: Establishes the postMessage channel between the Contentstack editor and the customer site, and
+      paints the visual-builder edit affordances.
+- family: Rich text rendering
+  description: Render Contentstack JSON RTE and embedded items into markup.
+  components:
+  - name: '@contentstack/utils'
+    registry: npm
+    version: 1.9.1
+    published: '2026-04-13'
+    kind: render helper
+    description: Renders JSON RTE nodes and resolves embedded entries and assets.
+  - name: '@contentstack/json-rte-serializer'
+    registry: npm
+    version: 3.1.0
+    published: '2026-05-18'
+    kind: serializer
+    description: Converts between JSON RTE and HTML.
+loader_note: All components are distributed through npm; Contentstack publishes no pinned CDN script-tag build,
+  so there is no unpinned-distribution risk here.

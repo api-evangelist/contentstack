@@ -176,36 +176,26 @@ paths:
     - url: https://au-cdn.contentstack.com/v3
       description: AWS Australia Production Server
 components:
-  parameters:
-    ApiKey:
-      name: api_key
-      in: header
-      required: true
-      description: The API key for the Contentstack stack.
-      schema:
-        type: string
-    ContentTypeUid:
-      name: content_type_uid
-      in: path
-      required: true
-      description: The unique identifier (UID) of the content type.
-      schema:
-        type: string
-    AccessToken:
-      name: access_token
-      in: header
-      required: true
-      description: The delivery token for the stack environment.
-      schema:
-        type: string
-    StackApiKey:
-      name: api_key
-      in: header
-      required: true
-      description: The API key identifying the Contentstack stack.
-      schema:
-        type: string
   schemas:
+    Field:
+      type: object
+      description: A field definition within a content type schema.
+      properties:
+        uid:
+          type: string
+          description: Unique identifier of the field within the content type.
+        data_type:
+          type: string
+          description: 'The data type of the field. Common values: text, number, boolean, date, file, link, json, reference, global_field, group, blocks.'
+        display_name:
+          type: string
+          description: Human-readable label for the field.
+        mandatory:
+          type: boolean
+          description: Indicates whether the field is required for entry creation.
+        unique:
+          type: boolean
+          description: Indicates whether field values must be unique across entries.
     ContentTypeList:
       type: object
       description: A paginated list of content types in the stack.
@@ -257,25 +247,25 @@ components:
         errors:
           type: object
           description: Field-level validation errors when applicable.
-    Field:
+    Field_2:
       type: object
       description: A field definition within a content type schema.
       properties:
         uid:
           type: string
-          description: Unique identifier of the field within the content type.
+          description: Unique identifier of the field.
         data_type:
           type: string
-          description: 'The data type of the field. Common values: text, number, boolean, date, file, link, json, reference, global_field, group, blocks.'
+          description: Data type of the field (e.g., text, number, boolean, date, file, reference).
         display_name:
           type: string
           description: Human-readable label for the field.
         mandatory:
           type: boolean
-          description: Indicates whether the field is required for entry creation.
+          description: Indicates whether the field is required.
         unique:
           type: boolean
-          description: Indicates whether field values must be unique across entries.
+          description: Indicates whether field values must be unique.
     ContentTypeList_2:
       type: object
       description: A list of content types.
@@ -285,6 +275,19 @@ components:
           description: Array of content type objects.
           items:
             $ref: '#/components/schemas/ContentType_2'
+    Error_2:
+      type: object
+      description: Standard error response.
+      properties:
+        error_message:
+          type: string
+          description: Human-readable description of the error.
+        error_code:
+          type: integer
+          description: Numeric error code.
+        errors:
+          type: object
+          description: Field-level validation errors.
     ContentType_2:
       type: object
       description: A content type definition with schema and configuration.
@@ -338,38 +341,6 @@ components:
             options:
               type: object
               description: Configuration options for the content type.
-    Error_2:
-      type: object
-      description: Standard error response.
-      properties:
-        error_message:
-          type: string
-          description: Human-readable description of the error.
-        error_code:
-          type: integer
-          description: Numeric error code.
-        errors:
-          type: object
-          description: Field-level validation errors.
-    Field_2:
-      type: object
-      description: A field definition within a content type schema.
-      properties:
-        uid:
-          type: string
-          description: Unique identifier of the field.
-        data_type:
-          type: string
-          description: Data type of the field (e.g., text, number, boolean, date, file, reference).
-        display_name:
-          type: string
-          description: Human-readable label for the field.
-        mandatory:
-          type: boolean
-          description: Indicates whether the field is required.
-        unique:
-          type: boolean
-          description: Indicates whether field values must be unique.
   responses:
     Unauthorized:
       description: Authentication credentials are missing or invalid.
@@ -389,6 +360,35 @@ components:
         application/json:
           schema:
             $ref: '#/components/schemas/Error_2'
+  parameters:
+    AccessToken:
+      name: access_token
+      in: header
+      required: true
+      description: The delivery token for the stack environment.
+      schema:
+        type: string
+    ContentTypeUid:
+      name: content_type_uid
+      in: path
+      required: true
+      description: The unique identifier (UID) of the content type.
+      schema:
+        type: string
+    ApiKey:
+      name: api_key
+      in: header
+      required: true
+      description: The API key for the Contentstack stack.
+      schema:
+        type: string
+    StackApiKey:
+      name: api_key
+      in: header
+      required: true
+      description: The API key identifying the Contentstack stack.
+      schema:
+        type: string
   securitySchemes:
     apiKey:
       type: apiKey

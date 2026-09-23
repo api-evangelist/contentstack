@@ -1,0 +1,511 @@
+{
+  "create_an_content_in_knowledge_vault": {
+    "name": "create_an_content_in_knowledge_vault",
+    "description": "Creates new content in the Brand Kit Knowledge Vault to provide contextual information for AI-powered content generation. The Knowledge Vault stores brand guidelines, tone of voice examples, and reference materials that inform AI responses to maintain brand consistency.",
+    "mapper": {
+      "apiUrl": "/brand-kits/v1/knowledge-vault/",
+      "method": "POST",
+      "body": {
+        "type": "object",
+        "properties": {
+          "content": {
+            "type": "string",
+            "x-mapFrom": "content"
+          }
+        }
+      },
+      "type": "complex"
+    },
+    "inputSchema": {
+      "type": "object",
+      "required": ["content"],
+      "properties": {
+        "content": {
+          "type": "string",
+          "description": "the content that needs to be ingested in the Knowledge Vault"
+        }
+      }
+    },
+    "group": "brandkit",
+    "scopes": ["brand-kits:manage"],
+    "subGroup": "ai",
+    "x-enrich-group": "brandkit"
+  },
+  "get_all_contents_in_knowledge_vault": {
+    "name": "get_all_contents_in_knowledge_vault",
+    "description": "Retrieves all content entries stored in the Knowledge Vault for a specific Brand Kit. Returns comprehensive metadata and content details for review, audit, or bulk management of brand reference materials used in AI content generation.",
+    "mapper": {
+      "apiUrl": "/brand-kits/v1/knowledge-vault/get-context",
+      "method": "GET"
+    },
+    "inputSchema": {
+      "type": "object",
+      "properties": {},
+      "required": []
+    },
+    "group": "brandkit",
+    "scopes": ["brand-kits:read"],
+    "subGroup": "ai",
+    "x-enrich-group": "brandkit"
+  },
+  "get_a_single_content_in_knowledge_vault": {
+    "name": "get_a_single_content_in_knowledge_vault",
+    "description": "Retrieves detailed information for a specific content entry in the Knowledge Vault by its unique identifier. Use this to inspect individual brand reference materials, guidelines, or contextual content used to train AI generation.",
+    "mapper": {
+      "apiUrl": "/brand-kits/v1/knowledge-vault/knowledge_vault_content_id",
+      "method": "GET",
+      "params": {
+        "knowledge_vault_content_id": "knowledge_vault_content_id"
+      }
+    },
+    "inputSchema": {
+      "type": "object",
+      "required": ["knowledge_vault_content_id"],
+      "properties": {
+        "knowledge_vault_content_id": {
+          "type": "string",
+          "description": "Unique identifier of the Knowledge Vault content to fetch."
+        }
+      }
+    },
+    "group": "brandkit",
+    "scopes": ["brand-kits:read"],
+    "subGroup": "ai",
+    "x-enrich-group": "brandkit"
+  },
+  "update_a_content_in_knowledge_vault": {
+    "name": "update_a_content_in_knowledge_vault",
+    "description": "Modifies existing content in the Knowledge Vault to keep brand reference materials up-to-date. Use this when brand guidelines, tone of voice, or reference materials change to ensure AI-generated content remains aligned with current brand standards.",
+    "mapper": {
+      "apiUrl": "/brand-kits/v1/knowledge-vault/knowledge_vault_content_id",
+      "method": "PUT",
+      "body": {
+        "type": "object",
+        "properties": {
+          "content": {
+            "type": "string",
+            "x-mapFrom": "content"
+          }
+        }
+      },
+      "type": "complex",
+      "params": {
+        "knowledge_vault_content_id": "knowledge_vault_content_id"
+      }
+    },
+    "inputSchema": {
+      "type": "object",
+      "required": ["knowledge_vault_content_id", "content"],
+      "properties": {
+        "knowledge_vault_content_id": {
+          "type": "string",
+          "description": "Unique identifier of the Knowledge Vault content to update."
+        },
+        "content": {
+          "type": "string",
+          "description": "the content that needs to be updated in the Knowledge Vault"
+        }
+      }
+    },
+    "group": "brandkit",
+    "scopes": ["brand-kits:manage"],
+    "subGroup": "ai",
+    "x-enrich-group": "brandkit"
+  },
+  "delete_a_content_from_knowledge_vault": {
+    "name": "delete_a_content_from_knowledge_vault",
+    "description": "Permanently removes a content entry from the Knowledge Vault. Use this to clean up outdated brand guidelines, deprecated reference materials, or incorrect content that should no longer influence AI content generation. This action is irreversible.",
+    "mapper": {
+      "apiUrl": "/brand-kits/v1/knowledge-vault/content_uid",
+      "method": "DELETE",
+      "params": {
+        "content_uid": "content_uid"
+      }
+    },
+    "inputSchema": {
+      "type": "object",
+      "required": ["content_uid"],
+      "properties": {
+        "content_uid": {
+          "type": "string",
+          "description": "Unique identifier of the Knowledge Vault content to delete."
+        }
+      }
+    },
+    "group": "brandkit",
+    "scopes": ["brand-kits:manage"],
+    "subGroup": "ai",
+    "x-enrich-group": "brandkit"
+  },
+  "create_a_voice_profile": {
+    "name": "create_a_voice_profile",
+    "description": "Creates a new Voice Profile that defines the tone, style, and communication characteristics for AI-generated content. Voice Profiles allow you to maintain multiple brand voices (e.g., formal for corporate communications, casual for social media) with customizable formality, complexity, humor, and tone levels ranging from 1-4.",
+    "mapper": {
+      "apiUrl": "/v1/brand-kits/brandkit_id/voice-profiles",
+      "method": "POST",
+      "body": {
+        "type": "object",
+        "properties": {
+          "voice_profile": {
+            "type": "object",
+            "properties": {
+              "name": {
+                "type": "string",
+                "x-mapFrom": "name"
+              },
+              "description": {
+                "type": "string",
+                "x-mapFrom": "description"
+              },
+              "insights": {
+                "type": "string",
+                "x-mapFrom": "insights"
+              },
+              "sample_content": {
+                "type": "string",
+                "x-mapFrom": "sample_content"
+              },
+              "communication_style": {
+                "type": "object",
+                "properties": {
+                  "complexity_level": {
+                    "type": "number",
+                    "x-mapFrom": "complexity_level"
+                  },
+                  "formality_level": {
+                    "type": "number",
+                    "x-mapFrom": "formality_level"
+                  },
+                  "humor_level": {
+                    "type": "number",
+                    "x-mapFrom": "humor_level"
+                  },
+                  "tone": {
+                    "type": "number",
+                    "x-mapFrom": "tone"
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "params": {
+        "brandkit_id": "$brandKitUID"
+      },
+      "type": "complex"
+    },
+    "inputSchema": {
+      "type": "object",
+      "required": ["name"],
+      "properties": {
+        "name": {
+          "type": "string",
+          "description": "Enter the preferred name to create a voice profile in the selected Brand Kit."
+        },
+        "description": {
+          "type": "string",
+          "description": "Enter a short description about the new voice profile, such as details about the person or brand it will represent."
+        },
+        "formality_level": {
+          "type": "number",
+          "description": "Select the formality level for the voice profile that uses clear and concise language appropriate for business settings, range from 1 to 4.",
+          "minimum": 1,
+          "maximum": 4,
+          "default": 1
+        },
+        "tone": {
+          "type": "number",
+          "description": "Select the tone of voice that presents facts neutrally, without opinions or personal bias, range from 1 to 4.",
+          "minimum": 1,
+          "maximum": 4,
+          "default": 1
+        },
+        "humor_level": {
+          "type": "number",
+          "description": "Select the humor level to incorporate the relevant humor and create a more playful atmosphere, range from 1 to 4.",
+          "minimum": 1,
+          "maximum": 4,
+          "default": 1
+        },
+        "complexity_level": {
+          "type": "number",
+          "description": "Select the language complexity level to utilize advanced concepts and specialized vocabulary tailored for audiences with prior knowledge, range from 1 to 4.",
+          "minimum": 1,
+          "maximum": 4,
+          "default": 1
+        },
+        "insights": {
+          "type": "string",
+          "description": "Enter the content for insights to guide the creation of content using the AI prompt that aligns with this profile."
+        },
+        "sample_content": {
+          "type": "string",
+          "description": "Enter the sample content to serve as writing style examples in the AI prompt, not as contextual background information."
+        }
+      }
+    },
+    "group": "brandkit",
+    "scopes": ["brand-kits:manage"],
+    "subGroup": "brand-kits-api",
+    "x-enrich-group": "brandkit"
+  },
+  "get_all_voice_profiles": {
+    "name": "get_all_voice_profiles",
+    "description": "Retrieves all Voice Profiles configured for a Brand Kit. Use this to view all available voice configurations, compare tone settings across different communication styles, or select the appropriate voice profile for content generation tasks.",
+    "mapper": {
+      "apiUrl": "/v1/brand-kits/brandkit_id/voice-profiles",
+      "method": "GET",
+      "params": {
+        "brandkit_id": "$brandKitUID"
+      }
+    },
+    "inputSchema": {
+      "type": "object",
+      "properties": {},
+      "required": []
+    },
+    "group": "brandkit",
+    "scopes": ["brand-kits:read"],
+    "subGroup": "brand-kits-api",
+    "x-enrich-group": "brandkit"
+  },
+  "get_a_single_voice_profile": {
+    "name": "get_a_single_voice_profile",
+    "description": "Retrieves detailed configuration for a specific Voice Profile including its name, description, communication style settings (formality, tone, humor, complexity levels), insights, and sample content. Use this to review or audit individual voice profile settings.",
+    "mapper": {
+      "apiUrl": "/v1/brand-kits/brandkit_id/voice-profiles/profile_id",
+      "method": "GET",
+      "params": {
+        "brandkit_id": "$brandKitUID",
+        "profile_id": "profile_id"
+      }
+    },
+    "inputSchema": {
+      "type": "object",
+      "required": ["profile_id"],
+      "properties": {
+        "profile_id": {
+          "type": "string",
+          "description": "Unique identifier of the voice profile to fetch."
+        }
+      }
+    },
+    "group": "brandkit",
+    "scopes": ["brand-kits:read"],
+    "subGroup": "brand-kits-api",
+    "x-enrich-group": "brandkit"
+  },
+  "update_a_voice_profile": {
+    "name": "update_a_voice_profile",
+    "description": "Modifies an existing Voice Profile's characteristics including name, description, and communication style parameters (formality, tone, humor, and complexity levels). Use this to refine voice profiles as brand guidelines evolve or to fine-tune AI content generation behavior.",
+    "mapper": {
+      "apiUrl": "/v1/brand-kits/brandkit_id/voice-profiles/profile_id",
+      "method": "PUT",
+      "body": {
+        "type": "object",
+        "properties": {
+          "voice_profile": {
+            "type": "object",
+            "properties": {
+              "name": {
+                "type": "string",
+                "x-mapFrom": "name"
+              },
+              "description": {
+                "type": "string",
+                "x-mapFrom": "description"
+              },
+              "insights": {
+                "type": "string",
+                "x-mapFrom": "insights"
+              },
+              "sample_content": {
+                "type": "string",
+                "x-mapFrom": "sample_content"
+              },
+              "communication_style": {
+                "type": "object",
+                "properties": {
+                  "complexity_level": {
+                    "type": "number",
+                    "x-mapFrom": "complexity_level"
+                  },
+                  "formality_level": {
+                    "type": "number",
+                    "x-mapFrom": "formality_level"
+                  },
+                  "humor_level": {
+                    "type": "number",
+                    "x-mapFrom": "humor_level"
+                  },
+                  "tone": {
+                    "type": "number",
+                    "x-mapFrom": "tone"
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "type": "complex",
+      "params": {
+        "brandkit_id": "$brandKitUID",
+        "profile_id": "profile_id"
+      }
+    },
+    "inputSchema": {
+      "type": "object",
+      "required": ["profile_id"],
+      "properties": {
+        "profile_id": {
+          "type": "string",
+          "description": "Unique identifier of the voice profile to update."
+        },
+        "name": {
+          "type": "string",
+          "description": "Enter the preferred name to update the title of the selected voice profile."
+        },
+        "description": {
+          "type": "string",
+          "description": "Enter a short description for the selected voice profile, such as details about the person or brand it represents."
+        },
+        "formality_level": {
+          "type": "number",
+          "description": "Select the formality level for the voice profile that uses clear and concise language appropriate for business settings, range from 1 to 4.",
+          "minimum": 1,
+          "maximum": 4
+        },
+        "tone": {
+          "type": "number",
+          "description": "Select the tone of voice that presents facts neutrally, without opinions or personal bias, range from 1 to 4.",
+          "minimum": 1,
+          "maximum": 4
+        },
+        "humor_level": {
+          "type": "number",
+          "description": "Select the humor level to incorporate the relevant humor and create a more playful atmosphere, range from 1 to 4.",
+          "minimum": 1,
+          "maximum": 4
+        },
+        "complexity_level": {
+          "type": "number",
+          "description": "Select the language complexity level to utilize advanced concepts and specialized vocabulary tailored for audiences with prior knowledge, range from 1 to 4.",
+          "minimum": 1,
+          "maximum": 4
+        },
+        "insights": {
+          "type": "string",
+          "description": "Enter the content for insights to guide the creation of content using the AI prompt that aligns with this profile."
+        },
+        "sample_content": {
+          "type": "string",
+          "description": "Enter the sample content to serve as writing style examples in the AI prompt, not as contextual background information."
+        }
+      }
+    },
+    "group": "brandkit",
+    "scopes": ["brand-kits:manage"],
+    "subGroup": "brand-kits-api",
+    "x-enrich-group": "brandkit"
+  },
+  "delete_a_voice_profile": {
+    "name": "delete_a_voice_profile",
+    "description": "Permanently removes a Voice Profile from the Brand Kit. Use this to clean up unused voice configurations or retire deprecated communication styles. This action is irreversible, so ensure the voice profile is no longer needed for content generation.",
+    "mapper": {
+      "apiUrl": "/v1/brand-kits/brandkit_id/voice-profiles/profile_id",
+      "method": "DELETE",
+      "params": {
+        "brandkit_id": "$brandKitUID",
+        "profile_id": "profile_id"
+      }
+    },
+    "inputSchema": {
+      "type": "object",
+      "required": ["profile_id"],
+      "properties": {
+        "profile_id": {
+          "type": "string",
+          "description": "Unique identifier of the voice profile to delete."
+        }
+      }
+    },
+    "group": "brandkit",
+    "scopes": ["brand-kits:manage"],
+    "subGroup": "brand-kits-api",
+    "x-enrich-group": "brandkit"
+  },
+  "generative_ai": {
+    "name": "generative_ai",
+    "description": "Generates AI-powered content based on a custom prompt while maintaining brand consistency. Optionally leverages Voice Profiles for tone control and Knowledge Vault integration for contextual brand awareness. The AI analyzes your brand guidelines and reference materials to produce on-brand content that aligns with your communication style.",
+    "mapper": {
+      "apiUrl": "/brand-kits/v1/genai/",
+      "method": "POST",
+      "type": "complex",
+      "body": {
+        "type": "object",
+        "properties": {
+          "prompt": {
+            "type": "string",
+            "x-mapFrom": "prompt"
+          },
+          "knowledge_vault": {
+            "type": "boolean",
+            "x-mapFrom": "knowledge_vault"
+          },
+          "voice_profile_uid": {
+            "type": "string",
+            "x-mapFrom": "voice_profile_uid"
+          }
+        }
+      }
+    },
+    "inputSchema": {
+      "type": "object",
+      "required": ["prompt"],
+      "properties": {
+        "voice_profile_uid": {
+          "type": "string",
+          "description": "Optional unique identifier of a voice profile whose tone and style should shape the generated response."
+        },
+        "prompt": {
+          "type": "string",
+          "description": "Enter a prompt to generate a response via Generative AI."
+        },
+        "knowledge_vault": {
+          "type": "boolean",
+          "description": "Whether to ground the response in Knowledge Vault content for brand-aware context. Defaults to false (no Knowledge Vault context).",
+          "default": false
+        }
+      }
+    },
+    "group": "brandkit",
+    "scopes": ["brand-kits:manage"],
+    "subGroup": "ai",
+    "x-enrich-group": "brandkit"
+  },
+  "get_data_chunks_from_knowledge_vault": {
+    "name": "get_data_chunks_from_knowledge_vault",
+    "description": "Searches the Knowledge Vault to retrieve relevant data chunks that match your query string. This semantic search helps find specific brand guidelines, reference materials, or contextual information stored in the Knowledge Vault. Useful for discovering what brand content influences AI generation for specific topics.",
+    "mapper": {
+      "apiUrl": "/brand-kits/v1/knowledge-vault/search",
+      "method": "POST",
+      "body": "content_data"
+    },
+    "inputSchema": {
+      "type": "object",
+      "required": ["content_data"],
+      "properties": {
+        "content_data": {
+          "type": "string",
+          "description": "The search query used to retrieve relevant data chunks from the Knowledge Vault. Provide it as a JSON object wrapping the query text, e.g. {\"content\": \"...\"}."
+        }
+      }
+    },
+    "group": "brandkit",
+    "scopes": ["brand-kits:manage"],
+    "subGroup": "ai",
+    "x-enrich-group": "brandkit"
+  }
+}

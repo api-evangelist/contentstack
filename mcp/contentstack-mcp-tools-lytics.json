@@ -1,0 +1,290 @@
+{
+  "classify_content": {
+    "name": "classify_content",
+    "description": "Scrapes and analyzes a specified website URL to extract and classify key content, storing it in Lytics for audience segmentation and content activation. The tool identifies topics, themes, and content characteristics that can be used for personalization and audience targeting strategies.",
+    "mapper": {
+      "apiUrl": "/v2/content/classify",
+      "method": "POST",
+      "queryParams": {
+        "url": "url"
+      }
+    },
+    "inputSchema": {
+      "type": "object",
+      "required": ["url"],
+      "properties": {
+        "url": {
+          "type": "string",
+          "description": "Enter your website URL to classify."
+        }
+      }
+    },
+    "group": "lytics",
+    "scopes": []
+  },
+  "enrich_content": {
+    "name": "enrich_content",
+    "description": "Enriches content by analyzing either a website URL or raw text data through Lytics' AI engine. Returns inferred topics, themes, and content classifications based on audience behavior patterns and content analysis. Use this to enhance content metadata, improve search relevance, or automate content tagging for personalization.",
+    "mapper": {
+      "apiUrl": "/v2/content/enrich",
+      "method": "POST",
+      "queryParams": {
+        "url": "url",
+        "text": "text"
+      }
+    },
+    "inputSchema": {
+      "type": "object",
+      "required": [],
+      "properties": {
+        "url": {
+          "type": "string",
+          "description": "Enter your website URL to enrich."
+        },
+        "text": {
+          "type": "string",
+          "description": "Enter the text to enrich."
+        }
+      }
+    },
+    "group": "lytics",
+    "scopes": []
+  },
+  "lytics_get_all_audiences": {
+    "name": "lytics_get_all_audiences",
+    "description": "Retrieves comprehensive details for all audience segments defined in your Lytics account. Returns audience metadata including type (segment, goal, aspect, conversion), validity status, and associated data tables. Filter by audience type or validity to find specific segments for personalization campaigns or analytics review.",
+    "mapper": {
+      "apiUrl": "/v2/segment",
+      "method": "GET",
+      "queryParams": {
+        "account_id": "account_id",
+        "table": "table",
+        "valid": "valid",
+        "kind": "kind"
+      }
+    },
+    "inputSchema": {
+      "type": "object",
+      "required": [],
+      "properties": {
+        "account_id": {
+          "type": "string",
+          "description": "Select your Lytics account name."
+        },
+        "table": {
+          "type": "string",
+          "description": "Select the data type: Content for user-interacted items (such as articles, videos, or products), or User for unique identifiers."
+        },
+        "valid": {
+          "type": "string",
+          "description": "Filter audiences by validity status: 'all' (default, no filter), 'true' (only valid audiences), or 'false' (only invalid audiences).",
+          "enum": ["all", "true", "false"],
+          "default": "all"
+        },
+        "kind": {
+          "type": "string",
+          "description": "Filter audiences by type: All, Aspect, Conversion, Goal, Managed, or Segment. These values reflect how audiences are defined in Lytics.",
+          "enum": ["all", "segment", "goal", "aspect", "conversion", "managed"],
+          "default": "all"
+        }
+      }
+    },
+    "group": "lytics",
+    "scopes": []
+  },
+  "get_field_information": {
+    "name": "get_field_information",
+    "description": "Retrieves detailed field metadata for a specific audience segment in Lytics. Returns field definitions, data types, value distributions, and statistics that help understand audience characteristics and enable data mapping for integrations or campaign targeting.",
+    "mapper": {
+      "apiUrl": "api/segment/audience_id/fieldinfo",
+      "method": "GET",
+      "params": {
+        "audience_id": "audience_id"
+      },
+      "queryParams": {
+        "account_id": "account_id",
+        "fields": "fields"
+      }
+    },
+    "inputSchema": {
+      "type": "object",
+      "required": ["audience_id"],
+      "properties": {
+        "account_id": {
+          "type": "string",
+          "description": "Select your Lytics account name."
+        },
+        "audience_id": {
+          "type": "string",
+          "description": "Select an audience to fetch the details of its field(s)."
+        },
+        "fields": {
+          "type": "string",
+          "description": "Select the field(s) to fetch its details."
+        }
+      }
+    },
+    "group": "lytics",
+    "scopes": []
+  },
+  "lytics_get_a_single_audience": {
+    "name": "lytics_get_a_single_audience",
+    "description": "Retrieves detailed configuration and metrics for a specific audience segment by its unique identifier. Returns audience definition, rules, size estimates (if requested), and metadata. Use this to inspect audience criteria, verify segment logic, or prepare for targeted personalization campaigns.",
+    "mapper": {
+      "apiUrl": "/v2/segment/audience_id",
+      "method": "GET",
+      "params": {
+        "audience_id": "audience_id"
+      },
+      "queryParams": {
+        "account_id": "account_id",
+        "include_size": "include_size"
+      }
+    },
+    "inputSchema": {
+      "type": "object",
+      "required": ["audience_id"],
+      "properties": {
+        "account_id": {
+          "type": "string",
+          "description": "Select your Lytics account name."
+        },
+        "audience_id": {
+          "type": "string",
+          "description": "Select an audience to fetch its details."
+        },
+        "include_size": {
+          "type": "boolean",
+          "description": "Include audience size (count of users in an audience group)",
+          "default": false
+        }
+      }
+    },
+    "group": "lytics",
+    "scopes": []
+  },
+  "get_content_topics": {
+    "name": "get_content_topics",
+    "description": "Retrieves the complete taxonomy of content topics configured in your Lytics account. These topics represent content categories, themes, and classifications used for content analysis and audience segmentation. Use this to standardize content tagging or map Lytics topics to your content management system.",
+    "mapper": {
+      "apiUrl": "api/content/topic",
+      "method": "GET",
+      "queryParams": {
+        "account_id": "account_id"
+      }
+    },
+    "inputSchema": {
+      "type": "object",
+      "required": [],
+      "properties": {
+        "account_id": {
+          "type": "string",
+          "description": "Select your Lytics account name."
+        }
+      }
+    },
+    "group": "lytics",
+    "scopes": []
+  },
+  "get_a_user_profile": {
+    "name": "get_a_user_profile",
+    "description": "Retrieves a comprehensive user profile from Lytics by searching for a specific identifier (email, user ID, device ID, etc.). Returns complete user attributes, behavioral data, audience memberships, and engagement history. Essential for personalized experiences, customer support, or user data analysis.",
+    "mapper": {
+      "apiUrl": "/v2/identity/table/key/value",
+      "method": "GET",
+      "params": {
+        "table": "table",
+        "key": "key",
+        "value": "value"
+      },
+      "queryParams": {
+        "account_id": "account_id"
+      }
+    },
+    "inputSchema": {
+      "type": "object",
+      "required": ["table", "key", "value"],
+      "properties": {
+        "account_id": {
+          "type": "string",
+          "description": "Select your Lytics account name."
+        },
+        "table": {
+          "type": "string",
+          "description": "Select the data type: Content for user-interacted items (such as articles, videos, or products), or User for unique identifiers."
+        },
+        "key": {
+          "type": "string",
+          "description": "Enter a key to identify the user in Lytics, such as email, user ID, or device ID."
+        },
+        "value": {
+          "type": "string",
+          "description": "Enter the specific value to find the matching user profile. For example, john@xyz.com."
+        }
+      }
+    },
+    "group": "lytics",
+    "scopes": []
+  },
+  "get_accounts": {
+    "name": "get_accounts",
+    "description": "Retrieves all Lytics accounts associated with your instance. Returns account metadata including names, identifiers, and configuration details. Use this to manage multi-account setups, verify account access, or configure cross-account integrations.",
+    "mapper": {
+      "apiUrl": "api/account",
+      "method": "GET"
+    },
+    "inputSchema": {
+      "type": "object",
+      "required": [],
+      "properties": {}
+    },
+    "group": "lytics",
+    "scopes": []
+  },
+  "get_fields": {
+    "name": "get_fields",
+    "description": "Retrieves all user schema fields configured in your Lytics account. Returns field definitions, data types, and metadata used for user profiling and segmentation. Essential for data mapping, integration configuration, or understanding available user attributes for audience building.",
+    "mapper": {
+      "apiUrl": "v2/schema/user/field",
+      "method": "GET",
+      "queryParams": {
+        "account_id": "account_id"
+      }
+    },
+    "inputSchema": {
+      "type": "object",
+      "required": [],
+      "properties": {
+        "account_id": {
+          "type": "string",
+          "description": "Select your Lytics account name."
+        }
+      }
+    },
+    "group": "lytics",
+    "scopes": []
+  },
+  "get_tables": {
+    "name": "get_tables",
+    "description": "Retrieves schema information for all data tables in your Lytics account (typically User and Content tables). Returns table structures, field definitions, and relationships. Use this to understand your data architecture, plan integrations, or configure data export and analysis workflows.",
+    "mapper": {
+      "apiUrl": "v2/schema",
+      "method": "GET",
+      "queryParams": {
+        "account_id": "account_id"
+      }
+    },
+    "inputSchema": {
+      "type": "object",
+      "required": [],
+      "properties": {
+        "account_id": {
+          "type": "string",
+          "description": "Select your Lytics account name."
+        }
+      }
+    },
+    "group": "lytics",
+    "scopes": []
+  }
+}

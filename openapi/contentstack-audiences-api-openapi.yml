@@ -1,7 +1,7 @@
 openapi: 3.2.0
 info:
   title: Contentstack Personalize Management Audiences API
-  description: The Contentstack Personalize Management API provides programmatic control over the resources in a Contentstack Personalize project, including Attributes, Audiences, Events, and Experiences. Developers can use this API to create and manage audience segments based on user attributes and behavioral events, and to configure personalized content experiences for those segments. It is a REST API that follows standard CRUD conventions and is intended for use in headless personalization workflows where content targeting logic needs to be managed programmatically or integrated with external data platforms.
+  description: The Contentstack Personalize Management API provides programmatic control over the resources in a Contentstack Personalize project, including Attributes, Audiences, Events, and Experiences.
   version: v1
   contact:
     name: Contentstack Support
@@ -114,6 +114,25 @@ paths:
         '404':
           $ref: '#/components/responses/NotFound'
 components:
+  responses:
+    BadRequest:
+      description: The request is malformed or contains invalid parameters.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    Unauthorized:
+      description: Authentication credentials are missing or invalid.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    NotFound:
+      description: The requested resource was not found.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
   schemas:
     AudienceList:
       type: object
@@ -124,6 +143,21 @@ components:
           description: Array of audience objects.
           items:
             $ref: '#/components/schemas/Audience'
+    CreateAudienceRequest:
+      type: object
+      description: Parameters for creating or updating an audience.
+      required:
+      - name
+      properties:
+        name:
+          type: string
+          description: Display name for the audience.
+        description:
+          type: string
+          description: Description of the audience targeting criteria.
+        rules:
+          type: object
+          description: Logical conditions for audience membership.
     Audience:
       type: object
       description: An audience segment based on attribute rules and user behaviors.
@@ -144,21 +178,6 @@ components:
           type: string
           format: date-time
           description: ISO 8601 timestamp when the audience was created.
-    CreateAudienceRequest:
-      type: object
-      description: Parameters for creating or updating an audience.
-      required:
-      - name
-      properties:
-        name:
-          type: string
-          description: Display name for the audience.
-        description:
-          type: string
-          description: Description of the audience targeting criteria.
-        rules:
-          type: object
-          description: Logical conditions for audience membership.
     Error:
       type: object
       description: Standard error response.
@@ -184,25 +203,6 @@ components:
       description: The unique identifier of the audience.
       schema:
         type: string
-  responses:
-    Unauthorized:
-      description: Authentication credentials are missing or invalid.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
-    NotFound:
-      description: The requested resource was not found.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
-    BadRequest:
-      description: The request is malformed or contains invalid parameters.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
   securitySchemes:
     bearerAuth:
       type: http

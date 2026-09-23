@@ -1,0 +1,855 @@
+specification: API Commons DataModel
+specificationVersion: '0.1'
+provider: Contentstack
+providerId: contentstack
+generated: '2026-09-17'
+method: derived
+source: $ref graph and id-reference fields across the 33 OpenAPI documents in openapi/, cross-checked against the
+  object model described at https://www.contentstack.com/docs/developers/create-content-types/about-fields
+description: 'The Contentstack entity graph as its own contracts declare it. Everything roots at the Stack: a Stack
+  owns content types, entries, assets, global fields, environments, locales, branches and releases, and the delivery
+  surface is a read projection of the same objects keyed by api_key (stack) plus access_token (environment).'
+root_entity: Stack
+identifier_convention:
+  primary_key: uid
+  note: Every first-class Contentstack object carries a uid. Contentstack does not use typed id prefixes — a uid
+    is an opaque string, so a uid alone does not tell an agent what kind of object it addresses; the calling path
+    does.
+  tenant_keys:
+  - api_key selects the stack
+  - branch header selects the branch
+  - environment + locale select the delivery projection
+entity_count: 101
+relationship_count: 56
+entities:
+- name: AccountList
+  spec: openapi/contentstack-accounts-api-openapi.yml
+  fields:
+  - data
+- name: Account
+  spec: openapi/contentstack-accounts-api-openapi.yml
+  fields:
+  - uid
+  - name
+  - service
+  - created_at
+- name: Error
+  spec: openapi/contentstack-accounts-api-openapi.yml
+  fields:
+  - message
+  - error_code
+- name: CacheUsage
+  spec: openapi/contentstack-analytics-api-openapi.yml
+  fields:
+  - used
+  - limit
+  - period_start
+  - period_end
+- name: AssetList
+  spec: openapi/contentstack-assets-api-openapi.yml
+  fields:
+  - assets
+  - count
+- name: Asset
+  spec: openapi/contentstack-assets-api-openapi.yml
+  fields:
+  - uid
+  - title
+  - url
+  - filename
+  - content_type
+  - file_size
+  - created_at
+  - updated_at
+- name: AssetList_2
+  spec: openapi/contentstack-assets-api-openapi.yml
+  fields:
+  - assets
+- name: Asset_2
+  spec: openapi/contentstack-assets-api-openapi.yml
+  fields:
+  - uid
+  - title
+  - url
+  - filename
+  - content_type
+  - file_size
+  - created_at
+- name: Error_2
+  spec: openapi/contentstack-assets-api-openapi.yml
+  fields:
+  - error_message
+  - error_code
+  - errors
+- name: AttributeList
+  spec: openapi/contentstack-attributes-api-openapi.yml
+  fields:
+  - data
+- name: CreateAttributeRequest
+  spec: openapi/contentstack-attributes-api-openapi.yml
+  fields:
+  - name
+  - key
+  - data_type
+- name: Attribute
+  spec: openapi/contentstack-attributes-api-openapi.yml
+  fields:
+  - uid
+  - name
+  - key
+  - data_type
+  - created_at
+- name: AudienceList
+  spec: openapi/contentstack-audiences-api-openapi.yml
+  fields:
+  - data
+- name: CreateAudienceRequest
+  spec: openapi/contentstack-audiences-api-openapi.yml
+  fields:
+  - name
+  - description
+  - rules
+- name: Audience
+  spec: openapi/contentstack-audiences-api-openapi.yml
+  fields:
+  - uid
+  - name
+  - description
+  - rules
+  - created_at
+- name: AuditLogList
+  spec: openapi/contentstack-audit-logs-api-openapi.yml
+  fields:
+  - data
+- name: AuditLog
+  spec: openapi/contentstack-audit-logs-api-openapi.yml
+  fields:
+  - uid
+  - action
+  - performed_by
+  - created_at
+- name: AutomationList
+  spec: openapi/contentstack-automations-api-openapi.yml
+  fields:
+  - data
+- name: Automation
+  spec: openapi/contentstack-automations-api-openapi.yml
+  fields:
+  - uid
+  - name
+  - status
+  - trigger
+  - steps
+  - created_at
+  - updated_at
+- name: BrandKitList
+  spec: openapi/contentstack-brand-kits-api-openapi.yml
+  fields:
+  - data
+  - total
+- name: CreateBrandKitRequest
+  spec: openapi/contentstack-brand-kits-api-openapi.yml
+  fields:
+  - name
+  - description
+- name: BrandKit
+  spec: openapi/contentstack-brand-kits-api-openapi.yml
+  fields:
+  - uid
+  - name
+  - description
+  - organization_uid
+  - created_at
+  - updated_at
+- name: Field
+  spec: openapi/contentstack-content-types-api-openapi.yml
+  fields:
+  - uid
+  - data_type
+  - display_name
+  - mandatory
+  - unique
+- name: ContentTypeList
+  spec: openapi/contentstack-content-types-api-openapi.yml
+  fields:
+  - content_types
+  - count
+- name: ContentType
+  spec: openapi/contentstack-content-types-api-openapi.yml
+  fields:
+  - uid
+  - title
+  - schema
+  - options
+  - created_at
+  - updated_at
+- name: Field_2
+  spec: openapi/contentstack-content-types-api-openapi.yml
+  fields:
+  - uid
+  - data_type
+  - display_name
+  - mandatory
+  - unique
+- name: ContentTypeList_2
+  spec: openapi/contentstack-content-types-api-openapi.yml
+  fields:
+  - content_types
+- name: ContentType_2
+  spec: openapi/contentstack-content-types-api-openapi.yml
+  fields:
+  - uid
+  - title
+  - description
+  - schema
+  - created_at
+  - updated_at
+- name: CreateContentTypeRequest
+  spec: openapi/contentstack-content-types-api-openapi.yml
+  fields:
+  - content_type
+- name: DeploymentList
+  spec: openapi/contentstack-deployments-api-openapi.yml
+  fields:
+  - data
+- name: LogResponse
+  spec: openapi/contentstack-deployments-api-openapi.yml
+  fields:
+  - logs
+- name: Deployment
+  spec: openapi/contentstack-deployments-api-openapi.yml
+  fields:
+  - uid
+  - status
+  - created_at
+  - completed_at
+- name: CreateDeploymentRequest
+  spec: openapi/contentstack-deployments-api-openapi.yml
+  fields:
+  - upload_uid
+  - branch
+- name: LogEntry
+  spec: openapi/contentstack-deployments-api-openapi.yml
+  fields:
+  - timestamp
+  - level
+  - message
+- name: EntryList
+  spec: openapi/contentstack-entries-api-openapi.yml
+  fields:
+  - entries
+  - count
+- name: Entry
+  spec: openapi/contentstack-entries-api-openapi.yml
+  fields:
+  - uid
+  - title
+  - locale
+  - created_at
+  - updated_at
+  - published_at
+- name: EntryList_2
+  spec: openapi/contentstack-entries-api-openapi.yml
+  fields:
+  - entries
+  - count
+- name: Entry_2
+  spec: openapi/contentstack-entries-api-openapi.yml
+  fields:
+  - uid
+  - title
+  - locale
+  - _version
+  - created_at
+  - updated_at
+- name: UpdateEntryRequest
+  spec: openapi/contentstack-entries-api-openapi.yml
+  fields:
+  - entry
+- name: PublishRequest
+  spec: openapi/contentstack-entries-api-openapi.yml
+  fields:
+  - entry
+- name: CreateEntryRequest
+  spec: openapi/contentstack-entries-api-openapi.yml
+  fields:
+  - entry
+- name: EntryVariant
+  spec: openapi/contentstack-entry-variants-api-openapi.yml
+  fields:
+  - uid
+  - variant_uid
+  - locale
+- name: EntryVariantList
+  spec: openapi/contentstack-entry-variants-api-openapi.yml
+  fields:
+  - entries
+- name: Environment
+  spec: openapi/contentstack-environments-api-openapi.yml
+  fields:
+  - uid
+  - name
+  - urls
+  - created_at
+- name: EnvironmentList
+  spec: openapi/contentstack-environments-api-openapi.yml
+  fields:
+  - environments
+- name: EnvironmentList_2
+  spec: openapi/contentstack-environments-api-openapi.yml
+  fields:
+  - data
+- name: CreateEnvironmentRequest
+  spec: openapi/contentstack-environments-api-openapi.yml
+  fields:
+  - name
+  - domain
+- name: Environment_2
+  spec: openapi/contentstack-environments-api-openapi.yml
+  fields:
+  - uid
+  - name
+  - domain
+  - status
+  - created_at
+- name: TrackEventsRequest
+  spec: openapi/contentstack-events-api-openapi.yml
+- name: TrackEvent
+  spec: openapi/contentstack-events-api-openapi.yml
+  fields:
+  - eventKey
+  - experience_uid
+  - variant_uid
+- name: EventList
+  spec: openapi/contentstack-events-api-openapi.yml
+  fields:
+  - data
+- name: CreateEventRequest
+  spec: openapi/contentstack-events-api-openapi.yml
+  fields:
+  - name
+  - key
+- name: PersonalizeEvent
+  spec: openapi/contentstack-events-api-openapi.yml
+  fields:
+  - uid
+  - name
+  - key
+  - created_at
+- name: ExecutionLog
+  spec: openapi/contentstack-execution-logs-api-openapi.yml
+  fields:
+  - uid
+  - automation_uid
+  - status
+  - started_at
+  - completed_at
+  - steps
+- name: ExecutionLogList
+  spec: openapi/contentstack-execution-logs-api-openapi.yml
+  fields:
+  - data
+- name: ExperienceList
+  spec: openapi/contentstack-experiences-api-openapi.yml
+  fields:
+  - data
+- name: ExperienceVariant
+  spec: openapi/contentstack-experiences-api-openapi.yml
+  fields:
+  - uid
+  - name
+  - audience_uid
+  - traffic_percentage
+- name: CreateExperienceRequest
+  spec: openapi/contentstack-experiences-api-openapi.yml
+  fields:
+  - name
+  - type
+  - variants
+- name: Experience
+  spec: openapi/contentstack-experiences-api-openapi.yml
+  fields:
+  - uid
+  - name
+  - type
+  - status
+  - variants
+  - created_at
+- name: ExperiencePriority
+  spec: openapi/contentstack-experiences-api-openapi.yml
+  fields:
+  - priority
+- name: UploadUrlResponse
+  spec: openapi/contentstack-file-uploads-api-openapi.yml
+  fields:
+  - upload_url
+  - upload_uid
+  - expires_at
+- name: GeoList
+  spec: openapi/contentstack-geolocation-api-openapi.yml
+  fields:
+  - data
+- name: GeoItem
+  spec: openapi/contentstack-geolocation-api-openapi.yml
+  fields:
+  - uid
+  - name
+  - code
+- name: GlobalField
+  spec: openapi/contentstack-global-fields-api-openapi.yml
+  fields:
+  - uid
+  - title
+  - schema
+  - created_at
+  - updated_at
+- name: GlobalFieldList
+  spec: openapi/contentstack-global-fields-api-openapi.yml
+  fields:
+  - global_fields
+- name: LlmConfig
+  spec: openapi/contentstack-llm-configuration-api-openapi.yml
+  fields:
+  - provider
+  - model
+  - api_key_configured
+  - created_at
+- name: CreateLlmConfigRequest
+  spec: openapi/contentstack-llm-configuration-api-openapi.yml
+  fields:
+  - provider
+  - model
+  - api_key
+  - endpoint
+- name: ManifestExperience
+  spec: openapi/contentstack-manifest-api-openapi.yml
+  fields:
+  - experience_uid
+  - experience_short_uid
+  - variant_uid
+  - variant_short_uid
+- name: Manifest
+  spec: openapi/contentstack-manifest-api-openapi.yml
+  fields:
+  - experiences
+- name: Stack
+  spec: openapi/contentstack-organizations-api-openapi.yml
+  fields:
+  - api_key
+  - uid
+  - name
+  - description
+  - master_locale
+  - org_uid
+  - created_at
+  - updated_at
+- name: StackList
+  spec: openapi/contentstack-organizations-api-openapi.yml
+  fields:
+  - stacks
+- name: Organization
+  spec: openapi/contentstack-organizations-api-openapi.yml
+  fields:
+  - uid
+  - name
+  - plan_id
+  - created_at
+- name: OrganizationList
+  spec: openapi/contentstack-organizations-api-openapi.yml
+  fields:
+  - organizations
+- name: ProjectList
+  spec: openapi/contentstack-projects-api-openapi.yml
+  fields:
+  - data
+- name: Project
+  spec: openapi/contentstack-projects-api-openapi.yml
+  fields:
+  - uid
+  - name
+  - description
+  - organization_uid
+  - created_at
+  - updated_at
+- name: CreateProjectRequest
+  spec: openapi/contentstack-projects-api-openapi.yml
+  fields:
+  - name
+  - description
+- name: ProjectList_2
+  spec: openapi/contentstack-projects-api-openapi.yml
+  fields:
+  - data
+- name: Project_2
+  spec: openapi/contentstack-projects-api-openapi.yml
+  fields:
+  - uid
+  - name
+  - description
+  - framework
+  - created_at
+  - updated_at
+- name: CreateProjectRequest_2
+  spec: openapi/contentstack-projects-api-openapi.yml
+  fields:
+  - name
+  - description
+  - framework
+- name: ScimListResponse
+  spec: openapi/contentstack-scim-groups-api-openapi.yml
+  fields:
+  - schemas
+  - totalResults
+  - startIndex
+  - itemsPerPage
+  - Resources
+- name: ScimError
+  spec: openapi/contentstack-scim-groups-api-openapi.yml
+  fields:
+  - schemas
+  - status
+  - detail
+- name: ScimGroup
+  spec: openapi/contentstack-scim-groups-api-openapi.yml
+  fields:
+  - schemas
+  - id
+  - displayName
+  - members
+- name: ScimPatchOperation
+  spec: openapi/contentstack-scim-groups-api-openapi.yml
+  fields:
+  - op
+  - path
+  - value
+- name: ScimPatchRequest
+  spec: openapi/contentstack-scim-groups-api-openapi.yml
+  fields:
+  - schemas
+  - Operations
+- name: ScimUser
+  spec: openapi/contentstack-scim-users-api-openapi.yml
+  fields:
+  - schemas
+  - id
+  - userName
+  - name
+  - emails
+  - active
+- name: CreateStackRequest
+  spec: openapi/contentstack-stacks-api-openapi.yml
+  fields:
+  - stack
+- name: UpdateStackRequest
+  spec: openapi/contentstack-stacks-api-openapi.yml
+  fields:
+  - stack
+- name: SyncItem
+  spec: openapi/contentstack-synchronization-api-openapi.yml
+  fields:
+  - type
+  - data
+  - content_type_uid
+  - locale
+- name: SyncResponse
+  spec: openapi/contentstack-synchronization-api-openapi.yml
+  fields:
+  - items
+  - paginationToken
+  - syncToken
+  - total_count
+  - limit
+  - skip
+- name: UserAttributesRequest
+  spec: openapi/contentstack-user-attributes-api-openapi.yml
+- name: MergeUserAttributesRequest
+  spec: openapi/contentstack-user-attributes-api-openapi.yml
+  fields:
+  - sourceUserUid
+  - targetUserUid
+- name: LoginRequest
+  spec: openapi/contentstack-user-sessions-api-openapi.yml
+  fields:
+  - user
+- name: LoginResponse
+  spec: openapi/contentstack-user-sessions-api-openapi.yml
+  fields:
+  - user
+- name: User
+  spec: openapi/contentstack-user-sessions-api-openapi.yml
+  fields:
+  - uid
+  - first_name
+  - last_name
+  - email
+  - authtoken
+  - created_at
+- name: UpdateUserRequest
+  spec: openapi/contentstack-users-api-openapi.yml
+  fields:
+  - user
+- name: Variable
+  spec: openapi/contentstack-variables-api-openapi.yml
+  fields:
+  - uid
+  - name
+  - key
+  - value
+  - is_secret
+- name: CreateVariableRequest
+  spec: openapi/contentstack-variables-api-openapi.yml
+  fields:
+  - name
+  - key
+  - value
+  - is_secret
+- name: VariableList
+  spec: openapi/contentstack-variables-api-openapi.yml
+  fields:
+  - data
+- name: VoiceProfileList
+  spec: openapi/contentstack-voice-profiles-api-openapi.yml
+  fields:
+  - data
+- name: CreateVoiceProfileRequest
+  spec: openapi/contentstack-voice-profiles-api-openapi.yml
+  fields:
+  - name
+  - description
+  - tone
+  - style_guidelines
+- name: VoiceProfile
+  spec: openapi/contentstack-voice-profiles-api-openapi.yml
+  fields:
+  - uid
+  - name
+  - description
+  - tone
+  - style_guidelines
+  - brand_kit_uid
+  - created_at
+relationships:
+- from: AccountList
+  to: Account
+  type: has_one
+  via: $ref
+- from: AssetList
+  to: Asset
+  type: has_one
+  via: $ref
+- from: AssetList_2
+  to: Asset_2
+  type: has_one
+  via: $ref
+- from: AttributeList
+  to: Attribute
+  type: has_one
+  via: $ref
+- from: AudienceList
+  to: Audience
+  type: has_one
+  via: $ref
+- from: AuditLogList
+  to: AuditLog
+  type: has_one
+  via: $ref
+- from: AutomationList
+  to: Automation
+  type: has_one
+  via: $ref
+- from: BrandKitList
+  to: BrandKit
+  type: has_one
+  via: $ref
+- from: BrandKit
+  to: Organization
+  type: belongs_to
+  via: organization_uid
+- from: ContentTypeList
+  to: ContentType
+  type: has_one
+  via: $ref
+- from: ContentType
+  to: Field
+  type: has_one
+  via: $ref
+- from: ContentTypeList_2
+  to: ContentType_2
+  type: has_one
+  via: $ref
+- from: ContentType_2
+  to: Field_2
+  type: has_one
+  via: $ref
+- from: CreateContentTypeRequest
+  to: Field_2
+  type: has_one
+  via: $ref
+- from: DeploymentList
+  to: Deployment
+  type: has_one
+  via: $ref
+- from: LogResponse
+  to: LogEntry
+  type: has_one
+  via: $ref
+- from: CreateDeploymentRequest
+  to: Branch
+  type: belongs_to
+  via: branch
+- from: EntryList
+  to: Entry
+  type: has_one
+  via: $ref
+- from: Entry
+  to: Locale
+  type: belongs_to
+  via: locale
+- from: EntryList_2
+  to: Entry_2
+  type: has_one
+  via: $ref
+- from: Entry_2
+  to: Locale
+  type: belongs_to
+  via: locale
+- from: EntryVariant
+  to: Variant
+  type: belongs_to
+  via: variant_uid
+- from: EntryVariant
+  to: Locale
+  type: belongs_to
+  via: locale
+- from: EntryVariantList
+  to: EntryVariant
+  type: has_one
+  via: $ref
+- from: EnvironmentList
+  to: Environment
+  type: has_one
+  via: $ref
+- from: EnvironmentList_2
+  to: Environment_2
+  type: has_one
+  via: $ref
+- from: TrackEventsRequest
+  to: TrackEvent
+  type: has_one
+  via: $ref
+- from: TrackEvent
+  to: Experience
+  type: belongs_to
+  via: experience_uid
+- from: TrackEvent
+  to: Variant
+  type: belongs_to
+  via: variant_uid
+- from: EventList
+  to: PersonalizeEvent
+  type: has_one
+  via: $ref
+- from: ExecutionLogList
+  to: ExecutionLog
+  type: has_one
+  via: $ref
+- from: ExperienceList
+  to: Experience
+  type: has_one
+  via: $ref
+- from: ExperienceVariant
+  to: Audience
+  type: belongs_to
+  via: audience_uid
+- from: CreateExperienceRequest
+  to: ExperienceVariant
+  type: has_one
+  via: $ref
+- from: Experience
+  to: ExperienceVariant
+  type: has_one
+  via: $ref
+- from: GeoList
+  to: GeoItem
+  type: has_one
+  via: $ref
+- from: GlobalField
+  to: Field
+  type: has_one
+  via: $ref
+- from: GlobalFieldList
+  to: GlobalField
+  type: has_one
+  via: $ref
+- from: CreateLlmConfigRequest
+  to: Stack
+  type: belongs_to
+  via: api_key
+- from: ManifestExperience
+  to: Experience
+  type: belongs_to
+  via: experience_uid
+- from: ManifestExperience
+  to: Variant
+  type: belongs_to
+  via: variant_uid
+- from: Manifest
+  to: ManifestExperience
+  type: has_one
+  via: $ref
+- from: Stack
+  to: Stack
+  type: belongs_to
+  via: api_key
+- from: StackList
+  to: Stack
+  type: has_one
+  via: $ref
+- from: OrganizationList
+  to: Organization
+  type: has_one
+  via: $ref
+- from: ProjectList
+  to: Project
+  type: has_one
+  via: $ref
+- from: Project
+  to: Organization
+  type: belongs_to
+  via: organization_uid
+- from: ProjectList_2
+  to: Project_2
+  type: has_one
+  via: $ref
+- from: ScimPatchRequest
+  to: ScimPatchOperation
+  type: has_one
+  via: $ref
+- from: SyncItem
+  to: ContentType
+  type: belongs_to
+  via: content_type_uid
+- from: SyncItem
+  to: Locale
+  type: belongs_to
+  via: locale
+- from: SyncResponse
+  to: SyncItem
+  type: has_one
+  via: $ref
+- from: LoginResponse
+  to: User
+  type: has_one
+  via: $ref
+- from: VariableList
+  to: Variable
+  type: has_one
+  via: $ref
+- from: VoiceProfileList
+  to: VoiceProfile
+  type: has_one
+  via: $ref
+- from: VoiceProfile
+  to: BrandKit
+  type: belongs_to
+  via: brand_kit_uid

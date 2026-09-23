@@ -1,0 +1,421 @@
+{
+  "get_subscription_usage": {
+    "name": "get_subscription_usage",
+    "description": "Retrieves a summary of your organization's subscription resource usage for a specified date range. Returns counts for extensions, users, stacks, content types, global fields, entries, assets, environments, and executions currently existing in the organization. This asynchronous operation returns a jobId that must be passed to get_job_data to retrieve the actual results. Essential for tracking subscription utilization, license compliance, and capacity planning.",
+    "mapper": {
+      "apiUrl": "/v2/subscription",
+      "method": "GET",
+      "queryParams": {
+        "from": "from",
+        "to": "to"
+      }
+    },
+    "inputSchema": {
+      "type": "object",
+      "required": ["from", "to"],
+      "properties": {
+        "from": {
+          "type": "string",
+          "description": "Enter the start date for the required data. Use the following date format: YYYY-MM-DD."
+        },
+        "to": {
+          "type": "string",
+          "description": "Enter the current date or any date after the from date. The date format should be: YYYY-MM-DD. The range between from and to must not exceed 90 days, or the job will fail."
+        }
+      }
+    },
+    "group": "analytics",
+    "scopes": ["analytics:read"]
+  },
+  "get_device_usage": {
+    "name": "get_device_usage",
+    "description": "Analyzes device and SDK usage patterns across your Contentstack services over a specified period. Returns detailed statistics including device types, SDK versions, platforms, operating systems, access counts, and temporal patterns. This asynchronous operation returns a jobId for get_job_data. Supports filtering by service type (CMA, UI, CDN, GraphQL, Images, Assets, Automations, Launch), ordering, pagination, and date ranges. Critical for understanding client distribution, SDK adoption, and optimizing compatibility testing.",
+    "mapper": {
+      "apiUrl": "/v2/devices",
+      "method": "GET",
+      "queryParams": {
+        "includeCount": "includeCount",
+        "from": "from",
+        "duration": "duration",
+        "to": "to",
+        "services": "services",
+        "orderBy": "orderBy",
+        "limit": "limit",
+        "skip": "skip"
+      }
+    },
+    "inputSchema": {
+      "type": "object",
+      "required": ["includeCount", "from", "duration", "to", "services"],
+      "properties": {
+        "includeCount": {
+          "type": "boolean",
+          "description": "Set this parameter to true to include the total count of records in the response."
+        },
+        "from": {
+          "type": "string",
+          "description": "Enter the start date for the required data. Use the following date format: YYYY-MM-DD."
+        },
+        "duration": {
+          "type": "string",
+          "description": "Enter a value like day, week, or month. This parameter determines the granularity of the data you want to fetch."
+        },
+        "to": {
+          "type": "string",
+          "description": "Enter the current date or any date after the from date. The date format should be: YYYY-MM-DD. The range between from and to must not exceed 90 days, or the job will fail."
+        },
+        "services": {
+          "type": "string",
+          "description": "Specify the array of services for which you want statistics, such as: ['cma', 'ui', 'cdn', 'graphql', 'images','assets', 'automations', 'launch']."
+        },
+        "orderBy": {
+          "type": "string",
+          "description": "Enter 1 to sort the response in ascending order by count or -1 to sort it in descending order by count. By default, the value is set to -1, which orders the response in descending order."
+        },
+        "limit": {
+          "type": "number",
+          "minimum": 1,
+          "maximum": 900,
+          "description": "Specify the number of items you wish to fetch per request. The maximum limit is 900."
+        },
+        "skip": {
+          "type": "number",
+          "minimum": 0,
+          "description": "Enter the number of items to skip. For example, a skip value of 10 will skip the first 10 items."
+        }
+      }
+    },
+    "group": "analytics",
+    "scopes": ["analytics:read"]
+  },
+  "get_usage_analytics": {
+    "name": "get_usage_analytics",
+    "description": "Retrieves comprehensive API and CDN usage analytics for your organization over a specified time period. Returns bandwidth consumption and request counts broken down by service type (CMA, UI, CDN, GraphQL, Images, Assets, Automations, Launch). This asynchronous operation returns a jobId for get_job_data. Supports filtering by stack (apiKey), Launch project, and environment. Note: apiKey cannot be used with automations/launch services simultaneously; apiKey and environmentUid apply only to Launch service. Essential for monitoring traffic patterns, billing analysis, and capacity planning.",
+    "mapper": {
+      "apiUrl": "/v2/usage",
+      "method": "GET",
+      "queryParams": {
+        "includeCount": "includeCount",
+        "from": "from",
+        "duration": "duration",
+        "to": "to",
+        "services": "services",
+        "limit": "limit",
+        "skip": "skip",
+        "apiKey": "apiKey",
+        "projectUid": "projectUid",
+        "environmentUid": "environmentUid"
+      }
+    },
+    "inputSchema": {
+      "type": "object",
+      "required": ["includeCount", "from", "duration", "to", "services"],
+      "properties": {
+        "includeCount": {
+          "type": "boolean",
+          "description": "Set this parameter to true to include the total count of records in the response."
+        },
+        "from": {
+          "type": "string",
+          "description": "Enter the start date for the required data. Use the following date format: YYYY-MM-DD."
+        },
+        "duration": {
+          "type": "string",
+          "description": "Enter a value like day, week, or month. This parameter determines the granularity of the data you want to fetch."
+        },
+        "to": {
+          "type": "string",
+          "description": "Enter the current date or any date after the from date. The date format should be: YYYY-MM-DD. The range between from and to must not exceed 90 days, or the job will fail."
+        },
+        "services": {
+          "type": "string",
+          "description": "Specify the array of services for which you want statistics, such as: ['cma', 'ui', 'cdn', 'graphql', 'images','assets', 'automations', 'launch']."
+        },
+        "limit": {
+          "type": "number",
+          "minimum": 1,
+          "maximum": 900,
+          "description": "Specify the number of items you wish to fetch per request. The maximum limit is 900."
+        },
+        "skip": {
+          "type": "number",
+          "minimum": 0,
+          "description": "Enter the number of items to skip. For example, a skip value of 10 will skip the first 10 items."
+        },
+        "apiKey": {
+          "type": "string",
+          "description": "Enter your stack API key to get data for that specific stack."
+        },
+        "projectUid": {
+          "type": "string",
+          "description": "Enter the Launch project UID to retrieve data from that specific project."
+        },
+        "environmentUid": {
+          "type": "string",
+          "description": "Enter the environment UID of the Launch project."
+        }
+      }
+    },
+    "group": "analytics",
+    "scopes": ["analytics:read"]
+  },
+  "get_top_urls": {
+    "name": "get_top_urls",
+    "description": "Analyzes URL-level traffic patterns across your Contentstack services over a specified time period. Returns request counts for each accessed URL, broken down by service type (CMA, UI, CDN, GraphQL, Images, Assets, Automations, Launch). This asynchronous operation returns a jobId for get_job_data. Supports filtering by stack, sorting by request count, and pagination. Essential for identifying high-traffic endpoints, detecting hot spots, optimizing caching strategies, and analyzing content popularity.",
+    "mapper": {
+      "apiUrl": "/v2/url",
+      "method": "GET",
+      "queryParams": {
+        "from": "from",
+        "duration": "duration",
+        "to": "to",
+        "services": "services",
+        "limit": "limit",
+        "skip": "skip",
+        "apiKey": "apiKey",
+        "orderBy": "orderBy"
+      }
+    },
+    "inputSchema": {
+      "type": "object",
+      "required": ["from", "duration", "to", "services"],
+      "properties": {
+        "from": {
+          "type": "string",
+          "description": "Enter the start date for the required data. Use the following date format: YYYY-MM-DD."
+        },
+        "duration": {
+          "type": "string",
+          "description": "Enter a value like day, week, or month. This parameter determines the granularity of the data you want to fetch."
+        },
+        "to": {
+          "type": "string",
+          "description": "Enter the current date or any date after the from date. The date format should be: YYYY-MM-DD. The range between from and to must not exceed 90 days, or the job will fail."
+        },
+        "services": {
+          "type": "string",
+          "description": "Specify the array of services for which you want statistics, such as: ['cma', 'ui', 'cdn', 'graphql', 'images','assets', 'automations', 'launch']."
+        },
+        "limit": {
+          "type": "number",
+          "minimum": 1,
+          "maximum": 900,
+          "description": "Specify the number of items you wish to fetch per request. The maximum limit is 900."
+        },
+        "skip": {
+          "type": "number",
+          "minimum": 0,
+          "description": "Enter the number of items to skip. For example, a skip value of 10 will skip the first 10 items."
+        },
+        "apiKey": {
+          "type": "string",
+          "description": "Enter your stack API key to get data for that specific stack."
+        },
+        "orderBy": {
+          "type": "string",
+          "description": "Enter 1 to sort the response in ascending order by count or -1 to sort it in descending order by count. By default, the value is set to -1, which orders the response in descending order."
+        }
+      }
+    },
+    "group": "analytics",
+    "scopes": ["analytics:read"]
+  },
+  "get_status_code": {
+    "name": "get_status_code",
+    "description": "Retrieves comprehensive HTTP status code distribution across your Contentstack services for a specified time period. Returns request counts grouped by status code (200, 404, 500, etc.), service type, and date. This asynchronous operation returns a jobId for get_job_data. Supports filtering by specific status code, stack, date range, and service types. Critical for monitoring API health, identifying error patterns, tracking success rates, detecting outages, and ensuring service reliability and SLA compliance.",
+    "mapper": {
+      "apiUrl": "/v2/http-statuses",
+      "method": "GET",
+      "queryParams": {
+        "from": "from",
+        "duration": "duration",
+        "to": "to",
+        "services": "services",
+        "httpStatusCode": "httpStatusCode",
+        "apiKey": "apiKey"
+      }
+    },
+    "inputSchema": {
+      "type": "object",
+      "required": ["from", "duration", "to", "services"],
+      "properties": {
+        "from": {
+          "type": "string",
+          "description": "Enter the start date for the required data. Use the following date format: YYYY-MM-DD."
+        },
+        "duration": {
+          "type": "string",
+          "description": "Enter a value like day, week, or month. This parameter determines the granularity of the data you want to fetch."
+        },
+        "to": {
+          "type": "string",
+          "description": "Enter the current date or any date after the from date. The date format should be: YYYY-MM-DD. The range between from and to must not exceed 90 days, or the job will fail."
+        },
+        "services": {
+          "type": "string",
+          "description": "Specify the array of services for which you want statistics, such as: ['cma', 'ui', 'cdn', 'graphql', 'images','assets', 'automations', 'launch']."
+        },
+        "httpStatusCode": {
+          "type": "string",
+          "description": "Enter an HTTP status code to filter the response."
+        },
+        "apiKey": {
+          "type": "string",
+          "description": "Enter your stack API key to get data for that specific stack."
+        }
+      }
+    },
+    "group": "analytics",
+    "scopes": ["analytics:read"]
+  },
+  "get_cache_usage": {
+    "name": "get_cache_usage",
+    "description": "Analyzes cache performance by tracking HIT and MISS rates across your Contentstack services over a specified period. Returns cache efficiency metrics broken down by service type (CDN, Images, Assets, etc.), showing HIT (cached content served) vs MISS (origin fetch required) counts over time. This asynchronous operation returns a jobId for get_job_data. Supports filtering by cache status, stack, and date range. Essential for optimizing cache configurations, improving response times, reducing origin load, and lowering bandwidth costs.",
+    "mapper": {
+      "apiUrl": "/v2/hit-miss-ratio",
+      "method": "GET",
+      "queryParams": {
+        "includeCount": "includeCount",
+        "from": "from",
+        "duration": "duration",
+        "to": "to",
+        "services": "services",
+        "cache": "cache",
+        "apiKey": "apiKey"
+      }
+    },
+    "inputSchema": {
+      "type": "object",
+      "required": ["includeCount", "from", "duration", "to", "services"],
+      "properties": {
+        "includeCount": {
+          "type": "boolean",
+          "description": "Set this parameter to true to include the total count of records in the response."
+        },
+        "from": {
+          "type": "string",
+          "description": "Enter the start date for the required data. Use the following date format: YYYY-MM-DD."
+        },
+        "duration": {
+          "type": "string",
+          "description": "Enter a value like day, week, or month. This parameter determines the granularity of the data you want to fetch."
+        },
+        "to": {
+          "type": "string",
+          "description": "Enter the current date or any date after the from date. The date format should be: YYYY-MM-DD. The range between from and to must not exceed 90 days, or the job will fail."
+        },
+        "services": {
+          "type": "string",
+          "description": "Specify the array of services for which you want statistics, such as: ['cma', 'ui', 'cdn', 'graphql', 'images','assets', 'automations', 'launch']."
+        },
+        "cache": {
+          "type": "string",
+          "description": "Enter the value as HIT for this param if you want to get the number of hit API calls and MISS to get the number of missed API calls."
+        },
+        "apiKey": {
+          "type": "string",
+          "description": "Enter your stack API key to get data for that specific stack."
+        }
+      }
+    },
+    "group": "analytics",
+    "scopes": ["analytics:read"]
+  },
+  "get_sdk_usage": {
+    "name": "get_sdk_usage",
+    "description": "Tracks SDK adoption and usage patterns across your Contentstack services for a specified time period. Returns request counts for each SDK version used, broken down by service type and date. This asynchronous operation returns a jobId for get_job_data. Identifies which SDK versions (JavaScript, iOS, Android, REST, etc.) are making requests, helping track migration progress, identify deprecated SDK usage, plan sunset timelines, and ensure clients are on supported versions. Critical for SDK lifecycle management and developer support.",
+    "mapper": {
+      "apiUrl": "/v2/sdk",
+      "method": "GET",
+      "queryParams": {
+        "includeCount": "includeCount",
+        "from": "from",
+        "duration": "duration",
+        "to": "to",
+        "services": "services",
+        "orderBy": "orderBy",
+        "limit": "limit",
+        "skip": "skip",
+        "apiKey": "apiKey"
+      }
+    },
+    "inputSchema": {
+      "type": "object",
+      "required": ["includeCount", "from", "duration", "to", "services"],
+      "properties": {
+        "includeCount": {
+          "type": "boolean",
+          "description": "Set this parameter to true to include the total count of records in the response."
+        },
+        "from": {
+          "type": "string",
+          "description": "Enter the start date for the required data. Use the following date format: YYYY-MM-DD."
+        },
+        "duration": {
+          "type": "string",
+          "description": "Enter a value like day, week, or month. This parameter determines the granularity of the data you want to fetch."
+        },
+        "to": {
+          "type": "string",
+          "description": "Enter the current date or any date after the from date. The date format should be: YYYY-MM-DD. The range between from and to must not exceed 90 days, or the job will fail."
+        },
+        "services": {
+          "type": "string",
+          "description": "Specify the array of services for which you want statistics, such as: ['cma', 'ui', 'cdn', 'graphql', 'images','assets', 'automations', 'launch']."
+        },
+        "orderBy": {
+          "type": "string",
+          "description": "Enter 1 to sort the response in ascending order by count or -1 to sort it in descending order by count. By default, the value is set to -1, which orders the response in descending order."
+        },
+        "limit": {
+          "type": "number",
+          "minimum": 1,
+          "maximum": 900,
+          "description": "Specify the number of items you wish to fetch per request. The maximum limit is 900."
+        },
+        "skip": {
+          "type": "number",
+          "minimum": 0,
+          "description": "Enter the number of items to skip. For example, a skip value of 10 will skip the first 10 items."
+        },
+        "apiKey": {
+          "type": "string",
+          "description": "Enter your stack API key to get data for that specific stack."
+        }
+      }
+    },
+    "group": "analytics",
+    "scopes": ["analytics:read"]
+  },
+  "get_job_data": {
+    "name": "get_job_data",
+    "description": "Retrieves the completed results for an asynchronous analytics job using its jobId. All analytics tools (get_subscription_usage, get_device_usage, get_usage_analytics, get_top_urls, get_status_code, get_cache_usage, get_sdk_usage) return a jobId that must be passed to this tool to fetch actual data. Jobs are processed asynchronously to handle large datasets efficiently. Returns '200 Job active' status if still processing - retry after a delay. Supports pagination via page parameter for large result sets. Essential for completing any analytics data retrieval workflow.",
+    "mapper": {
+      "apiUrl": "/v2/job/jobId/data",
+      "method": "GET",
+      "queryParams": {
+        "page": "page"
+      },
+      "params": {
+        "jobId": "jobId"
+      }
+    },
+    "inputSchema": {
+      "type": "object",
+      "required": ["jobId"],
+      "properties": {
+        "jobId": {
+          "type": "string",
+          "description": "Enter the job ID for which you want to retrieve data."
+        },
+        "page": {
+          "type": "number",
+          "minimum": 0,
+          "description": "Enter the page number you want to retrieve in the response."
+        }
+      }
+    },
+    "group": "analytics",
+    "scopes": ["analytics:read"]
+  }
+}

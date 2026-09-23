@@ -1,0 +1,92 @@
+specification: API Commons MCPServer
+specificationVersion: '0.1'
+provider: Contentstack
+providerId: contentstack
+generated: '2026-09-17'
+method: searched
+source: https://registry.npmjs.org/@contentstack/mcp (package metadata + README) and https://mcp.contentstack.com/<group>/tools
+  (anonymous, HTTP 200)
+description: Contentstack ships a first-party Model Context Protocol server, @contentstack/mcp, published to npm
+  and run locally over stdio. It exposes 206 tools across ten selectable API groups. Contentstack additionally publishes
+  each group's tool definitions — name, description, OAuth scopes, JSON Schema inputSchema and the exact backing
+  REST call — as anonymous JSON at https://mcp.contentstack.com/<group>/tools, which is a tool catalogue, not a
+  callable MCP endpoint.
+name: Contentstack MCP Server
+status: official
+deployment:
+  mode: local-stdio
+  install: npx -y @contentstack/mcp
+  package: https://www.npmjs.com/package/@contentstack/mcp
+  repository: https://github.com/contentstack/mcp
+  auth: oauth
+  verified: probed
+  note: 'mcp.contentstack.com is an S3/CloudFront origin that serves STATIC tool-definition JSON at /<group>/tools
+    (HTTP 200, last-modified 2026-07-13). It is NOT an MCP transport: a JSON-RPC tools/list POST to /, /mcp, /sse
+    or /<group>/mcp returns HTTP 403 from CloudFront. Mode is therefore local-stdio, not remote — an agent cannot
+    reach Contentstack over MCP without a human first installing the npm package.'
+authentication:
+  primary: OAuth 2.0 via `npx @contentstack/mcp --auth`, which stores tokens locally and pins the selected data-center
+    region
+  alternative: A Contentstack management token plus an explicit region satisfies the cma and cma-extended groups
+    only
+  per_group: CDA needs a delivery token; Lytics needs a Lytics access token
+tool_count: 206
+groups:
+- group: cma
+  tools: 78
+  description: Content Management API — entries, assets, content types, global fields, branches, releases, publishing,
+    environments
+  tool_definitions: mcp/contentstack-mcp-tools-cma.json
+  source: https://mcp.contentstack.com/cma/tools
+- group: cma-extended
+  tools: 22
+  description: Auditing, version history, asset folder management, global-field writes and workflow inspection
+  tool_definitions: mcp/contentstack-mcp-tools-cma-extended.json
+  source: https://mcp.contentstack.com/cma-extended/tools
+- group: cda
+  tools: 4
+  description: Content Delivery API — published entries and assets through the CDN
+  tool_definitions: mcp/contentstack-mcp-tools-cda.json
+  source: https://mcp.contentstack.com/cda/tools
+- group: brandkit
+  tools: 12
+  description: BrandKit AI — voice profiles, knowledge vault content and AI generation
+  tool_definitions: mcp/contentstack-mcp-tools-brandkit.json
+  source: https://mcp.contentstack.com/brandkit/tools
+- group: lytics
+  tools: 10
+  description: Lytics — audiences, profiles, content topics, classification, accounts, fields and tables
+  tool_definitions: mcp/contentstack-mcp-tools-lytics.json
+  source: https://mcp.contentstack.com/lytics/tools
+- group: personalize
+  tools: 24
+  description: Personalize — attributes, audiences, experiences, events, analytics and geolocation
+  tool_definitions: mcp/contentstack-mcp-tools-personalize.json
+  source: https://mcp.contentstack.com/personalize/tools
+- group: analytics
+  tools: 8
+  description: Usage analytics — API, CDN, cache, status-code, SDK, device and URL usage
+  tool_definitions: mcp/contentstack-mcp-tools-analytics.json
+  source: https://mcp.contentstack.com/analytics/tools
+- group: automations
+  tools: 9
+  description: Automation Hub — projects, automation inspection, activation and HTTP-triggered runs
+  tool_definitions: mcp/contentstack-mcp-tools-automations.json
+  source: https://mcp.contentstack.com/automations/tools
+- group: launch
+  tools: 27
+  description: Launch — projects, environments, deploy hooks, deployments, logs, uploads and CDN revalidation
+  tool_definitions: mcp/contentstack-mcp-tools-launch.json
+  source: https://mcp.contentstack.com/launch/tools
+- group: developerhub
+  tools: 12
+  description: Developer Hub — marketplace app lifecycle, OAuth settings and app installations
+  tool_definitions: mcp/contentstack-mcp-tools-developerhub.json
+  source: https://mcp.contentstack.com/developerhub/tools
+scopes_declared: 49
+scopes_reference: scopes/contentstack-scopes.yml
+regions:
+  source: https://artifacts.contentstack.com/regions.json
+  note: HTTP 200, application/json. The server resolves per-group base URLs from this first-party region document;
+    NA cma resolves to https://api.contentstack.io and cda to https://cdn.contentstack.io.
+crosswalk: mcp/contentstack-tool-crosswalk.yml

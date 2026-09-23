@@ -1,7 +1,7 @@
 openapi: 3.2.0
 info:
   title: Contentstack Automate Management Accounts API
-  description: The Contentstack Automate Management API allows developers to programmatically manage automation projects and workflows within a Contentstack organization. It supports creating, updating, retrieving, and deleting automations that connect Contentstack content events to third-party services and internal processes. This API is part of the Contentstack Automate product, which provides a no-code/low-code automation layer built on top of the CMS. It is useful for organizations that need to provision or manage automations at scale across multiple stacks or environments. The API also provides access to execution logs, audit logs, and project variables.
+  description: The Contentstack Automate Management API allows developers to programmatically manage automation projects and workflows within a Contentstack organization.
   version: v1
   contact:
     name: Contentstack Support
@@ -41,21 +41,6 @@ paths:
         '401':
           $ref: '#/components/responses/Unauthorized'
 components:
-  parameters:
-    ProjectUid:
-      name: project_uid
-      in: path
-      required: true
-      description: The unique identifier of the automation project.
-      schema:
-        type: string
-    OrganizationUid:
-      name: organization_uid
-      in: path
-      required: true
-      description: The unique identifier of the organization.
-      schema:
-        type: string
   responses:
     Unauthorized:
       description: Authentication credentials are missing or invalid.
@@ -100,6 +85,21 @@ components:
         error_code:
           type: integer
           description: Numeric error code.
+  parameters:
+    OrganizationUid:
+      name: organization_uid
+      in: path
+      required: true
+      description: The unique identifier of the organization.
+      schema:
+        type: string
+    ProjectUid:
+      name: project_uid
+      in: path
+      required: true
+      description: The unique identifier of the automation project.
+      schema:
+        type: string
   securitySchemes:
     bearerAuth:
       type: http

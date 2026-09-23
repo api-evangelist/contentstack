@@ -273,29 +273,35 @@ paths:
     - url: https://azure-eu-launch-api.contentstack.com
       description: Azure Europe Production Server
 components:
-  parameters:
-    ProjectUid:
-      name: project_uid
-      in: path
-      required: true
-      description: The unique identifier of the automation project.
-      schema:
-        type: string
-    OrganizationUid:
-      name: organization_uid
-      in: path
-      required: true
-      description: The unique identifier of the organization.
-      schema:
-        type: string
-    ProjectUid_2:
-      name: project_uid
-      in: path
-      required: true
-      description: The unique identifier of the Launch project.
-      schema:
-        type: string
+  responses:
+    BadRequest:
+      description: The request is malformed or contains invalid parameters.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    Unauthorized:
+      description: Authentication credentials are missing or invalid.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    NotFound:
+      description: The requested resource was not found.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
   schemas:
+    ProjectList:
+      type: object
+      description: A list of automation projects.
+      properties:
+        data:
+          type: array
+          description: Array of project objects.
+          items:
+            $ref: '#/components/schemas/Project'
     Project:
       type: object
       description: An automation project within a Contentstack organization.
@@ -320,25 +326,6 @@ components:
           type: string
           format: date-time
           description: ISO 8601 timestamp when the project was last updated.
-    ProjectList:
-      type: object
-      description: A list of automation projects.
-      properties:
-        data:
-          type: array
-          description: Array of project objects.
-          items:
-            $ref: '#/components/schemas/Project'
-    Error:
-      type: object
-      description: Standard error response.
-      properties:
-        message:
-          type: string
-          description: Human-readable description of the error.
-        error_code:
-          type: integer
-          description: Numeric error code.
     CreateProjectRequest:
       type: object
       description: Parameters for creating or updating a project.
@@ -351,6 +338,25 @@ components:
         description:
           type: string
           description: Description of the project's purpose.
+    Error:
+      type: object
+      description: Standard error response.
+      properties:
+        message:
+          type: string
+          description: Human-readable description of the error.
+        error_code:
+          type: integer
+          description: Numeric error code.
+    ProjectList_2:
+      type: object
+      description: A list of Launch projects.
+      properties:
+        data:
+          type: array
+          description: Array of Launch project objects.
+          items:
+            $ref: '#/components/schemas/Project_2'
     Project_2:
       type: object
       description: A Contentstack Launch project for web application deployment.
@@ -375,15 +381,6 @@ components:
           type: string
           format: date-time
           description: ISO 8601 timestamp when the project was last updated.
-    ProjectList_2:
-      type: object
-      description: A list of Launch projects.
-      properties:
-        data:
-          type: array
-          description: Array of Launch project objects.
-          items:
-            $ref: '#/components/schemas/Project_2'
     CreateProjectRequest_2:
       type: object
       description: Parameters for creating or updating a Launch project.
@@ -399,25 +396,28 @@ components:
         framework:
           type: string
           description: The web framework for the project.
-  responses:
-    Unauthorized:
-      description: Authentication credentials are missing or invalid.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
-    NotFound:
-      description: The requested resource was not found.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
-    BadRequest:
-      description: The request is malformed or contains invalid parameters.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
+  parameters:
+    OrganizationUid:
+      name: organization_uid
+      in: path
+      required: true
+      description: The unique identifier of the organization.
+      schema:
+        type: string
+    ProjectUid:
+      name: project_uid
+      in: path
+      required: true
+      description: The unique identifier of the automation project.
+      schema:
+        type: string
+    ProjectUid_2:
+      name: project_uid
+      in: path
+      required: true
+      description: The unique identifier of the Launch project.
+      schema:
+        type: string
   securitySchemes:
     bearerAuth:
       type: http

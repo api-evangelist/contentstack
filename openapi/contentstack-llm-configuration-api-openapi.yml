@@ -1,7 +1,7 @@
 openapi: 3.2.0
 info:
   title: Contentstack Brand Kit Management LLM Configuration API
-  description: The Contentstack Brand Kit Management API provides programmatic control over Brand Kit resources within a Contentstack organization. Brand Kits serve as centralized hubs for an organization's brand identity, encompassing detailed brand information, writing guidelines, and persona configurations. The API supports full CRUD operations for Brand Kits, Voice Profiles, and custom LLM configuration, enabling developers to manage brand identity data programmatically and integrate it with AI content generation workflows.
+  description: The Contentstack Brand Kit Management API provides programmatic control over Brand Kit resources within a Contentstack organization.
   version: v1
   contact:
     name: Contentstack Support
@@ -75,6 +75,19 @@ paths:
         '401':
           $ref: '#/components/responses/Unauthorized'
 components:
+  responses:
+    BadRequest:
+      description: The request is malformed or contains invalid parameters.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    Unauthorized:
+      description: Authentication credentials are missing or invalid.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
   schemas:
     LlmConfig:
       type: object
@@ -127,19 +140,6 @@ components:
         error_code:
           type: integer
           description: Numeric error code.
-  responses:
-    Unauthorized:
-      description: Authentication credentials are missing or invalid.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
-    BadRequest:
-      description: The request is malformed or contains invalid parameters.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
   parameters:
     OrganizationUid:
       name: organization_uid

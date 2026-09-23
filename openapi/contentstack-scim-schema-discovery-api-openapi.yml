@@ -1,7 +1,7 @@
 openapi: 3.2.0
 info:
   title: Contentstack SCIM SCIM Schema Discovery API
-  description: The Contentstack SCIM API implements the System for Cross-domain Identity Management (SCIM 2.0) standard to enable automated user lifecycle management within a Contentstack organization. It allows Identity Providers (IdPs) to provision and deprovision users, manage group memberships, and synchronize user attributes between the IdP and Contentstack. This API is primarily used by enterprise organizations that manage Contentstack access through centralized identity management platforms such as Okta, Azure AD, or OneLogin. Group mappings in Contentstack allow IdP-managed groups to control role-based access within the CMS.
+  description: The Contentstack SCIM API implements the System for Cross-domain Identity Management (SCIM 2.0) standard to enable automated user lifecycle management within a Contentstack organization.
   version: '2.0'
   contact:
     name: Contentstack Support

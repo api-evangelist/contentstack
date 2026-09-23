@@ -1,7 +1,7 @@
 openapi: 3.2.0
 info:
   title: Contentstack Brand Kit Management Voice Profiles API
-  description: The Contentstack Brand Kit Management API provides programmatic control over Brand Kit resources within a Contentstack organization. Brand Kits serve as centralized hubs for an organization's brand identity, encompassing detailed brand information, writing guidelines, and persona configurations. The API supports full CRUD operations for Brand Kits, Voice Profiles, and custom LLM configuration, enabling developers to manage brand identity data programmatically and integrate it with AI content generation workflows.
+  description: The Contentstack Brand Kit Management API provides programmatic control over Brand Kit resources within a Contentstack organization.
   version: v1
   contact:
     name: Contentstack Support
@@ -141,6 +141,25 @@ paths:
         '404':
           $ref: '#/components/responses/NotFound'
 components:
+  responses:
+    BadRequest:
+      description: The request is malformed or contains invalid parameters.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    Unauthorized:
+      description: Authentication credentials are missing or invalid.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    NotFound:
+      description: The requested resource was not found.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
   parameters:
     ProfileUid:
       name: profile_uid
@@ -163,26 +182,34 @@ components:
       description: The unique identifier of the Brand Kit.
       schema:
         type: string
-  responses:
-    Unauthorized:
-      description: Authentication credentials are missing or invalid.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
-    BadRequest:
-      description: The request is malformed or contains invalid parameters.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
-    NotFound:
-      description: The requested resource was not found.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
   schemas:
+    VoiceProfileList:
+      type: object
+      description: A list of Voice Profiles for a Brand Kit.
+      properties:
+        data:
+          type: array
+          description: Array of Voice Profile objects.
+          items:
+            $ref: '#/components/schemas/VoiceProfile'
+    CreateVoiceProfileRequest:
+      type: object
+      description: Parameters for creating or updating a Voice Profile.
+      required:
+      - name
+      properties:
+        name:
+          type: string
+          description: Display name for the Voice Profile.
+        description:
+          type: string
+          description: Description of the voice profile's purpose.
+        tone:
+          type: string
+          description: Tonal characteristics for the voice profile.
+        style_guidelines:
+          type: string
+          description: Writing style guidelines for AI content generation.
     VoiceProfile:
       type: object
       description: A Voice Profile defining writing style and tone for AI content generation.
@@ -209,15 +236,6 @@ components:
           type: string
           format: date-time
           description: ISO 8601 timestamp when the Voice Profile was created.
-    VoiceProfileList:
-      type: object
-      description: A list of Voice Profiles for a Brand Kit.
-      properties:
-        data:
-          type: array
-          description: Array of Voice Profile objects.
-          items:
-            $ref: '#/components/schemas/VoiceProfile'
     Error:
       type: object
       description: Standard error response.
@@ -228,24 +246,6 @@ components:
         error_code:
           type: integer
           description: Numeric error code.
-    CreateVoiceProfileRequest:
-      type: object
-      description: Parameters for creating or updating a Voice Profile.
-      required:
-      - name
-      properties:
-        name:
-          type: string
-          description: Display name for the Voice Profile.
-        description:
-          type: string
-          description: Description of the voice profile's purpose.
-        tone:
-          type: string
-          description: Tonal characteristics for the voice profile.
-        style_guidelines:
-          type: string
-          description: Writing style guidelines for AI content generation.
   securitySchemes:
     bearerAuth:
       type: http

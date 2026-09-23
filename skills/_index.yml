@@ -1,0 +1,45 @@
+specification: API Commons AgentSkill
+specificationVersion: '0.1'
+provider: Contentstack
+providerId: contentstack
+generated: '2026-09-17'
+method: generated
+source: Grounded in operationIds read out of openapi/*.yml in this repository, with runtime rules taken
+  from https://www.contentstack.com/docs/developers/apis/content-management-api and the artifacts in
+  conventions/, errors/, rate-limits/ and scopes/.
+description: Packaged agent skills for the three Contentstack flows that carry real consequences — writing
+  and publishing content, provisioning organization users over SCIM, and keeping a local cache in step
+  with a stack. Every operationId named in these skills exists in this repository's OpenAPI corpus.
+note: No provider-published AGENTS.md or skills directory was found. Contentstack's own agent surface is
+  the MCP server (mcp/contentstack-mcp.yml); these skills wrap the REST operations behind it with the
+  idempotency, rate-limit and reversibility rules the tool definitions do not carry.
+skills:
+  - name: contentstack-publish-an-entry
+    file: skills/contentstack-publish-an-entry.md
+    summary: Create or update an entry and publish it to an environment, with the no-idempotency retry
+      rule and the fact that deletion is permanent.
+    operations:
+      - getAllContentTypes
+      - getSingleContentType
+      - createEntry
+      - updateEntry
+      - getSingleEntry
+      - publishEntry
+      - unpublishEntry
+  - name: contentstack-provision-users-with-scim
+    file: skills/contentstack-provision-users-with-scim.md
+    summary: Provision, update and deprovision organization users over the SCIM 2.0 endpoint.
+    operations:
+      - listScimUsers
+      - createScimUser
+      - getScimUser
+      - replaceScimUser
+      - updateScimUser
+  - name: contentstack-sync-a-content-cache
+    file: skills/contentstack-sync-a-content-cache.md
+    summary: Use the Synchronization API's pagination and sync tokens for delta updates instead of
+      re-fetching a stack.
+    operations:
+      - syncContent
+      - getAllEntries
+      - getAllAssets

@@ -1,7 +1,7 @@
 openapi: 3.2.0
 info:
   title: Contentstack Launch Deployments API
-  description: The Contentstack Launch API allows developers to programmatically manage web application deployments within Contentstack Launch. It supports full lifecycle management of Launch projects, environments, and deployments, including creating deployments from uploaded build artifacts, monitoring deployment logs, revalidating CDN caches, and retrieving signed upload URLs for build file transfers. The API is designed for CI/CD integration and enables automated deployment workflows for front-end applications connected to Contentstack stacks.
+  description: The Contentstack Launch API allows developers to programmatically manage web application deployments within Contentstack Launch.
   version: v1
   contact:
     name: Contentstack Support
@@ -137,29 +137,13 @@ paths:
         '404':
           $ref: '#/components/responses/NotFound'
 components:
-  parameters:
-    DeployUid:
-      name: deploy_uid
-      in: path
-      required: true
-      description: The unique identifier of the deployment.
-      schema:
-        type: string
-    ProjectUid:
-      name: project_uid
-      in: path
-      required: true
-      description: The unique identifier of the Launch project.
-      schema:
-        type: string
-    EnvUid:
-      name: env_uid
-      in: path
-      required: true
-      description: The unique identifier of the deployment environment.
-      schema:
-        type: string
   responses:
+    BadRequest:
+      description: The request is malformed or contains invalid parameters.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
     Unauthorized:
       description: Authentication credentials are missing or invalid.
       content:
@@ -168,12 +152,6 @@ components:
             $ref: '#/components/schemas/Error'
     NotFound:
       description: The requested resource was not found.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
-    BadRequest:
-      description: The request is malformed or contains invalid parameters.
       content:
         application/json:
           schema:
@@ -188,6 +166,15 @@ components:
           description: Array of deployment objects.
           items:
             $ref: '#/components/schemas/Deployment'
+    LogResponse:
+      type: object
+      description: Log output from a deployment or server.
+      properties:
+        logs:
+          type: array
+          description: Array of log line entries.
+          items:
+            $ref: '#/components/schemas/LogEntry'
     Deployment:
       type: object
       description: A deployment operation to a Launch environment.
@@ -213,6 +200,16 @@ components:
           type: string
           format: date-time
           description: ISO 8601 timestamp when the deployment completed.
+    CreateDeploymentRequest:
+      type: object
+      description: Parameters for triggering a new deployment.
+      properties:
+        upload_uid:
+          type: string
+          description: The UID or reference to the previously uploaded build artifact.
+        branch:
+          type: string
+          description: The git branch to deploy from when using repository-linked deployments.
     LogEntry:
       type: object
       description: A single log line entry.
@@ -242,25 +239,28 @@ components:
         error_code:
           type: integer
           description: Numeric error code.
-    LogResponse:
-      type: object
-      description: Log output from a deployment or server.
-      properties:
-        logs:
-          type: array
-          description: Array of log line entries.
-          items:
-            $ref: '#/components/schemas/LogEntry'
-    CreateDeploymentRequest:
-      type: object
-      description: Parameters for triggering a new deployment.
-      properties:
-        upload_uid:
-          type: string
-          description: The UID or reference to the previously uploaded build artifact.
-        branch:
-          type: string
-          description: The git branch to deploy from when using repository-linked deployments.
+  parameters:
+    EnvUid:
+      name: env_uid
+      in: path
+      required: true
+      description: The unique identifier of the deployment environment.
+      schema:
+        type: string
+    ProjectUid:
+      name: project_uid
+      in: path
+      required: true
+      description: The unique identifier of the Launch project.
+      schema:
+        type: string
+    DeployUid:
+      name: deploy_uid
+      in: path
+      required: true
+      description: The unique identifier of the deployment.
+      schema:
+        type: string
   securitySchemes:
     bearerAuth:
       type: http

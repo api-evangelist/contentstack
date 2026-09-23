@@ -1,7 +1,7 @@
 openapi: 3.2.0
 info:
   title: Contentstack Content Management Organizations API
-  description: The Contentstack Content Management API (CMA) provides programmatic access to manage all aspects of a Contentstack stack, including content types, entries, assets, environments, workflows, and users. It supports full CRUD operations using standard HTTP verbs and authenticates via management tokens or user session tokens. Developers use this API to automate content operations, build editorial tooling, migrate content between environments, and integrate Contentstack with third-party systems. It is available at version v3 under the api.contentstack.io base URL for the North America region.
+  description: The Contentstack Content Management API (CMA) provides programmatic access to manage all aspects of a Contentstack stack, including content types, entries, assets, environments, workflows, and users.
   version: v3
   contact:
     name: Contentstack Support
@@ -81,6 +81,36 @@ paths:
           $ref: '#/components/responses/Unauthorized'
 components:
   schemas:
+    Stack:
+      type: object
+      description: A Contentstack stack, which is an independent content repository.
+      properties:
+        api_key:
+          type: string
+          description: Unique API key identifying the stack.
+        uid:
+          type: string
+          description: Unique identifier of the stack.
+        name:
+          type: string
+          description: Display name of the stack.
+        description:
+          type: string
+          description: Description of the stack's purpose.
+        master_locale:
+          type: string
+          description: The default locale code for the stack.
+        org_uid:
+          type: string
+          description: UID of the organization that owns the stack.
+        created_at:
+          type: string
+          format: date-time
+          description: ISO 8601 timestamp when the stack was created.
+        updated_at:
+          type: string
+          format: date-time
+          description: ISO 8601 timestamp when the stack was last updated.
     StackList:
       type: object
       description: A list of stacks.
@@ -116,36 +146,6 @@ components:
           description: Array of organization objects.
           items:
             $ref: '#/components/schemas/Organization'
-    Stack:
-      type: object
-      description: A Contentstack stack, which is an independent content repository.
-      properties:
-        api_key:
-          type: string
-          description: Unique API key identifying the stack.
-        uid:
-          type: string
-          description: Unique identifier of the stack.
-        name:
-          type: string
-          description: Display name of the stack.
-        description:
-          type: string
-          description: Description of the stack's purpose.
-        master_locale:
-          type: string
-          description: The default locale code for the stack.
-        org_uid:
-          type: string
-          description: UID of the organization that owns the stack.
-        created_at:
-          type: string
-          format: date-time
-          description: ISO 8601 timestamp when the stack was created.
-        updated_at:
-          type: string
-          format: date-time
-          description: ISO 8601 timestamp when the stack was last updated.
     Error:
       type: object
       description: Standard error response.

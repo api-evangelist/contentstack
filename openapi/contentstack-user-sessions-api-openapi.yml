@@ -1,7 +1,7 @@
 openapi: 3.2.0
 info:
   title: Contentstack Content Management User Sessions API
-  description: The Contentstack Content Management API (CMA) provides programmatic access to manage all aspects of a Contentstack stack, including content types, entries, assets, environments, workflows, and users. It supports full CRUD operations using standard HTTP verbs and authenticates via management tokens or user session tokens. Developers use this API to automate content operations, build editorial tooling, migrate content between environments, and integrate Contentstack with third-party systems. It is available at version v3 under the api.contentstack.io base URL for the North America region.
+  description: The Contentstack Content Management API (CMA) provides programmatic access to manage all aspects of a Contentstack stack, including content types, entries, assets, environments, workflows, and users.
   version: v3
   contact:
     name: Contentstack Support
@@ -62,31 +62,20 @@ paths:
         '401':
           $ref: '#/components/responses/Unauthorized'
 components:
+  responses:
+    BadRequest:
+      description: The request is malformed or contains invalid parameters.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    Unauthorized:
+      description: Authentication credentials are missing or invalid.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
   schemas:
-    User:
-      type: object
-      description: A Contentstack user account.
-      properties:
-        uid:
-          type: string
-          description: Unique identifier of the user.
-        first_name:
-          type: string
-          description: User's first name.
-        last_name:
-          type: string
-          description: User's last name.
-        email:
-          type: string
-          format: email
-          description: User's email address.
-        authtoken:
-          type: string
-          description: Session authentication token. Only returned on login.
-        created_at:
-          type: string
-          format: date-time
-          description: ISO 8601 timestamp when the user account was created.
     LoginRequest:
       type: object
       description: Credentials for user authentication.
@@ -114,6 +103,30 @@ components:
       properties:
         user:
           $ref: '#/components/schemas/User'
+    User:
+      type: object
+      description: A Contentstack user account.
+      properties:
+        uid:
+          type: string
+          description: Unique identifier of the user.
+        first_name:
+          type: string
+          description: User's first name.
+        last_name:
+          type: string
+          description: User's last name.
+        email:
+          type: string
+          format: email
+          description: User's email address.
+        authtoken:
+          type: string
+          description: Session authentication token. Only returned on login.
+        created_at:
+          type: string
+          format: date-time
+          description: ISO 8601 timestamp when the user account was created.
     Error:
       type: object
       description: Standard error response.
@@ -127,19 +140,6 @@ components:
         errors:
           type: object
           description: Field-level validation errors.
-  responses:
-    Unauthorized:
-      description: Authentication credentials are missing or invalid.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
-    BadRequest:
-      description: The request is malformed or contains invalid parameters.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
   securitySchemes:
     authtokenAuth:
       type: apiKey

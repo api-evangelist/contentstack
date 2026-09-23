@@ -1,129 +1,79 @@
 specification: API Commons Plans
 specificationVersion: '0.1'
-schema: https://raw.githubusercontent.com/api-evangelist/interface-research/main/schema/api-commons.yml#/$defs/Plans
 provider: Contentstack
 providerId: contentstack
-created: '2026-05-04'
-# Provenance stamped 2026-08-11: this artifact was written by the API Evangelist
-# bulk sweep dated 2026-05-04, not harvested from the provider. See roadmap#35.
-method: generated
-modified: '2026-05-05'
-reconciled: false
-tags:
-  - Headless CMS
-  - Content Management
-  - Personalization
-  - AI
-  - Real-Time CDP
-  - Agentic Experience
-description: Contentstack is a headless CMS (Contentstack AXP) packaged with personalization, real-time
-  CDP, and agentic experience capabilities. Pricing is sales-led — the public site exposes "Start free"
-  trial and "Request demo" CTAs but does not publish per-tier numeric prices. Stack quotas (content types,
-  languages, environments, users, API requests) are configured per plan and negotiated with Contentstack.
-notes: Contentstack's public pricing page does not surface specific per-tier prices or quotas; tiers
-  are negotiated with sales. Documented rate limits (10 read/sec and 10 write/sec per organization, 1
-  bulk-action/sec, configurable per plan) live in rate-limits/contentstack-rate-limits.yml. Reconcile
-  per-tier numbers against an active Contentstack contract.
+generated: '2026-09-17'
+method: searched
+source: https://www.contentstack.com/pricing (HTTP 200), read 2026-09-17
+description: Contentstack publishes numeric, self-serve pricing for two of its three tiers. Free is $0/month forever
+  with 100K API calls; Growth is $299/month with 1M API calls and $25/user/month for seats beyond ten; Enterprise
+  is quoted by sales and is the only tier carrying an uptime SLA. This corrects a prior API Evangelist record which
+  said Contentstack published no per-tier prices — it does.
+currency: USD
+billing_period: month
+plan_count: 3
+self_serve: true
+public_pricing: true
 sources:
-  - https://www.contentstack.com/pricing
-  - https://www.contentstack.com/docs/developers/apis/content-management-api
+- https://www.contentstack.com/pricing
+correction_note: 'The previous version of this artifact (method: generated, 2026-05-04) recorded "pricing is sales-led
+  — the public site does not publish per-tier numeric prices". That is no longer true and the tiers below were read
+  off the live pricing page.'
 plans:
-  - id: contentstack-free-trial
-    name: Free Trial
-    type: free
-    description: Limited-scope trial of Contentstack AXP / CMS available via "Start free" registration.
-      Quotas and duration are not publicly published.
-    entries:
-      - label: Trial Access
-        description: Time-limited evaluation; quotas not publicly published
-        name: trial_access
-        type: subscription
-        metric: month
-        limit: 'see Contentstack trial terms'
-        timeFrame: month
-        geo: global
-        unit: 1
-        price: '0.00'
-        userMultiplied: false
-    elements:
-      - name: Headless CMS Evaluation
-      - name: Community Documentation
-  - id: contentstack-business
-    name: Business
-    type: subscription
-    description: Standard production tier for Contentstack AXP. Per-stack quotas (content types, languages,
-      environments, users, API requests) are negotiated with sales.
-    entries:
-      - label: Subscription
-        description: Annual subscription; pricing not publicly published
-        name: subscription
-        type: subscription
-        metric: month
-        limit: 1
-        timeFrame: month
-        geo: global
-        unit: 1
-        price: 'contact sales'
-        userMultiplied: false
-      - label: API Requests
-        description: Per-organization API request quota; default 10 read/sec + 10 write/sec, configurable
-          per plan
-        name: api_requests
-        type: rate
-        metric: requests_per_second
-        limit: 10
-        timeFrame: second
-        geo: global
-        unit: 1
-        price: included
-        userMultiplied: false
-    elements:
-      - name: Headless CMS
-      - name: Content Management API
-      - name: Content Delivery API
-      - name: Webhooks
-      - name: Standard Support
-  - id: contentstack-enterprise
-    name: Enterprise / AXP
-    type: enterprise
-    description: Enterprise tier including the full Contentstack Agentic Experience Platform — personalization
-      engine, real-time data activation, no-code agents and automations, brand-aware AI, AI writing assistant,
-      visual builder, granular permissions, and custom workflows. Pricing is custom-quoted; rate limits
-      are configurable.
-    entries:
-      - label: Subscription
-        description: Custom-quoted enterprise subscription
-        name: subscription
-        type: subscription
-        metric: month
-        limit: -1
-        timeFrame: month
-        geo: configurable
-        unit: 1
-        price: custom
-        userMultiplied: false
-      - label: API Requests
-        description: Configurable per-organization API rate; raised on request
-        name: api_requests
-        type: rate
-        metric: requests_per_second
-        limit: 'configurable per plan'
-        timeFrame: second
-        geo: configurable
-        unit: 1
-        price: included
-        userMultiplied: false
-    elements:
-      - name: Agentic Experience Platform (AXP)
-      - name: Personalization Engine
-      - name: Real-Time CDP
-      - name: No-Code Agents & Automations
-      - name: Brand-Aware AI
-      - name: AI Writing Assistant
-      - name: Visual Builder / Live Preview
-      - name: Granular Permissions
-      - name: Custom Workflows
-      - name: Enterprise SLA & Support
-maintainers:
-  - FN: Kin Lane
-    email: kin@apievangelist.com
+- id: contentstack-free
+  name: Free
+  type: free
+  price: 0
+  currency: USD
+  period: month
+  description: Free forever tier with self-serve signup.
+  limits:
+    users: 3
+    api_calls_per_month: 100K
+    bandwidth: 100 GB
+    content_types: 10
+    entries: 1K
+    assets: 1K
+    ai_credits_per_month: 500K
+    custom_domains: 0
+    custom_roles: 0
+    custom_workflows: 0
+- id: contentstack-growth
+  name: Growth
+  type: paid
+  price: 299
+  currency: USD
+  period: month
+  description: Self-serve paid tier with pay-as-you-go overages.
+  overage:
+    additional_users: $25/user/month
+    model: pay-as-you-go overages available
+  limits:
+    users: 10
+    api_calls_per_month: 1M
+    bandwidth: 1 TB
+    content_types: 20+
+    entries: 20K
+    assets: 10K
+    ai_credits_per_month: 2M
+    custom_domains: 1
+    custom_roles: 2
+- id: contentstack-enterprise
+  name: Enterprise
+  type: custom
+  price: null
+  currency: USD
+  period: month
+  description: Quoted by sales. The only tier with a published uptime SLA and custom data residency.
+  sla: 99.5% uptime
+  limits:
+    users: 50+
+    api_calls_per_month: 6M+
+    bandwidth: 5 TB+
+    content_types: 100+
+    entries: 150K+
+    assets: 500K
+    ai_credits_per_month: 10M+
+    data_residency: custom
+    compliance: custom
+rate_limits: rate-limits/contentstack-rate-limits.yml

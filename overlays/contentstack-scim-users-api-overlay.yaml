@@ -1,0 +1,61 @@
+overlay: 1.0.0
+info:
+  title: API Evangelist enrichment overlay — Contentstack SCIM SCIM Users API
+  version: 1.0.0
+  x-generated: '2026-09-17'
+  x-method: generated
+  x-source: Assembled from artifacts in all/contentstack and provider pages probed 2026-09-17. Applies to openapi/contentstack-scim-users-api-openapi.yml;
+    the original spec is never mutated.
+extends: openapi/contentstack-scim-users-api-openapi.yml
+actions:
+- target: $.info
+  description: Attach first-party contact, terms and documentation links verified live on 2026-09-17.
+  update:
+    contact:
+      name: Contentstack Support
+      url: https://www.contentstack.com/support
+      email: support@contentstack.com
+    termsOfService: https://www.contentstack.com/legal/terms-of-service
+    x-privacy-policy: https://www.contentstack.com/legal/privacy
+    x-status-page: https://status.contentstack.com/
+    x-changelog: https://www.contentstack.com/docs/changelog
+- target: $
+  description: Attach externalDocs pointing at the published Contentstack developer reference.
+  update:
+    externalDocs:
+      description: Contentstack developer documentation
+      url: https://www.contentstack.com/docs/developers/apis
+- target: $
+  description: 'Record the runtime semantics Contentstack publishes but does not express in the contract: per-organization
+    rate limits with their response headers, and the absence of any idempotency mechanism.'
+  update:
+    x-rate-limits:
+      scope: organization
+      read: 10/second
+      write: 10/second
+      bulk: 1/second
+      headers:
+      - X-RateLimit-Limit
+      - X-RateLimit-Remaining
+      status: 429
+      retry_after: false
+      source: https://www.contentstack.com/docs/developers/apis/content-management-api
+    x-idempotency:
+      coverage: none
+      note: Contentstack documents no Idempotency-Key header or replay window anywhere in its API reference; a retried
+        write creates a second resource.
+    x-artifacts:
+      rate_limits: rate-limits/contentstack-rate-limits.yml
+      conventions: conventions/contentstack-conventions.yml
+      errors: errors/contentstack-problem-types.yml
+      scopes: scopes/contentstack-scopes.yml
+      lifecycle: lifecycle/contentstack-lifecycle.yml
+- target: $
+  description: Record the first-party agent surface that calls these operations.
+  update:
+    x-mcp:
+      server: '@contentstack/mcp'
+      mode: local-stdio
+      install: npx -y @contentstack/mcp
+      tool_catalogue: https://mcp.contentstack.com/<group>/tools
+      crosswalk: mcp/contentstack-tool-crosswalk.yml

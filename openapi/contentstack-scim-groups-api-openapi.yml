@@ -1,7 +1,7 @@
 openapi: 3.2.0
 info:
   title: Contentstack SCIM SCIM Groups API
-  description: The Contentstack SCIM API implements the System for Cross-domain Identity Management (SCIM 2.0) standard to enable automated user lifecycle management within a Contentstack organization. It allows Identity Providers (IdPs) to provision and deprovision users, manage group memberships, and synchronize user attributes between the IdP and Contentstack. This API is primarily used by enterprise organizations that manage Contentstack access through centralized identity management platforms such as Okta, Azure AD, or OneLogin. Group mappings in Contentstack allow IdP-managed groups to control role-based access within the CMS.
+  description: The Contentstack SCIM API implements the System for Cross-domain Identity Management (SCIM 2.0) standard to enable automated user lifecycle management within a Contentstack organization.
   version: '2.0'
   contact:
     name: Contentstack Support
@@ -166,23 +166,26 @@ paths:
         '404':
           $ref: '#/components/responses/NotFound'
 components:
+  responses:
+    BadRequest:
+      description: The SCIM request is malformed or contains invalid attribute values.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ScimError'
+    Unauthorized:
+      description: The SCIM bearer token is missing or invalid.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ScimError'
+    NotFound:
+      description: The requested SCIM resource was not found.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ScimError'
   schemas:
-    ScimPatchRequest:
-      type: object
-      description: A SCIM 2.0 PatchOp request for partial resource updates.
-      properties:
-        schemas:
-          type: array
-          description: SCIM schema URN identifying this as a PatchOp request.
-          items:
-            type: string
-          example:
-          - urn:ietf:params:scim:api:messages:2.0:PatchOp
-        Operations:
-          type: array
-          description: List of PATCH operations to perform.
-          items:
-            $ref: '#/components/schemas/ScimPatchOperation'
     ScimListResponse:
       type: object
       description: A SCIM 2.0 ListResponse container for multi-resource responses.
@@ -208,6 +211,23 @@ components:
           description: Array of SCIM resource objects (Users or Groups).
           items:
             type: object
+    ScimError:
+      type: object
+      description: A SCIM 2.0 error response.
+      properties:
+        schemas:
+          type: array
+          description: SCIM schema URN for error responses.
+          items:
+            type: string
+          example:
+          - urn:ietf:params:scim:api:messages:2.0:Error
+        status:
+          type: string
+          description: HTTP status code as a string.
+        detail:
+          type: string
+          description: Human-readable description of the error.
     ScimGroup:
       type: object
       description: A SCIM 2.0 Group resource representing a Contentstack user group.
@@ -237,23 +257,6 @@ components:
               display:
                 type: string
                 description: The display name of the group member.
-    ScimError:
-      type: object
-      description: A SCIM 2.0 error response.
-      properties:
-        schemas:
-          type: array
-          description: SCIM schema URN for error responses.
-          items:
-            type: string
-          example:
-          - urn:ietf:params:scim:api:messages:2.0:Error
-        status:
-          type: string
-          description: HTTP status code as a string.
-        detail:
-          type: string
-          description: Human-readable description of the error.
     ScimPatchOperation:
       type: object
       description: A single SCIM PATCH operation.
@@ -272,25 +275,22 @@ components:
           description: The attribute path to target for the operation.
         value:
           description: The value to apply for add or replace operations.
-  responses:
-    Unauthorized:
-      description: The SCIM bearer token is missing or invalid.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/ScimError'
-    NotFound:
-      description: The requested SCIM resource was not found.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/ScimError'
-    BadRequest:
-      description: The SCIM request is malformed or contains invalid attribute values.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/ScimError'
+    ScimPatchRequest:
+      type: object
+      description: A SCIM 2.0 PatchOp request for partial resource updates.
+      properties:
+        schemas:
+          type: array
+          description: SCIM schema URN identifying this as a PatchOp request.
+          items:
+            type: string
+          example:
+          - urn:ietf:params:scim:api:messages:2.0:PatchOp
+        Operations:
+          type: array
+          description: List of PATCH operations to perform.
+          items:
+            $ref: '#/components/schemas/ScimPatchOperation'
   parameters:
     GroupId:
       name: group_id

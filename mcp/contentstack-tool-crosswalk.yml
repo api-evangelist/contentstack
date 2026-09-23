@@ -1,0 +1,1502 @@
+specification: API Commons ToolCrosswalk
+specificationVersion: '0.1'
+provider: Contentstack
+providerId: contentstack
+generated: '2026-09-17'
+method: derived
+source: mcp/contentstack-mcp-tools-*.json (fetched verbatim from https://mcp.contentstack.com/<group>/tools) bound
+  against openapi/*.yml in this repository
+description: 'Binds each of the 206 Contentstack MCP tools to the REST operation it actually calls. Contentstack
+  publishes the binding itself: every tool definition carries a mapper block with the exact apiUrl and HTTP method,
+  so these rows are read from the provider''s own data rather than guessed from names. 60 tools bind to an operationId
+  in this repository''s OpenAPI corpus; the remaining 146 call documented Contentstack endpoints this corpus does
+  not yet describe.'
+surfaces:
+  openapi:
+    path: openapi/
+    specs: 33
+    operations: 114
+    gated: false
+  graphql:
+    endpoint: https://graphql.contentstack.com
+    gated: true
+    note: Introspection returns HTTP 403 Forbidden without a stack api_key and delivery token; the schema is per-stack
+      and cannot be introspected anonymously.
+  mcp:
+    tool_catalogue: https://mcp.contentstack.com/<group>/tools
+    gated: false
+    transport: local stdio via npx -y @contentstack/mcp
+    transport_gated: true
+coverage:
+  mcp_tools: 206
+  bound: 60
+  mcp_only: 146
+  rest_operations: 114
+  rest_covered: 47
+  rest_only: 67
+crosswalk:
+- tool: publish_an_entry
+  category: cma
+  rest:
+  - publishEntry
+  binding: POST /v3/content_types/content_type_uid/entries/entry_uid/publish
+  confidence: high
+  scopes:
+  - cm.entry:publish
+  spec: openapi/contentstack-entries-api-openapi.yml
+- tool: unpublish_an_entry
+  category: cma
+  rest:
+  - unpublishEntry
+  binding: POST /v3/content_types/content_type_uid/entries/entry/unpublish
+  confidence: medium
+  scopes:
+  - cm.entry:unpublish
+  spec: openapi/contentstack-entries-api-openapi.yml
+- tool: publish_variants_of_an_entry
+  category: cma
+  rest:
+  - publishEntry
+  binding: POST /v3/content_types/content_type_uid/entries/entry/publish
+  confidence: medium
+  scopes:
+  - cm.entry:publish
+  spec: openapi/contentstack-entries-api-openapi.yml
+- tool: create_an_entry
+  category: cma
+  rest:
+  - createEntry
+  binding: POST /v3/content_types/content_type_uid/entries
+  confidence: high
+  scopes:
+  - cm.entry:write
+  spec: openapi/contentstack-entries-api-openapi.yml
+- tool: delete_an_entry
+  category: cma
+  rest:
+  - deleteEntry
+  binding: DELETE /v3/content_types/content_type_uid/entries/entry_uid
+  confidence: high
+  scopes:
+  - cm.entry:write
+  spec: openapi/contentstack-entries-api-openapi.yml
+- tool: get_all_entries
+  category: cma
+  rest:
+  - getAllEntries
+  binding: GET /v3/content_types/content_type_uid/entries
+  confidence: high
+  scopes:
+  - cm.entry:read
+  spec: openapi/contentstack-entries-api-openapi.yml
+- tool: get_single_entry
+  category: cma
+  rest:
+  - getSingleEntry
+  binding: GET /v3/content_types/content_type_uid/entries/entry_uid
+  confidence: high
+  scopes:
+  - cm.entry:read
+  spec: openapi/contentstack-entries-api-openapi.yml
+- tool: update_an_entry
+  category: cma
+  rest:
+  - updateEntry
+  binding: PUT /v3/content_types/content_type_uid/entries/entry_uid
+  confidence: high
+  scopes:
+  - cm.entry:write
+  spec: openapi/contentstack-entries-api-openapi.yml
+- tool: get_all_content_types
+  category: cma
+  rest:
+  - getAllContentTypes
+  binding: GET /v3/content_types
+  confidence: high
+  scopes:
+  - cm.content-type:read
+  spec: openapi/contentstack-content-types-api-openapi.yml
+- tool: get_a_single_content_type
+  category: cma
+  rest:
+  - getSingleContentType
+  binding: GET /v3/content_types/content_type_uid
+  confidence: high
+  scopes:
+  - cm.content-type:read
+  spec: openapi/contentstack-content-types-api-openapi.yml
+- tool: create_a_content_type
+  category: cma
+  rest:
+  - createContentType
+  binding: POST /v3/content_types
+  confidence: high
+  scopes:
+  - cm.content-types.management:write
+  spec: openapi/contentstack-content-types-api-openapi.yml
+- tool: update_content_type
+  category: cma
+  rest:
+  - updateContentType
+  binding: PUT /v3/content_types/content_type_uid
+  confidence: high
+  scopes:
+  - cm.content-types.management:write
+  spec: openapi/contentstack-content-types-api-openapi.yml
+- tool: delete_content_type
+  category: cma
+  rest:
+  - deleteContentType
+  binding: DELETE /v3/content_types/content_type_uid
+  confidence: high
+  scopes:
+  - cm.content-types.management:write
+  spec: openapi/contentstack-content-types-api-openapi.yml
+- tool: get_all_assets
+  category: cma
+  rest:
+  - getAllAssets
+  binding: GET /v3/assets
+  confidence: high
+  scopes:
+  - cm.asset:read
+  spec: openapi/contentstack-assets-api-openapi.yml
+- tool: get_all_global_fields
+  category: cma
+  rest:
+  - getAllGlobalFields
+  binding: GET /v3/global_fields
+  confidence: high
+  scopes:
+  - cm.global-fields.management:read
+  spec: openapi/contentstack-global-fields-api-openapi.yml
+- tool: get_all_variants_of_an_entry
+  category: cma
+  rest:
+  - getAllEntryVariants
+  binding: GET /v3/content_types/content_type_uid/entries/entry_uid/variants
+  confidence: high
+  scopes:
+  - cm.entry:read
+  spec: openapi/contentstack-entry-variants-api-openapi.yml
+- tool: get_a_single_asset
+  category: cma
+  rest:
+  - getSingleAsset
+  binding: GET /v3/assets/asset_uid
+  confidence: high
+  scopes:
+  - cm.asset:read
+  spec: openapi/contentstack-assets-api-openapi.yml
+- tool: get_single_entry_variant
+  category: cma
+  rest:
+  - getSingleEntryVariant
+  binding: GET /v3/content_types/content_type_uid/entries/entry_uid/variants/variant_uid
+  confidence: high
+  scopes:
+  - cm.entry:read
+  spec: openapi/contentstack-entry-variants-api-openapi.yml
+- tool: get_a_single_global_field
+  category: cma
+  rest:
+  - getSingleGlobalField
+  binding: GET /v3/global_fields/global_field_uid
+  confidence: high
+  scopes:
+  - cm.global-fields.management:read
+  spec: openapi/contentstack-global-fields-api-openapi.yml
+- tool: localize_an_entry
+  category: cma
+  rest:
+  - updateEntry
+  binding: PUT /v3/content_types/content_type_uid/entries/entry_uid
+  confidence: high
+  scopes:
+  - cm.entry:write
+  spec: openapi/contentstack-entries-api-openapi.yml
+- tool: get_all_environments
+  category: cma
+  rest:
+  - getAllEnvironments
+  binding: GET /v3/environments
+  confidence: high
+  scopes:
+  - cm.environments.management:read
+  spec: openapi/contentstack-environments-api-openapi.yml
+- tool: get_assets_of_a_specific_folder
+  category: cma-extended
+  rest:
+  - getAllAssets
+  binding: GET /v3/assets
+  confidence: high
+  scopes:
+  - cm.asset:read
+  spec: openapi/contentstack-assets-api-openapi.yml
+- tool: get_assets_and_subfolders_of_a_parent_folder
+  category: cma-extended
+  rest:
+  - getAllAssets
+  binding: GET /v3/assets
+  confidence: high
+  scopes:
+  - cm.asset:read
+  spec: openapi/contentstack-assets-api-openapi.yml
+- tool: get_all_assets_cdn
+  category: cda
+  rest:
+  - getAllAssets
+  binding: GET /v3/assets
+  confidence: high
+  spec: openapi/contentstack-assets-api-openapi.yml
+- tool: get_all_entries_cdn
+  category: cda
+  rest:
+  - getAllEntries
+  binding: GET /v3/content_types/content_type_uid/entries
+  confidence: high
+  spec: openapi/contentstack-entries-api-openapi.yml
+- tool: get_a_single_asset_cdn
+  category: cda
+  rest:
+  - getSingleAsset
+  binding: GET /v3/assets/asset_uid
+  confidence: high
+  spec: openapi/contentstack-assets-api-openapi.yml
+- tool: get_a_single_entry_cdn
+  category: cda
+  rest:
+  - getSingleEntry
+  binding: GET /v3/content_types/content_type_uid/entries/entry_uid
+  confidence: high
+  spec: openapi/contentstack-entries-api-openapi.yml
+- tool: create_attribute
+  category: personalize
+  rest:
+  - createAttribute
+  binding: POST /attributes
+  confidence: high
+  scopes:
+  - personalize:manage
+  spec: openapi/contentstack-attributes-api-openapi.yml
+- tool: get_all_attributes
+  category: personalize
+  rest:
+  - getAllAttributes
+  binding: GET /attributes
+  confidence: high
+  scopes:
+  - personalize:read
+  spec: openapi/contentstack-attributes-api-openapi.yml
+- tool: update_attribute
+  category: personalize
+  rest:
+  - updateAttribute
+  binding: PUT /attributes/attribute_uid
+  confidence: medium
+  scopes:
+  - personalize:manage
+  spec: openapi/contentstack-attributes-api-openapi.yml
+- tool: delete_attribute
+  category: personalize
+  rest:
+  - deleteAttribute
+  binding: DELETE /attributes/attribute_uid
+  confidence: medium
+  scopes:
+  - personalize:manage
+  spec: openapi/contentstack-attributes-api-openapi.yml
+- tool: get_all_audiences
+  category: personalize
+  rest:
+  - getAllAudiences
+  binding: GET /audiences
+  confidence: high
+  scopes:
+  - personalize:read
+  spec: openapi/contentstack-audiences-api-openapi.yml
+- tool: delete_audience
+  category: personalize
+  rest:
+  - deleteAudience
+  binding: DELETE /audiences/audience_uid
+  confidence: medium
+  scopes:
+  - personalize:manage
+  spec: openapi/contentstack-audiences-api-openapi.yml
+- tool: create_experience
+  category: personalize
+  rest:
+  - createExperience
+  binding: POST /experiences
+  confidence: high
+  scopes:
+  - personalize:manage
+  spec: openapi/contentstack-experiences-api-openapi.yml
+- tool: get_all_experiences
+  category: personalize
+  rest:
+  - getAllExperiences
+  binding: GET /experiences
+  confidence: high
+  scopes:
+  - personalize:read
+  spec: openapi/contentstack-experiences-api-openapi.yml
+- tool: get_single_experience
+  category: personalize
+  rest:
+  - getExperience
+  binding: GET /experiences/experience_uid
+  confidence: medium
+  scopes:
+  - personalize:read
+  spec: openapi/contentstack-experiences-api-openapi.yml
+- tool: update_experience
+  category: personalize
+  rest:
+  - updateExperience
+  binding: PUT /experiences/experience_uid
+  confidence: medium
+  scopes:
+  - personalize:manage
+  spec: openapi/contentstack-experiences-api-openapi.yml
+- tool: delete_experience
+  category: personalize
+  rest:
+  - deleteExperience
+  binding: DELETE /experiences/experience_uid
+  confidence: medium
+  scopes:
+  - personalize:manage
+  spec: openapi/contentstack-experiences-api-openapi.yml
+- tool: create_event
+  category: personalize
+  rest:
+  - trackEvents
+  binding: POST /events
+  confidence: high
+  scopes:
+  - personalize:manage
+  spec: openapi/contentstack-events-api-openapi.yml
+- tool: get_all_events
+  category: personalize
+  rest:
+  - getAllEvents
+  binding: GET /events
+  confidence: high
+  scopes:
+  - personalize:read
+  spec: openapi/contentstack-events-api-openapi.yml
+- tool: get_countries
+  category: personalize
+  rest:
+  - getGeoCountries
+  binding: GET /geolocation/countries
+  confidence: high
+  scopes:
+  - personalize:read
+  spec: openapi/contentstack-geolocation-api-openapi.yml
+- tool: get_regions
+  category: personalize
+  rest:
+  - getGeoRegions
+  binding: GET /geolocation/regions
+  confidence: high
+  scopes:
+  - personalize:read
+  spec: openapi/contentstack-geolocation-api-openapi.yml
+- tool: get_cities
+  category: personalize
+  rest:
+  - getGeoCities
+  binding: GET /geolocation/cities
+  confidence: high
+  scopes:
+  - personalize:read
+  spec: openapi/contentstack-geolocation-api-openapi.yml
+- tool: list_automation_projects
+  category: automations
+  rest:
+  - getAllProjects
+  binding: GET /v1/projects
+  confidence: high
+  scopes:
+  - automationhub.projects.management:read
+  spec: openapi/contentstack-projects-api-openapi.yml
+- tool: get_automation_project
+  category: automations
+  rest:
+  - getProject
+  binding: GET /v1/projects/project_uid
+  confidence: high
+  scopes:
+  - automationhub.projects.management:read
+  spec: openapi/contentstack-projects-api-openapi.yml
+- tool: create_automation_project
+  category: automations
+  rest:
+  - createProject
+  binding: POST /v1/projects
+  confidence: high
+  scopes:
+  - automationhub.projects.management:write
+  spec: openapi/contentstack-projects-api-openapi.yml
+- tool: update_automation_project
+  category: automations
+  rest:
+  - updateProject
+  binding: PUT /v1/projects/project_uid
+  confidence: high
+  scopes:
+  - automationhub.projects.management:write
+  spec: openapi/contentstack-projects-api-openapi.yml
+- tool: delete_automation_project
+  category: automations
+  rest:
+  - deleteProject
+  binding: DELETE /v1/projects/project_uid
+  confidence: high
+  scopes:
+  - automationhub.projects.management:write
+  spec: openapi/contentstack-projects-api-openapi.yml
+- tool: get_all_projects
+  category: launch
+  rest:
+  - getAllProjects
+  binding: GET /projects
+  confidence: high
+  scopes:
+  - launch.projects:read
+  spec: openapi/contentstack-projects-api-openapi.yml
+- tool: create_a_project
+  category: launch
+  rest:
+  - createProject
+  binding: POST /projects
+  confidence: high
+  scopes:
+  - launch.projects:write
+  spec: openapi/contentstack-projects-api-openapi.yml
+- tool: get_a_project
+  category: launch
+  rest:
+  - getProject
+  binding: GET /projects/project_uid
+  confidence: high
+  scopes:
+  - launch.projects:read
+  spec: openapi/contentstack-projects-api-openapi.yml
+- tool: update_a_project
+  category: launch
+  rest:
+  - updateProject
+  binding: PUT /projects/project_uid
+  confidence: high
+  scopes:
+  - launch.projects:write
+  spec: openapi/contentstack-projects-api-openapi.yml
+- tool: delete_a_project
+  category: launch
+  rest:
+  - deleteProject
+  binding: DELETE /projects/project_uid
+  confidence: high
+  scopes:
+  - launch.projects:delete
+  spec: openapi/contentstack-projects-api-openapi.yml
+- tool: get_all_environments
+  category: launch
+  rest:
+  - getAllEnvironments
+  binding: GET /projects/project_uid/environments
+  confidence: high
+  scopes:
+  - launch.projects:read
+  spec: openapi/contentstack-environments-api-openapi.yml
+- tool: create_an_environment
+  category: launch
+  rest:
+  - createEnvironment
+  binding: POST /projects/project_uid/environments
+  confidence: high
+  scopes:
+  - launch.projects:write
+  spec: openapi/contentstack-environments-api-openapi.yml
+- tool: get_an_environment
+  category: launch
+  rest:
+  - getEnvironment
+  binding: GET /projects/project_uid/environments/environment_uid
+  confidence: medium
+  scopes:
+  - launch.projects:read
+  spec: openapi/contentstack-environments-api-openapi.yml
+- tool: update_an_environment
+  category: launch
+  rest:
+  - updateEnvironment
+  binding: PUT /projects/project_uid/environments/environment_uid
+  confidence: medium
+  scopes:
+  - launch.projects:write
+  spec: openapi/contentstack-environments-api-openapi.yml
+- tool: delete_an_environment
+  category: launch
+  rest:
+  - deleteEnvironment
+  binding: DELETE /projects/project_uid/environments/environment_uid
+  confidence: medium
+  scopes:
+  - launch.projects:delete
+  spec: openapi/contentstack-environments-api-openapi.yml
+- tool: get_all_deployments
+  category: launch
+  rest:
+  - getAllDeployments
+  binding: GET /projects/project_uid/environments/environment_uid/deployments
+  confidence: medium
+  scopes:
+  - launch.projects:read
+  spec: openapi/contentstack-deployments-api-openapi.yml
+- tool: get_deployment
+  category: launch
+  rest:
+  - getDeployment
+  binding: GET /projects/project_uid/environments/environment_uid/deployments/deployment_uid
+  confidence: medium
+  scopes:
+  - launch.projects:read
+  spec: openapi/contentstack-deployments-api-openapi.yml
+mcp_only:
+- tool: get_all_references_of_ct
+  category: cma
+  binding: GET /v3/content_types/content_type_uid/references
+  reason: The backing REST operation is real and documented by Contentstack, but is not present in this repository's
+    OpenAPI corpus (the specs here cover 114 of the operations the MCP catalogue calls).
+- tool: export_content_type
+  category: cma
+  binding: GET /v3/content_types/content_type_uid/export
+  reason: The backing REST operation is real and documented by Contentstack, but is not present in this repository's
+    OpenAPI corpus (the specs here cover 114 of the operations the MCP catalogue calls).
+- tool: get_all_taxonomies
+  category: cma
+  binding: GET /v3/taxonomies
+  reason: The backing REST operation is real and documented by Contentstack, but is not present in this repository's
+    OpenAPI corpus (the specs here cover 114 of the operations the MCP catalogue calls).
+- tool: get_a_single_taxonomy
+  category: cma
+  binding: GET /v3/taxonomies/taxonomy_uid
+  reason: The backing REST operation is real and documented by Contentstack, but is not present in this repository's
+    OpenAPI corpus (the specs here cover 114 of the operations the MCP catalogue calls).
+- tool: export_a_taxonomy
+  category: cma
+  binding: GET /v3/taxonomies/taxonomy_uid/export
+  reason: The backing REST operation is real and documented by Contentstack, but is not present in this repository's
+    OpenAPI corpus (the specs here cover 114 of the operations the MCP catalogue calls).
+- tool: get_all_languages
+  category: cma
+  binding: GET /v3/locales
+  reason: The backing REST operation is real and documented by Contentstack, but is not present in this repository's
+    OpenAPI corpus (the specs here cover 114 of the operations the MCP catalogue calls).
+- tool: get_all_branches
+  category: cma
+  binding: GET /v3/stacks/branches
+  reason: The backing REST operation is real and documented by Contentstack, but is not present in this repository's
+    OpenAPI corpus (the specs here cover 114 of the operations the MCP catalogue calls).
+- tool: create_a_branch
+  category: cma
+  binding: POST /v3/stacks/branches
+  reason: The backing REST operation is real and documented by Contentstack, but is not present in this repository's
+    OpenAPI corpus (the specs here cover 114 of the operations the MCP catalogue calls).
+- tool: get_a_single_branch
+  category: cma
+  binding: GET /v3/stacks/branches/branch_uid
+  reason: The backing REST operation is real and documented by Contentstack, but is not present in this repository's
+    OpenAPI corpus (the specs here cover 114 of the operations the MCP catalogue calls).
+- tool: delete_a_branch
+  category: cma
+  binding: DELETE /v3/stacks/branches/branch_uid
+  reason: The backing REST operation is real and documented by Contentstack, but is not present in this repository's
+    OpenAPI corpus (the specs here cover 114 of the operations the MCP catalogue calls).
+- tool: compare_branches
+  category: cma
+  binding: GET /v3/stacks/branches_compare
+  reason: The backing REST operation is real and documented by Contentstack, but is not present in this repository's
+    OpenAPI corpus (the specs here cover 114 of the operations the MCP catalogue calls).
+- tool: compare_content_types_between_branches
+  category: cma
+  binding: GET /v3/stacks/branches_compare/content_types
+  reason: The backing REST operation is real and documented by Contentstack, but is not present in this repository's
+    OpenAPI corpus (the specs here cover 114 of the operations the MCP catalogue calls).
+- tool: compare_global_fields_between_branches
+  category: cma
+  binding: GET /v3/stacks/branches_compare/global_fields
+  reason: The backing REST operation is real and documented by Contentstack, but is not present in this repository's
+    OpenAPI corpus (the specs here cover 114 of the operations the MCP catalogue calls).
+- tool: compare_specific_ct_between_branches
+  category: cma
+  binding: GET /v3/stacks/branches_compare/content_types/content_type_uid
+  reason: The backing REST operation is real and documented by Contentstack, but is not present in this repository's
+    OpenAPI corpus (the specs here cover 114 of the operations the MCP catalogue calls).
+- tool: compare_specific_gf_between_branches
+  category: cma
+  binding: GET /v3/stacks/branches_compare/global_fields/global_field_uid
+  reason: The backing REST operation is real and documented by Contentstack, but is not present in this repository's
+    OpenAPI corpus (the specs here cover 114 of the operations the MCP catalogue calls).
+- tool: get_all_merge_jobs
+  category: cma
+  binding: GET /v3/stacks/branches_queue
+  reason: The backing REST operation is real and documented by Contentstack, but is not present in this repository's
+    OpenAPI corpus (the specs here cover 114 of the operations the MCP catalogue calls).
+- tool: merge_branch
+  category: cma
+  binding: POST /v3/stacks/branches_merge
+  reason: The backing REST operation is real and documented by Contentstack, but is not present in this repository's
+    OpenAPI corpus (the specs here cover 114 of the operations the MCP catalogue calls).
+- tool: get_a_single_merge_job
+  category: cma
+  binding: GET /v3/stacks/branches_queue/merge_job_uid
+  reason: The backing REST operation is real and documented by Contentstack, but is not present in this repository's
+    OpenAPI corpus (the specs here cover 114 of the operations the MCP catalogue calls).
+- tool: get_a_single_branch_alias
+  category: cma
+  binding: GET /v3/stacks/branch_aliases/branch_alias_uid
+  reason: The backing REST operation is real and documented by Contentstack, but is not present in this repository's
+    OpenAPI corpus (the specs here cover 114 of the operations the MCP catalogue calls).
+- tool: get_all_branch_aliases
+  category: cma
+  binding: GET /v3/stacks/branch_aliases
+  reason: The backing REST operation is real and documented by Contentstack, but is not present in this repository's
+    OpenAPI corpus (the specs here cover 114 of the operations the MCP catalogue calls).
+- tool: assign_a_branch_alias
+  category: cma
+  binding: PUT /v3/stacks/branch_aliases/branch_alias_uid
+  reason: The backing REST operation is real and documented by Contentstack, but is not present in this repository's
+    OpenAPI corpus (the specs here cover 114 of the operations the MCP catalogue calls).
+- tool: delete_a_branch_alias
+  category: cma
+  binding: DELETE /v3/stacks/branch_aliases/branch_alias_uid
+  reason: The backing REST operation is real and documented by Contentstack, but is not present in this repository's
+    OpenAPI corpus (the specs here cover 114 of the operations the MCP catalogue calls).
+- tool: get_all_items_in_a_release
+  category: cma
+  binding: GET /v3/releases/release_uid/items
+  reason: The backing REST operation is real and documented by Contentstack, but is not present in this repository's
+    OpenAPI corpus (the specs here cover 114 of the operations the MCP catalogue calls).
+- tool: get_all_releases
+  category: cma
+  binding: GET /v3/releases
+  reason: The backing REST operation is real and documented by Contentstack, but is not present in this repository's
+    OpenAPI corpus (the specs here cover 114 of the operations the MCP catalogue calls).
+- tool: get_all_terms
+  category: cma
+  binding: GET /v3/taxonomies/taxonomy_uid/terms
+  reason: The backing REST operation is real and documented by Contentstack, but is not present in this repository's
+    OpenAPI corpus (the specs here cover 114 of the operations the MCP catalogue calls).
+- tool: get_all_terms_across_all_taxonomies
+  category: cma
+  binding: GET /v3/taxonomies/$all/terms
+  reason: The backing REST operation is real and documented by Contentstack, but is not present in this repository's
+    OpenAPI corpus (the specs here cover 114 of the operations the MCP catalogue calls).
+- tool: get_all_ancestors_of_a_term
+  category: cma
+  binding: GET /v3/taxonomies/taxonomy_uid/terms/term_uid/ancestors
+  reason: The backing REST operation is real and documented by Contentstack, but is not present in this repository's
+    OpenAPI corpus (the specs here cover 114 of the operations the MCP catalogue calls).
+- tool: get_asset_reference
+  category: cma
+  binding: GET /v3/assets/asset_uid/references
+  reason: The backing REST operation is real and documented by Contentstack, but is not present in this repository's
+    OpenAPI corpus (the specs here cover 114 of the operations the MCP catalogue calls).
+- tool: get_all_descendants_of_a_term
+  category: cma
+  binding: GET /v3/taxonomies/taxonomy_uid/terms/term_uid/descendants
+  reason: The backing REST operation is real and documented by Contentstack, but is not present in this repository's
+    OpenAPI corpus (the specs here cover 114 of the operations the MCP catalogue calls).
+- tool: get_a_single_release
+  category: cma
+  binding: GET /v3/releases/release_uid
+  reason: The backing REST operation is real and documented by Contentstack, but is not present in this repository's
+    OpenAPI corpus (the specs here cover 114 of the operations the MCP catalogue calls).
+- tool: get_a_single_variant
+  category: cma
+  binding: GET /v3/variant_groups/variant_group_uid/variants/variant_uid
+  reason: The backing REST operation is real and documented by Contentstack, but is not present in this repository's
+    OpenAPI corpus (the specs here cover 114 of the operations the MCP catalogue calls).
+- tool: get_a_single_term
+  category: cma
+  binding: GET /v3/taxonomies/taxonomy_uid/terms/term_uid
+  reason: The backing REST operation is real and documented by Contentstack, but is not present in this repository's
+    OpenAPI corpus (the specs here cover 114 of the operations the MCP catalogue calls).
+- tool: get_all_variants_of_a_content_type
+  category: cma
+  binding: GET /v3/variant_groups/
+  reason: The backing REST operation is real and documented by Contentstack, but is not present in this repository's
+    OpenAPI corpus (the specs here cover 114 of the operations the MCP catalogue calls).
+- tool: get_publish_queue
+  category: cma
+  binding: GET /v3/publish-queue
+  reason: The backing REST operation is real and documented by Contentstack, but is not present in this repository's
+    OpenAPI corpus (the specs here cover 114 of the operations the MCP catalogue calls).
+- tool: add_items_to_a_release
+  category: cma
+  binding: POST /v3/releases/release_uid/items
+  reason: The backing REST operation is real and documented by Contentstack, but is not present in this repository's
+    OpenAPI corpus (the specs here cover 114 of the operations the MCP catalogue calls).
+- tool: clone_a_release
+  category: cma
+  binding: POST /v3/releases/release_uid/clone
+  reason: The backing REST operation is real and documented by Contentstack, but is not present in this repository's
+    OpenAPI corpus (the specs here cover 114 of the operations the MCP catalogue calls).
+- tool: create_a_release
+  category: cma
+  binding: POST /v3/releases
+  reason: The backing REST operation is real and documented by Contentstack, but is not present in this repository's
+    OpenAPI corpus (the specs here cover 114 of the operations the MCP catalogue calls).
+- tool: create_a_taxonomy
+  category: cma
+  binding: POST /v3/taxonomies
+  reason: The backing REST operation is real and documented by Contentstack, but is not present in this repository's
+    OpenAPI corpus (the specs here cover 114 of the operations the MCP catalogue calls).
+- tool: create_a_term
+  category: cma
+  binding: POST /v3/taxonomies/taxonomy_uid/terms
+  reason: The backing REST operation is real and documented by Contentstack, but is not present in this repository's
+    OpenAPI corpus (the specs here cover 114 of the operations the MCP catalogue calls).
+- tool: delete_an_asset
+  category: cma
+  binding: DELETE /v3/assets/asset_uid
+  reason: The backing REST operation is real and documented by Contentstack, but is not present in this repository's
+    OpenAPI corpus (the specs here cover 114 of the operations the MCP catalogue calls).
+- tool: delete_a_taxonomy
+  category: cma
+  binding: DELETE /v3/taxonomies/taxonomy_uid
+  reason: The backing REST operation is real and documented by Contentstack, but is not present in this repository's
+    OpenAPI corpus (the specs here cover 114 of the operations the MCP catalogue calls).
+- tool: delete_a_term
+  category: cma
+  binding: DELETE /v3/taxonomies/taxonomy_uid/terms/term_uid
+  reason: The backing REST operation is real and documented by Contentstack, but is not present in this repository's
+    OpenAPI corpus (the specs here cover 114 of the operations the MCP catalogue calls).
+- tool: create_an_environment
+  category: cma
+  binding: POST /v3/environments
+  reason: The backing REST operation is real and documented by Contentstack, but is not present in this repository's
+    OpenAPI corpus (the specs here cover 114 of the operations the MCP catalogue calls).
+- tool: get_an_environment
+  category: cma
+  binding: GET /v3/environments/environment_name
+  reason: The backing REST operation is real and documented by Contentstack, but is not present in this repository's
+    OpenAPI corpus (the specs here cover 114 of the operations the MCP catalogue calls).
+- tool: update_an_environment
+  category: cma
+  binding: PUT /v3/environments/environment_name
+  reason: The backing REST operation is real and documented by Contentstack, but is not present in this repository's
+    OpenAPI corpus (the specs here cover 114 of the operations the MCP catalogue calls).
+- tool: delete_an_environment
+  category: cma
+  binding: DELETE /v3/environments/environment_name
+  reason: The backing REST operation is real and documented by Contentstack, but is not present in this repository's
+    OpenAPI corpus (the specs here cover 114 of the operations the MCP catalogue calls).
+- tool: deploy_a_release
+  category: cma
+  binding: POST /v3/releases/release_uid/deploy
+  reason: The backing REST operation is real and documented by Contentstack, but is not present in this repository's
+    OpenAPI corpus (the specs here cover 114 of the operations the MCP catalogue calls).
+- tool: update_a_taxonomy
+  category: cma
+  binding: PUT /v3/taxonomies/taxonomy_uid
+  reason: The backing REST operation is real and documented by Contentstack, but is not present in this repository's
+    OpenAPI corpus (the specs here cover 114 of the operations the MCP catalogue calls).
+- tool: update_a_term
+  category: cma
+  binding: PUT /v3/taxonomies/taxonomy_uid/terms/term_uid
+  reason: The backing REST operation is real and documented by Contentstack, but is not present in this repository's
+    OpenAPI corpus (the specs here cover 114 of the operations the MCP catalogue calls).
+- tool: move_a_term
+  category: cma
+  binding: PUT /v3/taxonomies/taxonomy_uid/terms/term_uid/move
+  reason: The backing REST operation is real and documented by Contentstack, but is not present in this repository's
+    OpenAPI corpus (the specs here cover 114 of the operations the MCP catalogue calls).
+- tool: delete_items_from_a_release
+  category: cma
+  binding: DELETE /v3/releases/release_uid/items
+  reason: The backing REST operation is real and documented by Contentstack, but is not present in this repository's
+    OpenAPI corpus (the specs here cover 114 of the operations the MCP catalogue calls).
+- tool: publish_an_asset
+  category: cma
+  binding: POST /v3/assets/asset_uid/publish
+  reason: The backing REST operation is real and documented by Contentstack, but is not present in this repository's
+    OpenAPI corpus (the specs here cover 114 of the operations the MCP catalogue calls).
+- tool: unpublish_an_asset
+  category: cma
+  binding: POST /v3/assets/asset_uid/unpublish
+  reason: The backing REST operation is real and documented by Contentstack, but is not present in this repository's
+    OpenAPI corpus (the specs here cover 114 of the operations the MCP catalogue calls).
+- tool: unlocalize_an_entry
+  category: cma
+  binding: POST /v3/content_types/content_type_uid/entries/entry_uid/unlocalize
+  reason: The backing REST operation is real and documented by Contentstack, but is not present in this repository's
+    OpenAPI corpus (the specs here cover 114 of the operations the MCP catalogue calls).
+- tool: create_an_entry_variant
+  category: cma
+  binding: PUT /v3/content_types/content_type_uid/entries/entry_uid/variants/variant_uid
+  reason: The backing REST operation is real and documented by Contentstack, but is not present in this repository's
+    OpenAPI corpus (the specs here cover 114 of the operations the MCP catalogue calls).
+- tool: delete_an_entry_variant
+  category: cma
+  binding: DELETE /v3/content_types/content_type_uid/entries/entry_uid/variants/variant_uid
+  reason: The backing REST operation is real and documented by Contentstack, but is not present in this repository's
+    OpenAPI corpus (the specs here cover 114 of the operations the MCP catalogue calls).
+- tool: get_references_of_an_entry
+  category: cma
+  binding: GET /v3/content_types/content_type_uid/entries/entry_uid/references
+  reason: The backing REST operation is real and documented by Contentstack, but is not present in this repository's
+    OpenAPI corpus (the specs here cover 114 of the operations the MCP catalogue calls).
+- tool: get_audit_log
+  category: cma-extended
+  binding: GET /v3/audit-logs
+  reason: The backing REST operation is real and documented by Contentstack, but is not present in this repository's
+    OpenAPI corpus (the specs here cover 114 of the operations the MCP catalogue calls).
+- tool: get_audit_log_item
+  category: cma-extended
+  binding: GET /v3/audit-logs/log_item_uid
+  reason: The backing REST operation is real and documented by Contentstack, but is not present in this repository's
+    OpenAPI corpus (the specs here cover 114 of the operations the MCP catalogue calls).
+- tool: get_all_versions_of_an_entry
+  category: cma-extended
+  binding: GET /v3/content_types/content_type_uid/entries/entry_uid/versions
+  reason: The backing REST operation is real and documented by Contentstack, but is not present in this repository's
+    OpenAPI corpus (the specs here cover 114 of the operations the MCP catalogue calls).
+- tool: set_entry_version_name
+  category: cma-extended
+  binding: POST /v3/content_types/content_type_uid/entries/entry_uid/versions/version_number/name
+  reason: The backing REST operation is real and documented by Contentstack, but is not present in this repository's
+    OpenAPI corpus (the specs here cover 114 of the operations the MCP catalogue calls).
+- tool: delete_entry_version_name
+  category: cma-extended
+  binding: DELETE /v3/content_types/content_type_uid/entries/entry_uid/versions/version_number/name
+  reason: The backing REST operation is real and documented by Contentstack, but is not present in this repository's
+    OpenAPI corpus (the specs here cover 114 of the operations the MCP catalogue calls).
+- tool: create_a_global_field
+  category: cma-extended
+  binding: POST /v3/global_fields
+  reason: The backing REST operation is real and documented by Contentstack, but is not present in this repository's
+    OpenAPI corpus (the specs here cover 114 of the operations the MCP catalogue calls).
+- tool: update_a_global_field
+  category: cma-extended
+  binding: PUT /v3/global_fields/global_field_uid
+  reason: The backing REST operation is real and documented by Contentstack, but is not present in this repository's
+    OpenAPI corpus (the specs here cover 114 of the operations the MCP catalogue calls).
+- tool: delete_a_global_field
+  category: cma-extended
+  binding: DELETE /v3/global_fields/global_field_uid
+  reason: The backing REST operation is real and documented by Contentstack, but is not present in this repository's
+    OpenAPI corpus (the specs here cover 114 of the operations the MCP catalogue calls).
+- tool: export_global_field
+  category: cma-extended
+  binding: GET /v3/global_fields/global_field_uid/export
+  reason: The backing REST operation is real and documented by Contentstack, but is not present in this repository's
+    OpenAPI corpus (the specs here cover 114 of the operations the MCP catalogue calls).
+- tool: update_asset_details
+  category: cma-extended
+  binding: PUT /v3/assets/asset_uid
+  reason: The backing REST operation is real and documented by Contentstack, but is not present in this repository's
+    OpenAPI corpus (the specs here cover 114 of the operations the MCP catalogue calls).
+- tool: create_asset_folder
+  category: cma-extended
+  binding: POST /v3/assets/folders
+  reason: The backing REST operation is real and documented by Contentstack, but is not present in this repository's
+    OpenAPI corpus (the specs here cover 114 of the operations the MCP catalogue calls).
+- tool: update_asset_folder
+  category: cma-extended
+  binding: PUT /v3/assets/folders/folder_uid
+  reason: The backing REST operation is real and documented by Contentstack, but is not present in this repository's
+    OpenAPI corpus (the specs here cover 114 of the operations the MCP catalogue calls).
+- tool: delete_asset_folder
+  category: cma-extended
+  binding: DELETE /v3/assets/folders/folder_uid
+  reason: The backing REST operation is real and documented by Contentstack, but is not present in this repository's
+    OpenAPI corpus (the specs here cover 114 of the operations the MCP catalogue calls).
+- tool: get_all_versions_of_an_asset
+  category: cma-extended
+  binding: GET /v3/assets/asset_uid/versions
+  reason: The backing REST operation is real and documented by Contentstack, but is not present in this repository's
+    OpenAPI corpus (the specs here cover 114 of the operations the MCP catalogue calls).
+- tool: set_asset_version_name
+  category: cma-extended
+  binding: POST /v3/assets/asset_uid/versions/version_number/name
+  reason: The backing REST operation is real and documented by Contentstack, but is not present in this repository's
+    OpenAPI corpus (the specs here cover 114 of the operations the MCP catalogue calls).
+- tool: delete_asset_version_name
+  category: cma-extended
+  binding: DELETE /v3/assets/asset_uid/versions/version_number/name
+  reason: The backing REST operation is real and documented by Contentstack, but is not present in this repository's
+    OpenAPI corpus (the specs here cover 114 of the operations the MCP catalogue calls).
+- tool: get_all_workflows
+  category: cma-extended
+  binding: GET /v3/workflows
+  reason: The backing REST operation is real and documented by Contentstack, but is not present in this repository's
+    OpenAPI corpus (the specs here cover 114 of the operations the MCP catalogue calls).
+- tool: get_a_single_workflow
+  category: cma-extended
+  binding: GET /v3/workflows/workflow_uid
+  reason: The backing REST operation is real and documented by Contentstack, but is not present in this repository's
+    OpenAPI corpus (the specs here cover 114 of the operations the MCP catalogue calls).
+- tool: get_publish_rules
+  category: cma-extended
+  binding: GET /v3/workflows/publishing_rules
+  reason: The backing REST operation is real and documented by Contentstack, but is not present in this repository's
+    OpenAPI corpus (the specs here cover 114 of the operations the MCP catalogue calls).
+- tool: get_publish_queue_activity
+  category: cma-extended
+  binding: GET /v3/publish-queue/activity
+  reason: The backing REST operation is real and documented by Contentstack, but is not present in this repository's
+    OpenAPI corpus (the specs here cover 114 of the operations the MCP catalogue calls).
+- tool: create_an_content_in_knowledge_vault
+  category: brandkit
+  binding: POST /brand-kits/v1/knowledge-vault/
+  reason: The backing REST operation is real and documented by Contentstack, but is not present in this repository's
+    OpenAPI corpus (the specs here cover 114 of the operations the MCP catalogue calls).
+- tool: get_all_contents_in_knowledge_vault
+  category: brandkit
+  binding: GET /brand-kits/v1/knowledge-vault/get-context
+  reason: The backing REST operation is real and documented by Contentstack, but is not present in this repository's
+    OpenAPI corpus (the specs here cover 114 of the operations the MCP catalogue calls).
+- tool: get_a_single_content_in_knowledge_vault
+  category: brandkit
+  binding: GET /brand-kits/v1/knowledge-vault/knowledge_vault_content_id
+  reason: The backing REST operation is real and documented by Contentstack, but is not present in this repository's
+    OpenAPI corpus (the specs here cover 114 of the operations the MCP catalogue calls).
+- tool: update_a_content_in_knowledge_vault
+  category: brandkit
+  binding: PUT /brand-kits/v1/knowledge-vault/knowledge_vault_content_id
+  reason: The backing REST operation is real and documented by Contentstack, but is not present in this repository's
+    OpenAPI corpus (the specs here cover 114 of the operations the MCP catalogue calls).
+- tool: delete_a_content_from_knowledge_vault
+  category: brandkit
+  binding: DELETE /brand-kits/v1/knowledge-vault/content_uid
+  reason: The backing REST operation is real and documented by Contentstack, but is not present in this repository's
+    OpenAPI corpus (the specs here cover 114 of the operations the MCP catalogue calls).
+- tool: create_a_voice_profile
+  category: brandkit
+  binding: POST /v1/brand-kits/brandkit_id/voice-profiles
+  reason: The backing REST operation is real and documented by Contentstack, but is not present in this repository's
+    OpenAPI corpus (the specs here cover 114 of the operations the MCP catalogue calls).
+- tool: get_all_voice_profiles
+  category: brandkit
+  binding: GET /v1/brand-kits/brandkit_id/voice-profiles
+  reason: The backing REST operation is real and documented by Contentstack, but is not present in this repository's
+    OpenAPI corpus (the specs here cover 114 of the operations the MCP catalogue calls).
+- tool: get_a_single_voice_profile
+  category: brandkit
+  binding: GET /v1/brand-kits/brandkit_id/voice-profiles/profile_id
+  reason: The backing REST operation is real and documented by Contentstack, but is not present in this repository's
+    OpenAPI corpus (the specs here cover 114 of the operations the MCP catalogue calls).
+- tool: update_a_voice_profile
+  category: brandkit
+  binding: PUT /v1/brand-kits/brandkit_id/voice-profiles/profile_id
+  reason: The backing REST operation is real and documented by Contentstack, but is not present in this repository's
+    OpenAPI corpus (the specs here cover 114 of the operations the MCP catalogue calls).
+- tool: delete_a_voice_profile
+  category: brandkit
+  binding: DELETE /v1/brand-kits/brandkit_id/voice-profiles/profile_id
+  reason: The backing REST operation is real and documented by Contentstack, but is not present in this repository's
+    OpenAPI corpus (the specs here cover 114 of the operations the MCP catalogue calls).
+- tool: generative_ai
+  category: brandkit
+  binding: POST /brand-kits/v1/genai/
+  reason: The backing REST operation is real and documented by Contentstack, but is not present in this repository's
+    OpenAPI corpus (the specs here cover 114 of the operations the MCP catalogue calls).
+- tool: get_data_chunks_from_knowledge_vault
+  category: brandkit
+  binding: POST /brand-kits/v1/knowledge-vault/search
+  reason: The backing REST operation is real and documented by Contentstack, but is not present in this repository's
+    OpenAPI corpus (the specs here cover 114 of the operations the MCP catalogue calls).
+- tool: classify_content
+  category: lytics
+  binding: POST /v2/content/classify
+  reason: The backing REST operation is real and documented by Contentstack, but is not present in this repository's
+    OpenAPI corpus (the specs here cover 114 of the operations the MCP catalogue calls).
+- tool: enrich_content
+  category: lytics
+  binding: POST /v2/content/enrich
+  reason: The backing REST operation is real and documented by Contentstack, but is not present in this repository's
+    OpenAPI corpus (the specs here cover 114 of the operations the MCP catalogue calls).
+- tool: lytics_get_all_audiences
+  category: lytics
+  binding: GET /v2/segment
+  reason: The backing REST operation is real and documented by Contentstack, but is not present in this repository's
+    OpenAPI corpus (the specs here cover 114 of the operations the MCP catalogue calls).
+- tool: get_field_information
+  category: lytics
+  binding: GET api/segment/audience_id/fieldinfo
+  reason: The backing REST operation is real and documented by Contentstack, but is not present in this repository's
+    OpenAPI corpus (the specs here cover 114 of the operations the MCP catalogue calls).
+- tool: lytics_get_a_single_audience
+  category: lytics
+  binding: GET /v2/segment/audience_id
+  reason: The backing REST operation is real and documented by Contentstack, but is not present in this repository's
+    OpenAPI corpus (the specs here cover 114 of the operations the MCP catalogue calls).
+- tool: get_content_topics
+  category: lytics
+  binding: GET api/content/topic
+  reason: The backing REST operation is real and documented by Contentstack, but is not present in this repository's
+    OpenAPI corpus (the specs here cover 114 of the operations the MCP catalogue calls).
+- tool: get_a_user_profile
+  category: lytics
+  binding: GET /v2/identity/table/key/value
+  reason: The backing REST operation is real and documented by Contentstack, but is not present in this repository's
+    OpenAPI corpus (the specs here cover 114 of the operations the MCP catalogue calls).
+- tool: get_accounts
+  category: lytics
+  binding: GET api/account
+  reason: The backing REST operation is real and documented by Contentstack, but is not present in this repository's
+    OpenAPI corpus (the specs here cover 114 of the operations the MCP catalogue calls).
+- tool: get_fields
+  category: lytics
+  binding: GET v2/schema/user/field
+  reason: The backing REST operation is real and documented by Contentstack, but is not present in this repository's
+    OpenAPI corpus (the specs here cover 114 of the operations the MCP catalogue calls).
+- tool: get_tables
+  category: lytics
+  binding: GET v2/schema
+  reason: The backing REST operation is real and documented by Contentstack, but is not present in this repository's
+    OpenAPI corpus (the specs here cover 114 of the operations the MCP catalogue calls).
+- tool: get_experience_versions
+  category: personalize
+  binding: GET /experiences/experience_uid/versions
+  reason: The backing REST operation is real and documented by Contentstack, but is not present in this repository's
+    OpenAPI corpus (the specs here cover 114 of the operations the MCP catalogue calls).
+- tool: delete_experience_version
+  category: personalize
+  binding: DELETE /experiences/experience_uid/versions/version_uid
+  reason: The backing REST operation is real and documented by Contentstack, but is not present in this repository's
+    OpenAPI corpus (the specs here cover 114 of the operations the MCP catalogue calls).
+- tool: get_experiences_priority
+  category: personalize
+  binding: GET /experiences-priority
+  reason: The backing REST operation is real and documented by Contentstack, but is not present in this repository's
+    OpenAPI corpus (the specs here cover 114 of the operations the MCP catalogue calls).
+- tool: update_experiences_priority
+  category: personalize
+  binding: PUT /experiences-priority
+  reason: The backing REST operation is real and documented by Contentstack, but is not present in this repository's
+    OpenAPI corpus (the specs here cover 114 of the operations the MCP catalogue calls).
+- tool: update_event
+  category: personalize
+  binding: PUT /events/event_uid
+  reason: The backing REST operation is real and documented by Contentstack, but is not present in this repository's
+    OpenAPI corpus (the specs here cover 114 of the operations the MCP catalogue calls).
+- tool: delete_event
+  category: personalize
+  binding: DELETE /events/event_uid
+  reason: The backing REST operation is real and documented by Contentstack, but is not present in this repository's
+    OpenAPI corpus (the specs here cover 114 of the operations the MCP catalogue calls).
+- tool: get_analytics_summary
+  category: personalize
+  binding: GET /experiences/experience_uid/analytics/summary
+  reason: The backing REST operation is real and documented by Contentstack, but is not present in this repository's
+    OpenAPI corpus (the specs here cover 114 of the operations the MCP catalogue calls).
+- tool: get_analytics_timeseries
+  category: personalize
+  binding: GET /experiences/experience_uid/analytics/time-series
+  reason: The backing REST operation is real and documented by Contentstack, but is not present in this repository's
+    OpenAPI corpus (the specs here cover 114 of the operations the MCP catalogue calls).
+- tool: get_subscription_usage
+  category: analytics
+  binding: GET /v2/subscription
+  reason: The backing REST operation is real and documented by Contentstack, but is not present in this repository's
+    OpenAPI corpus (the specs here cover 114 of the operations the MCP catalogue calls).
+- tool: get_device_usage
+  category: analytics
+  binding: GET /v2/devices
+  reason: The backing REST operation is real and documented by Contentstack, but is not present in this repository's
+    OpenAPI corpus (the specs here cover 114 of the operations the MCP catalogue calls).
+- tool: get_usage_analytics
+  category: analytics
+  binding: GET /v2/usage
+  reason: The backing REST operation is real and documented by Contentstack, but is not present in this repository's
+    OpenAPI corpus (the specs here cover 114 of the operations the MCP catalogue calls).
+- tool: get_top_urls
+  category: analytics
+  binding: GET /v2/url
+  reason: The backing REST operation is real and documented by Contentstack, but is not present in this repository's
+    OpenAPI corpus (the specs here cover 114 of the operations the MCP catalogue calls).
+- tool: get_status_code
+  category: analytics
+  binding: GET /v2/http-statuses
+  reason: The backing REST operation is real and documented by Contentstack, but is not present in this repository's
+    OpenAPI corpus (the specs here cover 114 of the operations the MCP catalogue calls).
+- tool: get_cache_usage
+  category: analytics
+  binding: GET /v2/hit-miss-ratio
+  reason: The backing REST operation is real and documented by Contentstack, but is not present in this repository's
+    OpenAPI corpus (the specs here cover 114 of the operations the MCP catalogue calls).
+- tool: get_sdk_usage
+  category: analytics
+  binding: GET /v2/sdk
+  reason: The backing REST operation is real and documented by Contentstack, but is not present in this repository's
+    OpenAPI corpus (the specs here cover 114 of the operations the MCP catalogue calls).
+- tool: get_job_data
+  category: analytics
+  binding: GET /v2/job/jobId/data
+  reason: The backing REST operation is real and documented by Contentstack, but is not present in this repository's
+    OpenAPI corpus (the specs here cover 114 of the operations the MCP catalogue calls).
+- tool: list_automations
+  category: automations
+  binding: GET /v1/projects/project_uid/automations
+  reason: The backing REST operation is real and documented by Contentstack, but is not present in this repository's
+    OpenAPI corpus (the specs here cover 114 of the operations the MCP catalogue calls).
+- tool: get_automation
+  category: automations
+  binding: GET /v1/projects/project_uid/automations/automation_uid
+  reason: The backing REST operation is real and documented by Contentstack, but is not present in this repository's
+    OpenAPI corpus (the specs here cover 114 of the operations the MCP catalogue calls).
+- tool: trigger_automation
+  category: automations
+  binding: POST /run/trigger_id
+  reason: The backing REST operation is real and documented by Contentstack, but is not present in this repository's
+    OpenAPI corpus (the specs here cover 114 of the operations the MCP catalogue calls).
+- tool: set_automation_active
+  category: automations
+  binding: PATCH /v1/projects/project_uid/automations/automation_uid
+  reason: The backing REST operation is real and documented by Contentstack, but is not present in this repository's
+    OpenAPI corpus (the specs here cover 114 of the operations the MCP catalogue calls).
+- tool: get_environments
+  category: launch
+  binding: POST /graphql
+  reason: The backing REST operation is real and documented by Contentstack, but is not present in this repository's
+    OpenAPI corpus (the specs here cover 114 of the operations the MCP catalogue calls).
+- tool: get_deploy_hooks
+  category: launch
+  binding: POST /graphql
+  reason: The backing REST operation is real and documented by Contentstack, but is not present in this repository's
+    OpenAPI corpus (the specs here cover 114 of the operations the MCP catalogue calls).
+- tool: get_latest_live_deployment
+  category: launch
+  binding: POST /graphql
+  reason: The backing REST operation is real and documented by Contentstack, but is not present in this repository's
+    OpenAPI corpus (the specs here cover 114 of the operations the MCP catalogue calls).
+- tool: create_deploy_hook
+  category: launch
+  binding: POST /graphql
+  reason: The backing REST operation is real and documented by Contentstack, but is not present in this repository's
+    OpenAPI corpus (the specs here cover 114 of the operations the MCP catalogue calls).
+- tool: update_deploy_hook
+  category: launch
+  binding: POST /graphql
+  reason: The backing REST operation is real and documented by Contentstack, but is not present in this repository's
+    OpenAPI corpus (the specs here cover 114 of the operations the MCP catalogue calls).
+- tool: delete_deploy_hook
+  category: launch
+  binding: POST /graphql
+  reason: The backing REST operation is real and documented by Contentstack, but is not present in this repository's
+    OpenAPI corpus (the specs here cover 114 of the operations the MCP catalogue calls).
+- tool: trigger_deploy_hook
+  category: launch
+  binding: POST /deploy/deploy_hook_uid
+  reason: The backing REST operation is real and documented by Contentstack, but is not present in this repository's
+    OpenAPI corpus (the specs here cover 114 of the operations the MCP catalogue calls).
+- tool: create_deployment
+  category: launch
+  binding: POST /graphql
+  reason: The backing REST operation is real and documented by Contentstack, but is not present in this repository's
+    OpenAPI corpus (the specs here cover 114 of the operations the MCP catalogue calls).
+- tool: revalidate_cdn_cache
+  category: launch
+  binding: POST /graphql
+  reason: The backing REST operation is real and documented by Contentstack, but is not present in this repository's
+    OpenAPI corpus (the specs here cover 114 of the operations the MCP catalogue calls).
+- tool: get_signed_upload_url_project
+  category: launch
+  binding: GET /projects/upload/signed_url
+  reason: The backing REST operation is real and documented by Contentstack, but is not present in this repository's
+    OpenAPI corpus (the specs here cover 114 of the operations the MCP catalogue calls).
+- tool: get_signed_upload_url_environment
+  category: launch
+  binding: GET /projects/project_uid/environments/upload/signed_url
+  reason: The backing REST operation is real and documented by Contentstack, but is not present in this repository's
+    OpenAPI corpus (the specs here cover 114 of the operations the MCP catalogue calls).
+- tool: get_signed_upload_url_deployment
+  category: launch
+  binding: GET /projects/project_uid/environments/environment_uid/deployments/upload/signed_url
+  reason: The backing REST operation is real and documented by Contentstack, but is not present in this repository's
+    OpenAPI corpus (the specs here cover 114 of the operations the MCP catalogue calls).
+- tool: get_signed_download_url_deployment
+  category: launch
+  binding: GET /projects/project_uid/environments/environment_uid/deployments/deployment_uid/download/signed_url
+  reason: The backing REST operation is real and documented by Contentstack, but is not present in this repository's
+    OpenAPI corpus (the specs here cover 114 of the operations the MCP catalogue calls).
+- tool: get_deployment_logs
+  category: launch
+  binding: GET /../projects/project_uid/environments/environment_uid/deployments/deployment_uid/logs/deployment-logs
+  reason: The backing REST operation is real and documented by Contentstack, but is not present in this repository's
+    OpenAPI corpus (the specs here cover 114 of the operations the MCP catalogue calls).
+- tool: get_server_logs
+  category: launch
+  binding: GET /../projects/project_uid/environments/environment_uid/deployments/deployment_uid/logs/server-logs
+  reason: The backing REST operation is real and documented by Contentstack, but is not present in this repository's
+    OpenAPI corpus (the specs here cover 114 of the operations the MCP catalogue calls).
+- tool: get_an_app
+  category: developerhub
+  binding: GET /apps/app_uid
+  reason: The backing REST operation is real and documented by Contentstack, but is not present in this repository's
+    OpenAPI corpus (the specs here cover 114 of the operations the MCP catalogue calls).
+- tool: get_all_apps
+  category: developerhub
+  binding: GET /apps
+  reason: The backing REST operation is real and documented by Contentstack, but is not present in this repository's
+    OpenAPI corpus (the specs here cover 114 of the operations the MCP catalogue calls).
+- tool: get_app_oauth
+  category: developerhub
+  binding: GET /apps/app_uid/oauth
+  reason: The backing REST operation is real and documented by Contentstack, but is not present in this repository's
+    OpenAPI corpus (the specs here cover 114 of the operations the MCP catalogue calls).
+- tool: get_oauth_scopes
+  category: developerhub
+  binding: GET /apps/oauth/scopes
+  reason: The backing REST operation is real and documented by Contentstack, but is not present in this repository's
+    OpenAPI corpus (the specs here cover 114 of the operations the MCP catalogue calls).
+- tool: create_an_app
+  category: developerhub
+  binding: POST /apps
+  reason: The backing REST operation is real and documented by Contentstack, but is not present in this repository's
+    OpenAPI corpus (the specs here cover 114 of the operations the MCP catalogue calls).
+- tool: update_app_oauth
+  category: developerhub
+  binding: PUT /apps/app_uid/oauth
+  reason: The backing REST operation is real and documented by Contentstack, but is not present in this repository's
+    OpenAPI corpus (the specs here cover 114 of the operations the MCP catalogue calls).
+- tool: update_an_app
+  category: developerhub
+  binding: PUT /apps/app_uid
+  reason: The backing REST operation is real and documented by Contentstack, but is not present in this repository's
+    OpenAPI corpus (the specs here cover 114 of the operations the MCP catalogue calls).
+- tool: delete_an_app
+  category: developerhub
+  binding: DELETE /apps/app_uid
+  reason: The backing REST operation is real and documented by Contentstack, but is not present in this repository's
+    OpenAPI corpus (the specs here cover 114 of the operations the MCP catalogue calls).
+- tool: install_an_app
+  category: developerhub
+  binding: POST /apps/app_uid/install
+  reason: The backing REST operation is real and documented by Contentstack, but is not present in this repository's
+    OpenAPI corpus (the specs here cover 114 of the operations the MCP catalogue calls).
+- tool: update_an_app_installation
+  category: developerhub
+  binding: POST /apps/app_uid/reinstall
+  reason: The backing REST operation is real and documented by Contentstack, but is not present in this repository's
+    OpenAPI corpus (the specs here cover 114 of the operations the MCP catalogue calls).
+- tool: get_app_installations
+  category: developerhub
+  binding: GET /apps/app_uid/installations
+  reason: The backing REST operation is real and documented by Contentstack, but is not present in this repository's
+    OpenAPI corpus (the specs here cover 114 of the operations the MCP catalogue calls).
+- tool: uninstall_an_app
+  category: developerhub
+  binding: DELETE /installations/installation_uid
+  reason: The backing REST operation is real and documented by Contentstack, but is not present in this repository's
+    OpenAPI corpus (the specs here cover 114 of the operations the MCP catalogue calls).
+rest_only:
+- operationId: uploadAsset
+  binding: POST /assets
+  spec: openapi/contentstack-assets-api-openapi.yml
+- operationId: createAudience
+  binding: POST /audiences
+  spec: openapi/contentstack-audiences-api-openapi.yml
+- operationId: updateAudience
+  binding: PUT /audiences/{id}
+  spec: openapi/contentstack-audiences-api-openapi.yml
+- operationId: getExperiencePriority
+  binding: GET /experiences/priority
+  spec: openapi/contentstack-experiences-api-openapi.yml
+- operationId: updateExperiencePriority
+  binding: PUT /experiences/priority
+  spec: openapi/contentstack-experiences-api-openapi.yml
+- operationId: getManifest
+  binding: GET /manifest
+  spec: openapi/contentstack-manifest-api-openapi.yml
+- operationId: getAllOrganizations
+  binding: GET /organizations
+  spec: openapi/contentstack-organizations-api-openapi.yml
+- operationId: getCacheRevalidationUsage
+  binding: GET /organizations/cache-revalidation-usage
+  spec: openapi/contentstack-analytics-api-openapi.yml
+- operationId: getOrganization
+  binding: GET /organizations/{organization_uid}
+  spec: openapi/contentstack-organizations-api-openapi.yml
+- operationId: getOrganizationStacks
+  binding: GET /organizations/{organization_uid}/stacks
+  spec: openapi/contentstack-organizations-api-openapi.yml
+- operationId: getProjectUploadUrl
+  binding: GET /projects/upload-url
+  spec: openapi/contentstack-file-uploads-api-openapi.yml
+- operationId: createDeployment
+  binding: POST /projects/{project_uid}/environments/{env_uid}/deployments
+  spec: openapi/contentstack-deployments-api-openapi.yml
+- operationId: getDeploymentLogs
+  binding: GET /projects/{project_uid}/environments/{env_uid}/deployments/{deploy_uid}/logs
+  spec: openapi/contentstack-deployments-api-openapi.yml
+- operationId: getServerLogs
+  binding: GET /projects/{project_uid}/environments/{env_uid}/deployments/{deploy_uid}/server-logs
+  spec: openapi/contentstack-deployments-api-openapi.yml
+- operationId: revalidateCache
+  binding: POST /projects/{project_uid}/environments/{env_uid}/revalidate-cache
+  spec: openapi/contentstack-environments-api-openapi.yml
+- operationId: getScimResourceTypes
+  binding: GET /scim/v2.0/ResourceTypes
+  spec: openapi/contentstack-scim-schema-discovery-api-openapi.yml
+- operationId: getScimSchemas
+  binding: GET /scim/v2.0/Schemas
+  spec: openapi/contentstack-scim-schema-discovery-api-openapi.yml
+- operationId: listScimGroups
+  binding: GET /scim/v2.0/organizations/{organization_uid}/Groups
+  spec: openapi/contentstack-scim-groups-api-openapi.yml
+- operationId: createScimGroup
+  binding: POST /scim/v2.0/organizations/{organization_uid}/Groups
+  spec: openapi/contentstack-scim-groups-api-openapi.yml
+- operationId: deleteScimGroup
+  binding: DELETE /scim/v2.0/organizations/{organization_uid}/Groups/{group_id}
+  spec: openapi/contentstack-scim-groups-api-openapi.yml
+- operationId: getScimGroup
+  binding: GET /scim/v2.0/organizations/{organization_uid}/Groups/{group_id}
+  spec: openapi/contentstack-scim-groups-api-openapi.yml
+- operationId: updateScimGroup
+  binding: PATCH /scim/v2.0/organizations/{organization_uid}/Groups/{group_id}
+  spec: openapi/contentstack-scim-groups-api-openapi.yml
+- operationId: replaceScimGroup
+  binding: PUT /scim/v2.0/organizations/{organization_uid}/Groups/{group_id}
+  spec: openapi/contentstack-scim-groups-api-openapi.yml
+- operationId: listScimUsers
+  binding: GET /scim/v2.0/organizations/{organization_uid}/Users
+  spec: openapi/contentstack-scim-users-api-openapi.yml
+- operationId: createScimUser
+  binding: POST /scim/v2.0/organizations/{organization_uid}/Users
+  spec: openapi/contentstack-scim-users-api-openapi.yml
+- operationId: getScimUser
+  binding: GET /scim/v2.0/organizations/{organization_uid}/Users/{user_id}
+  spec: openapi/contentstack-scim-users-api-openapi.yml
+- operationId: updateScimUser
+  binding: PATCH /scim/v2.0/organizations/{organization_uid}/Users/{user_id}
+  spec: openapi/contentstack-scim-users-api-openapi.yml
+- operationId: replaceScimUser
+  binding: PUT /scim/v2.0/organizations/{organization_uid}/Users/{user_id}
+  spec: openapi/contentstack-scim-users-api-openapi.yml
+- operationId: getAllStacks
+  binding: GET /stacks
+  spec: openapi/contentstack-stacks-api-openapi.yml
+- operationId: createStack
+  binding: POST /stacks
+  spec: openapi/contentstack-stacks-api-openapi.yml
+- operationId: syncContent
+  binding: GET /stacks/sync
+  spec: openapi/contentstack-synchronization-api-openapi.yml
+- operationId: deleteStack
+  binding: DELETE /stacks/{api_key}
+  spec: openapi/contentstack-stacks-api-openapi.yml
+- operationId: getStack
+  binding: GET /stacks/{api_key}
+  spec: openapi/contentstack-stacks-api-openapi.yml
+- operationId: updateStack
+  binding: PUT /stacks/{api_key}
+  spec: openapi/contentstack-stacks-api-openapi.yml
+- operationId: getUser
+  binding: GET /user
+  spec: openapi/contentstack-users-api-openapi.yml
+- operationId: updateUser
+  binding: PUT /user
+  spec: openapi/contentstack-users-api-openapi.yml
+- operationId: setUserAttributes
+  binding: PATCH /user-attributes
+  spec: openapi/contentstack-user-attributes-api-openapi.yml
+- operationId: mergeUserAttributes
+  binding: POST /user-attributes/actions/merge
+  spec: openapi/contentstack-user-attributes-api-openapi.yml
+- operationId: logoutUser
+  binding: DELETE /user-session
+  spec: openapi/contentstack-user-sessions-api-openapi.yml
+- operationId: loginUser
+  binding: POST /user-session
+  spec: openapi/contentstack-user-sessions-api-openapi.yml
+- operationId: getAllBrandKits
+  binding: GET /v1/brand-kits
+  spec: openapi/contentstack-brand-kits-api-openapi.yml
+- operationId: createBrandKit
+  binding: POST /v1/brand-kits
+  spec: openapi/contentstack-brand-kits-api-openapi.yml
+- operationId: deleteBrandKit
+  binding: DELETE /v1/brand-kits/{brand_kit_uid}
+  spec: openapi/contentstack-brand-kits-api-openapi.yml
+- operationId: getBrandKit
+  binding: GET /v1/brand-kits/{brand_kit_uid}
+  spec: openapi/contentstack-brand-kits-api-openapi.yml
+- operationId: updateBrandKit
+  binding: PUT /v1/brand-kits/{brand_kit_uid}
+  spec: openapi/contentstack-brand-kits-api-openapi.yml
+- operationId: getLlmConfig
+  binding: GET /v1/brand-kits/{brand_kit_uid}/llm-config
+  spec: openapi/contentstack-llm-configuration-api-openapi.yml
+- operationId: configureLlm
+  binding: POST /v1/brand-kits/{brand_kit_uid}/llm-config
+  spec: openapi/contentstack-llm-configuration-api-openapi.yml
+- operationId: getAllVoiceProfiles
+  binding: GET /v1/brand-kits/{brand_kit_uid}/voice-profiles
+  spec: openapi/contentstack-voice-profiles-api-openapi.yml
+- operationId: createVoiceProfile
+  binding: POST /v1/brand-kits/{brand_kit_uid}/voice-profiles
+  spec: openapi/contentstack-voice-profiles-api-openapi.yml
+- operationId: deleteVoiceProfile
+  binding: DELETE /v1/brand-kits/{brand_kit_uid}/voice-profiles/{profile_uid}
+  spec: openapi/contentstack-voice-profiles-api-openapi.yml
+- operationId: getVoiceProfile
+  binding: GET /v1/brand-kits/{brand_kit_uid}/voice-profiles/{profile_uid}
+  spec: openapi/contentstack-voice-profiles-api-openapi.yml
+- operationId: updateVoiceProfile
+  binding: PUT /v1/brand-kits/{brand_kit_uid}/voice-profiles/{profile_uid}
+  spec: openapi/contentstack-voice-profiles-api-openapi.yml
+- operationId: getAllProjects
+  binding: GET /v1/organizations/{organization_uid}/projects
+  spec: openapi/contentstack-projects-api-openapi.yml
+- operationId: createProject
+  binding: POST /v1/organizations/{organization_uid}/projects
+  spec: openapi/contentstack-projects-api-openapi.yml
+- operationId: deleteProject
+  binding: DELETE /v1/organizations/{organization_uid}/projects/{project_uid}
+  spec: openapi/contentstack-projects-api-openapi.yml
+- operationId: getProject
+  binding: GET /v1/organizations/{organization_uid}/projects/{project_uid}
+  spec: openapi/contentstack-projects-api-openapi.yml
+- operationId: updateProject
+  binding: PUT /v1/organizations/{organization_uid}/projects/{project_uid}
+  spec: openapi/contentstack-projects-api-openapi.yml
+- operationId: getAllAccounts
+  binding: GET /v1/organizations/{organization_uid}/projects/{project_uid}/accounts
+  spec: openapi/contentstack-accounts-api-openapi.yml
+- operationId: getAllAuditLogs
+  binding: GET /v1/organizations/{organization_uid}/projects/{project_uid}/audit-logs
+  spec: openapi/contentstack-audit-logs-api-openapi.yml
+- operationId: getAllAutomations
+  binding: GET /v1/organizations/{organization_uid}/projects/{project_uid}/automations
+  spec: openapi/contentstack-automations-api-openapi.yml
+- operationId: getAutomation
+  binding: GET /v1/organizations/{organization_uid}/projects/{project_uid}/automations/{automation_uid}
+  spec: openapi/contentstack-automations-api-openapi.yml
+- operationId: activateAutomation
+  binding: PUT /v1/organizations/{organization_uid}/projects/{project_uid}/automations/{automation_uid}/activate
+  spec: openapi/contentstack-automations-api-openapi.yml
+- operationId: deactivateAutomation
+  binding: PUT /v1/organizations/{organization_uid}/projects/{project_uid}/automations/{automation_uid}/deactivate
+  spec: openapi/contentstack-automations-api-openapi.yml
+- operationId: getAllExecutionLogs
+  binding: GET /v1/organizations/{organization_uid}/projects/{project_uid}/executions
+  spec: openapi/contentstack-execution-logs-api-openapi.yml
+- operationId: getExecutionLog
+  binding: GET /v1/organizations/{organization_uid}/projects/{project_uid}/executions/{execution_uid}
+  spec: openapi/contentstack-execution-logs-api-openapi.yml
+- operationId: getAllVariables
+  binding: GET /v1/organizations/{organization_uid}/projects/{project_uid}/variables
+  spec: openapi/contentstack-variables-api-openapi.yml
+- operationId: createVariable
+  binding: POST /v1/organizations/{organization_uid}/projects/{project_uid}/variables
+  spec: openapi/contentstack-variables-api-openapi.yml

@@ -1,0 +1,792 @@
+{
+  "get_an_app": {
+    "name": "get_an_app",
+    "description": "Retrieves detailed information for a specific Marketplace App from your organization including configuration, metadata, target type, and optionally OAuth settings. Requires read permission for apps in the organization. Use this to inspect app properties, verify configuration, or gather information for app management.",
+    "mapper": {
+      "apiUrl": "/apps/app_uid",
+      "method": "GET",
+      "params": {
+        "app_uid": "app_uid"
+      },
+      "queryParams": {
+        "include_oauth": "include_oauth"
+      }
+    },
+    "inputSchema": {
+      "type": "object",
+      "required": ["app_uid"],
+      "properties": {
+        "app_uid": {
+          "type": "string",
+          "description": "Select an app to retrieve. You can get the app uid and app name from the get_all_apps tool."
+        },
+        "include_oauth": {
+          "type": "boolean",
+          "description": "Include OAuth configuration in the response. When nothing specified, make it false.",
+          "optional": true,
+          "default": false
+        }
+      }
+    },
+    "group": "developerhub",
+    "scopes": ["app.manifest:read"],
+    "x-enrich-group": "developerhub"
+  },
+  "get_all_apps": {
+    "name": "get_all_apps",
+    "description": "Retrieves all Marketplace Apps in your organization with advanced filtering, search, sorting, and pagination capabilities. Filter by target type (stack or organization), search by name/description, and control response size with field selection. Essential for app catalog management, discovering available integrations, or auditing apps. Requires read permission for apps.",
+    "mapper": {
+      "apiUrl": "/apps",
+      "method": "GET",
+      "queryParams": {
+        "limit": "limit",
+        "skip": "skip",
+        "search": "search",
+        "sort": "sort",
+        "order": "order",
+        "target_type": "target_type",
+        "fields": "fields"
+      }
+    },
+    "inputSchema": {
+      "type": "object",
+      "properties": {
+        "limit": {
+          "type": "string",
+          "description": "Specify the number of apps to retrieve. For example, if you set the limit to 10, then 10 apps will be fetched. The maximum limit is 50.",
+          "optional": true
+        },
+        "skip": {
+          "type": "string",
+          "description": "Specify the number of app to skip. Can not be negative.",
+          "optional": true
+        },
+        "search": {
+          "type": "string",
+          "description": "Search for apps by name or description",
+          "optional": true
+        },
+        "sort": {
+          "enum": ["name", "updated_at", "created_at"],
+          "type": "string",
+          "description": "Sort apps by name, updated_at, or created_at",
+          "optional": true
+        },
+        "order": {
+          "enum": ["asc", "desc", "ASC", "DESC"],
+          "type": "string",
+          "description": "Sort order. Allowed values are 'asc' and 'desc'.",
+          "optional": true
+        },
+        "target_type": {
+          "enum": ["stack", "organization"],
+          "type": "string",
+          "description": "Filter apps by target type. Allowed values are 'stack' and 'organization'.",
+          "optional": true
+        },
+        "fields": {
+          "type": "string",
+          "description": "Comma separated list of fields to include in the response. If not provided, all fields will be returned. Most of the times user will need name, description, target_type, group, created_at, updated_at. IMPORTANT: This is very important parameter to reduce the response size. Most AI Assistants will not be able to process the response if the response is too large. Allowed values are 'name', 'description', 'target_type', 'group', 'created_at', 'updated_at'.",
+          "optional": true
+        }
+      }
+    },
+    "group": "developerhub",
+    "scopes": ["app.manifest:read"],
+    "x-enrich-group": "developerhub"
+  },
+  "get_app_oauth": {
+    "name": "get_app_oauth",
+    "description": "Retrieves complete OAuth 2.0 configuration for a Marketplace App including client credentials, redirect URIs, allowed scopes, and token settings. Use this to verify OAuth setup, troubleshoot authentication issues, or prepare for secure API integrations. Requires appropriate permissions to access OAuth configuration.",
+    "mapper": {
+      "apiUrl": "/apps/app_uid/oauth",
+      "method": "GET",
+      "params": {
+        "app_uid": "app_uid"
+      }
+    },
+    "inputSchema": {
+      "type": "object",
+      "required": ["app_uid"],
+      "properties": {
+        "app_uid": {
+          "type": "string",
+          "description": "Select an app to get. You can get the app uid from the get_all_apps tool."
+        }
+      }
+    },
+    "group": "developerhub",
+    "scopes": ["app.authorizations:manage"],
+    "x-enrich-group": "developerhub"
+  },
+  "get_oauth_scopes": {
+    "name": "get_oauth_scopes",
+    "description": "Retrieves the complete list of available OAuth scopes that can be configured for Marketplace Apps, optionally filtered by app type (stack or organization). Shows permission levels and access capabilities available for apps. Essential for understanding app permissions, configuring OAuth settings, or implementing least-privilege access control.",
+    "mapper": {
+      "apiUrl": "/apps/oauth/scopes",
+      "method": "GET",
+      "queryParams": {
+        "app_type": "app_type"
+      }
+    },
+    "inputSchema": {
+      "type": "object",
+      "properties": {
+        "app_type": {
+          "type": "string",
+          "description": "Type of app. This decides the type of scopes to be returned. If app_type is 'stack', return scopes for stack app. If app_type is 'organization', return scopes for organization app.",
+          "enum": ["stack", "organization"],
+          "optional": true
+        }
+      }
+    },
+    "group": "developerhub",
+    "scopes": ["app.manifest:read"],
+    "x-enrich-group": "developerhub"
+  },
+  "create_an_app": {
+    "name": "create_an_app",
+    "description": "Creates a new Marketplace App in your organization. Marketplace Apps extend Contentstack functionality through custom integrations, UI extensions, webhooks, or automation. Specify name, description, target type (stack or organization), and initial configuration. Requires manage apps permission in the organization. Note: Do not automatically fetch existing apps; only retrieve them when explicitly requested.",
+    "mapper": {
+      "apiUrl": "/apps",
+      "method": "POST",
+      "type": "object",
+      "body": "data"
+    },
+    "inputSchema": {
+      "type": "object",
+      "properties": {
+        "data": {
+          "type": "object",
+          "description": "App manifest for the new Marketplace App. Provide 'name' (required) and optionally 'description', 'target_type' (stack or organization; defaults to stack and cannot be changed later), and 'group'.",
+          "required": ["name"],
+          "properties": {
+            "name": {
+              "type": "string",
+              "description": "Name for the app (minimum 3 characters, maximum 20 characters, must be unique)"
+            },
+            "description": {
+              "type": "string",
+              "description": "Description for the app (maximum 2000 characters)",
+              "optional": true
+            },
+            "target_type": {
+              "type": "string",
+              "description": "Target type for the app deployment. This decides where the app will be installed, inside stack or inside organization. If installed within stack app can access only that stack, if installed within organization it can access all stacks inside that organization.",
+              "enum": ["stack", "organization"],
+              "default": "stack"
+            },
+            "group": {
+              "type": "string",
+              "description": "This will always be user.",
+              "enum": ["user"],
+              "default": "user"
+            }
+          }
+        }
+      }
+    },
+    "group": "developerhub",
+    "scopes": ["app.manifest:write"],
+    "x-enrich-group": "developerhub"
+  },
+  "update_app_oauth": {
+    "name": "update_app_oauth",
+    "description": "Oauth is used to securely access Contentstack's API in OFFLINE mode using OAuth 2.0. IMPORTANT: Please call get_app_oauth tool to get the current OAuth details of the app before updating.",
+    "mapper": {
+      "apiUrl": "/apps/app_uid/oauth",
+      "method": "PUT",
+      "type": "object",
+      "params": {
+        "app_uid": "app_uid"
+      },
+      "body": "data"
+    },
+    "inputSchema": {
+      "type": "object",
+      "required": ["app_uid", "data"],
+      "properties": {
+        "app_uid": {
+          "type": "string",
+          "description": "Select an app to update. You can get the app uid from the get_all_apps tool."
+        },
+        "data": {
+          "type": "object",
+          "description": "OAuth configuration for the app. Oauth is used to securely access Contentstack's API in OFFLINE mode using OAuth 2.0.",
+          "required": ["redirect_uri", "user_token_config", "app_token_config"],
+          "properties": {
+            "redirect_uri": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              },
+              "description": "Array of OAuth redirect URIs. IMPORTANT : Please provide at least one redirect URI."
+            },
+            "user_token_config": {
+              "type": "object",
+              "description": "User token configuration for the app. The User Token is associated with the users who authorized it. The scope of a user token differs from that of an app token.",
+              "required": ["enabled", "scopes"],
+              "properties": {
+                "enabled": {
+                  "type": "boolean",
+                  "description": "If scopes are provided, enable user token issuance. If no scopes are provided, disable user token issuance."
+                },
+                "scopes": {
+                  "type": "array",
+                  "items": {
+                    "type": "string"
+                  },
+                  "description": "Ask user to select scopes, if not provided in requirements. Get list of scopes from get_oauth_scopes without any parameters."
+                },
+                "allow_pkce": {
+                  "type": "boolean",
+                  "description": "Select if PKCE should be allowed for user tokens. Proof Key for Code Exchange (PKCE) is a security extension for OAuth 2.0 to avoid malicious attacks and perform a secure authorization flow. If no scopes are provided, disable PKCE."
+                }
+              }
+            },
+            "app_token_config": {
+              "type": "object",
+              "description": "App token configuration for the app. The App Token is associated with installed applications. The scope of an app token differs from that of a user token.",
+              "required": ["enabled", "scopes"],
+              "properties": {
+                "enabled": {
+                  "type": "boolean",
+                  "description": "If scopes are provided, enable app token issuance. If no scopes are provided, disable app token issuance."
+                },
+                "scopes": {
+                  "type": "array",
+                  "items": {
+                    "type": "string"
+                  },
+                  "description": "Ask user to select scopes, if not provided in requirements. Get list of scopes from get_oauth_scopes by passing app_type which will be same as target_type of the app from get_an_app tool."
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "group": "developerhub",
+    "scopes": ["app.manifest:write"],
+    "x-enrich-group": "developerhub"
+  },
+  "update_an_app": {
+    "name": "update_an_app",
+    "description": "Updates an existing Marketplace App's configuration including name, description, advanced settings, UI locations, webhooks, or other properties. Requires manage apps permission in the organization. IMPORTANT: Provide complete app properties in the request body. First fetch the current app configuration using get_an_app with include_oauth=true, modify the desired fields, then submit the full updated configuration.",
+    "mapper": {
+      "apiUrl": "/apps/app_uid",
+      "method": "PUT",
+      "type": "object",
+      "params": {
+        "app_uid": "app_uid"
+      },
+      "body": "data"
+    },
+    "inputSchema": {
+      "type": "object",
+      "required": ["app_uid", "data"],
+      "properties": {
+        "app_uid": {
+          "type": "string",
+          "description": "Select an app to update. You can get the app uid from the get_all_apps tool."
+        },
+        "data": {
+          "type": "object",
+          "description": "Full app manifest to update. Contains the complete, updated app configuration: any of 'name', 'description', 'advanced_settings', 'webhook', 'ui_location', and 'hosting'. Fetch the current app with get_an_app first, modify the required fields, then submit the whole object. Note: 'target_type' is immutable and cannot be updated here; OAuth is managed separately via update_app_oauth.",
+          "properties": {
+            "name": {
+              "optional": true,
+              "type": "string",
+              "description": "Name for the app (minimum 3 characters, maximum 20 characters, must be unique)"
+            },
+            "description": {
+              "type": "string",
+              "description": "Description for the app (maximum 2000 characters)",
+              "optional": true
+            },
+            "advanced_settings": {
+              "optional": true,
+              "type": "object",
+              "description": "Advanced settings is required when app needs to securely call EXTERNAL apis using app sdk api method. It can also inject variables and server configuration (through mappings) into external api calls without exposing them in app frontend. IMPORTANT: This is recommended when user wants to access third party APIS from contentstack app.",
+              "properties": {
+                "variables": {
+                  "type": "object",
+                  "description": "Key (uppercase, separated by _) - Value (Secret value which is same for all installations of app and provided by app developer) pairs which can be inserted in external api body, headers, query params etc using app sdk.",
+                  "optional": true
+                },
+                "mappings": {
+                  "type": "object",
+                  "description": "Key (uppercase, separated by _) - Value (Path to a value in server configuration) pairs which can be inserted in external api body, headers, query params etc using app sdk. This is needed when app needs to have a secret whose value is installation specific and will be provided by user after installing the app.",
+                  "optional": true
+                },
+                "rewrites": {
+                  "type": "array",
+                  "description": "Rewrite is source-destination mapping to call external apis with secret injection. (IMPORTANT: Please refer to https://www.contentstack.com/docs/developers/developer-hub/app-manifest#advanced-settings-optional for more details) ",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "source": {
+                        "type": "string",
+                        "description": "We should defined path-to-regexp format rules to match incoming request. This should only contain relative url."
+                      },
+                      "destination": {
+                        "type": "string",
+                        "description": "We should define destination url to call external api. This should be absolute url and can use path-to-regexp parameters defined in source."
+                      }
+                    }
+                  }
+                }
+              }
+            },
+            "webhook": {
+              "optional": true,
+              "required": ["target_url", "channels"],
+              "type": "object",
+              "description": "Webhooks provide a mechanism to send real-time information to any third-party app or service. When an event occurs in your app, you can enable webhooks to notify other apps. Read more about webhook configuration here https://www.contentstack.com/docs/developers/developer-hub/managing-webhooks-in-an-app.",
+              "properties": {
+                "signed": {
+                  "type": "boolean",
+                  "description": "Whether webhook requests should be signed. When nothing specified, make it false.",
+                  "default": false
+                },
+                "enabled": {
+                  "type": "boolean",
+                  "description": "When webhook creation is requested, make it true. When nothing specified, make it false.",
+                  "default": true
+                },
+                "target_url": {
+                  "type": "string",
+                  "description": "Provide a PUBLIC webhook endpoint URL. MCP MUST explicitly ask the user for this value. Localhost, 127.0.0.1, 0.0.0.0, and *.local domains are not allowed.",
+                  "pattern": "^(https?:\\/\\/(?!localhost)(?!127\\.0\\.0\\.1)(?!0\\.0\\.0\\.0)(?!.*\\.local).+)$"
+                },
+                "http_basic_auth": {
+                  "type": "string",
+                  "description": "HTTP basic auth username (optional)."
+                },
+                "http_basic_password": {
+                  "type": "string",
+                  "description": "HTTP basic auth password (required if http_basic_auth is set)."
+                },
+                "custom_headers": {
+                  "type": "array",
+                  "description": "Optional custom headers to include in webhook requests.",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "header_name": {
+                        "type": "string",
+                        "description": "Name of the header that will be included in the webhook request."
+                      },
+                      "value": {
+                        "type": "string",
+                        "description": "Value of the header that will be included in the webhook request."
+                      }
+                    }
+                  }
+                },
+                "branch_scope": {
+                  "type": "string",
+                  "description": "Branch(es) for which this webhook should be applicable.",
+                  "enum": ["$all", "main"]
+                },
+                "channels": {
+                  "type": "array",
+                  "description": "Event channels for which this webhook should be triggered. You can subscribe to multiple channels to receive notifications for different events.",
+                  "items": {
+                    "type": "string",
+                    "enum": [
+                      "branch_alias.assigned",
+                      "branch_alias.unassigned",
+                      "content_types.entries.create",
+                      "content_types.entries.update",
+                      "content_types.entries.delete",
+                      "content_types.entries.environments.publish.success",
+                      "content_types.entries.environments.unpublish.success",
+                      "branch.create.initiated",
+                      "branch.create.completed",
+                      "branch.delete.initiated",
+                      "branch.delete.completed",
+                      "content_types.create",
+                      "content_types.update",
+                      "content_types.delete",
+                      "assets.create",
+                      "assets.update",
+                      "assets.delete",
+                      "assets.environments.publish.success",
+                      "assets.environments.unpublish.success",
+                      "global_fields.delete",
+                      "global_fields.update",
+                      "global_fields.create",
+                      "releases.environments.deploy",
+                      "cs.apps.installations.install",
+                      "cs.apps.installations.update",
+                      "cs.apps.installations.upgrade",
+                      "cs.apps.installations.uninstall"
+                    ]
+                  },
+                  "minItems": 1
+                },
+                "notifiers": {
+                  "type": "array",
+                  "description": "Emails to notify on webhook failures. Email for these users will be sent whenever circuit breaker (https://www.contentstack.com/docs/developers/set-up-webhooks/webhook-circuit-breaker) will be triggered.",
+                  "items": {
+                    "type": "string"
+                  }
+                }
+              }
+            },
+            "ui_location": {
+              "optional": true,
+              "required": ["base_url", "locations"],
+              "type": "object",
+              "description": "UI Location defines where your app appears inside the Contentstack UI (e.g., entry sidebar, full page, custom field, etc.) — it tells the system where to render your app’s interface for editors.",
+              "properties": {
+                "base_url": {
+                  "type": "string",
+                  "description": "Base URL for loading app UI (must be http/https). Should be same as the hosting URL if hosting configuration is provided."
+                },
+                "permissions": {
+                  "type": "array",
+                  "description": "App permissions are used to securely access Contentstack's API in ONLINE mode. This will be used when your apps load on a UI Location is contentstack. Select list of permissions. IMPORTANT: This is recommeded when user wants to accesss contentstack apis. Ask user to select permissions, if not provided in requirements. Get list of permissions from get_oauth_scopes without any parameters.",
+                  "items": {
+                    "type": "string"
+                  }
+                },
+                "locations": {
+                  "type": "array",
+                  "description": "List of locations where app UI is embedded. **The 'type' property in each object must be unique across the array.** Multiple configurations (meta) for the same location type can be provided within the corresponding 'meta' array.",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "type": {
+                        "type": "string",
+                        "description": "App location identifier. **This value must be unique across all locations in this array.** Ask user to select location, if not provided in requirements.",
+                        "enum": [
+                          "cs.cm.stack.config",
+                          "cs.cm.stack.dashboard",
+                          "cs.cm.stack.sidebar",
+                          "cs.cm.stack.custom_field",
+                          "cs.cm.stack.rte",
+                          "cs.cm.stack.asset_sidebar",
+                          "cs.cm.stack.field_modifier",
+                          "cs.org.config",
+                          "cs.org.global_full_page",
+                          "cs.cm.stack.full_page",
+                          "cs.cm.stack.content_type_sidebar"
+                        ],
+                        "x-enumDescriptions": {
+                          "cs.cm.stack.config": "App configuration screen inside the Stack Settings — used to manage app credentials or setup options.",
+                          "cs.cm.stack.dashboard": "Displays widgets or dashboards on the Stack home page for analytics, reports, or quick actions.",
+                          "cs.cm.stack.sidebar": "Adds a sidebar panel in the Entry editor for managing or enriching entries — used for entry-specific tools like preview, translation, review helpers or contextual actions.",
+                          "cs.cm.stack.custom_field": "Adds a custom field widget that editors can insert into content types for specialized inputs.",
+                          "cs.cm.stack.rte": "Integrates custom plugins or buttons inside the Rich Text Editor for formatting or embedding content.",
+                          "cs.cm.stack.asset_sidebar": "Adds a sidebar panel in the Asset browser for managing or enriching assets such as metadata or AI tags.",
+                          "cs.cm.stack.field_modifier": "Enhances or transforms existing field values (e.g., AI text suggestions, image optimizers). Supports allowed_types property.",
+                          "cs.org.config": "App configuration screen inside the Organization Settings — used to manage app credentials or setup options. Should be used only when target type is organization.",
+                          "cs.org.global_full_page": "Adds a full-page app visible in an organization's global dashboard — useful for global dashboards or admin tools. Should be used only when target type is organization.",
+                          "cs.cm.stack.full_page": "Creates a full-page app within a single stack (appears in left navigation). Ideal for dedicated workflows or dashboards.",
+                          "cs.cm.stack.content_type_sidebar": "Adds an app panel in the Content Type builder sidebar for schema management or automation tools."
+                        }
+                      },
+                      "meta": {
+                        "type": "array",
+                        "description": "Per-location extension definitions.",
+                        "items": {
+                          "type": "object",
+                          "properties": {
+                            "uid": {
+                              "type": "string",
+                              "description": "This is unique identifier for the location. This is used to identify if this is new location or an existing location. Existing location uid can be found in response of get_an_app tool. If it is not present there then do not pass this parameter."
+                            },
+                            "name": {
+                              "type": "string",
+                              "description": "Specifies the name of the UI location. This name will be displayed at the location after the app is installed. If not provided, the app name will be used. Ensure unique names for multiple configurations of the same location."
+                            },
+                            "description": {
+                              "type": "string",
+                              "description": "Provides a brief description of the location's purpose or functionality",
+                              "optional": true
+                            },
+                            "path": {
+                              "type": "string",
+                              "description": "Enables you to define the location relative to the base URL where the app is hosted. This is particularly useful when the developer intends the app to appear in multiple locations."
+                            },
+                            "icon": {
+                              "type": "string",
+                              "description": "Optional SVG or base64 icon for the app.",
+                              "x-applyTo": [
+                                "cs.cm.stack.full_page",
+                                "cs.org.global_full_page"
+                              ]
+                            },
+                            "signed": {
+                              "type": "boolean",
+                              "description": "When enabled, Contentstack adds a JWT token to the initial HTTP request made for your app's first page. This token can be used to verify that the request originated from Contentstack. For more information, please refer to Signed Locations (https://www.contentstack.com/docs/developers/developer-hub/securing-your-app). When nothing specified, make it false.",
+                              "default": false
+                            },
+                            "required": {
+                              "type": "boolean",
+                              "description": "Whether this field/location is mandatory.",
+                              "x-applyTo": [
+                                "cs.cm.stack.custom_field",
+                                "cs.cm.stack.config",
+                                "cs.org.config"
+                              ]
+                            },
+                            "multiple": {
+                              "type": "boolean",
+                              "description": "Whether multiple values are allowed for this field.",
+                              "x-applyTo": ["cs.cm.stack.custom_field"]
+                            },
+                            "data_type": {
+                              "type": "string",
+                              "description": "Data type accepted by the custom field.",
+                              "enum": [
+                                "text",
+                                "number",
+                                "isodate",
+                                "boolean",
+                                "json",
+                                "reference",
+                                "file",
+                                "asset"
+                              ],
+                              "x-applyTo": ["cs.cm.stack.custom_field"]
+                            },
+                            "default_width": {
+                              "type": "string",
+                              "description": "Default width of the dashboard widget.",
+                              "enum": ["full", "half"],
+                              "x-applyTo": ["cs.cm.stack.dashboard"]
+                            },
+                            "width": {
+                              "type": "number",
+                              "description": "Width of sidebar panel (335 to 1024).",
+                              "x-applyTo": ["cs.cm.stack.asset_sidebar"]
+                            },
+                            "blur": {
+                              "type": "boolean",
+                              "description": "Dim background when sidebar is open.",
+                              "x-applyTo": ["cs.cm.stack.asset_sidebar"]
+                            },
+                            "allowed_types": {
+                              "type": "array",
+                              "items": {
+                                "type": "string",
+                                "enum": [
+                                  "$all",
+                                  "text",
+                                  "number",
+                                  "isodate",
+                                  "boolean",
+                                  "json",
+                                  "reference",
+                                  "file",
+                                  "link",
+                                  "tags"
+                                ]
+                              },
+                              "description": "Allowed field types for field modifier.",
+                              "x-applyTo": ["cs.cm.stack.field_modifier"]
+                            },
+                            "enabled": {
+                              "type": "boolean",
+                              "description": "Determines whether the location is visible after the app installation. If not specified, the location is enabled by default. Users can manage this option post-installation via the UI Locations tab on the app's configuration screen.",
+                              "default": true
+                            }
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            },
+            "hosting": {
+              "type": "object",
+              "optional": true,
+              "required": ["provider", "deployment_url"],
+              "description": "Configuration for app hosting. IMPORTANT: For the 'launch' provider, don't populate hosting in request. For the 'external' provider, include 'provider' and 'deployment_url'.",
+              "properties": {
+                "provider": {
+                  "type": "string",
+                  "enum": ["launch", "external"],
+                  "description": "The hosting provider. If 'launch' is chosen, after the app is created, inform the user that they need to go to the Developer Hub to configure hosting."
+                },
+                "deployment_url": {
+                  "type": "string",
+                  "description": "This is the url where your app is hosted. This url will be used to access your app. For external provider this will be the url where your app is hosted. For launch provider this will be automatically populated once user chooses project from Dropodown. So please ask user to go on contentstack platform Developer Hub and set hosting manually as next step."
+                },
+                "environment_uid": {
+                  "type": "string",
+                  "description": "Launch environment UID (required if provider=launch)."
+                },
+                "project_uid": {
+                  "type": "string",
+                  "description": "Launch project UID (required if provider=launch)."
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "group": "developerhub",
+    "scopes": ["app.manifest:write"],
+    "x-enrich-group": "developerhub"
+  },
+  "delete_an_app": {
+    "name": "delete_an_app",
+    "description": "Permanently deletes a Marketplace App from your organization. This removes the app configuration and prevents new installations. DANGEROUS: This action is irreversible. The tool will fail if the app is currently installed in any stack - uninstall from all stacks first. Requires manage apps permission. Always confirm with the user before executing this destructive operation.",
+    "mapper": {
+      "apiUrl": "/apps/app_uid",
+      "method": "DELETE",
+      "params": {
+        "app_uid": "app_uid"
+      }
+    },
+    "inputSchema": {
+      "type": "object",
+      "required": ["app_uid"],
+      "properties": {
+        "app_uid": {
+          "type": "string",
+          "description": "Select an app to delete. You can get the app uid from the get_all_apps tool."
+        }
+      }
+    },
+    "group": "developerhub",
+    "scopes": ["app.manifest:write"],
+    "x-enrich-group": "developerhub"
+  },
+  "install_an_app": {
+    "name": "install_an_app",
+    "description": "Installs a Marketplace App into a target stack or organization, activating its functionality and features. The installation scope (stack or organization-level) must match the app's target type. Provide installation-specific configuration and server settings during installation. Requires app installation permission in the target stack or organization. After installation, the app can access APIs, display UI extensions, or perform automation within the specified scope.",
+    "mapper": {
+      "apiUrl": "/apps/app_uid/install",
+      "method": "POST",
+      "params": {
+        "app_uid": "app_uid"
+      },
+      "type": "object",
+      "body": "data"
+    },
+    "inputSchema": {
+      "type": "object",
+      "required": ["app_uid", "data"],
+      "properties": {
+        "app_uid": {
+          "type": "string",
+          "description": "Select an app to install. You can get the app uid and app name from the get_all_apps tool."
+        },
+        "data": {
+          "type": "object",
+          "description": "Installation payload. Provide 'target_type' (must match the app's target type: stack or organization) and 'target_uid' identifying where to install the app.",
+          "required": ["target_type", "target_uid"],
+          "properties": {
+            "target_type": {
+              "type": "string",
+              "description": "Get target type from app selected for installation."
+            },
+            "target_uid": {
+              "type": "string",
+              "description": "Please ask user to provide target uid. For stack target type, ask to enter stack api key. For organization target type, ask to enter organization uid."
+            }
+          }
+        }
+      }
+    },
+    "group": "developerhub",
+    "scopes": ["app.installations.management:write"],
+    "x-enrich-group": "developerhub"
+  },
+  "update_an_app_installation": {
+    "name": "update_an_app_installation",
+    "description": "This tool updates a specified app installation in a specified stack or organization. User who is requesting this tool should have permission to update app installations in the specified stack or organization.",
+    "mapper": {
+      "apiUrl": "/apps/app_uid/reinstall",
+      "method": "POST",
+      "params": {
+        "app_uid": "app_uid"
+      },
+      "type": "object",
+      "body": "data"
+    },
+    "inputSchema": {
+      "type": "object",
+      "required": ["app_uid", "data"],
+      "properties": {
+        "app_uid": {
+          "type": "string",
+          "description": "Select an app to install. You can get the app uid and app name from the get_all_apps tool."
+        },
+        "data": {
+          "type": "object",
+          "description": "Reinstall payload used to update the existing installation (e.g. to the latest app version). Provide 'target_type' (stack or organization, matching the app) and 'target_uid' identifying the installation's stack or organization.",
+          "required": ["target_type", "target_uid"],
+          "properties": {
+            "target_type": {
+              "type": "string",
+              "description": "Get target type from app selected for installation."
+            },
+            "target_uid": {
+              "type": "string",
+              "description": "Please ask user to provide target uid. For stack target type, ask to enter stack api key. For organization target type, ask to enter organization uid."
+            }
+          }
+        }
+      }
+    },
+    "group": "developerhub",
+    "scopes": ["app.installations.management:write"],
+    "x-enrich-group": "developerhub"
+  },
+  "get_app_installations": {
+    "name": "get_app_installations",
+    "description": "Retrieves all installations of a specific Marketplace App across your organization, showing which stacks or organizations have the app deployed. Returns installation details including configuration, server settings, installation UID, and metadata for each deployment. Essential for app usage tracking, configuration management, or identifying where apps are active. Requires permission to read app installations.",
+    "mapper": {
+      "apiUrl": "/apps/app_uid/installations",
+      "method": "GET",
+      "params": {
+        "app_uid": "app_uid"
+      }
+    },
+    "inputSchema": {
+      "type": "object",
+      "required": ["app_uid"],
+      "properties": {
+        "app_uid": {
+          "type": "string",
+          "description": "Select an app to retrieve installations for. You can get the app uid from the get_all_apps tool."
+        }
+      }
+    },
+    "group": "developerhub",
+    "scopes": ["app.installations:read", "app.manifest:read"],
+    "x-enrich-group": "developerhub"
+  },
+  "uninstall_an_app": {
+    "name": "uninstall_an_app",
+    "description": "Uninstalls a Marketplace App from a target stack or organization, deactivating its functionality and removing its access to APIs and data. Cleans up app-related configurations, UI extensions, webhooks, and integrations. Use this to revoke app access, clean up unused integrations, or prepare for app migration. Requires app uninstallation permission in the target stack or organization.",
+    "mapper": {
+      "apiUrl": "/installations/installation_uid",
+      "method": "DELETE",
+      "params": {
+        "installation_uid": "installation_uid"
+      }
+    },
+    "inputSchema": {
+      "type": "object",
+      "required": ["installation_uid"],
+      "properties": {
+        "installation_uid": {
+          "type": "string",
+          "description": "Select an installation to uninstall. You can get the installation uid from the get_app_installations tool."
+        }
+      }
+    },
+    "group": "developerhub",
+    "scopes": ["app.installations.management:write"],
+    "x-enrich-group": "developerhub"
+  }
+}

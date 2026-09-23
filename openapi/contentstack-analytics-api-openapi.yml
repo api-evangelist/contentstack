@@ -1,7 +1,7 @@
 openapi: 3.2.0
 info:
   title: Contentstack Launch Analytics API
-  description: The Contentstack Launch API allows developers to programmatically manage web application deployments within Contentstack Launch. It supports full lifecycle management of Launch projects, environments, and deployments, including creating deployments from uploaded build artifacts, monitoring deployment logs, revalidating CDN caches, and retrieving signed upload URLs for build file transfers. The API is designed for CI/CD integration and enables automated deployment workflows for front-end applications connected to Contentstack stacks.
+  description: The Contentstack Launch API allows developers to programmatically manage web application deployments within Contentstack Launch.
   version: v1
   contact:
     name: Contentstack Support
@@ -43,6 +43,16 @@ paths:
           $ref: '#/components/responses/Unauthorized'
 components:
   schemas:
+    Error:
+      type: object
+      description: Standard error response.
+      properties:
+        message:
+          type: string
+          description: Human-readable description of the error.
+        error_code:
+          type: integer
+          description: Numeric error code.
     CacheUsage:
       type: object
       description: Cache revalidation usage metrics for the organization.
@@ -61,16 +71,6 @@ components:
           type: string
           format: date-time
           description: End of the current usage period.
-    Error:
-      type: object
-      description: Standard error response.
-      properties:
-        message:
-          type: string
-          description: Human-readable description of the error.
-        error_code:
-          type: integer
-          description: Numeric error code.
   responses:
     Unauthorized:
       description: Authentication credentials are missing or invalid.

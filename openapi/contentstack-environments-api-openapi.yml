@@ -251,16 +251,55 @@ paths:
     - url: https://azure-eu-launch-api.contentstack.com
       description: Azure Europe Production Server
 components:
+  parameters:
+    AuthToken:
+      name: authtoken
+      in: header
+      required: false
+      description: User session token for authentication. Required if not using management token.
+      schema:
+        type: string
+    StackApiKey:
+      name: api_key
+      in: header
+      required: true
+      description: The API key identifying the Contentstack stack.
+      schema:
+        type: string
+    EnvUid:
+      name: env_uid
+      in: path
+      required: true
+      description: The unique identifier of the deployment environment.
+      schema:
+        type: string
+    ProjectUid:
+      name: project_uid
+      in: path
+      required: true
+      description: The unique identifier of the Launch project.
+      schema:
+        type: string
+  responses:
+    Unauthorized:
+      description: Authentication credentials are missing or invalid.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    BadRequest:
+      description: The request is malformed or contains invalid parameters.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error_2'
+    NotFound:
+      description: The requested resource was not found.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error_2'
   schemas:
-    EnvironmentList:
-      type: object
-      description: A list of deployment environments.
-      properties:
-        environments:
-          type: array
-          description: Array of environment objects.
-          items:
-            $ref: '#/components/schemas/Environment'
     Environment:
       type: object
       description: A deployment environment for publishing content.
@@ -288,6 +327,15 @@ components:
           type: string
           format: date-time
           description: ISO 8601 timestamp when the environment was created.
+    EnvironmentList:
+      type: object
+      description: A list of deployment environments.
+      properties:
+        environments:
+          type: array
+          description: Array of environment objects.
+          items:
+            $ref: '#/components/schemas/Environment'
     Error:
       type: object
       description: Standard error response.
@@ -356,54 +404,6 @@ components:
         error_code:
           type: integer
           description: Numeric error code.
-  responses:
-    Unauthorized:
-      description: Authentication credentials are missing or invalid.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
-    NotFound:
-      description: The requested resource was not found.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error_2'
-    BadRequest:
-      description: The request is malformed or contains invalid parameters.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error_2'
-  parameters:
-    StackApiKey:
-      name: api_key
-      in: header
-      required: true
-      description: The API key identifying the Contentstack stack.
-      schema:
-        type: string
-    AuthToken:
-      name: authtoken
-      in: header
-      required: false
-      description: User session token for authentication. Required if not using management token.
-      schema:
-        type: string
-    ProjectUid:
-      name: project_uid
-      in: path
-      required: true
-      description: The unique identifier of the Launch project.
-      schema:
-        type: string
-    EnvUid:
-      name: env_uid
-      in: path
-      required: true
-      description: The unique identifier of the deployment environment.
-      schema:
-        type: string
   securitySchemes:
     authtokenAuth:
       type: apiKey

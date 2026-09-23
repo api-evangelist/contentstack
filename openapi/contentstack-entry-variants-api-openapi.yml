@@ -1,7 +1,7 @@
 openapi: 3.2.0
 info:
   title: Contentstack Content Delivery Entry Variants API
-  description: The Contentstack Content Delivery API (CDA) allows developers to retrieve published content from their Contentstack stacks and deliver it to web or mobile applications. It supports fetching entries, assets, content types, and global fields through REST endpoints using stack API keys and delivery tokens for authentication. The API is read-only and optimized for high-performance content retrieval at scale. It supports filtering, sorting, pagination, localization, and synchronization, making it suitable for building localized, multi-channel digital experiences.
+  description: The Contentstack Content Delivery API (CDA) allows developers to retrieve published content from their Contentstack stacks and deliver it to web or mobile applications.
   version: v3
   contact:
     name: Contentstack Support
@@ -69,19 +69,25 @@ paths:
         '404':
           $ref: '#/components/responses/NotFound'
 components:
+  responses:
+    Unauthorized:
+      description: Authentication credentials are missing or invalid.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    NotFound:
+      description: The requested resource was not found.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
   parameters:
-    VariantUid:
-      name: variant_uid
-      in: path
-      required: true
-      description: The unique identifier (UID) of the entry variant.
-      schema:
-        type: string
-    ApiKey:
-      name: api_key
+    AccessToken:
+      name: access_token
       in: header
       required: true
-      description: The API key for the Contentstack stack.
+      description: The delivery token for the stack environment.
       schema:
         type: string
     EntryUid:
@@ -98,23 +104,21 @@ components:
       description: The unique identifier (UID) of the content type.
       schema:
         type: string
-    AccessToken:
-      name: access_token
+    VariantUid:
+      name: variant_uid
+      in: path
+      required: true
+      description: The unique identifier (UID) of the entry variant.
+      schema:
+        type: string
+    ApiKey:
+      name: api_key
       in: header
       required: true
-      description: The delivery token for the stack environment.
+      description: The API key for the Contentstack stack.
       schema:
         type: string
   schemas:
-    EntryVariantList:
-      type: object
-      description: A list of personalization variants for an entry.
-      properties:
-        entries:
-          type: array
-          description: Array of entry variant objects.
-          items:
-            $ref: '#/components/schemas/EntryVariant'
     EntryVariant:
       type: object
       description: A personalization variant of a content entry.
@@ -128,6 +132,15 @@ components:
         locale:
           type: string
           description: The locale code of the entry variant.
+    EntryVariantList:
+      type: object
+      description: A list of personalization variants for an entry.
+      properties:
+        entries:
+          type: array
+          description: Array of entry variant objects.
+          items:
+            $ref: '#/components/schemas/EntryVariant'
     Error:
       type: object
       description: Standard error response returned by the API.
@@ -141,19 +154,6 @@ components:
         errors:
           type: object
           description: Field-level validation errors when applicable.
-  responses:
-    Unauthorized:
-      description: Authentication credentials are missing or invalid.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
-    NotFound:
-      description: The requested resource was not found.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
   securitySchemes:
     apiKey:
       type: apiKey

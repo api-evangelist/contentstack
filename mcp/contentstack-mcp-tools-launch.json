@@ -1,0 +1,1170 @@
+{
+  "get_environments": {
+    "name": "get_environments",
+    "description": "Retrieves environment configurations with comprehensive details including build settings, deployment information, password protection, and recent commits using cursor-based pagination. Returns empty commits if the project was created by file upload and not connected to GitHub. Includes cursor values for efficient pagination through large datasets.",
+    "mapper": {
+      "method": "POST",
+      "type": "graphql",
+      "apiUrl": "/graphql",
+      "query": "query Environment($first: Float, $after: String, $commitsFirst2: Float, $commitsAfter2: String) {\n  Environments(first: $first, after: $after) {\n    edges {\n      node {\n        name\n        uid\n        project\n        frameworkPreset\n        gitBranch\n        organizationUid\n        outputDirectory\n        serverCommand\n        updatedAt\n        updatedBy\n        isProduction\n        createdBy\n        createdAt\n        autoDeployOnPush\n        buildCommand\n        description\n        hasLyticsEnabled\n        passwordProtection {\n          isEnabled\n          password\n          username\n        }\n        commits(first: $commitsFirst2, after: $commitsAfter2) {\n          edges {\n            node {\n              author {\n                name\n                date\n              }\n              message\n              sha\n              url\n            }\n            cursor\n          }\n        }\n      }\n      cursor\n    }\n  }\n}",
+      "variables": {
+        "first": {
+          "type": "number",
+          "x-mapFrom": "first"
+        },
+        "after": {
+          "type": "string",
+          "x-mapFrom": "after"
+        },
+        "commitsFirst2": {
+          "type": "number",
+          "x-mapFrom": "commitsFirst"
+        },
+        "commitsAfter2": {
+          "type": "string",
+          "x-mapFrom": "commitsAfter"
+        }
+      }
+    },
+    "inputSchema": {
+      "type": "object",
+      "properties": {
+        "first": {
+          "type": "number",
+          "description": "Number of environments to fetch from the current position (e.g., first: 10 for the next 10 environments). Used for forward pagination through environments list.",
+          "minimum": 1,
+          "maximum": 50,
+          "default": 5
+        },
+        "after": {
+          "type": "string",
+          "description": "Cursor position to start fetching environments from. Use the 'cursor' value from the last environment in a previous query to get the next page. Omit this parameter to start from the beginning."
+        },
+        "commitsFirst": {
+          "type": "number",
+          "description": "Number of commits to fetch for each environment starting from the most recent (e.g., commitsFirst: 10 for the 10 most recent commits). Will return empty if the project is not connected to GitHub.",
+          "minimum": 1,
+          "maximum": 50,
+          "default": 5
+        },
+        "commitsAfter": {
+          "type": "string",
+          "description": "Cursor position to start fetching commits from for each environment. Use the 'cursor' value from the last commit in a previous query to get older commits. Omit this parameter to start from the most recent commits."
+        }
+      }
+    },
+    "group": "launch",
+    "scopes": ["launch.projects:read"],
+    "notes": [
+      "Each environment and commit edge includes a 'cursor' field for precise pagination",
+      "Forward-only pagination using 'after' cursors provides better performance than offset-based pagination",
+      "Commits will be empty for projects created via file upload (not connected to Git repositories)",
+      "Use the cursor from the last item in the edges array to fetch the next page",
+      "Cursor values are opaque strings and should not be parsed or modified"
+    ],
+    "x-enrich-group": "launch"
+  },
+  "get_deploy_hooks": {
+    "name": "get_deploy_hooks",
+    "description": "Retrieves deploy hooks configurations with filtering capabilities using cursor-based pagination. Deploy hooks are automated triggers that initiate deployments when specific conditions are met, such as webhook calls or repository changes.",
+    "mapper": {
+      "method": "POST",
+      "type": "graphql",
+      "apiUrl": "/graphql",
+      "query": "query DeployHook($query: QueryDeployHooksInput!, $first: Float, $after: String) {\n  deployHooks(query: $query, first: $first, after: $after) {\n    edges {\n      cursor\n      node {\n        createdBy\n        environment\n        name\n        uid\n        updatedAt\n        updatedBy\n        url\n      }\n    }\n  }\n}",
+      "variables": {
+        "query": {
+          "type": "object",
+          "x-mapFrom": "query"
+        },
+        "first": {
+          "type": "number",
+          "x-mapFrom": "first"
+        },
+        "after": {
+          "type": "string",
+          "x-mapFrom": "after"
+        }
+      }
+    },
+    "inputSchema": {
+      "type": "object",
+      "required": ["query"],
+      "properties": {
+        "query": {
+          "type": "object",
+          "required": ["environment"],
+          "description": "Query filters to search for specific deploy hooks. This input object defines the search criteria such as environment ID.",
+          "properties": {
+            "environment": {
+              "type": "string",
+              "description": "Filter deploy hooks by environment UID"
+            }
+          }
+        },
+        "first": {
+          "type": "number",
+          "description": "Number of deploy hooks to fetch from the current position (e.g., first: 10 for the next 10 deploy hooks). Used for forward pagination through the deploy hooks list.",
+          "minimum": 1,
+          "maximum": 50,
+          "default": 5
+        },
+        "after": {
+          "type": "string",
+          "description": "Cursor position to start fetching deploy hooks from. Use the 'cursor' value from the last deploy hook in a previous query to get the next page. Omit this parameter to start from the beginning."
+        }
+      }
+    },
+    "group": "launch",
+    "scopes": ["launch.projects:read"],
+    "notes": [
+      "The 'query' parameter is required and must be an object containing filter criteria",
+      "Each deploy hook edge includes a 'cursor' field for precise pagination",
+      "Deploy hooks contain webhook URLs that can trigger automated deployments",
+      "The 'environment' field in the response contains the environment UID associated with the hook",
+      "Use cursor-based pagination for better performance with large datasets"
+    ],
+    "x-enrich-group": "launch"
+  },
+  "get_latest_live_deployment": {
+    "name": "get_latest_live_deployment",
+    "description": "Retrieves the most recent live deployment for a specified environment or project. Returns comprehensive deployment details including build configuration, Git information, deployment status, and performance metrics.",
+    "mapper": {
+      "method": "POST",
+      "type": "graphql",
+      "apiUrl": "/graphql",
+      "query": "query LatestLiveDeployment($query: QueryDeploymentsInput!) {\n  latestLiveDeployment(query: $query) {\n    buildCommand\n    commitHash\n    commitMessage\n    commitUrl\n    createdAt\n    deploymentNumber\n    deploymentUrl\n    durationInSeconds\n    environment\n    frameworkPreset\n    gitBranch\n    latest\n    outputDirectory\n    previewUrl\n    project\n    repositoryUrl\n    serverCommand\n    status\n    uid\n    updatedAt\n  }\n}",
+      "variables": {
+        "query": {
+          "type": "object",
+          "x-mapFrom": "query"
+        }
+      }
+    },
+    "inputSchema": {
+      "type": "object",
+      "required": ["query"],
+      "properties": {
+        "query": {
+          "type": "object",
+          "required": ["environment"],
+          "description": "Query parameters to identify the deployment to retrieve. Specify criteria such as environment ID.",
+          "properties": {
+            "environment": {
+              "type": "string",
+              "description": "Environment UID to get the latest live deployment for"
+            }
+          }
+        }
+      }
+    },
+    "group": "launch",
+    "scopes": ["launch.projects:read"],
+    "x-enrich-group": "launch"
+  },
+  "create_deploy_hook": {
+    "name": "create_deploy_hook",
+    "description": "Creates a new deploy hook for an environment. Deploy hooks are automated triggers that initiate deployments when called via webhook URL, enabling integration with CI/CD pipelines and external automation systems.",
+    "mapper": {
+      "method": "POST",
+      "type": "graphql",
+      "apiUrl": "/graphql",
+      "query": "mutation Mutation($deployHook: AddDeployHookInput!) {\n  addDeployHook(deployHook: $deployHook) {\n    url\n    updatedBy\n    updatedAt\n    uid\n    name\n    environment\n    createdBy\n  }\n}",
+      "variables": {
+        "deployHook": {
+          "type": "object",
+          "x-mapFrom": "deployHook"
+        }
+      }
+    },
+    "inputSchema": {
+      "type": "object",
+      "required": ["deployHook"],
+      "properties": {
+        "deployHook": {
+          "type": "object",
+          "description": "Deploy hook configuration object containing the environment and hook details",
+          "required": ["environmentUid", "name"],
+          "properties": {
+            "environmentUid": {
+              "type": "string",
+              "description": "Environment UID where the deploy hook will be created. This determines which environment will be deployed when the hook is triggered."
+            },
+            "name": {
+              "type": "string",
+              "description": "Human-readable name for the deploy hook. Use descriptive names to identify the purpose or source of deployments",
+              "maxLength": 100,
+              "pattern": "^[a-zA-Z0-9\\s\\-_]+$"
+            }
+          }
+        }
+      }
+    },
+    "group": "launch",
+    "scopes": ["launch.projects:write"],
+    "x-enrich-group": "launch"
+  },
+  "update_deploy_hook": {
+    "name": "update_deploy_hook",
+    "description": "Updates an existing deploy hook configuration. Allows modification of the deploy hook name and environment association while preserving the webhook URL and other metadata.",
+    "mapper": {
+      "method": "POST",
+      "type": "graphql",
+      "apiUrl": "/graphql",
+      "query": "mutation Mutation($deployHook: UpdateDeployHookInput!) {\n  updateDeployHook(deployHook: $deployHook) {\n    createdBy\n    environment\n    name\n    uid\n    updatedAt\n    updatedBy\n    url\n  }\n}",
+      "variables": {
+        "deployHook": {
+          "type": "object",
+          "x-mapFrom": "deployHook"
+        }
+      }
+    },
+    "inputSchema": {
+      "type": "object",
+      "required": ["deployHook"],
+      "properties": {
+        "deployHook": {
+          "type": "object",
+          "description": "Deploy hook update configuration containing the hook identifier and updated properties",
+          "required": ["deployHookUid", "environmentUid", "name"],
+          "properties": {
+            "deployHookUid": {
+              "type": "string",
+              "description": "Unique identifier of the deploy hook to update"
+            },
+            "environmentUid": {
+              "type": "string",
+              "description": "Environment UID of the deploy hook."
+            },
+            "name": {
+              "type": "string",
+              "description": "Updated name for the deploy hook",
+              "maxLength": 100,
+              "pattern": "^[a-zA-Z0-9\\s\\-_]+$"
+            }
+          }
+        }
+      }
+    },
+    "group": "launch",
+    "scopes": ["launch.projects:write"],
+    "x-enrich-group": "launch"
+  },
+  "delete_deploy_hook": {
+    "name": "delete_deploy_hook",
+    "description": "Deletes an existing deploy hook from an environment. This action permanently removes the deploy hook and disables its webhook URL, preventing future automated deployments through this hook.",
+    "mapper": {
+      "method": "POST",
+      "type": "graphql",
+      "apiUrl": "/graphql",
+      "query": "mutation DeleteDeployHook($deployHook: DeleteDeployHookInput!) {\n  deleteDeployHook(deployHook: $deployHook) {\n    createdBy\n    environment\n    name\n    uid\n    updatedAt\n    updatedBy\n    url\n  }\n}",
+      "variables": {
+        "deployHook": {
+          "type": "object",
+          "x-mapFrom": "deployHook"
+        }
+      }
+    },
+    "inputSchema": {
+      "type": "object",
+      "required": ["deployHook"],
+      "properties": {
+        "deployHook": {
+          "type": "object",
+          "description": "Deploy hook deletion configuration containing the hook identifier and environment context",
+          "required": ["deployHookUid", "environmentUid"],
+          "properties": {
+            "deployHookUid": {
+              "type": "string",
+              "description": "Unique identifier of the deploy hook to delete"
+            },
+            "environmentUid": {
+              "type": "string",
+              "description": "Environment UID that owns the deploy hook (required for authorization and validation)"
+            }
+          }
+        }
+      }
+    },
+    "group": "launch",
+    "scopes": ["launch.projects:write"],
+    "x-enrich-group": "launch"
+  },
+  "trigger_deploy_hook": {
+    "name": "trigger_deploy_hook",
+    "description": "Triggers an existing deploy hook for an environment. This allows for manual or automated re-deployments using the webhook URL associated with the hook.",
+    "mapper": {
+      "method": "POST",
+      "apiUrl": "/deploy/deploy_hook_uid",
+      "params": {
+        "deploy_hook_uid": "deploy_hook_uid"
+      }
+    },
+    "inputSchema": {
+      "type": "object",
+      "required": ["deploy_hook_uid"],
+      "properties": {
+        "deploy_hook_uid": {
+          "type": "string",
+          "description": "Unique identifier for the deploy hook to be triggered"
+        }
+      }
+    },
+    "group": "launch",
+    "scopes": ["launch.projects:write"],
+    "x-enrich-group": "launch"
+  },
+  "create_deployment": {
+    "name": "create_deployment",
+    "description": "Creates a new deployment for the specified environment. Initiates the build and deployment process using the latest commit from the environment's configured Git branch.",
+    "mapper": {
+      "method": "POST",
+      "type": "graphql",
+      "apiUrl": "/graphql",
+      "query": "mutation Mutation($deployment: CreateDeploymentInput!) {\n  createDeployment(deployment: $deployment) {\n    buildCommand\n    commitHash\n    commitMessage\n    commitUrl\n    createdAt\n    createdBy\n    deploymentNumber\n    deploymentUrl\n    environment\n    frameworkPreset\n    gitBranch\n    latest\n    outputDirectory\n    project\n    repositoryUrl\n    serverCommand\n    status\n    uid\n    updatedAt\n  }\n}",
+      "variables": {
+        "deployment": {
+          "type": "object",
+          "x-mapFrom": "deployment"
+        }
+      }
+    },
+    "inputSchema": {
+      "type": "object",
+      "required": ["deployment"],
+      "properties": {
+        "deployment": {
+          "type": "object",
+          "description": "Deployment configuration specifying the target environment and optional deployment parameters",
+          "required": ["environment"],
+          "properties": {
+            "environment": {
+              "type": "string",
+              "description": "Environment UID where the deployment will be created"
+            }
+          }
+        }
+      }
+    },
+    "group": "launch",
+    "scopes": ["launch.projects:write"],
+    "x-enrich-group": "launch"
+  },
+  "revalidate_cdn_cache": {
+    "name": "revalidate_cdn_cache",
+    "description": "Revalidates the CDN cache for an environment when content or configuration is modified. Prompts the CDN to fetch the latest content from the origin server, ensuring visitors see the most up-to-date version across all domains in the environment.",
+    "mapper": {
+      "method": "POST",
+      "type": "graphql",
+      "apiUrl": "/graphql",
+      "query": "mutation Mutation($revalidateCDNCache: RevalidateCDNCacheInput!) {\n  revalidateCDNCache(revalidateCDNCache: $revalidateCDNCache) {\n    autoDeployOnPush\n    buildCommand\n    createdAt\n    createdBy\n    description\n    frameworkPreset\n    gitBranch\n    isProduction\n    name\n    outputDirectory\n    project\n    serverCommand\n    uid\n    updatedAt\n    domains {\n      edges {\n        node {\n          url\n        }\n      }\n    }\n  }\n}",
+      "variables": {
+        "revalidateCDNCache": {
+          "type": "object",
+          "x-mapFrom": "revalidateCdnCache"
+        }
+      }
+    },
+    "inputSchema": {
+      "type": "object",
+      "required": ["revalidateCdnCache"],
+      "properties": {
+        "revalidateCdnCache": {
+          "type": "object",
+          "description": "CDN cache revalidation configuration. Always include environmentUid, then provide exactly one of cachePath, cacheTags, or hostnames to specify what to revalidate.",
+          "required": ["environmentUid"],
+          "properties": {
+            "environmentUid": {
+              "type": "string",
+              "description": "Environment UID where the CDN cache will be revalidated. This affects all domains associated with the environment."
+            },
+            "cachePath": {
+              "type": "object",
+              "description": "Revalidate by URL path. Use this OR cacheTags OR hostnames, not more than one.",
+              "required": ["path"],
+              "properties": {
+                "path": {
+                  "type": "string",
+                  "description": "URL path to revalidate (e.g., '/' for entire site, '/blog' for blog section, '/blog/my-post' for specific page). Path is applied across all domains in the environment."
+                },
+                "isPrefix": {
+                  "type": "boolean",
+                  "description": "Whether to revalidate nested paths under the specified path. Set to true to revalidate all URLs starting with the path (e.g., '/blog' revalidates '/blog/post1', '/blog/post2', etc.). Set to false to revalidate only the exact path.",
+                  "default": false
+                }
+              }
+            },
+            "cacheTags": {
+              "type": "array",
+              "description": "Revalidate all routes tagged with these cache tags. Use this OR cachePath OR hostnames.",
+              "items": {
+                "type": "string"
+              }
+            },
+            "hostnames": {
+              "type": "array",
+              "description": "Revalidate the cache for these specific hostnames (e.g., 'test.contentstackapps.com'). Use this OR cachePath OR cacheTags.",
+              "items": {
+                "type": "string"
+              }
+            }
+          }
+        }
+      }
+    },
+    "group": "launch",
+    "scopes": ["launch.projects:write"],
+    "x-enrich-group": "launch"
+  },
+  "get_all_projects": {
+    "name": "get_all_projects",
+    "description": "Fetches the list of all projects in your organization with pagination support. Returns project details including repository information, organization UID, and metadata.",
+    "mapper": {
+      "method": "GET",
+      "apiUrl": "/projects",
+      "queryParams": {
+        "skip": "skip",
+        "limit": "limit"
+      }
+    },
+    "inputSchema": {
+      "type": "object",
+      "properties": {
+        "skip": {
+          "type": "number",
+          "description": "Number of projects to skip in the output (e.g., skip: 2 to skip the first 2 projects)",
+          "minimum": 0
+        },
+        "limit": {
+          "type": "number",
+          "description": "Number of projects to return (between 0-100)",
+          "minimum": 0,
+          "maximum": 100,
+          "default": 10
+        }
+      }
+    },
+    "group": "launch",
+    "scopes": ["launch.projects:read"],
+    "x-enrich-group": "launch"
+  },
+  "create_a_project": {
+    "name": "create_a_project",
+    "description": "Creates a project in Launch using either a Git Provider or File Upload. For Git Provider: connect your GitHub/Bitbucket account and provide repository details. For File Upload: first get a signed upload URL, then upload your ZIP file (valid for 10 minutes).",
+    "mapper": {
+      "method": "POST",
+      "apiUrl": "/projects",
+      "body": "project_data"
+    },
+    "inputSchema": {
+      "type": "object",
+      "required": ["project_data"],
+      "properties": {
+        "project_data": {
+          "type": "object",
+          "description": "Project data",
+          "required": ["name", "environment", "projectType"],
+          "properties": {
+            "name": {
+              "type": "string",
+              "description": "Project name (maximum 200 characters)",
+              "maxLength": 200
+            },
+            "description": {
+              "type": "string",
+              "description": "Project description"
+            },
+            "projectType": {
+              "type": "string",
+              "enum": ["GITPROVIDER", "FILEUPLOAD"],
+              "description": "Type of project: GITPROVIDER for Git Provider (GitHub or Bitbucket) based projects or FILEUPLOAD for ZIP file uploads"
+            },
+            "environment": {
+              "type": "object",
+              "required": [
+                "name",
+                "outputDirectory",
+                "frameworkPreset",
+                "buildCommand"
+              ],
+              "description": "Initial environment configuration for the project. gitBranch is required for GITPROVIDER projects; FILEUPLOAD projects supply the build via fileUpload.uploadUid instead.",
+              "properties": {
+                "name": {
+                  "type": "string",
+                  "description": "Environment name"
+                },
+                "description": {
+                  "type": "string",
+                  "description": "Environment description"
+                },
+                "outputDirectory": {
+                  "type": "string",
+                  "description": "Build output directory (e.g., ./_site, ./dist, ./.next)"
+                },
+                "frameworkPreset": {
+                  "type": "string",
+                  "description": "Framework preset (e.g., NEXTJS, OTHER)"
+                },
+                "gitBranch": {
+                  "type": "string",
+                  "description": "Git branch name (required for GITPROVIDER projects)"
+                },
+                "buildCommand": {
+                  "type": "string",
+                  "description": "Build command (e.g., npm run build)"
+                },
+                "serverCommand": {
+                  "type": "string",
+                  "description": "Server command for SSR frameworks (e.g., npm run start)"
+                },
+                "environmentVariables": {
+                  "type": "array",
+                  "description": "Environment variables for the build",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "key": {
+                        "type": "string"
+                      },
+                      "value": {
+                        "type": "string"
+                      }
+                    }
+                  }
+                },
+                "autoDeployOnPush": {
+                  "type": "boolean",
+                  "description": "Enable automatic deployments on Git push"
+                }
+              }
+            },
+            "repository": {
+              "type": "object",
+              "description": "Repository information (required for GITPROVIDER projects)",
+              "properties": {
+                "repositoryName": {
+                  "type": "string",
+                  "description": "Repository name (e.g., username/repo-name)"
+                },
+                "username": {
+                  "type": "string",
+                  "description": "Repository username"
+                },
+                "repositoryUrl": {
+                  "type": "string",
+                  "description": "Full repository URL (e.g., https://github.com/username/repo-name)"
+                },
+                "gitProviderMetadata": {
+                  "type": "object",
+                  "properties": {
+                    "gitProvider": {
+                      "type": "string",
+                      "enum": ["GitHub", "Bitbucket"],
+                      "description": "Git provider type"
+                    }
+                  }
+                }
+              }
+            },
+            "fileUpload": {
+              "type": "object",
+              "description": "File upload information (required for FILEUPLOAD projects)",
+              "properties": {
+                "uploadUid": {
+                  "type": "string",
+                  "description": "Upload UID obtained from the signed upload URL API"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "group": "launch",
+    "scopes": ["launch.projects:write"],
+    "x-enrich-group": "launch"
+  },
+  "get_a_project": {
+    "name": "get_a_project",
+    "description": "Fetches a specific project in Launch using the project UID. Returns comprehensive project details including repository configuration and metadata.",
+    "mapper": {
+      "method": "GET",
+      "apiUrl": "/projects/project_uid",
+      "params": {
+        "project_uid": "project_uid"
+      }
+    },
+    "inputSchema": {
+      "type": "object",
+      "required": ["project_uid"],
+      "properties": {
+        "project_uid": {
+          "type": "string",
+          "description": "Unique identifier of the project to retrieve"
+        }
+      }
+    },
+    "group": "launch",
+    "scopes": ["launch.projects:read"],
+    "x-enrich-group": "launch"
+  },
+  "update_a_project": {
+    "name": "update_a_project",
+    "description": "Updates an existing project in your organization. Allows modification of project name and description.",
+    "mapper": {
+      "method": "PUT",
+      "apiUrl": "/projects/project_uid",
+      "params": {
+        "project_uid": "project_uid"
+      },
+      "body": "project_data"
+    },
+    "inputSchema": {
+      "type": "object",
+      "required": ["project_uid", "project_data"],
+      "properties": {
+        "project_uid": {
+          "type": "string",
+          "description": "Unique identifier of the project to update"
+        },
+        "project_data": {
+          "type": "object",
+          "description": "The fields should be wrapped as an object {...data}"
+        }
+      }
+    },
+    "group": "launch",
+    "scopes": ["launch.projects:write"],
+    "x-enrich-group": "launch"
+  },
+  "delete_a_project": {
+    "name": "delete_a_project",
+    "description": "Deletes an existing project in your organization. This action is permanent and will remove all associated environments and deployments.",
+    "mapper": {
+      "method": "DELETE",
+      "apiUrl": "/projects/project_uid",
+      "params": {
+        "project_uid": "project_uid"
+      },
+      "queryParams": {
+        "force": "force"
+      }
+    },
+    "inputSchema": {
+      "type": "object",
+      "required": ["project_uid"],
+      "properties": {
+        "project_uid": {
+          "type": "string",
+          "description": "Unique identifier of the project to delete"
+        },
+        "force": {
+          "type": "boolean",
+          "description": "Force deletion even when the project still has dependent resources. Defaults to true.",
+          "default": true
+        }
+      }
+    },
+    "group": "launch",
+    "scopes": ["launch.projects:delete"],
+    "x-enrich-group": "launch"
+  },
+  "get_all_environments": {
+    "name": "get_all_environments",
+    "description": "Fetches the list of all environments in a project with pagination support. Returns environment details including build settings, Git branch configuration, and domain information.",
+    "mapper": {
+      "method": "GET",
+      "apiUrl": "/projects/project_uid/environments",
+      "params": {
+        "project_uid": "project_uid"
+      },
+      "queryParams": {
+        "skip": "skip",
+        "limit": "limit"
+      }
+    },
+    "inputSchema": {
+      "type": "object",
+      "required": ["project_uid"],
+      "properties": {
+        "project_uid": {
+          "type": "string",
+          "description": "Unique identifier of the project"
+        },
+        "skip": {
+          "type": "number",
+          "description": "Number of environments to skip in the output",
+          "minimum": 0
+        },
+        "limit": {
+          "type": "number",
+          "description": "Number of environments to return (between 0-100)",
+          "minimum": 0,
+          "maximum": 100,
+          "default": 10
+        }
+      }
+    },
+    "group": "launch",
+    "scopes": ["launch.projects:read"],
+    "x-enrich-group": "launch"
+  },
+  "create_an_environment": {
+    "name": "create_an_environment",
+    "description": "Creates a new environment in your Launch project. For Git Provider projects, specify the Git branch. For File Upload projects, first get a signed upload URL and upload your ZIP file (valid for 10 minutes).",
+    "mapper": {
+      "method": "POST",
+      "apiUrl": "/projects/project_uid/environments",
+      "params": {
+        "project_uid": "project_uid"
+      },
+      "body": "environment_data"
+    },
+    "inputSchema": {
+      "type": "object",
+      "required": ["project_uid", "environment_data"],
+      "properties": {
+        "project_uid": {
+          "type": "string",
+          "description": "Unique identifier of the project where the environment will be created"
+        },
+        "environment_data": {
+          "type": "object",
+          "description": "Environment data. Provide gitBranch for GITPROVIDER projects or uploadUid for FILEUPLOAD projects (the two are mutually exclusive).",
+          "required": [
+            "name",
+            "outputDirectory",
+            "frameworkPreset",
+            "buildCommand"
+          ],
+          "properties": {
+            "name": {
+              "type": "string",
+              "description": "Environment name"
+            },
+            "outputDirectory": {
+              "type": "string",
+              "description": "Build output directory (e.g., ./_site, ./dist, ./.next)"
+            },
+            "frameworkPreset": {
+              "type": "string",
+              "description": "Framework preset (e.g., NEXTJS, OTHER)"
+            },
+            "gitBranch": {
+              "type": "string",
+              "description": "Git branch name (required for GITPROVIDER projects, must exist in repository)"
+            },
+            "uploadUid": {
+              "type": "string",
+              "description": "Upload UID from signed upload URL (required for FILEUPLOAD projects)"
+            },
+            "buildCommand": {
+              "type": "string",
+              "description": "Build command (e.g., npm run build)"
+            },
+            "serverCommand": {
+              "type": "string",
+              "description": "Server command for SSR frameworks (e.g., npm run start)"
+            },
+            "environmentVariables": {
+              "type": "array",
+              "description": "Environment variables for the build",
+              "items": {
+                "type": "object",
+                "properties": {
+                  "key": {
+                    "type": "string"
+                  },
+                  "value": {
+                    "type": "string"
+                  }
+                }
+              }
+            },
+            "autoDeployOnPush": {
+              "type": "boolean",
+              "description": "Enable automatic deployments on Git push"
+            }
+          }
+        }
+      }
+    },
+    "group": "launch",
+    "scopes": ["launch.projects:write"],
+    "x-enrich-group": "launch"
+  },
+  "get_an_environment": {
+    "name": "get_an_environment",
+    "description": "Fetches a specific environment from a project using the project UID and environment UID. Returns comprehensive environment details including build configuration, domains, and settings.",
+    "mapper": {
+      "method": "GET",
+      "apiUrl": "/projects/project_uid/environments/environment_uid",
+      "params": {
+        "project_uid": "project_uid",
+        "environment_uid": "environment_uid"
+      }
+    },
+    "inputSchema": {
+      "type": "object",
+      "required": ["project_uid", "environment_uid"],
+      "properties": {
+        "project_uid": {
+          "type": "string",
+          "description": "Unique identifier of the project"
+        },
+        "environment_uid": {
+          "type": "string",
+          "description": "Unique identifier of the environment"
+        }
+      }
+    },
+    "group": "launch",
+    "scopes": ["launch.projects:read"],
+    "x-enrich-group": "launch"
+  },
+  "update_an_environment": {
+    "name": "update_an_environment",
+    "description": "Updates an existing environment in your project. Allows modification of build settings, Git branch, environment variables, password protection, and feature flags.",
+    "mapper": {
+      "method": "PUT",
+      "apiUrl": "/projects/project_uid/environments/environment_uid",
+      "params": {
+        "project_uid": "project_uid",
+        "environment_uid": "environment_uid"
+      },
+      "body": "environment_data"
+    },
+    "inputSchema": {
+      "type": "object",
+      "required": ["project_uid", "environment_uid", "environment_data"],
+      "properties": {
+        "project_uid": {
+          "type": "string",
+          "description": "Unique identifier of the project"
+        },
+        "environment_uid": {
+          "type": "string",
+          "description": "Unique identifier of the environment to update"
+        },
+        "environment_data": {
+          "type": "object",
+          "description": "The fields should be wrapped as an object {...data}"
+        }
+      }
+    },
+    "group": "launch",
+    "scopes": ["launch.projects:write"],
+    "x-enrich-group": "launch"
+  },
+  "delete_an_environment": {
+    "name": "delete_an_environment",
+    "description": "Deletes an existing environment in your project. This action is permanent and will remove all associated deployments.",
+    "mapper": {
+      "method": "DELETE",
+      "apiUrl": "/projects/project_uid/environments/environment_uid",
+      "params": {
+        "project_uid": "project_uid",
+        "environment_uid": "environment_uid"
+      },
+      "queryParams": {
+        "force": "force"
+      }
+    },
+    "inputSchema": {
+      "type": "object",
+      "required": ["project_uid", "environment_uid"],
+      "properties": {
+        "project_uid": {
+          "type": "string",
+          "description": "Unique identifier of the project"
+        },
+        "environment_uid": {
+          "type": "string",
+          "description": "Unique identifier of the environment to delete"
+        },
+        "force": {
+          "type": "boolean",
+          "description": "Force deletion even when the environment still has dependent resources. Defaults to true.",
+          "default": true
+        }
+      }
+    },
+    "group": "launch",
+    "scopes": ["launch.projects:delete"],
+    "x-enrich-group": "launch"
+  },
+  "get_signed_upload_url_project": {
+    "name": "get_signed_upload_url_project",
+    "description": "Fetches the signed URL where you must upload the ZIP file when creating a project via file upload. The signed URL is valid for 10 minutes. After getting this URL, upload your ZIP file, then use the uploadUid in the Create Project API.",
+    "mapper": {
+      "method": "GET",
+      "apiUrl": "/projects/upload/signed_url"
+    },
+    "inputSchema": {
+      "type": "object",
+      "properties": {}
+    },
+    "group": "launch",
+    "scopes": ["launch.projects:read"],
+    "x-enrich-group": "launch"
+  },
+  "get_signed_upload_url_environment": {
+    "name": "get_signed_upload_url_environment",
+    "description": "Fetches the signed URL where you must upload the ZIP file when creating an environment via file upload. The signed URL is valid for 10 minutes. Only available for FILEUPLOAD projects.",
+    "mapper": {
+      "method": "GET",
+      "apiUrl": "/projects/project_uid/environments/upload/signed_url",
+      "params": {
+        "project_uid": "project_uid"
+      }
+    },
+    "inputSchema": {
+      "type": "object",
+      "required": ["project_uid"],
+      "properties": {
+        "project_uid": {
+          "type": "string",
+          "description": "Unique identifier of the FILEUPLOAD project"
+        }
+      }
+    },
+    "group": "launch",
+    "scopes": ["launch.projects:read"],
+    "x-enrich-group": "launch"
+  },
+  "get_signed_upload_url_deployment": {
+    "name": "get_signed_upload_url_deployment",
+    "description": "Retrieves the signed URL where you must upload the ZIP file when creating or redeploying a deployment via file upload. The signed URL is valid for 10 minutes. Only available for FILEUPLOAD projects.",
+    "mapper": {
+      "method": "GET",
+      "apiUrl": "/projects/project_uid/environments/environment_uid/deployments/upload/signed_url",
+      "params": {
+        "project_uid": "project_uid",
+        "environment_uid": "environment_uid"
+      }
+    },
+    "inputSchema": {
+      "type": "object",
+      "required": ["project_uid", "environment_uid"],
+      "properties": {
+        "project_uid": {
+          "type": "string",
+          "description": "Unique identifier of the FILEUPLOAD project"
+        },
+        "environment_uid": {
+          "type": "string",
+          "description": "Unique identifier of the environment where you want to create the deployment"
+        }
+      }
+    },
+    "group": "launch",
+    "scopes": ["launch.projects:read"],
+    "x-enrich-group": "launch"
+  },
+  "get_signed_download_url_deployment": {
+    "name": "get_signed_download_url_deployment",
+    "description": "Returns the signed URL to download the uploaded file from the latest deployment. The signed URL is valid for 15 minutes (900 seconds).",
+    "mapper": {
+      "method": "GET",
+      "apiUrl": "/projects/project_uid/environments/environment_uid/deployments/deployment_uid/download/signed_url",
+      "params": {
+        "project_uid": "project_uid",
+        "environment_uid": "environment_uid",
+        "deployment_uid": "deployment_uid"
+      }
+    },
+    "inputSchema": {
+      "type": "object",
+      "required": ["project_uid", "environment_uid", "deployment_uid"],
+      "properties": {
+        "project_uid": {
+          "type": "string",
+          "description": "Unique identifier of the FILEUPLOAD project"
+        },
+        "environment_uid": {
+          "type": "string",
+          "description": "Unique identifier of the environment"
+        },
+        "deployment_uid": {
+          "type": "string",
+          "description": "Unique identifier of the deployment (must be the latest deployment)"
+        }
+      }
+    },
+    "group": "launch",
+    "scopes": ["launch.projects:read"],
+    "x-enrich-group": "launch"
+  },
+  "get_all_deployments": {
+    "name": "get_all_deployments",
+    "description": "Fetches the list of all deployments within a specific environment with pagination support. Returns deployment details including build status, Git commit information, duration, and preview URLs.",
+    "mapper": {
+      "method": "GET",
+      "apiUrl": "/projects/project_uid/environments/environment_uid/deployments",
+      "params": {
+        "project_uid": "project_uid",
+        "environment_uid": "environment_uid"
+      },
+      "queryParams": {
+        "skip": "skip",
+        "limit": "limit"
+      }
+    },
+    "inputSchema": {
+      "type": "object",
+      "required": ["project_uid", "environment_uid"],
+      "properties": {
+        "project_uid": {
+          "type": "string",
+          "description": "Unique identifier of the project"
+        },
+        "environment_uid": {
+          "type": "string",
+          "description": "Unique identifier of the environment"
+        },
+        "skip": {
+          "type": "number",
+          "description": "Number of deployments to skip in the output",
+          "minimum": 0
+        },
+        "limit": {
+          "type": "number",
+          "description": "Number of deployments to return (between 0-100)",
+          "minimum": 0,
+          "maximum": 100,
+          "default": 10
+        }
+      }
+    },
+    "group": "launch",
+    "scopes": ["launch.projects:read"],
+    "x-enrich-group": "launch"
+  },
+  "get_deployment": {
+    "name": "get_deployment",
+    "description": "Retrieves a specific deployment from an environment using the project UID, environment UID, and deployment UID. Returns comprehensive deployment details including status, build information, and performance metrics.",
+    "mapper": {
+      "method": "GET",
+      "apiUrl": "/projects/project_uid/environments/environment_uid/deployments/deployment_uid",
+      "params": {
+        "project_uid": "project_uid",
+        "environment_uid": "environment_uid",
+        "deployment_uid": "deployment_uid"
+      }
+    },
+    "inputSchema": {
+      "type": "object",
+      "required": ["project_uid", "environment_uid", "deployment_uid"],
+      "properties": {
+        "project_uid": {
+          "type": "string",
+          "description": "Unique identifier of the project"
+        },
+        "environment_uid": {
+          "type": "string",
+          "description": "Unique identifier of the environment"
+        },
+        "deployment_uid": {
+          "type": "string",
+          "description": "Unique identifier of the deployment to retrieve"
+        }
+      }
+    },
+    "group": "launch",
+    "scopes": ["launch.projects:read"],
+    "x-enrich-group": "launch"
+  },
+  "get_deployment_logs": {
+    "name": "get_deployment_logs",
+    "description": "Fetches the deployment logs of a specific deployment. These logs provide detailed build and deployment information, helping track the build process and identify issues. Supports optional timestamp parameter for pagination.",
+    "mapper": {
+      "method": "GET",
+      "apiUrl": "/../projects/project_uid/environments/environment_uid/deployments/deployment_uid/logs/deployment-logs",
+      "params": {
+        "project_uid": "project_uid",
+        "environment_uid": "environment_uid",
+        "deployment_uid": "deployment_uid"
+      },
+      "queryParams": {
+        "timestamp": "timestamp"
+      }
+    },
+    "inputSchema": {
+      "type": "object",
+      "required": ["project_uid", "environment_uid", "deployment_uid"],
+      "properties": {
+        "project_uid": {
+          "type": "string",
+          "description": "Unique identifier of the project"
+        },
+        "environment_uid": {
+          "type": "string",
+          "description": "Unique identifier of the environment"
+        },
+        "deployment_uid": {
+          "type": "string",
+          "description": "Unique identifier of the deployment"
+        },
+        "timestamp": {
+          "type": "string",
+          "description": "UTC Zulu timestamp to fetch logs from (e.g., 2025-11-17T11:03:06.89Z). Used for pagination to get logs after this timestamp."
+        }
+      }
+    },
+    "group": "launch",
+    "scopes": ["launch.projects:read"],
+    "x-enrich-group": "launch"
+  },
+  "get_server_logs": {
+    "name": "get_server_logs",
+    "description": "Fetches the server logs of a specific deployment. These logs capture runtime information from deployed apps, helping monitor performance and debug runtime issues. Requires startTime and endTime parameters.",
+    "mapper": {
+      "method": "GET",
+      "apiUrl": "/../projects/project_uid/environments/environment_uid/deployments/deployment_uid/logs/server-logs",
+      "params": {
+        "project_uid": "project_uid",
+        "environment_uid": "environment_uid",
+        "deployment_uid": "deployment_uid"
+      },
+      "queryParams": {
+        "startTime": "startTime",
+        "endTime": "endTime"
+      }
+    },
+    "inputSchema": {
+      "type": "object",
+      "required": [
+        "project_uid",
+        "environment_uid",
+        "deployment_uid",
+        "startTime",
+        "endTime"
+      ],
+      "properties": {
+        "project_uid": {
+          "type": "string",
+          "description": "Unique identifier of the project"
+        },
+        "environment_uid": {
+          "type": "string",
+          "description": "Unique identifier of the environment"
+        },
+        "deployment_uid": {
+          "type": "string",
+          "description": "Unique identifier of the deployment"
+        },
+        "startTime": {
+          "type": "number",
+          "description": "Starting time value in milliseconds since Unix epoch (e.g., 1763890624854)"
+        },
+        "endTime": {
+          "type": "number",
+          "description": "Ending time value in milliseconds since Unix epoch (e.g., 1763977024960)"
+        }
+      }
+    },
+    "group": "launch",
+    "scopes": ["launch.projects:read"],
+    "x-enrich-group": "launch"
+  }
+}

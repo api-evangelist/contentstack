@@ -1,7 +1,7 @@
 openapi: 3.2.0
 info:
   title: Contentstack Launch File Uploads API
-  description: The Contentstack Launch API allows developers to programmatically manage web application deployments within Contentstack Launch. It supports full lifecycle management of Launch projects, environments, and deployments, including creating deployments from uploaded build artifacts, monitoring deployment logs, revalidating CDN caches, and retrieving signed upload URLs for build file transfers. The API is designed for CI/CD integration and enables automated deployment workflows for front-end applications connected to Contentstack stacks.
+  description: The Contentstack Launch API allows developers to programmatically manage web application deployments within Contentstack Launch.
   version: v1
   contact:
     name: Contentstack Support
@@ -42,6 +42,13 @@ paths:
         '401':
           $ref: '#/components/responses/Unauthorized'
 components:
+  responses:
+    Unauthorized:
+      description: Authentication credentials are missing or invalid.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
   schemas:
     UploadUrlResponse:
       type: object
@@ -68,13 +75,6 @@ components:
         error_code:
           type: integer
           description: Numeric error code.
-  responses:
-    Unauthorized:
-      description: Authentication credentials are missing or invalid.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
   securitySchemes:
     bearerAuth:
       type: http

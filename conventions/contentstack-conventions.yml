@@ -1,0 +1,148 @@
+specification: API Commons Conventions
+specificationVersion: '0.1'
+provider: Contentstack
+providerId: contentstack
+generated: '2026-09-17'
+method: searched
+source: 'https://www.contentstack.com/docs/developers/apis/content-management-api#api-conventions and #errors, https://www.contentstack.com/docs/developers/apis/content-delivery-api#pagination,
+  and the securitySchemes and parameters declared across openapi/*.yml'
+description: 'Contentstack publishes an explicit API-conventions section covering URL casing, verbs, versioning
+  and the success/failure contract. It is strong on shape and weak on runtime safety: there is no idempotency mechanism
+  anywhere in the estate, no request-id or correlation header, and no dry-run mode.'
+authentication:
+  style: header tokens
+  schemes:
+  - api_key (stack API key, header)
+  - access_token (delivery token, header)
+  - authtoken (user session, header)
+  - 'authorization: Bearer <management_token>'
+  - OAuth 2.0 bearer (app and user tokens)
+  artifact: authentication/contentstack-authentication.yml
+  scopes: scopes/contentstack-scopes.yml
+versioning:
+  style: url-path
+  current: v3
+  evidence: '"The API version (in our case, ''v3'') can be found in the URL, e.g. api.contentstack.io/v3/endpoint."'
+  artifact: lifecycle/contentstack-lifecycle.yml
+naming:
+  paths: lower case
+  query_params: lower case with underscores separating words
+  json_fields: lower case with underscores separating words
+  numbers: the JSON number type is bounded to a signed 32-bit integer
+  evidence: https://www.contentstack.com/docs/developers/apis/content-management-api#api-conventions
+methods:
+- GET
+- POST
+- PUT
+- DELETE
+pagination:
+  style: offset
+  params:
+    skip: records to skip
+    limit: records to return
+    include_count: return the total count alongside the page
+  default_page_size: 100
+  max_page_size: 100
+  response_fields:
+  - count (when include_count=true)
+  evidence: https://www.contentstack.com/docs/developers/apis/content-delivery-api#pagination — collection endpoints
+    return a maximum of 100 records per request.
+field_selection:
+  supported: true
+  mechanisms:
+  - only[] / except[] field projection
+  - include[] to resolve referenced entries
+  - include_embedded_items[] to resolve embedded items in JSON RTE
+  - include_metadata, include_publish_details, include_dimension, include_fallback
+  note: GraphQL at https://graphql.contentstack.com gives the same delivery data with true per-field selection,
+    read-only.
+multi_tenancy:
+  stack: api_key header selects the stack
+  branch: 'branch header selects the branch within a stack (default: main)'
+  locale: locale query parameter
+  environment: environment query parameter for delivery
+request_id:
+  supported: false
+  evidence: No X-Request-Id, correlation or trace header is documented in the Content Management or Content Delivery
+    reference, and none appears in any OpenAPI document in this repository. An agent cannot cite a request id when
+    reporting a failure to Contentstack support.
+errors:
+  format: vendor-json
+  rfc9457: false
+  artifact: errors/contentstack-problem-types.yml
+  note: Conventional HTTP status codes plus a Contentstack-shaped JSON body. The body schema is not published.
+rate_limit_signaling:
+  headers:
+  - X-RateLimit-Limit
+  - X-RateLimit-Remaining
+  status_on_exhaustion: 429
+  retry_after: false
+  evidence: https://www.contentstack.com/docs/developers/apis/content-management-api — the documented header table
+    lists X-RateLimit-Limit and X-RateLimit-Remaining only; no Retry-After and no reset timestamp, so a client is
+    told how many calls are left but never when the window resets.
+  artifact: rate-limits/contentstack-rate-limits.yml
+idempotency:
+  coverage: none
+  scope: []
+  header: null
+  retention: null
+  evidence: The string "idempoten" does not occur in the Content Management API reference (240 KB), the Content
+    Delivery API reference (141 KB), or any of the 33 OpenAPI documents in this repository. No Idempotency-Key header,
+    no client-supplied request key, no documented replay window.
+  consequence: A retried POST — the normal response to a timeout or a 502 — creates a second entry, asset, release
+    or branch. With CMA writes capped at 10 requests per second per organization and 429 the documented exhaustion
+    code, retry is a routine event, and there is no safe way for an agent to perform one.
+dry_run_mode:
+  supported: false
+  evidence: No dry-run, preview-write, validate-only or simulate parameter appears in any documented operation or
+    in any of the 206 published MCP tool definitions.
+reversibility:
+  grade: documented
+  summary: Publish is reversible and versioned content can be inspected, but deletion is explicitly and permanently
+    irreversible, and Contentstack states no window for anything.
+  surfaces:
+  - action: publish an entry
+    reversal: unpublish_an_entry
+    operation: POST /v3/content_types/{content_type_uid}/entries/{entry_uid}/unpublish
+    window: null
+    window_stated: false
+    docs: https://www.contentstack.com/docs/developers/apis/content-management-api
+    note: Unpublish removes the entry from the delivery environment. No window is stated; in practice it is available
+      while the entry exists.
+  - action: publish an asset
+    reversal: unpublish_an_asset
+    operation: POST /v3/assets/{asset_uid}/unpublish
+    window: null
+    window_stated: false
+    docs: https://www.contentstack.com/docs/developers/apis/content-management-api
+  - action: update an entry
+    reversal: version history — get_all_versions_of_an_entry lists prior versions, which can be re-submitted as
+      a new update
+    operation: GET /v3/content_types/{content_type_uid}/entries/{entry_uid}/versions
+    window: null
+    window_stated: false
+    note: There is no single restore or revert operation. Rolling back is a read of the old version followed by
+      a fresh write, so it consumes a version rather than removing one.
+  - action: update an asset
+    reversal: version history — get_all_versions_of_an_asset
+    operation: GET /v3/assets/{asset_uid}/versions
+    window: null
+    window_stated: false
+  - action: delete an entry or asset
+    reversal: null
+    window: null
+    window_stated: true
+    irreversible: true
+    docs: https://www.contentstack.com/docs/developers/apis/content-management-api
+    evidence: '"Once you delete entry or asset metadata, it is permanently deleted and cannot be restored."'
+    note: Contentstack states the irreversibility plainly, which is the useful thing to know before acting — but
+      there is no trash, no soft delete and no recovery window at all.
+  - action: delete a stack
+    reversal: null
+    window: null
+    window_stated: true
+    irreversible: true
+    evidence: '"The Delete stack call is used to delete an existing stack permanently from your Contentstack account."'
+  grade_reason: Reversal paths exist and are documented for the publish and update surfaces, which earns `documented`.
+    It does not reach `verified` because Contentstack states no window for any reversal — an agent can learn that
+    unpublish exists but not how long it has to use it.

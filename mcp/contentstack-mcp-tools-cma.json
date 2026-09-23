@@ -1,0 +1,3924 @@
+{
+  "publish_an_entry": {
+    "name": "publish_an_entry",
+    "description": "Publishes a specified entry of a content type to one or more environments and locales within a branch of the stack. Optionally schedule the publish for a future time.",
+    "mapper": {
+      "apiUrl": "/v3/content_types/content_type_uid/entries/entry_uid/publish",
+      "method": "POST",
+      "body": {
+        "type": "object",
+        "properties": {
+          "entry": {
+            "type": "object",
+            "properties": {
+              "environments": {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                },
+                "x-mapFrom": "environment_uids"
+              },
+              "locales": {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                },
+                "x-mapFrom": "locales"
+              }
+            }
+          },
+          "locale": {
+            "type": "string",
+            "x-mapFrom": "master_locale"
+          },
+          "version": {
+            "type": "number",
+            "x-mapFrom": "version"
+          },
+          "scheduled_at": {
+            "type": "string",
+            "format": "date-time",
+            "optional": true,
+            "x-mapFrom": "scheduled_at"
+          }
+        }
+      },
+      "type": "complex",
+      "params": {
+        "content_type_uid": "content_type_uid",
+        "entry_uid": "entry_uid"
+      },
+      "headers": {
+        "branch": "branch"
+      }
+    },
+    "inputSchema": {
+      "type": "object",
+      "required": [
+        "content_type_uid",
+        "entry_uid",
+        "environment_uids",
+        "locales",
+        "master_locale"
+      ],
+      "properties": {
+        "branch": {
+          "type": "string",
+          "description": "Select a branch from your stack.",
+          "default": "main"
+        },
+        "content_type_uid": {
+          "type": "string",
+          "description": "UID of the content type the entry belongs to."
+        },
+        "entry_uid": {
+          "type": "string",
+          "description": "UID of the entry to publish."
+        },
+        "locales": {
+          "type": "string",
+          "description": "Locale code(s) to publish in. For example, 'en-us' for English (US) or 'ar' for Arabic. Use the get_all_languages tool to list available locale codes."
+        },
+        "master_locale": {
+          "type": "string",
+          "description": "The master locale of the entry. Retrieve it from the get_single_entry tool (the entry's 'locale' field)."
+        },
+        "environment_uids": {
+          "type": "string",
+          "description": "Environment(s) to publish the entry to. Use the get_all_environments tool to list environment UIDs."
+        },
+        "version": {
+          "type": "number",
+          "minimum": 1,
+          "description": "Specific entry version to publish. Versions start at 1; never pass 0. Omit this parameter entirely to publish the latest."
+        },
+        "scheduled_at": {
+          "type": "string",
+          "description": "Schedule the publish in 'YYYY-MM-DD HH:MM:SS' format. Omit to publish immediately."
+        }
+      }
+    },
+    "group": "cma",
+    "scopes": ["cm.entry:publish"],
+    "x-enrich-group": "cma"
+  },
+  "unpublish_an_entry": {
+    "name": "unpublish_an_entry",
+    "description": "Unpublishes a specified entry from selected environments and locales within a branch, removing it from the CDN so it is no longer served by the delivery APIs. Optionally schedule the unpublish for a future time.",
+    "mapper": {
+      "apiUrl": "/v3/content_types/content_type_uid/entries/entry/unpublish",
+      "method": "POST",
+      "body": {
+        "type": "object",
+        "properties": {
+          "entry": {
+            "type": "object",
+            "properties": {
+              "environments": {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                },
+                "x-mapFrom": "environment_uids"
+              },
+              "locales": {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                },
+                "x-mapFrom": "locales"
+              }
+            }
+          },
+          "locale": {
+            "type": "string",
+            "x-mapFrom": "master_locale"
+          },
+          "version": {
+            "type": "number",
+            "x-mapFrom": "version"
+          },
+          "scheduled_at": {
+            "type": "string",
+            "format": "date-time",
+            "optional": true,
+            "x-mapFrom": "scheduled_at"
+          }
+        }
+      },
+      "type": "complex",
+      "params": {
+        "content_type_uid": "content_type_uid",
+        "entry": "entry"
+      },
+      "headers": {
+        "branch": "branch"
+      }
+    },
+    "inputSchema": {
+      "type": "object",
+      "required": [
+        "content_type_uid",
+        "entry",
+        "environment_uids",
+        "locales",
+        "master_locale"
+      ],
+      "properties": {
+        "branch": {
+          "type": "string",
+          "description": "Select a branch from your stack.",
+          "default": "main"
+        },
+        "content_type_uid": {
+          "type": "string",
+          "description": "UID of the content type the entry belongs to."
+        },
+        "entry": {
+          "type": "string",
+          "description": "UID of the entry to unpublish."
+        },
+        "environment_uids": {
+          "type": "string",
+          "description": "Environment(s) to unpublish the entry from. Use the get_all_environments tool to list environment UIDs."
+        },
+        "locales": {
+          "type": "string",
+          "description": "Locale code(s) to unpublish from. For example, 'en-us' for English (US) or 'ar' for Arabic. Use the get_all_languages tool to list available locale codes."
+        },
+        "master_locale": {
+          "type": "string",
+          "description": "The master locale of the entry. Retrieve it from the get_single_entry tool (the entry's 'locale' field)."
+        },
+        "version": {
+          "type": "number",
+          "minimum": 1,
+          "description": "Specific entry version to unpublish. Versions start at 1; never pass 0. Omit this parameter entirely to unpublish the latest."
+        },
+        "scheduled_at": {
+          "type": "string",
+          "description": "Schedule the unpublish in 'YYYY-MM-DD HH:MM:SS' (UTC) format. Omit to unpublish immediately."
+        }
+      }
+    },
+    "group": "cma",
+    "scopes": ["cm.entry:unpublish"],
+    "x-enrich-group": "cma"
+  },
+  "publish_variants_of_an_entry": {
+    "name": "publish_variants_of_an_entry",
+    "description": "Publishes one or more variants of an entry to selected environments and locales within a branch. Use the get_all_variants_of_a_content_type tool to resolve variant UIDs.",
+    "mapper": {
+      "apiUrl": "/v3/content_types/content_type_uid/entries/entry/publish",
+      "method": "POST",
+      "body": {
+        "type": "object",
+        "properties": {
+          "entry": {
+            "type": "object",
+            "properties": {
+              "environments": {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                },
+                "x-mapFrom": "environment_uids"
+              },
+              "locales": {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                },
+                "x-mapFrom": "locales"
+              },
+              "variants": {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "properties": {
+                    "uid": {
+                      "type": "string",
+                      "x-mapFrom": "variant_uids"
+                    }
+                  }
+                }
+              },
+              "variant_rules": {
+                "type": "object",
+                "properties": {
+                  "publish_latest_base": {
+                    "type": "boolean",
+                    "x-mapFrom": "publish_latest_base",
+                    "default": false
+                  },
+                  "publish_latest_base_conditionally": {
+                    "type": "boolean",
+                    "x-mapFrom": "publish_latest_base_conditionally",
+                    "default": true
+                  }
+                }
+              }
+            }
+          },
+          "locale": {
+            "type": "string",
+            "x-mapFrom": "master_locale"
+          }
+        }
+      },
+      "type": "complex",
+      "params": {
+        "content_type_uid": "content_type_uid",
+        "entry": "entry"
+      },
+      "headers": {
+        "branch": "branch"
+      }
+    },
+    "inputSchema": {
+      "type": "object",
+      "required": [
+        "content_type_uid",
+        "entry",
+        "environment_uids",
+        "locales",
+        "master_locale",
+        "variant_uids"
+      ],
+      "properties": {
+        "branch": {
+          "type": "string",
+          "description": "Select a branch from your stack.",
+          "default": "main"
+        },
+        "content_type_uid": {
+          "type": "string",
+          "description": "UID of the content type the entry belongs to."
+        },
+        "entry": {
+          "type": "string",
+          "description": "UID of the entry whose variants to publish."
+        },
+        "variant_uids": {
+          "type": "string",
+          "description": "Variant UID(s) to publish. Use the get_all_variants_of_a_content_type tool to resolve a variant name to its UID."
+        },
+        "locales": {
+          "type": "string",
+          "description": "Locale code(s) to publish in. For example, 'en-us' for English (US) or 'ar' for Arabic. Use the get_all_languages tool to list available locale codes."
+        },
+        "master_locale": {
+          "type": "string",
+          "description": "The master locale of the entry. Retrieve it from the get_single_entry tool (the entry's 'locale' field)."
+        },
+        "environment_uids": {
+          "type": "string",
+          "description": "Environment(s) to publish the variant to. Use the get_all_environments tool to list environment UIDs."
+        },
+        "publish_latest_base": {
+          "type": "boolean",
+          "description": "Publish the latest version of the base entry along with the variant.",
+          "default": false
+        },
+        "publish_latest_base_conditionally": {
+          "type": "boolean",
+          "description": "Publish the latest base entry only if it has unpublished changes.",
+          "default": true
+        }
+      }
+    },
+    "group": "cma",
+    "scopes": ["cm.entry:publish"],
+    "x-enrich-group": "cma"
+  },
+  "create_an_entry": {
+    "name": "create_an_entry",
+    "description": "This tool creates a new entry in the specified Contentstack stack, targeting a defined content type and branch, with support for locale selection and structured entry data.",
+    "mapper": {
+      "apiUrl": "/v3/content_types/content_type_uid/entries",
+      "method": "POST",
+      "body": "entry_data",
+      "queryParams": {
+        "locale": "locale",
+        "include_branch": "include_branch",
+        "include_publish_details": "include_publish_details"
+      },
+      "params": {
+        "content_type_uid": "content_type_uid"
+      },
+      "headers": {
+        "branch": "branch"
+      }
+    },
+    "inputSchema": {
+      "type": "object",
+      "required": ["content_type_uid", "entry_data"],
+      "properties": {
+        "branch": {
+          "type": "string",
+          "description": "Select a branch from your stack.",
+          "default": "main"
+        },
+        "content_type_uid": {
+          "type": "string",
+          "description": "UID of the content type to create the entry in."
+        },
+        "entry_data": {
+          "type": "object",
+          "description": "The fields should be wrapped by an entry object {'entry':{...data}}"
+        },
+        "locale": {
+          "type": "string",
+          "description": "Select a locale in which you want to create the entry."
+        },
+        "include_branch": {
+          "type": "boolean",
+          "description": "Set to true to include the branch UID in the response."
+        },
+        "include_publish_details": {
+          "type": "boolean",
+          "description": "Include publish details in the response."
+        }
+      }
+    },
+    "group": "cma",
+    "scopes": ["cm.entry:write"],
+    "x-enrich-group": "cma"
+  },
+  "delete_an_entry": {
+    "name": "delete_an_entry",
+    "description": "This tool deletes a specified entry from a Contentstack stack, targeting the provided content type and entry ID, with optional parameters for branch, locale, and deletion of all localized variants.",
+    "mapper": {
+      "apiUrl": "/v3/content_types/content_type_uid/entries/entry_uid",
+      "method": "DELETE",
+      "queryParams": {
+        "locale": "locale",
+        "delete_all_localized": "delete_all_localized",
+        "include_publish_details": "include_publish_details"
+      },
+      "params": {
+        "content_type_uid": "content_type_uid",
+        "entry_uid": "entry_uid"
+      },
+      "headers": {
+        "branch": "branch"
+      }
+    },
+    "inputSchema": {
+      "type": "object",
+      "required": ["content_type_uid", "entry_uid"],
+      "properties": {
+        "branch": {
+          "type": "string",
+          "description": "Select a branch from your stack.",
+          "default": "main"
+        },
+        "content_type_uid": {
+          "type": "string",
+          "description": "UID of the content type the entry belongs to."
+        },
+        "entry_uid": {
+          "type": "string",
+          "description": "UID of the entry to delete."
+        },
+        "locale": {
+          "type": "string",
+          "description": "Delete only the entry's localized content for this locale (e.g. 'fr-fr'). Omit to delete the entry entirely."
+        },
+        "delete_all_localized": {
+          "type": "boolean",
+          "description": "Set to true to delete the entry across all its localized versions.",
+          "default": false
+        },
+        "include_publish_details": {
+          "type": "boolean",
+          "description": "Include publish details in the response."
+        }
+      }
+    },
+    "group": "cma",
+    "scopes": ["cm.entry:write"],
+    "x-enrich-group": "cma"
+  },
+  "get_all_entries": {
+    "name": "get_all_entries",
+    "description": "This tool retrieves entry details for a specified content type within a Contentstack stack, supporting branch selection, pagination, versioning, locale filtering, advanced query parameters, and optional inclusion of metadata, workflow, branch, and publish details.",
+    "mapper": {
+      "apiUrl": "/v3/content_types/content_type_uid/entries",
+      "method": "GET",
+      "queryParams": {
+        "query": "query",
+        "include[]": "include",
+        "include_embedded_items[]": "include_embedded_items",
+        "limit": "limit",
+        "skip": "skip",
+        "asc": "asc",
+        "desc": "desc",
+        "include_count": "include_count",
+        "include_metadata": "include_metadata",
+        "version": "version",
+        "locale": "locale",
+        "include_workflow": "include_workflow",
+        "include_publish_details": "include_publish_details",
+        "include_branch": "include_branch",
+        "apply_draft": "apply_draft"
+      },
+      "params": {
+        "content_type_uid": "content_type_uid"
+      },
+      "headers": {
+        "branch": "branch"
+      }
+    },
+    "inputSchema": {
+      "type": "object",
+      "required": ["content_type_uid"],
+      "properties": {
+        "branch": {
+          "type": "string",
+          "description": "Select a branch from your stack.",
+          "default": "main"
+        },
+        "content_type_uid": {
+          "type": "string",
+          "description": "UID of the content type whose entries to fetch."
+        },
+        "query": {
+          "type": "object",
+          "description": "JSON query object to filter results."
+        },
+        "include": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "description": "Reference field UIDs to resolve into full objects, e.g. ['author','category']."
+        },
+        "include_embedded_items": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "description": "Pass ['BASE'] to resolve entries/assets embedded in Rich Text Editor fields."
+        },
+        "limit": {
+          "type": "string",
+          "description": "Number of entries to retrieve (max: 100)."
+        },
+        "skip": {
+          "type": "string",
+          "description": "Number of entries to skip for pagination."
+        },
+        "asc": {
+          "type": "string",
+          "description": "Field UID to sort entries by in ascending order (e.g. 'updated_at')."
+        },
+        "desc": {
+          "type": "string",
+          "description": "Field UID to sort entries by in descending order (e.g. 'updated_at')."
+        },
+        "version": {
+          "type": "string",
+          "description": "Specific entry version to fetch. Versions start at 1; never pass 0. Omit this parameter entirely to fetch the latest."
+        },
+        "locale": {
+          "type": "string",
+          "description": "Specify the locale to fetch the localized entries."
+        },
+        "include_count": {
+          "type": "boolean",
+          "description": "Include the total count of matching entries in the response.",
+          "default": false
+        },
+        "include_metadata": {
+          "type": "boolean",
+          "description": "Include metadata attached to each entry.",
+          "default": false
+        },
+        "include_workflow": {
+          "type": "boolean",
+          "description": "Include workflow stage details for each entry."
+        },
+        "include_branch": {
+          "type": "boolean",
+          "description": "Set to true to include the branch UID in the response."
+        },
+        "include_publish_details": {
+          "type": "boolean",
+          "description": "Include publish details (time, user, environment) for each entry."
+        },
+        "apply_draft": {
+          "type": "boolean",
+          "description": "When true, overlays saved draft field values onto the published entry data in the response."
+        }
+      }
+    },
+    "group": "cma",
+    "scopes": ["cm.entry:read"],
+    "x-enrich-group": "cma"
+  },
+  "get_single_entry": {
+    "name": "get_single_entry",
+    "description": "This tool retrieves metadata and field values for a specified entry within a given content type, supporting branch, version, and locale selection, with optional inclusion of workflow, branch, and publish details.",
+    "mapper": {
+      "apiUrl": "/v3/content_types/content_type_uid/entries/entry_uid",
+      "method": "GET",
+      "queryParams": {
+        "version": "version",
+        "locale": "locale",
+        "include[]": "include",
+        "include_embedded_items[]": "include_embedded_items",
+        "include_workflow": "include_workflow",
+        "include_publish_details": "include_publish_details",
+        "include_branch": "include_branch",
+        "include_metadata": "include_metadata"
+      },
+      "params": {
+        "content_type_uid": "content_type_uid",
+        "entry_uid": "entry_uid"
+      },
+      "headers": {
+        "branch": "branch"
+      }
+    },
+    "inputSchema": {
+      "type": "object",
+      "required": ["content_type_uid", "entry_uid"],
+      "properties": {
+        "branch": {
+          "type": "string",
+          "description": "Select a branch from your stack.",
+          "default": "main"
+        },
+        "content_type_uid": {
+          "type": "string",
+          "description": "UID of the content type the entry belongs to."
+        },
+        "entry_uid": {
+          "type": "string",
+          "description": "UID of the entry to fetch."
+        },
+        "version": {
+          "type": "string",
+          "description": "Specific entry version to fetch. Versions start at 1; never pass 0. Omit this parameter entirely to fetch the latest."
+        },
+        "locale": {
+          "type": "string",
+          "description": "Select a locale to fetch the entry details in that locale."
+        },
+        "include": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "description": "Reference field UIDs to resolve into full objects, e.g. ['author','category']."
+        },
+        "include_embedded_items": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "description": "Pass ['BASE'] to resolve entries/assets embedded in Rich Text Editor fields."
+        },
+        "include_workflow": {
+          "type": "boolean",
+          "description": "Include workflow stage details for the entry."
+        },
+        "include_branch": {
+          "type": "boolean",
+          "description": "Set to true to include the branch UID in the response."
+        },
+        "include_publish_details": {
+          "type": "boolean",
+          "description": "Include publish details (time, user, environment) for the entry."
+        },
+        "include_metadata": {
+          "type": "boolean",
+          "description": "Include metadata in the response.",
+          "default": false
+        }
+      }
+    },
+    "group": "cma",
+    "scopes": ["cm.entry:read"],
+    "x-enrich-group": "cma"
+  },
+  "update_an_entry": {
+    "name": "update_an_entry",
+    "description": "Updates an existing entry in the given content type, branch, and locale by replacing its field data.",
+    "mapper": {
+      "apiUrl": "/v3/content_types/content_type_uid/entries/entry_uid",
+      "method": "PUT",
+      "body": "entry_data",
+      "queryParams": {
+        "locale": "locale",
+        "include_branch": "include_branch",
+        "include_publish_details": "include_publish_details"
+      },
+      "params": {
+        "content_type_uid": "content_type_uid",
+        "entry_uid": "entry_uid"
+      },
+      "headers": {
+        "branch": "branch"
+      }
+    },
+    "inputSchema": {
+      "type": "object",
+      "required": ["content_type_uid", "entry_uid", "entry_data"],
+      "properties": {
+        "branch": {
+          "type": "string",
+          "description": "Select a branch from your stack.",
+          "default": "main"
+        },
+        "content_type_uid": {
+          "type": "string",
+          "description": "UID of the content type the entry belongs to."
+        },
+        "entry_uid": {
+          "type": "string",
+          "description": "UID of the entry to update."
+        },
+        "entry_data": {
+          "type": "object",
+          "description": "The fields should be wrapped by an entry object {'entry':{...data}}"
+        },
+        "locale": {
+          "type": "string",
+          "description": "Select a locale in which the entry should be updated."
+        },
+        "include_branch": {
+          "type": "boolean",
+          "description": "Set to true to include the branch UID in the response."
+        },
+        "include_publish_details": {
+          "type": "boolean",
+          "description": "Include publish details in the response."
+        }
+      }
+    },
+    "group": "cma",
+    "scopes": ["cm.entry:write"],
+    "x-enrich-group": "cma"
+  },
+  "get_all_content_types": {
+    "name": "get_all_content_types",
+    "description": "Retrieves all content types in the stack, with pagination, query filtering, and optional inclusion of the global field schema.",
+    "mapper": {
+      "apiUrl": "/v3/content_types",
+      "method": "GET",
+      "queryParams": {
+        "query": "query",
+        "limit": "limit",
+        "skip": "skip",
+        "include_count": "include_count",
+        "include_branch": "include_branch",
+        "include_global_field_schema": "include_global_field_schema"
+      },
+      "headers": {
+        "branch": "branch"
+      }
+    },
+    "inputSchema": {
+      "type": "object",
+      "required": [],
+      "properties": {
+        "branch": {
+          "type": "string",
+          "description": "Select a branch from your stack.",
+          "default": "main"
+        },
+        "query": {
+          "type": "object",
+          "description": "JSON query object to filter results."
+        },
+        "limit": {
+          "type": "string",
+          "description": "Number of content types to fetch (max: 100)."
+        },
+        "skip": {
+          "type": "string",
+          "description": "Number of content types to skip for pagination."
+        },
+        "include_count": {
+          "type": "boolean",
+          "description": "Include the total count of content types in the response.",
+          "default": true
+        },
+        "include_branch": {
+          "type": "boolean",
+          "description": "Set to true to include the branch UID in the response.",
+          "default": true
+        },
+        "include_global_field_schema": {
+          "type": "boolean",
+          "description": "Include the full schema of any global fields referenced by each content type.",
+          "default": false
+        }
+      }
+    },
+    "group": "cma",
+    "scopes": ["cm.content-type:read"],
+    "x-enrich-group": "cma"
+  },
+  "get_a_single_content_type": {
+    "name": "get_a_single_content_type",
+    "description": "This tool retrieves the schema and configuration details of a specified content type within a stack, supporting optional inclusion of global field definitions and branch metadata for developer reference.",
+    "mapper": {
+      "apiUrl": "/v3/content_types/content_type_uid",
+      "method": "GET",
+      "queryParams": {
+        "version": "version",
+        "include_branch": "include_branch",
+        "include_global_field_schema": "include_global_field_schema"
+      },
+      "params": {
+        "content_type_uid": "content_type_uid"
+      },
+      "headers": {
+        "branch": "branch"
+      }
+    },
+    "inputSchema": {
+      "type": "object",
+      "required": ["content_type_uid"],
+      "properties": {
+        "branch": {
+          "type": "string",
+          "description": "Select a branch from your stack.",
+          "default": "main"
+        },
+        "content_type_uid": {
+          "type": "string",
+          "description": "UID of the content type to fetch."
+        },
+        "version": {
+          "type": "number",
+          "minimum": 1,
+          "description": "Specific content type version to fetch. Versions start at 1; never pass 0. Omit this parameter entirely to fetch the latest."
+        },
+        "include_global_field_schema": {
+          "type": "boolean",
+          "description": "Include the full schema of any global fields referenced by the content type.",
+          "default": true
+        },
+        "include_branch": {
+          "type": "boolean",
+          "description": "Set to true to include the branch UID in the response.",
+          "default": false
+        }
+      }
+    },
+    "group": "cma",
+    "scopes": ["cm.content-type:read"],
+    "x-enrich-group": "cma"
+  },
+  "create_a_content_type": {
+    "name": "create_a_content_type",
+    "description": "This tool creates a new content type in the specified Contentstack stack, supporting branch selection and optional branch metadata inclusion.",
+    "mapper": {
+      "apiUrl": "/v3/content_types",
+      "method": "POST",
+      "body": "content_type",
+      "queryParams": {
+        "include_branch": "include_branch"
+      },
+      "headers": {
+        "branch": "branch"
+      }
+    },
+    "inputSchema": {
+      "type": "object",
+      "required": ["content_type"],
+      "properties": {
+        "branch": {
+          "type": "string",
+          "description": "Select a branch from your stack.",
+          "default": "main"
+        },
+        "content_type": {
+          "type": "object",
+          "description": "The fields should be wrapped by an content_type object {'content_type':{...data}}"
+        },
+        "include_branch": {
+          "type": "boolean",
+          "description": "Set to true to include the branch UID in the response.",
+          "default": false
+        }
+      }
+    },
+    "group": "cma",
+    "scopes": ["cm.content-types.management:write"],
+    "x-enrich-group": "cma"
+  },
+  "update_content_type": {
+    "name": "update_content_type",
+    "description": "This tool updates an existing content type in the specified Contentstack stack, supporting branch selection and optional branch metadata inclusion.",
+    "mapper": {
+      "apiUrl": "/v3/content_types/content_type_uid",
+      "method": "PUT",
+      "body": "content_type",
+      "queryParams": {
+        "include_branch": "include_branch"
+      },
+      "params": {
+        "content_type_uid": "content_type_uid"
+      },
+      "headers": {
+        "branch": "branch"
+      }
+    },
+    "inputSchema": {
+      "type": "object",
+      "required": ["content_type_uid", "content_type"],
+      "properties": {
+        "branch": {
+          "type": "string",
+          "description": "Select a branch from your stack.",
+          "default": "main"
+        },
+        "content_type_uid": {
+          "type": "string",
+          "description": "UID of the content type to update."
+        },
+        "content_type": {
+          "type": "object",
+          "description": "The fields should be wrapped by an content_type object {'content_type':{...data}}"
+        },
+        "include_branch": {
+          "type": "boolean",
+          "description": "Set to true to include the branch UID in the response.",
+          "default": false
+        }
+      }
+    },
+    "group": "cma",
+    "scopes": ["cm.content-types.management:write"],
+    "x-enrich-group": "cma"
+  },
+  "delete_content_type": {
+    "name": "delete_content_type",
+    "description": "This tool deletes an existing content type and all the entries within it.",
+    "mapper": {
+      "apiUrl": "/v3/content_types/content_type_uid",
+      "method": "DELETE",
+      "queryParams": {
+        "force": "force"
+      },
+      "params": {
+        "content_type_uid": "content_type_uid"
+      },
+      "headers": {
+        "branch": "branch"
+      }
+    },
+    "inputSchema": {
+      "type": "object",
+      "required": ["content_type_uid"],
+      "properties": {
+        "branch": {
+          "type": "string",
+          "description": "Select a branch from your stack.",
+          "default": "main"
+        },
+        "content_type_uid": {
+          "type": "string",
+          "description": "Select a content type to delete."
+        },
+        "force": {
+          "type": "boolean",
+          "description": "Force deletion even when the content type has existing entries.",
+          "default": true
+        }
+      }
+    },
+    "group": "cma",
+    "scopes": ["cm.content-types.management:write"],
+    "x-enrich-group": "cma"
+  },
+  "get_all_references_of_ct": {
+    "name": "get_all_references_of_ct",
+    "description": "Retrieves the content types that reference the specified content type, including direct and nested references.",
+    "mapper": {
+      "apiUrl": "/v3/content_types/content_type_uid/references",
+      "method": "GET",
+      "queryParams": {
+        "include_global_fields": "include_global_fields",
+        "include_branch": "include_branch"
+      },
+      "params": {
+        "content_type_uid": "content_type_uid"
+      },
+      "headers": {
+        "branch": "branch"
+      }
+    },
+    "inputSchema": {
+      "type": "object",
+      "required": ["content_type_uid"],
+      "properties": {
+        "branch": {
+          "type": "string",
+          "description": "Select a branch from your stack.",
+          "default": "main"
+        },
+        "content_type_uid": {
+          "type": "string",
+          "description": "UID of the content type whose references to fetch."
+        },
+        "include_global_fields": {
+          "type": "boolean",
+          "description": "Set to true to include global field references.",
+          "default": true
+        },
+        "include_branch": {
+          "type": "boolean",
+          "description": "Set to true to include branch information in the response.",
+          "default": false
+        }
+      }
+    },
+    "group": "cma",
+    "scopes": ["cm.content-type:read"],
+    "x-enrich-group": "cma"
+  },
+  "export_content_type": {
+    "name": "export_content_type",
+    "description": "This tool exports a specific content type and its schema. The data is exported in JSON format.",
+    "mapper": {
+      "apiUrl": "/v3/content_types/content_type_uid/export",
+      "method": "GET",
+      "queryParams": {
+        "version": "version",
+        "include_branch": "include_branch"
+      },
+      "params": {
+        "content_type_uid": "content_type_uid"
+      },
+      "headers": {
+        "branch": "branch"
+      }
+    },
+    "inputSchema": {
+      "type": "object",
+      "required": ["content_type_uid"],
+      "properties": {
+        "branch": {
+          "type": "string",
+          "description": "Select a branch from your stack.",
+          "default": "main"
+        },
+        "content_type_uid": {
+          "type": "string",
+          "description": "UID of the content type to export."
+        },
+        "version": {
+          "type": "number",
+          "minimum": 1,
+          "description": "Specific content type version to export. Versions start at 1; never pass 0. Omit this parameter entirely to export the latest."
+        },
+        "include_branch": {
+          "type": "boolean",
+          "description": "Set to true to include branch information in the response.",
+          "default": false
+        }
+      }
+    },
+    "group": "cma",
+    "scopes": ["cm.content-types:export"],
+    "x-enrich-group": "cma"
+  },
+  "get_all_taxonomies": {
+    "name": "get_all_taxonomies",
+    "description": "Retrieves metadata for all taxonomies in the stack, with pagination and typeahead search by UID or name.",
+    "mapper": {
+      "apiUrl": "/v3/taxonomies",
+      "method": "GET",
+      "queryParams": {
+        "limit": "limit",
+        "skip": "skip",
+        "include_count": "include_count",
+        "include_terms_count": "include_terms_count",
+        "include_referenced_terms_count": "include_referenced_terms_count",
+        "include_referenced_entries_count": "include_referenced_entries_count",
+        "deleted": "deleted",
+        "typeahead": "typeahead",
+        "query": "query",
+        "asc": "asc",
+        "desc": "desc"
+      }
+    },
+    "inputSchema": {
+      "type": "object",
+      "required": [],
+      "properties": {
+        "limit": {
+          "type": "number",
+          "description": "Specify the number of taxonomies to retrieve from the stack. For example, if you set the limit to 10, then the first 10 taxonomies will be fetched. The maximum limit is 100."
+        },
+        "skip": {
+          "type": "number",
+          "description": "Specify the number of taxonomies to skip. For example, if you set the skip value to 3, the first three taxonomies will be skipped and the results will start with the fourth item."
+        },
+        "typeahead": {
+          "type": "string",
+          "description": "Specify a UID or name to search the taxonomies."
+        },
+        "include_count": {
+          "type": "boolean",
+          "default": false
+        },
+        "include_terms_count": {
+          "type": "boolean",
+          "default": false
+        },
+        "include_referenced_terms_count": {
+          "type": "boolean",
+          "default": false
+        },
+        "include_referenced_entries_count": {
+          "type": "boolean",
+          "default": false
+        },
+        "deleted": {
+          "type": "boolean",
+          "default": false
+        },
+        "query": {
+          "type": "object",
+          "description": "JSON query object to filter results."
+        },
+        "asc": {
+          "type": "string",
+          "description": "Field UID to sort results by in ascending order."
+        },
+        "desc": {
+          "type": "string",
+          "description": "Field UID to sort results by in descending order."
+        }
+      }
+    },
+    "group": "cma",
+    "scopes": ["cm.taxonomies.management:read"],
+    "x-enrich-group": "cma"
+  },
+  "get_a_single_taxonomy": {
+    "name": "get_a_single_taxonomy",
+    "description": "This tool retrieves metadata and configuration details for a specified taxonomy, with optional inclusion of term, referenced term, and referenced entry counts for advanced content modeling and reporting.",
+    "mapper": {
+      "apiUrl": "/v3/taxonomies/taxonomy_uid",
+      "method": "GET",
+      "params": {
+        "taxonomy_uid": "taxonomy_uid"
+      },
+      "queryParams": {
+        "include_terms_count": "include_terms_count",
+        "include_referenced_terms_count": "include_referenced_terms_count",
+        "include_referenced_entries_count": "include_referenced_entries_count"
+      }
+    },
+    "inputSchema": {
+      "type": "object",
+      "required": ["taxonomy_uid"],
+      "properties": {
+        "taxonomy_uid": {
+          "type": "string",
+          "description": "Select a taxonomy to fetch its details."
+        },
+        "include_terms_count": {
+          "type": "boolean",
+          "default": false
+        },
+        "include_referenced_terms_count": {
+          "type": "boolean",
+          "default": false
+        },
+        "include_referenced_entries_count": {
+          "type": "boolean",
+          "default": false
+        }
+      }
+    },
+    "group": "cma",
+    "scopes": ["cm.taxonomies.management:read"],
+    "x-enrich-group": "cma"
+  },
+  "export_a_taxonomy": {
+    "name": "export_a_taxonomy",
+    "description": "This tool exports a taxonomy and all its associated terms from the specified stack in the selected format, supporting structured data extraction for taxonomy management.",
+    "mapper": {
+      "apiUrl": "/v3/taxonomies/taxonomy_uid/export",
+      "method": "GET",
+      "queryParams": {
+        "format": "format"
+      },
+      "params": {
+        "taxonomy_uid": "taxonomy_uid"
+      }
+    },
+    "inputSchema": {
+      "type": "object",
+      "required": ["taxonomy_uid"],
+      "properties": {
+        "taxonomy_uid": {
+          "type": "string",
+          "description": "Select a taxonomy you want to export. This exports all the associated terms within the selected taxonomy."
+        },
+        "format": {
+          "type": "string",
+          "description": "Select the format in which you want to export the taxonomy.",
+          "default": "json"
+        }
+      }
+    },
+    "group": "cma",
+    "scopes": ["cm.taxonomies.management:read"],
+    "x-enrich-group": "cma"
+  },
+  "get_all_languages": {
+    "name": "get_all_languages",
+    "description": "This tool retrieves metadata for all languages configured within a specified stack branch, supporting pagination via limit and skip parameters. Localization, language management.",
+    "mapper": {
+      "apiUrl": "/v3/locales",
+      "method": "GET",
+      "queryParams": {
+        "include_count": "include_count",
+        "include_branch": "include_branch",
+        "limit": "limit",
+        "skip": "skip"
+      },
+      "headers": {
+        "branch": "branch"
+      }
+    },
+    "inputSchema": {
+      "type": "object",
+      "required": [],
+      "properties": {
+        "limit": {
+          "type": "string",
+          "description": "Specify the number of languages to retrieve from the stack. For example, if you set the limit to 10, then the first 10 languages will be fetched. The maximum limit is 100."
+        },
+        "skip": {
+          "type": "string",
+          "description": "Specify the number of languages to skip. For example, if you set the skip value to 3, the first three languages will be skipped and the results will start with the fourth item."
+        },
+        "branch": {
+          "type": "string",
+          "description": "Select a branch from your stack.",
+          "default": "main"
+        },
+        "include_count": {
+          "type": "boolean",
+          "default": false
+        },
+        "include_branch": {
+          "type": "boolean",
+          "default": false
+        }
+      }
+    },
+    "group": "cma",
+    "scopes": ["cm.languages.management:read"],
+    "x-enrich-group": "cma"
+  },
+  "get_all_assets": {
+    "name": "get_all_assets",
+    "description": "Retrieves metadata for all assets in the stack, with environment and folder filters, query filtering, ascending/descending sorting, and pagination.",
+    "mapper": {
+      "apiUrl": "/v3/assets",
+      "method": "GET",
+      "queryParams": {
+        "environment": "environment",
+        "limit": "limit",
+        "skip": "skip",
+        "folder": "folder_id",
+        "query": "query",
+        "asc": "asc",
+        "desc": "desc",
+        "include_count": "include_count",
+        "include_publish_details": "include_publish_details",
+        "include_metadata": "include_metadata"
+      },
+      "headers": {
+        "branch": "branch"
+      }
+    },
+    "inputSchema": {
+      "type": "object",
+      "required": [],
+      "properties": {
+        "environment": {
+          "type": "string",
+          "description": "Select an environment to fetch the asset details."
+        },
+        "branch": {
+          "type": "string",
+          "description": "Select a branch from your stack.",
+          "default": "main"
+        },
+        "limit": {
+          "type": "string",
+          "description": "Number of assets to fetch (max: 100)."
+        },
+        "skip": {
+          "type": "string",
+          "description": "Number of assets to skip for pagination."
+        },
+        "folder_id": {
+          "type": "string",
+          "description": "Fetch only the assets within this folder UID."
+        },
+        "query": {
+          "type": "object",
+          "description": "JSON query object to filter results."
+        },
+        "asc": {
+          "type": "string",
+          "description": "Field UID to sort assets by in ascending order (e.g. 'created_at')."
+        },
+        "desc": {
+          "type": "string",
+          "description": "Field UID to sort assets by in descending order (e.g. 'updated_at')."
+        },
+        "include_count": {
+          "type": "boolean",
+          "description": "Include the total count of matching assets in the response.",
+          "default": false
+        },
+        "include_publish_details": {
+          "type": "boolean",
+          "description": "Include publish details (time, user, environment) for each asset."
+        },
+        "include_metadata": {
+          "type": "boolean",
+          "description": "Include metadata attached to each asset.",
+          "default": false
+        }
+      }
+    },
+    "group": "cma",
+    "scopes": ["cm.asset:read"],
+    "x-enrich-group": "cma"
+  },
+  "get_all_branches": {
+    "name": "get_all_branches",
+    "description": "This tool retrieves metadata for all branches within a specified stack, supporting pagination via limit and skip parameters.",
+    "mapper": {
+      "apiUrl": "/v3/stacks/branches",
+      "method": "GET",
+      "queryParams": {
+        "limit": "limit",
+        "skip": "skip",
+        "include_count": "include_count"
+      }
+    },
+    "inputSchema": {
+      "type": "object",
+      "required": [],
+      "properties": {
+        "limit": {
+          "type": "number",
+          "description": "Specify the number of branches to retrieve from the stack. For example, if you set the limit to 10, then the first 10 branches will be fetched. The maximum limit is 100."
+        },
+        "skip": {
+          "type": "number",
+          "description": "Specify the number of branches to skip. For example, if you set the skip value to 3, the first three branches will be skipped and the results will start with the fourth item."
+        },
+        "include_count": {
+          "type": "boolean",
+          "description": "Include the total count in the response.",
+          "default": false
+        }
+      }
+    },
+    "group": "cma",
+    "scopes": ["cm.branches.management:read"],
+    "x-enrich-group": "cma"
+  },
+  "create_a_branch": {
+    "name": "create_a_branch",
+    "description": "This tool creates a new branch in the specified Contentstack stack.",
+    "mapper": {
+      "apiUrl": "/v3/stacks/branches",
+      "method": "POST",
+      "body": "branch"
+    },
+    "inputSchema": {
+      "type": "object",
+      "required": ["uid", "source"],
+      "properties": {
+        "uid": {
+          "type": "string",
+          "description": "Specify a UID to create a branch."
+        },
+        "source": {
+          "type": "string",
+          "description": "Select a source branch from which to create the new branch."
+        }
+      }
+    },
+    "group": "cma",
+    "scopes": ["cm.branches.management:write"],
+    "x-enrich-group": "cma"
+  },
+  "get_a_single_branch": {
+    "name": "get_a_single_branch",
+    "description": "This tool retrieves metadata and configuration details for a specified branch within a Contentstack stack, enabling branch-level inspection and management.",
+    "mapper": {
+      "apiUrl": "/v3/stacks/branches/branch_uid",
+      "method": "GET",
+      "params": {
+        "branch_uid": "branch_uid"
+      }
+    },
+    "inputSchema": {
+      "type": "object",
+      "required": ["branch_uid"],
+      "properties": {
+        "branch_uid": {
+          "type": "string",
+          "description": "UID of the branch to fetch."
+        }
+      }
+    },
+    "group": "cma",
+    "scopes": ["cm.branches.management:read"],
+    "x-enrich-group": "cma"
+  },
+  "delete_a_branch": {
+    "name": "delete_a_branch",
+    "description": "This tool deletes a branch in the specified Contentstack stack.",
+    "mapper": {
+      "apiUrl": "/v3/stacks/branches/branch_uid",
+      "method": "DELETE",
+      "queryParams": {
+        "force": "force"
+      },
+      "params": {
+        "branch_uid": "branch_uid"
+      }
+    },
+    "inputSchema": {
+      "type": "object",
+      "required": ["branch_uid", "force"],
+      "properties": {
+        "branch_uid": {
+          "type": "string",
+          "description": "Select a branch to delete."
+        },
+        "force": {
+          "type": "boolean",
+          "default": true
+        }
+      }
+    },
+    "group": "cma",
+    "scopes": ["cm.branches.management:write"],
+    "x-enrich-group": "cma"
+  },
+  "compare_branches": {
+    "name": "compare_branches",
+    "description": "This tool retrieves a list of all the differences between two branches.",
+    "mapper": {
+      "apiUrl": "/v3/stacks/branches_compare",
+      "method": "GET",
+      "queryParams": {
+        "base_branch": "base_branch",
+        "compare_branch": "compare_branch",
+        "skip": "skip",
+        "limit": "limit"
+      }
+    },
+    "inputSchema": {
+      "type": "object",
+      "required": ["compare_branch"],
+      "properties": {
+        "base_branch": {
+          "type": "string",
+          "default": "main"
+        },
+        "compare_branch": {
+          "type": "string",
+          "description": "Select a branch to compare against the base branch."
+        },
+        "skip": {
+          "type": "number",
+          "description": "The number of items to skip."
+        },
+        "limit": {
+          "type": "number",
+          "description": "The number of items to return."
+        }
+      }
+    },
+    "group": "cma",
+    "scopes": ["cm.branches.management:write"],
+    "x-enrich-group": "cma"
+  },
+  "compare_content_types_between_branches": {
+    "name": "compare_content_types_between_branches",
+    "description": "This tool retrieves a list of all the differences in content types between the two specified branches.",
+    "mapper": {
+      "apiUrl": "/v3/stacks/branches_compare/content_types",
+      "method": "GET",
+      "queryParams": {
+        "base_branch": "base_branch",
+        "compare_branch": "compare_branch",
+        "skip": "skip",
+        "limit": "limit"
+      }
+    },
+    "inputSchema": {
+      "type": "object",
+      "required": ["compare_branch"],
+      "properties": {
+        "base_branch": {
+          "type": "string",
+          "default": "main"
+        },
+        "compare_branch": {
+          "type": "string",
+          "description": "Select a branch to compare against the base branch."
+        },
+        "skip": {
+          "type": "number",
+          "description": "The number of items to skip."
+        },
+        "limit": {
+          "type": "number",
+          "description": "The number of items to return."
+        }
+      }
+    },
+    "group": "cma",
+    "scopes": ["cm.branches.management:write"],
+    "x-enrich-group": "cma"
+  },
+  "compare_global_fields_between_branches": {
+    "name": "compare_global_fields_between_branches",
+    "description": "This tool retrieves a list of all the differences in global fields between the two specified branches.",
+    "mapper": {
+      "apiUrl": "/v3/stacks/branches_compare/global_fields",
+      "method": "GET",
+      "queryParams": {
+        "base_branch": "base_branch",
+        "compare_branch": "compare_branch",
+        "skip": "skip",
+        "limit": "limit"
+      }
+    },
+    "inputSchema": {
+      "type": "object",
+      "required": ["compare_branch"],
+      "properties": {
+        "base_branch": {
+          "type": "string",
+          "default": "main"
+        },
+        "compare_branch": {
+          "type": "string",
+          "description": "Select a branch to compare against the base branch."
+        },
+        "skip": {
+          "type": "number",
+          "description": "The number of items to skip."
+        },
+        "limit": {
+          "type": "number",
+          "description": "The number of items to return."
+        }
+      }
+    },
+    "group": "cma",
+    "scopes": ["cm.branches.management:write"],
+    "x-enrich-group": "cma"
+  },
+  "compare_specific_ct_between_branches": {
+    "name": "compare_specific_ct_between_branches",
+    "description": "This tool retrieves all the differences of the specified content type between the two specified branches.",
+    "mapper": {
+      "apiUrl": "/v3/stacks/branches_compare/content_types/content_type_uid",
+      "method": "GET",
+      "queryParams": {
+        "base_branch": "base_branch",
+        "compare_branch": "compare_branch"
+      },
+      "params": {
+        "content_type_uid": "content_type_uid"
+      }
+    },
+    "inputSchema": {
+      "type": "object",
+      "required": ["content_type_uid", "compare_branch"],
+      "properties": {
+        "content_type_uid": {
+          "type": "string",
+          "description": "Select a content type to compare."
+        },
+        "base_branch": {
+          "type": "string",
+          "default": "main"
+        },
+        "compare_branch": {
+          "type": "string",
+          "description": "Select a branch to compare against the base branch."
+        }
+      }
+    },
+    "group": "cma",
+    "scopes": ["cm.branches.management:write"],
+    "x-enrich-group": "cma"
+  },
+  "compare_specific_gf_between_branches": {
+    "name": "compare_specific_gf_between_branches",
+    "description": "This tool retrieves all the differences of the specified global field between the two specified branches.",
+    "mapper": {
+      "apiUrl": "/v3/stacks/branches_compare/global_fields/global_field_uid",
+      "method": "GET",
+      "queryParams": {
+        "base_branch": "base_branch",
+        "compare_branch": "compare_branch"
+      },
+      "params": {
+        "global_field_uid": "global_field_uid"
+      }
+    },
+    "inputSchema": {
+      "type": "object",
+      "required": ["compare_branch", "global_field_uid"],
+      "properties": {
+        "base_branch": {
+          "type": "string",
+          "default": "main"
+        },
+        "compare_branch": {
+          "type": "string",
+          "description": "Select a branch to compare against the base branch."
+        },
+        "global_field_uid": {
+          "type": "string",
+          "description": "Select a global field to compare between the two branches.",
+          "default": ""
+        }
+      }
+    },
+    "group": "cma",
+    "scopes": ["cm.branches.management:write"],
+    "x-enrich-group": "cma"
+  },
+  "get_all_merge_jobs": {
+    "name": "get_all_merge_jobs",
+    "description": "This tool retrieves a list of all the recent merge jobs within a specific period.",
+    "mapper": {
+      "apiUrl": "/v3/stacks/branches_queue",
+      "method": "GET"
+    },
+    "inputSchema": {
+      "type": "object",
+      "required": [],
+      "properties": {}
+    },
+    "group": "cma",
+    "scopes": ["cm.branches.management:read"],
+    "x-enrich-group": "cma"
+  },
+  "merge_branch": {
+    "name": "merge_branch",
+    "description": "this tool merges content types and global fields from a compare branch into a base branch, with optional per item strategy overrides.",
+    "mapper": {
+      "apiUrl": "/v3/stacks/branches_merge",
+      "method": "POST",
+      "body": {
+        "title": "merging_data",
+        "type": "object",
+        "optional": true,
+        "properties": {
+          "item_merge_strategies": {
+            "type": "array",
+            "items": {
+              "type": "object"
+            },
+            "x-mapFrom": "item_merge_strategies",
+            "optional": true,
+            "minItems": 1
+          }
+        },
+        "additionalProperties": false
+      },
+      "type": "complex",
+      "queryParams": {
+        "base_branch": "base_branch",
+        "compare_branch": "compare_branch",
+        "default_merge_strategy": "merge_strategy",
+        "merge_comment": "merge_comment"
+      }
+    },
+    "inputSchema": {
+      "type": "object",
+      "required": [
+        "base_branch",
+        "compare_branch",
+        "merge_strategy",
+        "merge_comment"
+      ],
+      "properties": {
+        "compare_branch": {
+          "type": "string"
+        },
+        "base_branch": {
+          "type": "string",
+          "default": "main"
+        },
+        "merge_strategy": {
+          "type": "string",
+          "enum": [
+            "merge_prefer_base",
+            "merge_prefer_compare",
+            "overwrite_with_compare",
+            "merge_new_only",
+            "merge_modified_only_prefer_base",
+            "merge_modified_only_prefer_compare",
+            "ignore"
+          ],
+          "default": "ignore"
+        },
+        "merge_comment": {
+          "type": "string"
+        },
+        "item_merge_strategies": {
+          "type": "array",
+          "description": "Optional per item strategy overrides. Provide only if the user specifies them.",
+          "optional": true,
+          "items": {
+            "type": "object",
+            "required": ["uid", "type", "merge_strategy"],
+            "properties": {
+              "uid": {
+                "type": "string"
+              },
+              "type": {
+                "type": "string",
+                "enum": ["content_type", "global_field"]
+              },
+              "merge_strategy": {
+                "type": "string",
+                "enum": [
+                  "merge_prefer_base",
+                  "merge_prefer_compare",
+                  "overwrite_with_compare",
+                  "merge_new_only",
+                  "merge_modified_only_prefer_base",
+                  "merge_modified_only_prefer_compare"
+                ]
+              }
+            },
+            "additionalProperties": false
+          },
+          "minItems": 1
+        }
+      },
+      "additionalProperties": false
+    },
+    "group": "cma",
+    "scopes": ["cm.branches.management:write"],
+    "x-enrich-group": "cma"
+  },
+  "get_a_single_merge_job": {
+    "name": "get_a_single_merge_job",
+    "description": "This tool retrieves detailed information for a specified merge job within a stack, using the provided merge_job_uid parameter.",
+    "mapper": {
+      "apiUrl": "/v3/stacks/branches_queue/merge_job_uid",
+      "method": "GET",
+      "params": {
+        "merge_job_uid": "merge_job_uid"
+      }
+    },
+    "inputSchema": {
+      "type": "object",
+      "required": ["merge_job_uid"],
+      "properties": {
+        "merge_job_uid": {
+          "type": "string",
+          "description": "Select a merge job to fetch its details.",
+          "default": ""
+        }
+      }
+    },
+    "group": "cma",
+    "scopes": ["cm.branches.management:read"],
+    "x-enrich-group": "cma"
+  },
+  "get_a_single_branch_alias": {
+    "name": "get_a_single_branch_alias",
+    "description": "This tool retrieves metadata and configuration details for a specified branch alias within a Contentstack stack, enabling branch management and validation operations.",
+    "mapper": {
+      "apiUrl": "/v3/stacks/branch_aliases/branch_alias_uid",
+      "method": "GET",
+      "params": {
+        "branch_alias_uid": "branch_alias_uid"
+      }
+    },
+    "inputSchema": {
+      "type": "object",
+      "required": ["branch_alias_uid"],
+      "properties": {
+        "branch_alias_uid": {
+          "type": "string",
+          "description": "Select a branch alias to fetch its details.",
+          "default": ""
+        }
+      }
+    },
+    "group": "cma",
+    "scopes": ["cm.branch-aliases.management:read"],
+    "x-enrich-group": "cma"
+  },
+  "get_all_branch_aliases": {
+    "name": "get_all_branch_aliases",
+    "description": "This tool retrieves metadata for all branch aliases within a specified stack, supporting pagination via limit and skip parameters.",
+    "mapper": {
+      "apiUrl": "/v3/stacks/branch_aliases",
+      "method": "GET",
+      "queryParams": {
+        "limit": "limit",
+        "skip": "skip",
+        "include_count": "include_count"
+      }
+    },
+    "inputSchema": {
+      "type": "object",
+      "required": [],
+      "properties": {
+        "limit": {
+          "type": "number",
+          "description": "Specify the number of branch aliases to retrieve from the stack. For example, if you set the limit to 10, then 10 branch aliases will be fetched. The maximum limit is 100."
+        },
+        "skip": {
+          "type": "number",
+          "description": "Specify the number of branch aliases to skip. For example, if you set the skip value to 3, the first three branch aliases will be skipped and the results will start with the fourth item."
+        },
+        "include_count": {
+          "type": "boolean",
+          "description": "Include the total count in the response.",
+          "default": false
+        }
+      }
+    },
+    "group": "cma",
+    "scopes": ["cm.branch-aliases.management:read"],
+    "x-enrich-group": "cma"
+  },
+  "assign_a_branch_alias": {
+    "name": "assign_a_branch_alias",
+    "description": "Assigns (creates or updates) a branch alias so it points to a target branch in the stack.",
+    "mapper": {
+      "apiUrl": "/v3/stacks/branch_aliases/branch_alias_uid",
+      "method": "PUT",
+      "body": "branch_alias",
+      "params": {
+        "branch_alias_uid": "branch_alias_uid"
+      }
+    },
+    "inputSchema": {
+      "type": "object",
+      "required": ["branch_alias_uid", "target_branch"],
+      "properties": {
+        "branch_alias_uid": {
+          "type": "string",
+          "description": "UID of the branch alias to assign."
+        },
+        "target_branch": {
+          "type": "string",
+          "description": "UID of the existing branch this alias should point to."
+        }
+      }
+    },
+    "group": "cma",
+    "scopes": ["cm.branch-aliases.management:write"],
+    "x-enrich-group": "cma"
+  },
+  "delete_a_branch_alias": {
+    "name": "delete_a_branch_alias",
+    "description": "This tool permanently deletes the specified branch alias from the selected stack.",
+    "mapper": {
+      "apiUrl": "/v3/stacks/branch_aliases/branch_alias_uid",
+      "method": "DELETE",
+      "params": {
+        "branch_alias_uid": "branch_alias_uid"
+      },
+      "queryParams": {
+        "force": "force"
+      }
+    },
+    "inputSchema": {
+      "type": "object",
+      "required": ["branch_alias_uid"],
+      "properties": {
+        "branch_alias_uid": {
+          "type": "string",
+          "description": "UID of the branch alias to delete."
+        },
+        "force": {
+          "type": "boolean",
+          "description": "Force deletion of the branch alias.",
+          "default": true
+        }
+      }
+    },
+    "group": "cma",
+    "scopes": ["cm.branch-aliases.management:write"],
+    "x-enrich-group": "cma"
+  },
+  "get_all_global_fields": {
+    "name": "get_all_global_fields",
+    "description": "This tool retrieves metadata for all global fields configured within the specified stack, supporting optional branch selection and branch metadata inclusion.",
+    "mapper": {
+      "apiUrl": "/v3/global_fields",
+      "method": "GET",
+      "queryParams": {
+        "include_count": "include_count",
+        "include_global_field_schema": "include_global_field_schema",
+        "include_branch": "include_branch"
+      },
+      "headers": {
+        "branch": "branch"
+      }
+    },
+    "inputSchema": {
+      "type": "object",
+      "required": [],
+      "properties": {
+        "branch": {
+          "type": "string",
+          "description": "Select a branch from your stack.",
+          "default": "main"
+        },
+        "include_count": {
+          "type": "boolean",
+          "description": "Include the total count of global fields in the response.",
+          "default": false
+        },
+        "include_global_field_schema": {
+          "type": "boolean",
+          "description": "Include the full nested schema of each global field.",
+          "default": false
+        },
+        "include_branch": {
+          "type": "boolean",
+          "description": "Set to true to include the branch UID in the response.",
+          "default": false
+        }
+      }
+    },
+    "group": "cma",
+    "scopes": ["cm.global-fields.management:read"],
+    "x-enrich-group": "cma"
+  },
+  "get_all_items_in_a_release": {
+    "name": "get_all_items_in_a_release",
+    "description": "This tool retrieves metadata and content details for all items associated with the specified release_uid, optionally including branch information if include_branch is true.",
+    "mapper": {
+      "apiUrl": "/v3/releases/release_uid/items",
+      "method": "GET",
+      "params": {
+        "release_uid": "release_uid"
+      },
+      "queryParams": {
+        "include_branch": "include_branch"
+      },
+      "headers": {
+        "branch": "branch"
+      }
+    },
+    "inputSchema": {
+      "type": "object",
+      "required": ["release_uid"],
+      "properties": {
+        "branch": {
+          "type": "string",
+          "description": "Select a branch from your stack.",
+          "default": "main"
+        },
+        "release_uid": {
+          "type": "string",
+          "description": "UID of the release whose items to fetch."
+        },
+        "include_branch": {
+          "type": "boolean",
+          "description": "Set to true to include the branch UID in the response.",
+          "default": false
+        }
+      }
+    },
+    "group": "cma",
+    "scopes": ["cm.release:read"],
+    "x-enrich-group": "cma"
+  },
+  "get_all_releases": {
+    "name": "get_all_releases",
+    "description": "Retrieves metadata for all releases in the stack, with pagination and optional inclusion of total and item counts.",
+    "mapper": {
+      "apiUrl": "/v3/releases",
+      "method": "GET",
+      "queryParams": {
+        "limit": "limit",
+        "skip": "skip",
+        "include_count": "include_count",
+        "include_items_count": "include_items_count",
+        "include_branch": "include_branch"
+      },
+      "headers": {
+        "branch": "branch"
+      }
+    },
+    "inputSchema": {
+      "type": "object",
+      "required": [],
+      "properties": {
+        "branch": {
+          "type": "string",
+          "description": "Select a branch from your stack.",
+          "default": "main"
+        },
+        "limit": {
+          "type": "number",
+          "description": "Number of releases to fetch (max: 100)."
+        },
+        "skip": {
+          "type": "number",
+          "description": "Number of releases to skip for pagination."
+        },
+        "include_count": {
+          "type": "boolean",
+          "description": "Include the total count of releases in the response.",
+          "default": true
+        },
+        "include_items_count": {
+          "type": "boolean",
+          "description": "Include the count of items in each release.",
+          "default": true
+        },
+        "include_branch": {
+          "type": "boolean",
+          "description": "Set to true to include the branch UID in the response.",
+          "default": false
+        }
+      }
+    },
+    "group": "cma",
+    "scopes": ["cm.release:read"],
+    "x-enrich-group": "cma"
+  },
+  "get_all_terms": {
+    "name": "get_all_terms",
+    "description": "This tool retrieves all term details for a specified taxonomy from the stack, supporting pagination via limit and skip parameters.",
+    "mapper": {
+      "apiUrl": "/v3/taxonomies/taxonomy_uid/terms",
+      "method": "GET",
+      "params": {
+        "taxonomy_uid": "taxonomy_uid"
+      },
+      "queryParams": {
+        "limit": "limit",
+        "skip": "skip",
+        "include_count": "include_count",
+        "include_children_count": "include_children_count",
+        "include_referenced_entries_count": "include_referenced_entries_count",
+        "deleted": "deleted",
+        "include_order": "include_order",
+        "depth": "depth",
+        "typeahead": "typeahead",
+        "query": "query",
+        "asc": "asc",
+        "desc": "desc"
+      }
+    },
+    "inputSchema": {
+      "type": "object",
+      "required": ["taxonomy_uid"],
+      "properties": {
+        "taxonomy_uid": {
+          "type": "string",
+          "description": "Select a taxonomy to fetch the details of all the terms."
+        },
+        "limit": {
+          "type": "number",
+          "description": "Specify the number of terms to retrieve from the stack. For example, if you set the limit to 10, then the first 10 terms will be fetched. The maximum limit is 100."
+        },
+        "skip": {
+          "type": "number",
+          "description": "Specify the number of terms to skip. For example, if you set the skip value to 3, the first three terms will be skipped and the results will start with the fourth item."
+        },
+        "typeahead": {
+          "type": "string",
+          "description": "Specify a UID or name to search the term(s)."
+        },
+        "depth": {
+          "type": "number",
+          "description": "Specify the depth to fetch the terms from the root level. By default, the terms are fetched from the root."
+        },
+        "include_count": {
+          "type": "boolean",
+          "default": false
+        },
+        "include_children_count": {
+          "type": "boolean",
+          "default": false
+        },
+        "include_referenced_entries_count": {
+          "type": "boolean",
+          "default": false
+        },
+        "include_order": {
+          "type": "boolean",
+          "default": false
+        },
+        "deleted": {
+          "type": "boolean",
+          "default": false
+        },
+        "query": {
+          "type": "object",
+          "description": "JSON query object to filter results."
+        },
+        "asc": {
+          "type": "string",
+          "description": "Field UID to sort results by in ascending order."
+        },
+        "desc": {
+          "type": "string",
+          "description": "Field UID to sort results by in descending order."
+        }
+      }
+    },
+    "group": "cma",
+    "scopes": ["cm.taxonomy.terms:read"],
+    "x-enrich-group": "cma"
+  },
+  "get_all_terms_across_all_taxonomies": {
+    "name": "get_all_terms_across_all_taxonomies",
+    "description": "This tool retrieves term details from all taxonomies within the stack, supporting typeahead search, pagination via limit and skip, and optional total count inclusion.",
+    "mapper": {
+      "apiUrl": "/v3/taxonomies/$all/terms",
+      "method": "GET",
+      "queryParams": {
+        "limit": "limit",
+        "skip": "skip",
+        "include_count": "include_count",
+        "include_children_count": "include_children_count",
+        "include_referenced_entries_count": "include_referenced_entries_count",
+        "typeahead": "typeahead",
+        "query": "query"
+      }
+    },
+    "inputSchema": {
+      "type": "object",
+      "required": [],
+      "properties": {
+        "typeahead": {
+          "type": "string",
+          "description": "Specify a UID or name to search the term(s)."
+        },
+        "limit": {
+          "type": "number",
+          "description": "Specify the number of terms to retrieve from the stack. For example, if you set the limit to 10, then the first 10 terms will be fetched. The maximum limit is 100."
+        },
+        "skip": {
+          "type": "number",
+          "description": "Specify the number of terms to skip. For example, if you set the skip value to 3, the first three terms will be skipped and the results will start with the fourth item."
+        },
+        "include_count": {
+          "type": "boolean",
+          "default": false
+        },
+        "include_children_count": {
+          "type": "boolean",
+          "default": false
+        },
+        "include_referenced_entries_count": {
+          "type": "boolean",
+          "default": false
+        },
+        "query": {
+          "type": "object",
+          "description": "JSON query object to filter results."
+        }
+      }
+    },
+    "group": "cma",
+    "scopes": ["cm.taxonomy.terms:read"],
+    "x-enrich-group": "cma"
+  },
+  "get_all_variants_of_an_entry": {
+    "name": "get_all_variants_of_an_entry",
+    "description": "Retrieves all variants (personalization variants) of a specified entry within the selected content type.",
+    "mapper": {
+      "apiUrl": "/v3/content_types/content_type_uid/entries/entry_uid/variants",
+      "method": "GET",
+      "params": {
+        "content_type_uid": "content_type_uid",
+        "entry_uid": "entry_uid"
+      },
+      "queryParams": {
+        "limit": "limit",
+        "skip": "skip",
+        "include_metadata": "include_metadata",
+        "include_publish_details": "include_publish_details"
+      }
+    },
+    "inputSchema": {
+      "type": "object",
+      "required": ["content_type_uid", "entry_uid"],
+      "properties": {
+        "content_type_uid": {
+          "type": "string",
+          "description": "Select a content type to fetch the details of all the variants of an entry.",
+          "default": ""
+        },
+        "entry_uid": {
+          "type": "string",
+          "description": "Select an entry to fetch the details of its variants.",
+          "default": ""
+        },
+        "limit": {
+          "type": "number",
+          "description": "Maximum number of results to return."
+        },
+        "skip": {
+          "type": "number",
+          "description": "Number of results to skip for pagination."
+        },
+        "include_metadata": {
+          "type": "boolean",
+          "description": "Include metadata in the response.",
+          "default": false
+        },
+        "include_publish_details": {
+          "type": "boolean",
+          "description": "Include publish details in the response."
+        }
+      }
+    },
+    "group": "cma",
+    "scopes": ["cm.entry:read"],
+    "x-enrich-group": "cma"
+  },
+  "get_all_ancestors_of_a_term": {
+    "name": "get_all_ancestors_of_a_term",
+    "description": "This tool retrieves the complete ancestor hierarchy for a specified term within a taxonomy, supporting pagination via limit and skip parameters.",
+    "mapper": {
+      "apiUrl": "/v3/taxonomies/taxonomy_uid/terms/term_uid/ancestors",
+      "method": "GET",
+      "params": {
+        "taxonomy_uid": "taxonomy_uid",
+        "term_uid": "term_uid"
+      },
+      "queryParams": {
+        "limit": "limit",
+        "skip": "skip",
+        "include_count": "include_count",
+        "include_children_count": "include_children_count",
+        "include_referenced_entries_count": "include_referenced_entries_count"
+      }
+    },
+    "inputSchema": {
+      "type": "object",
+      "required": ["taxonomy_uid", "term_uid"],
+      "properties": {
+        "taxonomy_uid": {
+          "type": "string",
+          "description": "UID of the taxonomy the term belongs to."
+        },
+        "term_uid": {
+          "type": "string",
+          "description": "Select a term to fetch its ancestors."
+        },
+        "limit": {
+          "type": "number",
+          "description": "Specify the number of terms to retrieve from the stack. For example, if you set the limit to 10, then the first 10 terms will be fetched. The maximum limit is 100."
+        },
+        "skip": {
+          "type": "number",
+          "description": "Specify the number of terms to skip. For example, if you set the skip value to 3, the first three terms will be skipped and the results will start with the fourth item."
+        },
+        "include_count": {
+          "type": "boolean",
+          "default": false
+        },
+        "include_children_count": {
+          "type": "boolean",
+          "default": false
+        },
+        "include_referenced_entries_count": {
+          "type": "boolean",
+          "default": false
+        }
+      }
+    },
+    "group": "cma",
+    "scopes": ["cm.taxonomy.terms:read"],
+    "x-enrich-group": "cma"
+  },
+  "get_a_single_asset": {
+    "name": "get_a_single_asset",
+    "description": "This tool retrieves metadata and properties for a specified asset within a Contentstack stack, supporting branch, environment, and version parameters for precise asset identification and retrieval.",
+    "mapper": {
+      "apiUrl": "/v3/assets/asset_uid",
+      "method": "GET",
+      "params": {
+        "asset_uid": "asset_uid"
+      },
+      "queryParams": {
+        "version": "version",
+        "environment": "environment",
+        "include_metadata": "include_metadata",
+        "include_publish_details": "include_publish_details"
+      },
+      "headers": {
+        "branch": "branch"
+      }
+    },
+    "inputSchema": {
+      "type": "object",
+      "required": ["asset_uid"],
+      "properties": {
+        "branch": {
+          "type": "string",
+          "description": "Select a branch from your stack.",
+          "default": "main"
+        },
+        "asset_uid": {
+          "type": "string",
+          "description": "Select an asset to fetch its details."
+        },
+        "environment": {
+          "type": "string",
+          "description": "Select an environment to fetch the asset details."
+        },
+        "version": {
+          "type": "string",
+          "description": "Specific asset version to fetch. Versions start at 1; never pass 0. Omit this parameter entirely to fetch the latest."
+        },
+        "include_metadata": {
+          "type": "boolean",
+          "description": "Include metadata in the response.",
+          "default": false
+        },
+        "include_publish_details": {
+          "type": "boolean",
+          "description": "Include publish details in the response."
+        }
+      }
+    },
+    "group": "cma",
+    "scopes": ["cm.asset:read"],
+    "x-enrich-group": "cma"
+  },
+  "get_asset_reference": {
+    "name": "get_asset_reference",
+    "description": "This tool retrieves all entries referencing the specified asset within the selected branch, enabling asset dependency analysis and content relationship management.",
+    "mapper": {
+      "apiUrl": "/v3/assets/asset_uid/references",
+      "method": "GET",
+      "params": {
+        "asset_uid": "asset_uid"
+      },
+      "headers": {
+        "branch": "branch"
+      },
+      "queryParams": {
+        "include_count": "include_count",
+        "include_publish_details": "include_publish_details"
+      }
+    },
+    "inputSchema": {
+      "type": "object",
+      "required": ["asset_uid"],
+      "properties": {
+        "asset_uid": {
+          "type": "string",
+          "description": "Select an asset to view all entries where it is referenced."
+        },
+        "branch": {
+          "type": "string",
+          "description": "Select a branch from your stack.",
+          "default": "main"
+        },
+        "include_count": {
+          "type": "boolean",
+          "description": "Include the total count in the response.",
+          "default": false
+        },
+        "include_publish_details": {
+          "type": "boolean",
+          "description": "Include publish details in the response."
+        }
+      }
+    },
+    "group": "cma",
+    "scopes": ["cm.asset:read"],
+    "x-enrich-group": "cma"
+  },
+  "get_all_descendants_of_a_term": {
+    "name": "get_all_descendants_of_a_term",
+    "description": "This tool retrieves all descendant terms of a specified taxonomy term, supporting pagination via limit and skip parameters. Suitable for hierarchical taxonomy traversal and term management.",
+    "mapper": {
+      "apiUrl": "/v3/taxonomies/taxonomy_uid/terms/term_uid/descendants",
+      "method": "GET",
+      "params": {
+        "taxonomy_uid": "taxonomy_uid",
+        "term_uid": "term_uid"
+      },
+      "queryParams": {
+        "limit": "limit",
+        "skip": "skip",
+        "include_count": "include_count",
+        "include_children_count": "include_children_count",
+        "include_referenced_entries_count": "include_referenced_entries_count",
+        "include_order": "include_order",
+        "depth": "depth"
+      }
+    },
+    "inputSchema": {
+      "type": "object",
+      "required": ["taxonomy_uid", "term_uid"],
+      "properties": {
+        "taxonomy_uid": {
+          "type": "string",
+          "description": "UID of the taxonomy the term belongs to."
+        },
+        "term_uid": {
+          "type": "string",
+          "description": "Select a term to fetch its descendants."
+        },
+        "limit": {
+          "type": "number",
+          "description": "Specify the number of terms to retrieve from the stack. For example, if you set the limit to 10, then the first 10 terms will be fetched. The maximum limit is 100."
+        },
+        "skip": {
+          "type": "number",
+          "description": "Specify the number of terms to skip. For example, if you set the skip value to 3, the first three terms will be skipped and the results will start with the fourth item."
+        },
+        "depth": {
+          "type": "number",
+          "description": "Specify the depth to fetch the descendants of a term."
+        },
+        "include_count": {
+          "type": "boolean",
+          "default": false
+        },
+        "include_children_count": {
+          "type": "boolean",
+          "default": false
+        },
+        "include_referenced_entries_count": {
+          "type": "boolean",
+          "default": false
+        },
+        "include_order": {
+          "type": "boolean",
+          "default": false
+        }
+      }
+    },
+    "group": "cma",
+    "scopes": ["cm.taxonomy.terms:read"],
+    "x-enrich-group": "cma"
+  },
+  "get_a_single_release": {
+    "name": "get_a_single_release",
+    "description": "This tool retrieves metadata and configuration details for a specified release within a given branch, supporting optional inclusion of branch information for developer reference and audit purposes.",
+    "mapper": {
+      "apiUrl": "/v3/releases/release_uid",
+      "method": "GET",
+      "params": {
+        "release_uid": "release_uid"
+      },
+      "queryParams": {
+        "include_branch": "include_branch"
+      },
+      "headers": {
+        "branch": "branch"
+      }
+    },
+    "inputSchema": {
+      "type": "object",
+      "required": ["release_uid"],
+      "properties": {
+        "branch": {
+          "type": "string",
+          "description": "Select a branch from your stack.",
+          "default": "main"
+        },
+        "release_uid": {
+          "type": "string",
+          "description": "Select a release to fetch its details.",
+          "default": ""
+        },
+        "include_branch": {
+          "type": "boolean",
+          "default": false
+        }
+      }
+    },
+    "group": "cma",
+    "scopes": ["cm.release:read"],
+    "x-enrich-group": "cma"
+  },
+  "get_single_entry_variant": {
+    "name": "get_single_entry_variant",
+    "description": "This tool retrieves a specific variant of a content entry from a designated content type, branch, and locale, using the provided entry and variant identifiers. Suitable for variant management and localization workflows.",
+    "mapper": {
+      "apiUrl": "/v3/content_types/content_type_uid/entries/entry_uid/variants/variant_uid",
+      "method": "GET",
+      "params": {
+        "content_type_uid": "content_type_uid",
+        "entry_uid": "entry_uid",
+        "variant_uid": "variant_uid"
+      },
+      "queryParams": {
+        "locale": "locale",
+        "include_publish_details": "include_publish_details",
+        "include_rules": "include_rules",
+        "include_workflow": "include_workflow",
+        "include_metadata": "include_metadata"
+      }
+    },
+    "inputSchema": {
+      "type": "object",
+      "required": ["content_type_uid", "entry_uid", "variant_uid"],
+      "properties": {
+        "content_type_uid": {
+          "type": "string",
+          "description": "Select a content type",
+          "default": ""
+        },
+        "entry_uid": {
+          "type": "string",
+          "description": "Select an entry",
+          "default": ""
+        },
+        "variant_uid": {
+          "type": "string",
+          "description": "Select a variant to fetch its details."
+        },
+        "locale": {
+          "type": "string",
+          "description": "Select a locale"
+        },
+        "include_publish_details": {
+          "type": "boolean",
+          "default": false
+        },
+        "include_rules": {
+          "type": "boolean",
+          "default": false
+        },
+        "include_workflow": {
+          "type": "boolean",
+          "default": false
+        },
+        "include_metadata": {
+          "type": "boolean",
+          "description": "Include metadata in the response.",
+          "default": false
+        }
+      }
+    },
+    "group": "cma",
+    "scopes": ["cm.entry:read"],
+    "x-enrich-group": "cma"
+  },
+  "get_a_single_global_field": {
+    "name": "get_a_single_global_field",
+    "description": "This tool retrieves metadata and configuration details for a specified global field within a Contentstack stack, supporting branch selection and optional inclusion of branch context.",
+    "mapper": {
+      "apiUrl": "/v3/global_fields/global_field_uid",
+      "method": "GET",
+      "queryParams": {
+        "include_branch": "include_branch"
+      },
+      "params": {
+        "global_field_uid": "global_field_uid"
+      },
+      "headers": {
+        "branch": "branch"
+      }
+    },
+    "inputSchema": {
+      "type": "object",
+      "required": ["global_field_uid"],
+      "properties": {
+        "branch": {
+          "type": "string",
+          "description": "Select a branch from your stack.",
+          "default": "main"
+        },
+        "global_field_uid": {
+          "type": "string",
+          "description": "Select a global field to fetch its details.",
+          "default": ""
+        },
+        "include_branch": {
+          "type": "boolean",
+          "default": false
+        }
+      }
+    },
+    "group": "cma",
+    "scopes": ["cm.global-fields.management:read"],
+    "x-enrich-group": "cma"
+  },
+  "get_a_single_variant": {
+    "name": "get_a_single_variant",
+    "description": "Retrieves details of a single variant within a variant group.",
+    "mapper": {
+      "apiUrl": "/v3/variant_groups/variant_group_uid/variants/variant_uid",
+      "method": "GET",
+      "params": {
+        "variant_group_uid": "variant_group_uid",
+        "variant_uid": "variant_uid"
+      }
+    },
+    "inputSchema": {
+      "type": "object",
+      "required": ["variant_group_uid", "variant_uid"],
+      "properties": {
+        "variant_group_uid": {
+          "type": "string",
+          "description": "Select the Variant Group from which you want to fetch the details of a single variant."
+        },
+        "variant_uid": {
+          "type": "string",
+          "description": "Select a variant to fetch its details."
+        }
+      }
+    },
+    "group": "cma",
+    "scopes": ["cm.entry:read"],
+    "x-enrich-group": "cma"
+  },
+  "get_a_single_term": {
+    "name": "get_a_single_term",
+    "description": "This tool retrieves detailed metadata for a specified taxonomy term, supporting optional inclusion of child term and referenced entry counts.",
+    "mapper": {
+      "apiUrl": "/v3/taxonomies/taxonomy_uid/terms/term_uid",
+      "method": "GET",
+      "params": {
+        "taxonomy_uid": "taxonomy_uid",
+        "term_uid": "term_uid"
+      },
+      "queryParams": {
+        "include_children_count": "include_children_count",
+        "include_referenced_entries_count": "include_referenced_entries_count"
+      }
+    },
+    "inputSchema": {
+      "type": "object",
+      "required": ["taxonomy_uid", "term_uid"],
+      "properties": {
+        "taxonomy_uid": {
+          "type": "string",
+          "description": "Select a taxonomy to fetch the details of a single term."
+        },
+        "term_uid": {
+          "type": "string",
+          "description": "Select a term to fetch its details."
+        },
+        "include_children_count": {
+          "type": "boolean",
+          "default": false
+        },
+        "include_referenced_entries_count": {
+          "type": "boolean",
+          "default": false
+        }
+      }
+    },
+    "group": "cma",
+    "scopes": ["cm.taxonomy.terms:read"],
+    "x-enrich-group": "cma"
+  },
+  "get_all_variants_of_a_content_type": {
+    "name": "get_all_variants_of_a_content_type",
+    "description": "Retrieves all variant definitions (variant groups) linked to the specified content type.",
+    "mapper": {
+      "apiUrl": "/v3/variant_groups/",
+      "method": "GET",
+      "queryParams": {
+        "content_type": "content_type_uid",
+        "include_variant_info": "include_variant_info"
+      }
+    },
+    "inputSchema": {
+      "type": "object",
+      "required": ["content_type_uid"],
+      "properties": {
+        "content_type_uid": {
+          "type": "string",
+          "description": "UID of the content type whose variants to fetch."
+        },
+        "include_variant_info": {
+          "type": "boolean",
+          "description": "Include detailed metadata for each variant in the response.",
+          "default": false
+        }
+      }
+    },
+    "group": "cma",
+    "scopes": ["cm.entry:read"],
+    "x-enrich-group": "cma"
+  },
+  "get_publish_queue": {
+    "name": "get_publish_queue",
+    "description": "Retrieves the publish queue for the branch — the log of publish, unpublish, and delete activities on entries and assets — with pagination and filtering by bulk job, action, status, environment, or locale.",
+    "mapper": {
+      "apiUrl": "/v3/publish-queue",
+      "method": "GET",
+      "queryParams": {
+        "limit": "limit",
+        "skip": "skip",
+        "include_count": "include_count",
+        "bulkJobId": "bulk_job_id",
+        "include_job_details": "include_job_details",
+        "query": "query",
+        "action": "action",
+        "status": "status",
+        "environment": "environment",
+        "locale": "locale"
+      },
+      "headers": {
+        "branch": "branch"
+      }
+    },
+    "inputSchema": {
+      "type": "object",
+      "required": [],
+      "properties": {
+        "branch": {
+          "type": "string",
+          "description": "Select a branch from your stack.",
+          "default": "main"
+        },
+        "limit": {
+          "type": "string",
+          "description": "Number of items to retrieve (max 100)."
+        },
+        "skip": {
+          "type": "string",
+          "description": "Number of items to skip for pagination."
+        },
+        "include_count": {
+          "type": "boolean",
+          "description": "Include the total item count in the response.",
+          "default": false
+        },
+        "bulk_job_id": {
+          "type": "string",
+          "description": "Filter results to items belonging to a specific bulk publish/unpublish job UID."
+        },
+        "include_job_details": {
+          "type": "boolean",
+          "description": "When true, includes detailed job metadata for each queue item."
+        },
+        "query": {
+          "type": "object",
+          "description": "JSON query object to filter queue items by field values."
+        },
+        "action": {
+          "type": "string",
+          "description": "Filter by action type. Allowed values: publish, unpublish."
+        },
+        "status": {
+          "type": "string",
+          "description": "Filter by item status, e.g. success, error, in_progress."
+        },
+        "environment": {
+          "type": "string",
+          "description": "Filter by the environment UID the action targeted."
+        },
+        "locale": {
+          "type": "string",
+          "description": "Filter by locale code, e.g. en-us."
+        }
+      }
+    },
+    "group": "cma",
+    "scopes": ["cm.publish-queue.management:read"],
+    "x-enrich-group": "cma"
+  },
+  "add_items_to_a_release": {
+    "name": "add_items_to_a_release",
+    "description": "This tool programmatically adds specified content items to a designated release within a Contentstack stack branch by accepting structured item data in JSON format, enabling automated release management and deployment workflows.",
+    "mapper": {
+      "apiUrl": "/v3/releases/release_uid/items",
+      "method": "POST",
+      "body": "item_data",
+      "params": {
+        "release_uid": "release_uid"
+      },
+      "queryParams": {
+        "include_branch": "include_branch"
+      },
+      "headers": {
+        "branch": "branch"
+      }
+    },
+    "inputSchema": {
+      "type": "object",
+      "required": ["release_uid", "item_data"],
+      "properties": {
+        "branch": {
+          "type": "string",
+          "description": "Select a branch from your stack.",
+          "default": "main"
+        },
+        "release_uid": {
+          "type": "string",
+          "description": "UID of the release to add the items to."
+        },
+        "item_data": {
+          "type": "object",
+          "description": "Items to add, e.g. { \"items\": [ { \"uid\": \"<entry_or_asset_uid>\", \"version\": 1, \"locale\": \"en-us\", \"content_type_uid\": \"<ct_uid or built_io_upload for assets>\", \"action\": \"publish\" } ] }.",
+          "properties": {
+            "items": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "properties": {
+                  "uid": {
+                    "type": "string"
+                  },
+                  "version": {
+                    "type": "number"
+                  },
+                  "locale": {
+                    "type": "string"
+                  },
+                  "content_type_uid": {
+                    "type": "string"
+                  },
+                  "action": {
+                    "type": "string",
+                    "enum": ["publish", "unpublish"]
+                  }
+                }
+              }
+            }
+          }
+        },
+        "include_branch": {
+          "type": "boolean",
+          "description": "Set to true to include the branch UID in the response."
+        }
+      }
+    },
+    "group": "cma",
+    "scopes": ["cm.release:write"],
+    "x-enrich-group": "cma"
+  },
+  "clone_a_release": {
+    "name": "clone_a_release",
+    "description": "This tool creates a duplicate of an existing release in the specified branch, assigning a new name and optional description to the cloned release. Release management, cloning.",
+    "mapper": {
+      "apiUrl": "/v3/releases/release_uid/clone",
+      "method": "POST",
+      "body": "release",
+      "params": {
+        "release_uid": "release_uid"
+      },
+      "queryParams": {
+        "include_branch": "include_branch"
+      }
+    },
+    "inputSchema": {
+      "type": "object",
+      "required": ["release_uid", "name"],
+      "properties": {
+        "release_uid": {
+          "type": "string",
+          "description": "Select a release you want to clone.",
+          "default": ""
+        },
+        "name": {
+          "type": "string",
+          "description": "Enter a suitable name for the cloned release.",
+          "default": ""
+        },
+        "description": {
+          "type": "string",
+          "description": "Enter a suitable description for the cloned release.",
+          "default": ""
+        },
+        "include_branch": {
+          "type": "boolean"
+        }
+      }
+    },
+    "group": "cma",
+    "scopes": ["cm.release:clone"],
+    "x-enrich-group": "cma"
+  },
+  "localize_an_entry": {
+    "name": "localize_an_entry",
+    "description": "This tool localizes a specified entry within a stack by creating or updating its content for the target locale, ensuring the entry becomes independent from the fallback locale. Supports branch selection, content type, entry identification, and locale specification. Localization, entry management.",
+    "mapper": {
+      "apiUrl": "/v3/content_types/content_type_uid/entries/entry_uid",
+      "method": "PUT",
+      "body": "entry_data",
+      "params": {
+        "content_type_uid": "content_type_uid",
+        "entry_uid": "entry_uid"
+      },
+      "queryParams": {
+        "locale": "locale",
+        "include_branch": "include_branch",
+        "include_publish_details": "include_publish_details"
+      },
+      "headers": {
+        "branch": "branch"
+      }
+    },
+    "inputSchema": {
+      "type": "object",
+      "required": ["content_type_uid", "entry_data", "entry_uid", "locale"],
+      "properties": {
+        "branch": {
+          "type": "string",
+          "description": "Select a branch from your stack.",
+          "default": "main"
+        },
+        "content_type_uid": {
+          "type": "string",
+          "description": "Select a content type to localize the entry.",
+          "default": ""
+        },
+        "entry_uid": {
+          "type": "string",
+          "description": "Select an entry that you want to localize.",
+          "default": ""
+        },
+        "locale": {
+          "type": "string",
+          "description": "Select a locale (language) in which you want to localize the entry."
+        },
+        "entry_data": {
+          "type": "object",
+          "description": "The fields should be wrapped by an entry object {'entry':{...data}}"
+        },
+        "include_branch": {
+          "type": "boolean"
+        },
+        "include_publish_details": {
+          "type": "boolean",
+          "description": "Include publish details in the response."
+        }
+      }
+    },
+    "group": "cma",
+    "scopes": ["cm.entry:write"],
+    "x-enrich-group": "cma"
+  },
+  "create_a_release": {
+    "name": "create_a_release",
+    "description": "This tool creates a new empty release object within the specified stack branch, initializing it with a required name and optional description; supports branch selection and inclusion parameters for release management.",
+    "mapper": {
+      "apiUrl": "/v3/releases",
+      "method": "POST",
+      "body": "release",
+      "queryParams": {
+        "include_branch": "include_branch"
+      }
+    },
+    "inputSchema": {
+      "type": "object",
+      "required": ["name"],
+      "properties": {
+        "name": {
+          "type": "string",
+          "description": "Enter a suitable name for the release."
+        },
+        "description": {
+          "type": "string",
+          "description": "Enter a suitable description for the release."
+        },
+        "include_branch": {
+          "type": "boolean"
+        }
+      }
+    },
+    "group": "cma",
+    "scopes": ["cm.release:write"],
+    "x-enrich-group": "cma"
+  },
+  "create_a_taxonomy": {
+    "name": "create_a_taxonomy",
+    "description": "This tool creates a new taxonomy object within the specified stack, assigning the provided UID, name, and optional description for structured content classification.",
+    "mapper": {
+      "apiUrl": "/v3/taxonomies",
+      "method": "POST",
+      "body": "taxonomy"
+    },
+    "inputSchema": {
+      "type": "object",
+      "required": ["uid", "name"],
+      "properties": {
+        "uid": {
+          "type": "string",
+          "description": "Specify a UID to create a taxonomy."
+        },
+        "name": {
+          "type": "string",
+          "description": "Specify a title for the taxonomy."
+        },
+        "description": {
+          "type": "string",
+          "description": "Specify a description for the taxonomy."
+        }
+      }
+    },
+    "group": "cma",
+    "scopes": ["cm.taxonomies.management:write"],
+    "x-enrich-group": "cma"
+  },
+  "create_a_term": {
+    "name": "create_a_term",
+    "description": "This tool creates a new term within a specified taxonomy by assigning a unique identifier, name, order, and optional parent term. Taxonomy, term creation.",
+    "mapper": {
+      "apiUrl": "/v3/taxonomies/taxonomy_uid/terms",
+      "method": "POST",
+      "params": {
+        "taxonomy_uid": "taxonomy_uid"
+      },
+      "body": "term"
+    },
+    "inputSchema": {
+      "type": "object",
+      "required": ["taxonomy_uid", "uid", "name", "order"],
+      "properties": {
+        "taxonomy_uid": {
+          "type": "string",
+          "description": "Select a taxonomy to create a term."
+        },
+        "uid": {
+          "type": "string",
+          "description": "Unique identifier for the term. Must contain only alphanumeric characters and underscores."
+        },
+        "name": {
+          "type": "string",
+          "description": "Display title for the term. May contain spaces and mixed case."
+        },
+        "order": {
+          "type": "number",
+          "minimum": 1,
+          "description": "Placement order of the term relative to its siblings. Numbering starts at 1; never pass 0."
+        },
+        "parent_uid": {
+          "type": "string",
+          "description": "UID of the parent term. Omit (or set to null) for a root-level term."
+        }
+      }
+    },
+    "group": "cma",
+    "scopes": ["cm.taxonomy.terms:write"],
+    "x-enrich-group": "cma"
+  },
+  "delete_an_asset": {
+    "name": "delete_an_asset",
+    "description": "This tool permanently deletes the specified asset from the selected branch within the stack. Asset management, deletion",
+    "mapper": {
+      "apiUrl": "/v3/assets/asset_uid",
+      "method": "DELETE",
+      "params": {
+        "asset_uid": "asset_uid"
+      },
+      "headers": {
+        "branch": "branch"
+      },
+      "queryParams": {
+        "include_publish_details": "include_publish_details"
+      }
+    },
+    "inputSchema": {
+      "type": "object",
+      "required": ["asset_uid"],
+      "properties": {
+        "branch": {
+          "type": "string",
+          "description": "Select a branch from your stack.",
+          "default": "main"
+        },
+        "asset_uid": {
+          "type": "string",
+          "description": "Select an asset to delete."
+        },
+        "include_publish_details": {
+          "type": "boolean",
+          "description": "Include publish details in the response."
+        }
+      }
+    },
+    "group": "cma",
+    "scopes": ["cm.asset:write"],
+    "x-enrich-group": "cma"
+  },
+  "delete_a_taxonomy": {
+    "name": "delete_a_taxonomy",
+    "description": "This tool deletes the specified taxonomy and all associated terms from the stack.",
+    "mapper": {
+      "apiUrl": "/v3/taxonomies/taxonomy_uid",
+      "method": "DELETE",
+      "params": {
+        "taxonomy_uid": "taxonomy_uid"
+      },
+      "queryParams": {
+        "force": "force"
+      }
+    },
+    "inputSchema": {
+      "type": "object",
+      "required": ["taxonomy_uid"],
+      "properties": {
+        "taxonomy_uid": {
+          "type": "string",
+          "description": "Select a taxonomy to delete. This deletes all the associated terms within the selected taxonomy."
+        },
+        "force": {
+          "type": "boolean",
+          "default": true
+        }
+      }
+    },
+    "group": "cma",
+    "scopes": ["cm.taxonomies.management:write"],
+    "x-enrich-group": "cma"
+  },
+  "delete_a_term": {
+    "name": "delete_a_term",
+    "description": "This tool deletes a specified term from a taxonomy using the provided taxonomy_uid and term_uid parameters; supports forced deletion via the force flag.",
+    "mapper": {
+      "apiUrl": "/v3/taxonomies/taxonomy_uid/terms/term_uid",
+      "method": "DELETE",
+      "params": {
+        "taxonomy_uid": "taxonomy_uid",
+        "term_uid": "term_uid"
+      },
+      "queryParams": {
+        "force": "force"
+      }
+    },
+    "inputSchema": {
+      "type": "object",
+      "required": ["taxonomy_uid", "term_uid"],
+      "properties": {
+        "taxonomy_uid": {
+          "type": "string",
+          "description": "Select a taxonomy to delete a term."
+        },
+        "term_uid": {
+          "type": "string",
+          "description": "Select a term to delete."
+        },
+        "force": {
+          "type": "boolean",
+          "default": true
+        }
+      }
+    },
+    "group": "cma",
+    "scopes": ["cm.taxonomy.terms:write"],
+    "x-enrich-group": "cma"
+  },
+  "get_all_environments": {
+    "name": "get_all_environments",
+    "description": "Fetches the list of environments in the stack, with optional total-count reporting and ascending/descending sorting by any environment field.",
+    "mapper": {
+      "apiUrl": "/v3/environments",
+      "method": "GET",
+      "queryParams": {
+        "include_count": "include_count",
+        "asc": "asc",
+        "desc": "desc"
+      }
+    },
+    "inputSchema": {
+      "type": "object",
+      "required": [],
+      "properties": {
+        "include_count": {
+          "type": "boolean",
+          "description": "Set to true to include the total number of environments in the response.",
+          "default": false
+        },
+        "asc": {
+          "type": "string",
+          "description": "Unique field UID to sort environments in ascending order (e.g., \"created_at\")."
+        },
+        "desc": {
+          "type": "string",
+          "description": "Unique field UID to sort environments in descending order (e.g., \"updated_at\")."
+        }
+      }
+    },
+    "group": "cma",
+    "scopes": ["cm.environments.management:read"],
+    "x-enrich-group": "cma"
+  },
+  "create_an_environment": {
+    "name": "create_an_environment",
+    "description": "This tool creates a new environment in the stack by specifying its name and one or more locale-specific base URLs.",
+    "mapper": {
+      "apiUrl": "/v3/environments",
+      "method": "POST",
+      "body": "environment"
+    },
+    "inputSchema": {
+      "type": "object",
+      "required": ["name", "urls"],
+      "properties": {
+        "name": {
+          "type": "string",
+          "pattern": "^[a-z0-9_-]+$",
+          "description": "Lower-case letters, digits, hyphens, or underscores only—no spaces or other symbols. Example: \"dummy_environment\"."
+        },
+        "urls": {
+          "type": "array",
+          "description": "Array of objects, each mapping a locale to its base URL. Example: [{\"locale\":\"en-us\",\"url\":\"https://example.com/\"}].",
+          "items": {
+            "type": "object",
+            "required": ["locale", "url"],
+            "properties": {
+              "locale": {
+                "type": "string",
+                "description": "Locale code (e.g., \"en-us\")."
+              },
+              "url": {
+                "type": "string",
+                "format": "uri",
+                "description": "Base URL for the locale (e.g., \"https://example.com/\")."
+              }
+            }
+          }
+        }
+      }
+    },
+    "group": "cma",
+    "scopes": ["cm.environments.management:write"],
+    "x-enrich-group": "cma"
+  },
+  "get_an_environment": {
+    "name": "get_an_environment",
+    "description": "This tool retrieves full details for a single environment, identified by its name",
+    "mapper": {
+      "apiUrl": "/v3/environments/environment_name",
+      "method": "GET",
+      "params": {
+        "environment_name": "environment_name"
+      }
+    },
+    "inputSchema": {
+      "type": "object",
+      "required": ["environment_name"],
+      "properties": {
+        "environment_name": {
+          "type": "string",
+          "pattern": "^[a-z0-9_-]+$",
+          "description": "Exact name of the environment to fetch (lower-case letters, digits, hyphens, or underscores only)."
+        }
+      }
+    },
+    "group": "cma",
+    "scopes": ["cm.environments.management:read"],
+    "x-enrich-group": "cma"
+  },
+  "update_an_environment": {
+    "name": "update_an_environment",
+    "description": "This tool updates an existing environment, identified by its name in the URL path. You can change the environment’s name and/or its locale-to-URL mappings.",
+    "mapper": {
+      "apiUrl": "/v3/environments/environment_name",
+      "method": "PUT",
+      "params": {
+        "environment_name": "environment_name"
+      },
+      "body": "environment"
+    },
+    "inputSchema": {
+      "type": "object",
+      "required": ["environment_name"],
+      "properties": {
+        "environment_name": {
+          "type": "string",
+          "pattern": "^[a-z0-9_-]+$",
+          "description": "Current name of the environment (lower-case letters, digits, hyphens, or underscores only)."
+        },
+        "name": {
+          "type": "string",
+          "pattern": "^[a-z0-9_-]+$",
+          "description": "New name for the environment (same character rules). Optional; omit if you’re not renaming."
+        },
+        "urls": {
+          "type": "array",
+          "description": "Array of objects mapping locales to base URLs. Example: [{\"locale\":\"en-us\",\"url\":\"https://example.com/\"}]. Optional; include only if you’re updating URLs.",
+          "items": {
+            "type": "object",
+            "required": ["locale", "url"],
+            "properties": {
+              "locale": {
+                "type": "string",
+                "description": "Locale code (e.g., \"en-us\")."
+              },
+              "url": {
+                "type": "string",
+                "format": "uri",
+                "description": "Base URL for that locale."
+              }
+            }
+          }
+        }
+      }
+    },
+    "group": "cma",
+    "scopes": ["cm.environments.management:write"],
+    "x-enrich-group": "cma"
+  },
+  "delete_an_environment": {
+    "name": "delete_an_environment",
+    "description": "This tool permanently deletes an environment, identified by its name.",
+    "mapper": {
+      "apiUrl": "/v3/environments/environment_name",
+      "method": "DELETE",
+      "params": {
+        "environment_name": "environment_name"
+      }
+    },
+    "inputSchema": {
+      "type": "object",
+      "required": ["environment_name"],
+      "properties": {
+        "environment_name": {
+          "type": "string",
+          "pattern": "^[a-z0-9_-]+$",
+          "description": "Exact name of the environment to delete (lower-case letters, digits, hyphens, or underscores only)."
+        }
+      }
+    },
+    "group": "cma",
+    "scopes": ["cm.environments.management:write"],
+    "x-enrich-group": "cma"
+  },
+  "deploy_a_release": {
+    "name": "deploy_a_release",
+    "description": "Deploys a release to one or more target environments, publishing or unpublishing all of its items. Supports optional scheduling for a future time.",
+    "mapper": {
+      "apiUrl": "/v3/releases/release_uid/deploy",
+      "method": "POST",
+      "body": "release",
+      "params": {
+        "release_uid": "release_uid"
+      }
+    },
+    "inputSchema": {
+      "type": "object",
+      "required": ["release_uid", "environments", "action"],
+      "properties": {
+        "release_uid": {
+          "type": "string",
+          "description": "UID of the release to deploy."
+        },
+        "environments": {
+          "type": "array",
+          "description": "Environment(s) to deploy the release to. Use the get_all_environments tool to list environment names.",
+          "items": {
+            "type": "string",
+            "description": "An environment name."
+          }
+        },
+        "action": {
+          "type": "string",
+          "enum": ["publish", "unpublish"],
+          "description": "Whether deploying the release should publish or unpublish its items."
+        },
+        "scheduled_at": {
+          "type": "string",
+          "description": "Schedule the deploy in 'YYYY-MM-DD HH:MM:SS' format. Omit to deploy immediately."
+        }
+      }
+    },
+    "group": "cma",
+    "scopes": ["cm.release:deploy"],
+    "x-enrich-group": "cma"
+  },
+  "update_a_taxonomy": {
+    "name": "update_a_taxonomy",
+    "description": "This tool updates the name and description fields of a specified taxonomy entity using its unique identifier.",
+    "mapper": {
+      "apiUrl": "/v3/taxonomies/taxonomy_uid",
+      "method": "PUT",
+      "body": "taxonomy",
+      "params": {
+        "taxonomy_uid": "taxonomy_uid"
+      }
+    },
+    "inputSchema": {
+      "type": "object",
+      "required": ["taxonomy_uid", "name"],
+      "properties": {
+        "taxonomy_uid": {
+          "type": "string",
+          "description": "Select a taxonomy to update."
+        },
+        "name": {
+          "type": "string",
+          "description": "Specify a title for the taxonomy."
+        },
+        "description": {
+          "type": "string",
+          "description": "Specify a description for the taxonomy."
+        }
+      }
+    },
+    "group": "cma",
+    "scopes": ["cm.taxonomies.management:write"],
+    "x-enrich-group": "cma"
+  },
+  "update_a_term": {
+    "name": "update_a_term",
+    "description": "This tool renames a term within a taxonomy. Only the term's name can be changed here; use move_a_term to reorder or reparent a term.",
+    "mapper": {
+      "apiUrl": "/v3/taxonomies/taxonomy_uid/terms/term_uid",
+      "method": "PUT",
+      "body": "term",
+      "params": {
+        "taxonomy_uid": "taxonomy_uid",
+        "term_uid": "term_uid"
+      }
+    },
+    "inputSchema": {
+      "type": "object",
+      "required": ["taxonomy_uid", "term_uid", "name"],
+      "properties": {
+        "taxonomy_uid": {
+          "type": "string",
+          "description": "Select a taxonomy to update the term."
+        },
+        "term_uid": {
+          "type": "string",
+          "description": "Select a term to update."
+        },
+        "name": {
+          "type": "string",
+          "description": "New display title for the term. May contain spaces and mixed case."
+        }
+      }
+    },
+    "group": "cma",
+    "scopes": ["cm.taxonomy.terms:write"],
+    "x-enrich-group": "cma"
+  },
+  "move_a_term": {
+    "name": "move_a_term",
+    "description": "This tool reorders or reparents a term within its taxonomy. Set parent_uid to move the term under a different parent (or null to make it a root-level term) and order to set its position among its siblings.",
+    "mapper": {
+      "apiUrl": "/v3/taxonomies/taxonomy_uid/terms/term_uid/move",
+      "method": "PUT",
+      "body": "term",
+      "queryParams": {
+        "force": "force"
+      },
+      "params": {
+        "taxonomy_uid": "taxonomy_uid",
+        "term_uid": "term_uid"
+      }
+    },
+    "inputSchema": {
+      "type": "object",
+      "required": ["taxonomy_uid", "term_uid", "order", "force"],
+      "properties": {
+        "taxonomy_uid": {
+          "type": "string",
+          "description": "Select a taxonomy that contains the term."
+        },
+        "term_uid": {
+          "type": "string",
+          "description": "Select the term to move."
+        },
+        "parent_uid": {
+          "type": "string",
+          "description": "UID of the new parent term. Omit (or set to null) to move the term to the root level."
+        },
+        "order": {
+          "type": "number",
+          "minimum": 1,
+          "description": "New placement order of the term relative to its siblings. Numbering starts at 1; never pass 0."
+        },
+        "force": {
+          "type": "boolean",
+          "description": "Required by the API and must be a boolean. Pass false for a normal move; pass true only to forcefully move the term along with all of its child terms, impacting the existing hierarchy."
+        }
+      }
+    },
+    "group": "cma",
+    "scopes": ["cm.taxonomy.terms:write"],
+    "x-enrich-group": "cma"
+  },
+  "delete_items_from_a_release": {
+    "name": "delete_items_from_a_release",
+    "description": "This tool programmatically removes specified content items from a designated release within a Contentstack stack branch, requiring the release identifier and item data in JSON format for precise targeting and execution.",
+    "mapper": {
+      "apiUrl": "/v3/releases/release_uid/items",
+      "method": "DELETE",
+      "body": "item_data",
+      "queryParams": {
+        "include_branch": "include_branch",
+        "all": "all"
+      },
+      "params": {
+        "release_uid": "release_uid"
+      },
+      "headers": {
+        "branch": "branch"
+      }
+    },
+    "inputSchema": {
+      "type": "object",
+      "required": ["release_uid", "item_data"],
+      "properties": {
+        "branch": {
+          "type": "string",
+          "description": "Select a branch from your stack.",
+          "default": "main"
+        },
+        "release_uid": {
+          "type": "string",
+          "description": "UID of the release to remove the items from."
+        },
+        "item_data": {
+          "type": "object",
+          "description": "Items to remove, e.g. { \"items\": [ { \"uid\": \"<entry_or_asset_uid>\", \"version\": 1, \"locale\": \"en-us\", \"content_type_uid\": \"<ct_uid or built_io_upload for assets>\", \"action\": \"publish\" } ] }.",
+          "properties": {
+            "items": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "properties": {
+                  "uid": {
+                    "type": "string"
+                  },
+                  "version": {
+                    "type": "number"
+                  },
+                  "locale": {
+                    "type": "string"
+                  },
+                  "content_type_uid": {
+                    "type": "string"
+                  },
+                  "action": {
+                    "type": "string",
+                    "enum": ["publish", "unpublish"]
+                  }
+                }
+              }
+            }
+          }
+        },
+        "include_branch": {
+          "type": "boolean",
+          "description": "Set to true to include the branch UID in the response."
+        },
+        "all": {
+          "type": "boolean",
+          "description": "Set to true to remove all items from the release.",
+          "default": false
+        }
+      }
+    },
+    "group": "cma",
+    "scopes": ["cm.release:write"],
+    "x-enrich-group": "cma"
+  },
+  "publish_an_asset": {
+    "name": "publish_an_asset",
+    "description": "Publishes a specified asset to one or more environments and locales within a stack, with optional scheduling for a future time.",
+    "mapper": {
+      "apiUrl": "/v3/assets/asset_uid/publish",
+      "method": "POST",
+      "body": {
+        "type": "object",
+        "properties": {
+          "asset": {
+            "type": "object",
+            "properties": {
+              "locales": {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                },
+                "x-mapFrom": "locales"
+              },
+              "environments": {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                },
+                "x-mapFrom": "environments"
+              }
+            }
+          },
+          "version": {
+            "type": "number",
+            "x-mapFrom": "version",
+            "optional": true
+          },
+          "scheduled_at": {
+            "type": "string",
+            "format": "YYYY-MM-DDThh:mm:ss.sssZ",
+            "x-mapFrom": "scheduled_at",
+            "optional": true
+          }
+        }
+      },
+      "type": "complex",
+      "params": {
+        "asset_uid": "asset_uid"
+      }
+    },
+    "inputSchema": {
+      "type": "object",
+      "required": ["asset_uid", "environments", "locales"],
+      "properties": {
+        "asset_uid": {
+          "type": "string",
+          "description": "UID of the asset to publish."
+        },
+        "environments": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "description": "Environment(s) to publish the asset to. Use the get_all_environments tool to list environment UIDs."
+        },
+        "locales": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "description": "Locale(s) to publish the asset in (e.g. ['en-us'])."
+        },
+        "version": {
+          "type": "number",
+          "minimum": 1,
+          "description": "Specific asset version to publish. Versions start at 1; never pass 0. Omit this parameter entirely to publish the latest."
+        },
+        "scheduled_at": {
+          "type": "string",
+          "description": "Schedule the publish in 'YYYY-MM-DD HH:MM:SS' format. Omit to publish immediately."
+        }
+      }
+    },
+    "group": "cma",
+    "scopes": ["cm.asset:publish"],
+    "x-enrich-group": "cma"
+  },
+  "unpublish_an_asset": {
+    "name": "unpublish_an_asset",
+    "description": "Unpublishes a specified asset from selected environments and locales within a stack, with optional scheduling for a future time.",
+    "mapper": {
+      "apiUrl": "/v3/assets/asset_uid/unpublish",
+      "method": "POST",
+      "body": {
+        "type": "object",
+        "properties": {
+          "asset": {
+            "type": "object",
+            "properties": {
+              "locales": {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                },
+                "x-mapFrom": "locales"
+              },
+              "environments": {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                },
+                "x-mapFrom": "environments"
+              }
+            }
+          },
+          "version": {
+            "type": "number",
+            "x-mapFrom": "version",
+            "optional": true
+          },
+          "scheduled_at": {
+            "type": "string",
+            "format": "YYYY-MM-DDThh:mm:ss.sssZ",
+            "x-mapFrom": "scheduled_at",
+            "optional": true
+          }
+        }
+      },
+      "type": "complex",
+      "params": {
+        "asset_uid": "asset_uid"
+      }
+    },
+    "inputSchema": {
+      "type": "object",
+      "required": ["asset_uid", "environments", "locales"],
+      "properties": {
+        "asset_uid": {
+          "type": "string",
+          "description": "UID of the asset to unpublish."
+        },
+        "environments": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "description": "Environment(s) to unpublish the asset from. Use the get_all_environments tool to list environment UIDs."
+        },
+        "locales": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "description": "Locale(s) to unpublish the asset from (e.g. ['en-us'])."
+        },
+        "version": {
+          "type": "number",
+          "minimum": 1,
+          "description": "Specific asset version to unpublish. Versions start at 1; never pass 0. Omit this parameter entirely to unpublish the latest."
+        },
+        "scheduled_at": {
+          "type": "string",
+          "description": "Schedule the unpublish in 'YYYY-MM-DD HH:MM:SS' format. Omit to unpublish immediately."
+        }
+      }
+    },
+    "group": "cma",
+    "scopes": ["cm.asset:unpublish"],
+    "x-enrich-group": "cma"
+  },
+  "unlocalize_an_entry": {
+    "name": "unlocalize_an_entry",
+    "description": "Unlocalizes a specified entry in a given locale, restoring it to its original non-localized (fallback) state within the selected branch and content type.",
+    "mapper": {
+      "apiUrl": "/v3/content_types/content_type_uid/entries/entry_uid/unlocalize",
+      "method": "POST",
+      "queryParams": {
+        "locale": "locale"
+      },
+      "params": {
+        "content_type_uid": "content_type_uid",
+        "entry_uid": "entry_uid"
+      },
+      "headers": {
+        "branch": "branch"
+      }
+    },
+    "inputSchema": {
+      "type": "object",
+      "required": ["content_type_uid", "entry_uid", "locale"],
+      "properties": {
+        "branch": {
+          "type": "string",
+          "description": "Select a branch from your stack.",
+          "default": "main"
+        },
+        "content_type_uid": {
+          "type": "string",
+          "description": "Select a content type to remove the localized version of the entry.",
+          "default": ""
+        },
+        "entry_uid": {
+          "type": "string",
+          "description": "Select an entry to restore to its original non-localized state.",
+          "default": ""
+        },
+        "locale": {
+          "type": "string",
+          "description": "Select a locale (language) to remove the entry's localization in the selected locale. The entry must be localized in the selected locale."
+        }
+      }
+    },
+    "group": "cma",
+    "scopes": ["cm.entry:write"],
+    "x-enrich-group": "cma"
+  },
+  "create_an_entry_variant": {
+    "name": "create_an_entry_variant",
+    "description": "This tool creates an entry variant for an existing base entry.",
+    "mapper": {
+      "apiUrl": "/v3/content_types/content_type_uid/entries/entry_uid/variants/variant_uid",
+      "method": "PUT",
+      "body": "entry_data",
+      "queryParams": {
+        "locale": "locale",
+        "include_branch": "include_branch",
+        "include_publish_details": "include_publish_details"
+      },
+      "params": {
+        "content_type_uid": "content_type_uid",
+        "entry_uid": "entry_uid",
+        "variant_uid": "variant_uid"
+      },
+      "headers": {
+        "branch": "branch"
+      }
+    },
+    "inputSchema": {
+      "type": "object",
+      "required": [
+        "content_type_uid",
+        "entry_uid",
+        "variant_uid",
+        "entry_data"
+      ],
+      "properties": {
+        "branch": {
+          "type": "string",
+          "description": "Select a branch from your stack.",
+          "default": "main"
+        },
+        "content_type_uid": {
+          "type": "string",
+          "description": "Select the content type of the base entry.",
+          "default": ""
+        },
+        "entry_uid": {
+          "type": "string",
+          "description": "UID of the base entry to attach the variant to.",
+          "default": ""
+        },
+        "variant_uid": {
+          "type": "string",
+          "description": "UID of the variant (from the variant group) to create or update."
+        },
+        "entry_data": {
+          "type": "object",
+          "description": "Request body with fields under an entry wrapper, e.g. {'entry':{...}}. Include only fields to override; use _variant._order for modular blocks/group ordering when needed."
+        },
+        "locale": {
+          "type": "string",
+          "description": "Locale code for the variant (e.g. en-us)."
+        },
+        "include_branch": {
+          "type": "boolean"
+        },
+        "include_publish_details": {
+          "type": "boolean",
+          "description": "Include publish details in the response."
+        }
+      }
+    },
+    "group": "cma",
+    "scopes": ["cm.entry:write"],
+    "x-enrich-group": "cma"
+  },
+  "delete_an_entry_variant": {
+    "name": "delete_an_entry_variant",
+    "description": "This tool deletes a specified entry variant from a base entry.",
+    "mapper": {
+      "apiUrl": "/v3/content_types/content_type_uid/entries/entry_uid/variants/variant_uid",
+      "method": "DELETE",
+      "queryParams": {
+        "locale": "locale",
+        "include_publish_details": "include_publish_details"
+      },
+      "params": {
+        "content_type_uid": "content_type_uid",
+        "entry_uid": "entry_uid",
+        "variant_uid": "variant_uid"
+      },
+      "headers": {
+        "branch": "branch"
+      }
+    },
+    "inputSchema": {
+      "type": "object",
+      "required": ["content_type_uid", "entry_uid", "variant_uid"],
+      "properties": {
+        "branch": {
+          "type": "string",
+          "description": "Select a branch from your stack.",
+          "default": "main"
+        },
+        "content_type_uid": {
+          "type": "string",
+          "description": "Content type UID of the base entry.",
+          "default": ""
+        },
+        "entry_uid": {
+          "type": "string",
+          "description": "UID of the base entry whose variant should be deleted.",
+          "default": ""
+        },
+        "variant_uid": {
+          "type": "string",
+          "description": "Variant UID to delete (from get_all_variants_of_a_content_type variant_groups[].variant_uids)."
+        },
+        "locale": {
+          "type": "string",
+          "description": "Optional locale for the delete operation (e.g. en-us)."
+        },
+        "include_publish_details": {
+          "type": "boolean",
+          "description": "Include publish details in the response."
+        }
+      }
+    },
+    "group": "cma",
+    "scopes": ["cm.entry:write"],
+    "x-enrich-group": "cma"
+  },
+  "get_references_of_an_entry": {
+    "name": "get_references_of_an_entry",
+    "description": "Retrieves all entries that reference the specified entry via reference fields. Use this before modifying or unpublishing an entry to understand the downstream impact on other content.",
+    "mapper": {
+      "apiUrl": "/v3/content_types/content_type_uid/entries/entry_uid/references",
+      "method": "GET",
+      "params": {
+        "content_type_uid": "content_type_uid",
+        "entry_uid": "entry_uid"
+      },
+      "queryParams": {
+        "locale": "locale"
+      },
+      "headers": {
+        "branch": "branch"
+      }
+    },
+    "inputSchema": {
+      "type": "object",
+      "required": ["content_type_uid", "entry_uid"],
+      "properties": {
+        "branch": {
+          "type": "string",
+          "description": "Select a branch from your stack.",
+          "default": "main"
+        },
+        "content_type_uid": {
+          "type": "string",
+          "description": "UID of the content type the entry belongs to."
+        },
+        "entry_uid": {
+          "type": "string",
+          "description": "UID of the entry whose references to retrieve."
+        },
+        "locale": {
+          "type": "string",
+          "description": "Locale code to scope the reference lookup, e.g. en-us."
+        }
+      }
+    },
+    "group": "cma",
+    "scopes": ["cm.entry:read"],
+    "x-enrich-group": "cma"
+  }
+}

@@ -1,0 +1,540 @@
+specification: API Commons OAuthScopes
+specificationVersion: '0.1'
+provider: Contentstack
+providerId: contentstack
+generated: '2026-09-17'
+method: searched
+source: https://www.contentstack.com/docs/developer-hub/oauth-scopes (HTTP 200, markdown twin, last_updated 2026-06-30)
+  cross-checked against the scopes[] field of https://mcp.contentstack.com/<group>/tools
+description: 'Contentstack OAuth 2.0 publishes a complete scope reference: 95 scopes documented on the OAuth Scopes
+  page, of which 39 are additionally declared by the first-party MCP tool catalogue. Scope names follow a <resource>:<action>
+  convention (cm.entry:write, launch.projects:read, personalize:manage) and the docs state which token type — user
+  token or app token — each scope supports.'
+docs: https://www.contentstack.com/docs/developer-hub/oauth-scopes
+oauth_docs: https://www.contentstack.com/docs/developer-hub/contentstack-oauth
+flow: authorization_code
+token_types:
+- user token
+- app token
+scope_count: 105
+documented_count: 95
+note: 10 scopes appear in the MCP tool catalogue but not on the published OAuth Scopes page — a gap between what
+  the server requests and what the reference documents.
+scopes:
+- name: analytics:read
+  group: Analytics
+  documented: false
+  used_by_mcp_tools: 8
+- name: app.authorizations:manage
+  group: Developer Hub / Marketplace apps
+  documented: false
+  used_by_mcp_tools: 1
+- name: app.installations.management:write
+  group: Developer Hub / Marketplace apps
+  documented: false
+  used_by_mcp_tools: 3
+- name: app.installations:read
+  group: Developer Hub / Marketplace apps
+  documented: false
+  used_by_mcp_tools: 1
+- name: app.manifest:read
+  group: Developer Hub / Marketplace apps
+  documented: false
+  used_by_mcp_tools: 4
+- name: app.manifest:write
+  group: Developer Hub / Marketplace apps
+  documented: false
+  used_by_mcp_tools: 4
+- name: automationhub.automations:read
+  group: Automation Hub
+  documented: false
+  used_by_mcp_tools: 2
+- name: automationhub.automations:write
+  group: Automation Hub
+  documented: false
+  used_by_mcp_tools: 2
+- name: automationhub.projects.management:read
+  group: Automation Hub
+  documented: false
+  used_by_mcp_tools: 2
+- name: automationhub.projects.management:write
+  group: Automation Hub
+  documented: false
+  used_by_mcp_tools: 3
+- name: brand-kits:manage
+  group: BrandKit
+  description: Create, update, or delete Brand Kit and Voice Profile.
+  documented: true
+  used_by_mcp_tools: 8
+- name: brand-kits:read
+  group: BrandKit
+  description: View Brand Kit(s) and Voice Profile(s).
+  documented: true
+  used_by_mcp_tools: 4
+- name: cm.asset:publish
+  group: Content Management
+  description: Publish an asset
+  documented: true
+  used_by_mcp_tools: 1
+- name: cm.asset:read
+  group: Content Management
+  description: View asset details
+  documented: true
+  used_by_mcp_tools: 6
+- name: cm.asset:unpublish
+  group: Content Management
+  description: Unpublish an asset
+  documented: true
+  used_by_mcp_tools: 1
+- name: cm.asset:write
+  group: Content Management
+  description: Create, update, remove RTE assets
+  documented: true
+  used_by_mcp_tools: 7
+- name: cm.assets.management:read
+  group: Content Management
+  description: View all assets
+  documented: true
+  used_by_mcp_tools: 0
+- name: cm.assets.management:write
+  group: Content Management
+  description: Create, update, remove assets
+  documented: true
+  used_by_mcp_tools: 0
+- name: cm.assets.rt:read
+  group: Content Management
+  description: View all RTE assets
+  documented: true
+  used_by_mcp_tools: 0
+- name: cm.assets:download
+  group: Content Management
+  description: Download assets
+  documented: true
+  used_by_mcp_tools: 0
+- name: cm.audit-logs:read
+  group: Content Management
+  description: View all audit logs
+  documented: true
+  used_by_mcp_tools: 2
+- name: cm.branch-aliases.management:read
+  group: Content Management
+  description: View all aliases
+  documented: true
+  used_by_mcp_tools: 2
+- name: cm.branch-aliases.management:write
+  group: Content Management
+  description: Create, assign, delete a branch alias
+  documented: true
+  used_by_mcp_tools: 2
+- name: cm.branches.management:read
+  group: Content Management
+  description: View all branches
+  documented: true
+  used_by_mcp_tools: 4
+- name: cm.branches.management:write
+  group: Content Management
+  description: Create, delete a branch
+  documented: true
+  used_by_mcp_tools: 8
+- name: cm.bulk-operations:delete
+  group: Content Management
+  description: Delete bulk operations
+  documented: true
+  used_by_mcp_tools: 0
+- name: cm.bulk-operations:publish
+  group: Content Management
+  description: Publish bulk operations
+  documented: true
+  used_by_mcp_tools: 0
+- name: cm.bulk-operations:unpublish
+  group: Content Management
+  description: Unpublish bulk operations
+  documented: true
+  used_by_mcp_tools: 0
+- name: cm.bulk-operations:workflow
+  group: Content Management
+  description: Workflow bulk operations
+  documented: true
+  used_by_mcp_tools: 0
+- name: cm.content-type:read
+  group: Content Management
+  description: View content type details
+  documented: true
+  used_by_mcp_tools: 3
+- name: cm.content-types.management:read
+  group: Content Management
+  description: View all content types
+  documented: true
+  used_by_mcp_tools: 0
+- name: cm.content-types.management:write
+  group: Content Management
+  description: Create, update, remove content types
+  documented: true
+  used_by_mcp_tools: 3
+- name: cm.content-types:export
+  group: Content Management
+  description: Export content types
+  documented: true
+  used_by_mcp_tools: 1
+- name: cm.content-types:import
+  group: Content Management
+  description: Import content types
+  documented: true
+  used_by_mcp_tools: 0
+- name: cm.entries.management:read
+  group: Content Management
+  description: View all entries
+  documented: true
+  used_by_mcp_tools: 0
+- name: cm.entries.management:write
+  group: Content Management
+  description: Create, update, remove entries
+  documented: true
+  used_by_mcp_tools: 0
+- name: cm.entries:export
+  group: Content Management
+  description: Export entries
+  documented: true
+  used_by_mcp_tools: 0
+- name: cm.entries:import
+  group: Content Management
+  description: Import entries
+  documented: true
+  used_by_mcp_tools: 0
+- name: cm.entry.workflow:write
+  group: Content Management
+  description: Create a workflow for an entry
+  documented: true
+  used_by_mcp_tools: 0
+- name: cm.entry:publish
+  group: Content Management
+  description: Publish an entry
+  documented: true
+  used_by_mcp_tools: 2
+- name: cm.entry:read
+  group: Content Management
+  description: View details associated with an entry
+  documented: true
+  used_by_mcp_tools: 8
+- name: cm.entry:unpublish
+  group: Content Management
+  description: Unpublish an entry
+  documented: true
+  used_by_mcp_tools: 1
+- name: cm.entry:write
+  group: Content Management
+  description: Update details associated with an entry
+  documented: true
+  used_by_mcp_tools: 9
+- name: cm.environments.management:read
+  group: Content Management
+  description: View all environments
+  documented: true
+  used_by_mcp_tools: 2
+- name: cm.environments.management:write
+  group: Content Management
+  description: Create, update, remove environments
+  documented: true
+  used_by_mcp_tools: 3
+- name: cm.extensions.management:read
+  group: Content Management
+  description: View all extensions
+  documented: true
+  used_by_mcp_tools: 0
+- name: cm.extensions.management:write
+  group: Content Management
+  description: Create, update, remove extensions
+  documented: true
+  used_by_mcp_tools: 0
+- name: cm.global-fields.management:read
+  group: Content Management
+  description: View all global fields
+  documented: true
+  used_by_mcp_tools: 3
+- name: cm.global-fields.management:write
+  group: Content Management
+  description: Create, update, remove global fields
+  documented: true
+  used_by_mcp_tools: 3
+- name: cm.global-fields:import
+  group: Content Management
+  description: Export global fields
+  documented: true
+  used_by_mcp_tools: 0
+- name: cm.labels.management:read
+  group: Content Management
+  description: View all labels
+  documented: true
+  used_by_mcp_tools: 0
+- name: cm.labels.management:write
+  group: Content Management
+  description: Create, update, remove labels
+  documented: true
+  used_by_mcp_tools: 0
+- name: cm.languages.management:read
+  group: Content Management
+  description: View all languages
+  documented: true
+  used_by_mcp_tools: 1
+- name: cm.languages.management:write
+  group: Content Management
+  description: Create, update, remove languages
+  documented: true
+  used_by_mcp_tools: 0
+- name: cm.publish-queue.management:read
+  group: Content Management
+  description: View all publish queues
+  documented: true
+  used_by_mcp_tools: 2
+- name: cm.publish-queue.management:write
+  group: Content Management
+  description: Create, update, remove publish queues
+  documented: true
+  used_by_mcp_tools: 0
+- name: cm.release:clone
+  group: Content Management
+  description: Clone a release
+  documented: true
+  used_by_mcp_tools: 1
+- name: cm.release:deploy
+  group: Content Management
+  description: Deploy a release
+  documented: true
+  used_by_mcp_tools: 1
+- name: cm.release:read
+  group: Content Management
+  description: View details associated with a release
+  documented: true
+  used_by_mcp_tools: 3
+- name: cm.release:write
+  group: Content Management
+  description: Update details associated with a release
+  documented: true
+  used_by_mcp_tools: 3
+- name: cm.releases.management:read
+  group: Content Management
+  description: View all releases
+  documented: true
+  used_by_mcp_tools: 0
+- name: cm.releases.management:write
+  group: Content Management
+  description: Create, update, remove releases
+  documented: true
+  used_by_mcp_tools: 0
+- name: cm.roles.management:read
+  group: Content Management
+  description: View all roles
+  documented: true
+  used_by_mcp_tools: 0
+- name: cm.roles.management:write
+  group: Content Management
+  description: Create, update, remove roles
+  documented: true
+  used_by_mcp_tools: 0
+- name: cm.stack.delivery-tokens:read
+  group: Content Management
+  description: View delivery tokens associated with a stack
+  documented: true
+  used_by_mcp_tools: 0
+- name: cm.stack.delivery-tokens:write
+  group: Content Management
+  description: Create, update, remove delivery tokens in a stack
+  documented: true
+  used_by_mcp_tools: 0
+- name: cm.stack.management-tokens:read
+  group: Content Management
+  description: View management tokens associated with a stack
+  documented: true
+  used_by_mcp_tools: 0
+- name: cm.stack.management-tokens:write
+  group: Content Management
+  description: Create, update, remove management tokens in a stack
+  documented: true
+  used_by_mcp_tools: 0
+- name: cm.stack.management:write
+  group: Content Management
+  description: Update stack management properties
+  documented: true
+  used_by_mcp_tools: 0
+- name: cm.stack.settings:read
+  group: Content Management
+  description: Update stack settings
+  documented: true
+  used_by_mcp_tools: 0
+- name: cm.stack.users:read
+  group: Content Management
+  description: View users associated with a stack
+  documented: true
+  used_by_mcp_tools: 0
+- name: cm.stack.users:write
+  group: Content Management
+  description: Update user roles and user associations with a stack
+  documented: true
+  used_by_mcp_tools: 0
+- name: cm.stack:share
+  group: Content Management
+  description: Share stack invitation with users
+  documented: true
+  used_by_mcp_tools: 0
+- name: cm.stack:unshare
+  group: Content Management
+  description: Unshare stack invitations
+  documented: true
+  used_by_mcp_tools: 0
+- name: cm.stacks.management:read
+  group: Content Management
+  description: View all stacks
+  documented: true
+  used_by_mcp_tools: 0
+- name: cm.stacks.management:write
+  group: Content Management
+  description: Create, update, remove stacks
+  documented: true
+  used_by_mcp_tools: 0
+- name: cm.taxonomies.management:read
+  group: Content Management
+  description: View all taxonomies
+  documented: true
+  used_by_mcp_tools: 3
+- name: cm.taxonomies.management:write
+  group: Content Management
+  description: Create, update, delete taxonomies
+  documented: true
+  used_by_mcp_tools: 3
+- name: cm.taxonomy.terms:read
+  group: Content Management
+  description: View all terms of a taxonomy
+  documented: true
+  used_by_mcp_tools: 5
+- name: cm.taxonomy.terms:write
+  group: Content Management
+  description: Create, update, move, delete term(s) of a taxonomy
+  documented: true
+  used_by_mcp_tools: 4
+- name: cm.webhook:read
+  group: Content Management
+  description: View webhook details
+  documented: true
+  used_by_mcp_tools: 0
+- name: cm.webhooks.management:read
+  group: Content Management
+  description: View all webhooks
+  documented: true
+  used_by_mcp_tools: 0
+- name: cm.webhooks.management:write
+  group: Content Management
+  description: Create, update, remove webhooks
+  documented: true
+  used_by_mcp_tools: 0
+- name: cm.webhooks:export
+  group: Content Management
+  description: Export webhooks
+  documented: true
+  used_by_mcp_tools: 0
+- name: cm.webhooks:import
+  group: Content Management
+  description: Import webhooks
+  documented: true
+  used_by_mcp_tools: 0
+- name: cm.workflows.management:read
+  group: Content Management
+  description: View all workflows
+  documented: true
+  used_by_mcp_tools: 2
+- name: cm.workflows.management:write
+  group: Content Management
+  description: Create, update, remove workflows
+  documented: true
+  used_by_mcp_tools: 0
+- name: cm.workflows.publishing-rules:read
+  group: Content Management
+  description: View all workflow publishing rules
+  documented: true
+  used_by_mcp_tools: 1
+- name: cm.workflows.publishing-rules:write
+  group: Content Management
+  description: Create, update, remove workflow publishing rules
+  documented: true
+  used_by_mcp_tools: 0
+- name: launch.projects:delete
+  group: Launch
+  description: This scope lets you delete resources
+  documented: true
+  used_by_mcp_tools: 2
+- name: launch.projects:read
+  group: Launch
+  description: This scope lets you read resources
+  documented: true
+  used_by_mcp_tools: 15
+- name: launch.projects:write
+  group: Launch
+  description: This scope lets you create and update resources
+  documented: true
+  used_by_mcp_tools: 10
+- name: launch:manage
+  group: Launch
+  description: This scope lets you read, update, and manage resources
+  documented: true
+  used_by_mcp_tools: 0
+- name: organization.logs:read
+  group: Organization
+  description: View organization logs
+  documented: true
+  used_by_mcp_tools: 0
+- name: organization.ownership:write
+  group: Organization
+  description: Create, update of organization ownership
+  documented: true
+  used_by_mcp_tools: 0
+- name: organization.roles:read
+  group: Organization
+  description: View organization level roles
+  documented: true
+  used_by_mcp_tools: 0
+- name: organization.share:read
+  group: Organization
+  description: View details of organization invitations shared with users
+  documented: true
+  used_by_mcp_tools: 0
+- name: organization.share:write
+  group: Organization
+  description: Update, remove organization invitation shares
+  documented: true
+  used_by_mcp_tools: 0
+- name: organization:read
+  group: Organization
+  description: View details of an organization
+  documented: true
+  used_by_mcp_tools: 0
+- name: organizations:read
+  group: Organization
+  description: View details of all organizations associated with the user
+  documented: true
+  used_by_mcp_tools: 0
+- name: personalize:manage
+  group: Personalize
+  description: Create, update, or delete Attribute, Audience, Experience, Event, and Experience Version, and update
+    Experiences Priority.
+  documented: true
+  used_by_mcp_tools: 12
+- name: personalize:read
+  group: Personalize
+  description: View Attributes, Audiences, Events, Experiences, Experiences Priority, Analytics Summary, Time-series
+    Analytics, Regions, Countries, and Cities.
+  documented: true
+  used_by_mcp_tools: 12
+- name: user.assignments:read
+  group: Other
+  description: View user assignments
+  documented: true
+  used_by_mcp_tools: 0
+- name: user:read
+  group: Other
+  description: View user details
+  documented: true
+  used_by_mcp_tools: 0
+- name: user:write
+  group: Other
+  description: Update user details
+  documented: true
+  used_by_mcp_tools: 0

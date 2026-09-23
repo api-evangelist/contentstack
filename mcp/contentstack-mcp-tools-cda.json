@@ -1,0 +1,379 @@
+{
+  "get_all_assets_cdn": {
+    "name": "get_all_assets_cdn",
+    "description": "Retrieves published assets from the Content Delivery Network. Returns CDN metadata including URLs, file types, dimensions, and publish status. Supports pagination (limit/skip), branch and locale selection, specific versions, and optional inclusion of image dimensions, publish details, and metadata. Ideal for building media galleries, asset pickers, or bulk asset operations.",
+    "group": "cda",
+    "scopes": [],
+    "mapper": {
+      "apiUrl": "/v3/assets",
+      "method": "GET",
+      "queryParams": {
+        "version": "version",
+        "environment": "environment",
+        "locale": "locale",
+        "limit": "limit",
+        "skip": "skip",
+        "query": "query",
+        "asc": "asc",
+        "desc": "desc",
+        "include_count": "include_count",
+        "include_publish_details": "include_publish_details",
+        "include_metadata": "include_metadata",
+        "include_dimension": "include_dimension",
+        "include_fallback": "include_fallback"
+      },
+      "headers": {
+        "branch": "branch"
+      }
+    },
+    "inputSchema": {
+      "type": "object",
+      "required": [],
+      "properties": {
+        "branch": {
+          "type": "string",
+          "description": "Select a branch from your stack.",
+          "default": "main"
+        },
+        "environment": {
+          "type": "string",
+          "description": "Optionally select an environment to fetch assets published in it. Defaults to the environment the delivery token is scoped to."
+        },
+        "locale": {
+          "type": "string",
+          "description": "Select a locale to fetch the asset details published in a particular locale."
+        },
+        "version": {
+          "type": "string",
+          "description": "Specific asset version to fetch. Versions start at 1; never pass 0. Omit this parameter entirely to fetch the latest."
+        },
+        "limit": {
+          "type": "number",
+          "description": "Maximum number of assets to return.",
+          "default": 100
+        },
+        "skip": {
+          "type": "number",
+          "description": "Number of assets to skip for pagination.",
+          "default": 0
+        },
+        "query": {
+          "type": "object",
+          "description": "JSON query object to filter results."
+        },
+        "asc": {
+          "type": "string",
+          "description": "Field UID to sort assets by in ascending order (e.g. 'created_at')."
+        },
+        "desc": {
+          "type": "string",
+          "description": "Field UID to sort assets by in descending order (e.g. 'updated_at')."
+        },
+        "include_count": {
+          "type": "boolean",
+          "default": false,
+          "description": "Include the total count of matching assets in the response."
+        },
+        "include_publish_details": {
+          "type": "boolean",
+          "description": "Include publish details (time, user, environment) for each asset."
+        },
+        "include_metadata": {
+          "type": "boolean",
+          "default": false,
+          "description": "Include metadata attached to each asset."
+        },
+        "include_dimension": {
+          "type": "boolean",
+          "description": "Include image dimensions (height and width) in the response."
+        },
+        "include_fallback": {
+          "type": "boolean",
+          "description": "Include assets from the fallback locale when unavailable in the requested locale."
+        }
+      }
+    },
+    "x-enrich-group": "cda"
+  },
+  "get_all_entries_cdn": {
+    "name": "get_all_entries_cdn",
+    "group": "cda",
+    "scopes": [],
+    "description": "Retrieves published entries of a content type from the CDN for fast, global delivery. Returns paginated entries with full field values, and supports filtering (query), sorting (asc/desc), reference resolution (include/include_all), locale selection, and fallback. Essential for listing pages, search interfaces, or data synchronization. Maximum 100 entries per request.",
+    "mapper": {
+      "apiUrl": "/v3/content_types/content_type_uid/entries",
+      "method": "GET",
+      "params": {
+        "content_type_uid": "content_type_uid"
+      },
+      "queryParams": {
+        "environment": "environment",
+        "limit": "limit",
+        "skip": "skip",
+        "query": "query",
+        "include[]": "include",
+        "include_all": "include_all",
+        "asc": "asc",
+        "desc": "desc",
+        "include_publish_details": "include_publish_details",
+        "include_fallback": "include_fallback",
+        "include_count": "include_count",
+        "locale": "locale",
+        "only[BASE][]": "only",
+        "except[BASE][]": "except",
+        "include_metadata": "include_metadata"
+      },
+      "headers": {
+        "branch": "branch",
+        "x-cs-variant-uid": "variant_uid"
+      }
+    },
+    "inputSchema": {
+      "type": "object",
+      "required": ["content_type_uid"],
+      "properties": {
+        "content_type_uid": {
+          "type": "string",
+          "description": "The UID of the content type whose entries to fetch (e.g. 'product'). Must be a content type UID, not a display name."
+        },
+        "environment": {
+          "type": "string",
+          "description": "Optionally specify the environment to fetch published entries from. Defaults to the environment the delivery token is scoped to."
+        },
+        "limit": {
+          "type": "number",
+          "description": "Number of entries to retrieve (max: 100)",
+          "default": 100
+        },
+        "skip": {
+          "type": "number",
+          "description": "Number of entries to skip for pagination",
+          "default": 0
+        },
+        "query": {
+          "type": "object",
+          "description": "JSON query object to filter results."
+        },
+        "include": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "description": "Reference field UIDs to resolve into full objects, e.g. ['author','category']."
+        },
+        "include_all": {
+          "type": "boolean",
+          "description": "Resolve all referenced entries one level deep."
+        },
+        "asc": {
+          "type": "string",
+          "description": "Field UID to sort results by in ascending order."
+        },
+        "desc": {
+          "type": "string",
+          "description": "Field UID to sort results by in descending order."
+        },
+        "include_publish_details": {
+          "type": "boolean",
+          "description": "Include publish details (time, user, environment) for each entry."
+        },
+        "locale": {
+          "type": "string",
+          "description": "Specify the locale to fetch localized entries",
+          "default": "en-us"
+        },
+        "include_count": {
+          "type": "boolean",
+          "default": false,
+          "description": "Include total count of entries in response"
+        },
+        "include_fallback": {
+          "type": "boolean",
+          "default": true,
+          "description": "Include fallback locale content if specified locale not available"
+        },
+        "variant_uid": {
+          "type": "string",
+          "description": "Fetch variant content for the entries by passing one or more variant UIDs (comma-separated). Sent as the x-cs-variant-uid header. Omit to fetch base (non-variant) content."
+        },
+        "branch": {
+          "type": "string",
+          "description": "Select a branch from your stack.",
+          "default": "main"
+        },
+        "only": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "description": "Field UIDs to include in the response."
+        },
+        "except": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "description": "Field UIDs to exclude from the response."
+        },
+        "include_metadata": {
+          "type": "boolean",
+          "description": "Include metadata in the response.",
+          "default": false
+        }
+      }
+    },
+    "x-enrich-group": "cda"
+  },
+  "get_a_single_asset_cdn": {
+    "name": "get_a_single_asset_cdn",
+    "group": "cda",
+    "scopes": [],
+    "description": "Retrieves a specific published asset from the CDN by its unique identifier. Returns complete asset metadata including CDN URL, file details, dimensions, and version information. Use this for direct asset access in your applications, ensuring fast, cached delivery through Contentstack's global CDN infrastructure.",
+    "mapper": {
+      "apiUrl": "/v3/assets/asset_uid",
+      "method": "GET",
+      "params": {
+        "asset_uid": "asset_uid"
+      },
+      "queryParams": {
+        "environment": "environment",
+        "version": "version",
+        "include_dimension": "include_dimension",
+        "include_fallback": "include_fallback",
+        "include_metadata": "include_metadata",
+        "include_publish_details": "include_publish_details"
+      },
+      "headers": {
+        "branch": "branch"
+      }
+    },
+    "inputSchema": {
+      "type": "object",
+      "required": ["asset_uid"],
+      "properties": {
+        "environment": {
+          "type": "string",
+          "description": "Optionally specify the environment to fetch the published asset from. Defaults to the environment the delivery token is scoped to."
+        },
+        "asset_uid": {
+          "type": "string",
+          "description": "The UID of the asset to fetch (e.g. 'blt19c34e5374418484'). Must be an asset UID, not a file name."
+        },
+        "version": {
+          "type": "string",
+          "description": "Specific asset version to fetch. Versions start at 1; never pass 0. Omit this parameter entirely to fetch the latest."
+        },
+        "include_dimension": {
+          "type": "boolean",
+          "description": "Include image dimensions (height and width) in the response."
+        },
+        "include_fallback": {
+          "type": "boolean",
+          "description": "Include the asset from the fallback locale when unavailable in the requested locale."
+        },
+        "include_metadata": {
+          "type": "boolean",
+          "description": "Include metadata attached to the asset."
+        },
+        "branch": {
+          "type": "string",
+          "description": "Select a branch from your stack.",
+          "default": "main"
+        },
+        "include_publish_details": {
+          "type": "boolean",
+          "description": "Include publish details in the response."
+        }
+      }
+    },
+    "x-enrich-group": "cda"
+  },
+  "get_a_single_entry_cdn": {
+    "name": "get_a_single_entry_cdn",
+    "group": "cda",
+    "scopes": [],
+    "description": "Retrieves a specific published entry from the CDN by its unique identifier and content type. Returns complete entry data with all field values, optimized for fast global delivery. Supports environment and locale selection with automatic fallback to default locale when specified locale is unavailable. Perfect for detail pages, single resource views, or real-time content display.",
+    "mapper": {
+      "apiUrl": "/v3/content_types/content_type_uid/entries/entry_uid",
+      "method": "GET",
+      "params": {
+        "content_type_uid": "content_type_uid",
+        "entry_uid": "entry_uid"
+      },
+      "queryParams": {
+        "environment": "environment",
+        "locale": "locale",
+        "include[]": "include",
+        "include_embedded_items[]": "include_embedded_items",
+        "include_publish_details": "include_publish_details",
+        "include_fallback": "include_fallback",
+        "include_metadata": "include_metadata"
+      },
+      "headers": {
+        "branch": "branch",
+        "x-cs-variant-uid": "variant_uid"
+      }
+    },
+    "inputSchema": {
+      "type": "object",
+      "required": ["content_type_uid", "entry_uid"],
+      "properties": {
+        "content_type_uid": {
+          "type": "string",
+          "description": "The UID of the content type the entry belongs to (e.g. 'product'). Must be a content type UID, not a display name."
+        },
+        "entry_uid": {
+          "type": "string",
+          "description": "The UID of the entry to fetch (e.g. 'blta250054cfa4f5aab'). Must be an entry UID, not a title."
+        },
+        "environment": {
+          "type": "string",
+          "description": "Optionally specify the environment to fetch the published entry from. Defaults to the environment the delivery token is scoped to."
+        },
+        "locale": {
+          "type": "string",
+          "description": "Specify the locale to fetch localized entry",
+          "default": "en-us"
+        },
+        "include": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "description": "Reference field UIDs to resolve into full objects, e.g. ['author','category']."
+        },
+        "include_embedded_items": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "description": "Pass ['BASE'] to resolve entries/assets embedded in Rich Text Editor fields."
+        },
+        "include_publish_details": {
+          "type": "boolean",
+          "description": "Include publish details (time, user, environment) for the entry."
+        },
+        "include_fallback": {
+          "type": "boolean",
+          "default": true,
+          "description": "Include fallback locale content if specified locale not available"
+        },
+        "variant_uid": {
+          "type": "string",
+          "description": "Fetch variant content for the entry by passing one or more variant UIDs (comma-separated). Sent as the x-cs-variant-uid header. Omit to fetch base (non-variant) content."
+        },
+        "branch": {
+          "type": "string",
+          "description": "Select a branch from your stack.",
+          "default": "main"
+        },
+        "include_metadata": {
+          "type": "boolean",
+          "description": "Include metadata in the response.",
+          "default": false
+        }
+      }
+    },
+    "x-enrich-group": "cda"
+  }
+}

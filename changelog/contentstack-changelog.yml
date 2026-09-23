@@ -1,0 +1,46 @@
+specification: API Commons ChangeLog
+specificationVersion: '0.1'
+provider: Contentstack
+providerId: contentstack
+generated: '2026-09-17'
+method: searched
+source: https://www.contentstack.com/docs/changelog (HTTP 200), read 2026-09-17
+description: Contentstack publishes a dated, product-segmented changelog covering the platform, the CMS, the APIs,
+  the SDKs and the CLI. Entries are dated rather than versioned; SDKs and the CLI carry semantic versions of their
+  own.
+url: https://www.contentstack.com/docs/changelog
+scheme: date-based (platform) + semver (SDKs, CLI)
+window: recent entries only, read 2026-09-17
+entries:
+- date: '2026-09-16'
+  product: Administration / Platform
+  type: addition
+  highlight: Self-service account creation and subscription management.
+- date: '2026-09-15'
+  product: Headless CMS
+  type: enhancement
+  highlight: Bulk actions can select all entries across pages, up to 10,000 items per operation.
+- date: '2026-09-11'
+  product: APIs
+  type: breaking
+  highlight: The limit parameter now accepts positive integers only; limit=0 no longer returns all records.
+- date: '2026-09-11'
+  product: Administration
+  type: addition
+  highlight: Organizations can configure up to five SAML 2.0 identity providers with independent settings.
+- date: '2026-09-07'
+  product: Headless CMS / SDKs / APIs
+  type: enhancement
+  highlight: Nested embedded items in JSON RTE resolve with current metadata using the RECURSIVE parameter.
+- date: '2026-08-31'
+  product: SDKs
+  type: fix
+  highlight: Java Utils, Management and Delivery SDKs updated jsoup to 1.23.2 for a security fix.
+- date: '2026-08-31'
+  product: CLI
+  type: fix
+  highlight: Fixed OAuth token-refresh crashes and unbounded retries on persistent 401 errors.
+- date: '2026-08-27'
+  product: Assets / APIs
+  type: addition
+  highlight: New Assets API for programmatic management of spaces, metadata and asset governance.

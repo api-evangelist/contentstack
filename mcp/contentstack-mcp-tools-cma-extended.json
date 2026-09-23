@@ -1,0 +1,889 @@
+{
+  "get_audit_log": {
+    "name": "get_audit_log",
+    "description": "Retrieves a paginated list of audit log entries for the stack. Every create, update, delete, publish, and unpublish action performed by a user or API key is recorded in the audit log. Use this tool to explain recent changes, reconstruct the timeline of an incident, or verify that an expected action was carried out.",
+    "mapper": {
+      "apiUrl": "/v3/audit-logs",
+      "method": "GET",
+      "queryParams": {
+        "skip": "skip",
+        "limit": "limit",
+        "asc": "asc",
+        "desc": "desc",
+        "query": "query"
+      },
+      "headers": {
+        "branch": "branch"
+      }
+    },
+    "inputSchema": {
+      "type": "object",
+      "required": [],
+      "properties": {
+        "branch": {
+          "type": "string",
+          "description": "Branch to scope the audit log to.",
+          "default": "main"
+        },
+        "skip": {
+          "type": "string",
+          "description": "Number of log entries to skip for pagination."
+        },
+        "limit": {
+          "type": "string",
+          "description": "Number of log entries to retrieve (max 100)."
+        },
+        "asc": {
+          "type": "string",
+          "description": "Field name to sort results by in ascending order, e.g. created_at."
+        },
+        "desc": {
+          "type": "string",
+          "description": "Field name to sort results by in descending order, e.g. created_at."
+        },
+        "query": {
+          "type": "object",
+          "description": "JSON query object to filter audit log entries by field values."
+        }
+      }
+    },
+    "group": "cma-extended",
+    "scopes": ["cm.audit-logs:read"],
+    "x-enrich-group": "cma"
+  },
+  "get_audit_log_item": {
+    "name": "get_audit_log_item",
+    "description": "Retrieves the full detail of a single audit log entry by its UID, including the before and after field values, the user who performed the action, the timestamp, and the affected content item. Use this after get_audit_log to drill into a specific change for impact analysis or to explain what happened.",
+    "mapper": {
+      "apiUrl": "/v3/audit-logs/log_item_uid",
+      "method": "GET",
+      "params": {
+        "log_item_uid": "log_item_uid"
+      }
+    },
+    "inputSchema": {
+      "type": "object",
+      "required": ["log_item_uid"],
+      "properties": {
+        "log_item_uid": {
+          "type": "string",
+          "description": "UID of the audit log entry to retrieve. Obtain this from get_audit_log."
+        }
+      }
+    },
+    "group": "cma-extended",
+    "scopes": ["cm.audit-logs:read"],
+    "x-enrich-group": "cma"
+  },
+  "get_all_versions_of_an_entry": {
+    "name": "get_all_versions_of_an_entry",
+    "description": "Retrieves the full version history of a specific entry. Each save creates a new version. Use this to audit how content evolved over time, identify the version that introduced a problem, or determine which version number to publish or restore.",
+    "mapper": {
+      "apiUrl": "/v3/content_types/content_type_uid/entries/entry_uid/versions",
+      "method": "GET",
+      "params": {
+        "content_type_uid": "content_type_uid",
+        "entry_uid": "entry_uid"
+      },
+      "queryParams": {
+        "locale": "locale",
+        "skip": "skip",
+        "limit": "limit",
+        "count": "count",
+        "include_publish_details": "include_publish_details"
+      },
+      "headers": {
+        "branch": "branch"
+      }
+    },
+    "inputSchema": {
+      "type": "object",
+      "required": ["content_type_uid", "entry_uid"],
+      "properties": {
+        "branch": {
+          "type": "string",
+          "description": "Branch the entry belongs to.",
+          "default": "main"
+        },
+        "content_type_uid": {
+          "type": "string",
+          "description": "UID of the content type the entry belongs to."
+        },
+        "entry_uid": {
+          "type": "string",
+          "description": "UID of the entry whose version history to retrieve."
+        },
+        "locale": {
+          "type": "string",
+          "description": "Locale code to scope the version history, e.g. en-us."
+        },
+        "skip": {
+          "type": "string",
+          "description": "Number of versions to skip for pagination."
+        },
+        "limit": {
+          "type": "string",
+          "description": "Number of versions to retrieve."
+        },
+        "count": {
+          "type": "boolean",
+          "description": "When true, returns only the total version count rather than the full list."
+        },
+        "include_publish_details": {
+          "type": "boolean",
+          "description": "Include publish details for each version in the response."
+        }
+      }
+    },
+    "group": "cma-extended",
+    "scopes": ["cm.entry:read"],
+    "x-enrich-group": "cma"
+  },
+  "set_entry_version_name": {
+    "name": "set_entry_version_name",
+    "description": "Assigns a human-readable name to a specific version of an entry, making it easy to identify meaningful milestones in the version history. Examples: 'Approved by legal', 'Pre-launch draft', 'Reverted to safe state'. Named versions are visible in the Contentstack UI and help editors navigate long version histories.",
+    "mapper": {
+      "apiUrl": "/v3/content_types/content_type_uid/entries/entry_uid/versions/version_number/name",
+      "method": "POST",
+      "type": "complex",
+      "params": {
+        "content_type_uid": "content_type_uid",
+        "entry_uid": "entry_uid",
+        "version_number": "version_number"
+      },
+      "body": {
+        "type": "object",
+        "properties": {
+          "version_name": {
+            "type": "object",
+            "properties": {
+              "name": {
+                "type": "string",
+                "x-mapFrom": "name"
+              }
+            }
+          }
+        }
+      },
+      "headers": {
+        "branch": "branch"
+      }
+    },
+    "inputSchema": {
+      "type": "object",
+      "required": ["content_type_uid", "entry_uid", "version_number", "name"],
+      "properties": {
+        "branch": {
+          "type": "string",
+          "description": "Branch the entry belongs to.",
+          "default": "main"
+        },
+        "content_type_uid": {
+          "type": "string",
+          "description": "UID of the content type the entry belongs to."
+        },
+        "entry_uid": {
+          "type": "string",
+          "description": "UID of the entry to label a version of."
+        },
+        "version_number": {
+          "type": "string",
+          "description": "Version number to assign the name to, e.g. 3. Obtain from get_all_versions_of_an_entry."
+        },
+        "name": {
+          "type": "string",
+          "description": "Human-readable label for this version, e.g. 'Approved by legal'."
+        }
+      }
+    },
+    "group": "cma-extended",
+    "scopes": ["cm.entry:write"],
+    "x-enrich-group": "cma"
+  },
+  "delete_entry_version_name": {
+    "name": "delete_entry_version_name",
+    "description": "Removes the human-readable name previously assigned to a specific version of an entry. The version itself is not deleted — only its label is cleared.",
+    "mapper": {
+      "apiUrl": "/v3/content_types/content_type_uid/entries/entry_uid/versions/version_number/name",
+      "method": "DELETE",
+      "params": {
+        "content_type_uid": "content_type_uid",
+        "entry_uid": "entry_uid",
+        "version_number": "version_number"
+      },
+      "headers": {
+        "branch": "branch"
+      }
+    },
+    "inputSchema": {
+      "type": "object",
+      "required": ["content_type_uid", "entry_uid", "version_number"],
+      "properties": {
+        "branch": {
+          "type": "string",
+          "description": "Branch the entry belongs to.",
+          "default": "main"
+        },
+        "content_type_uid": {
+          "type": "string",
+          "description": "UID of the content type the entry belongs to."
+        },
+        "entry_uid": {
+          "type": "string",
+          "description": "UID of the entry whose version name to remove."
+        },
+        "version_number": {
+          "type": "string",
+          "description": "Version number whose name to remove."
+        }
+      }
+    },
+    "group": "cma-extended",
+    "scopes": ["cm.entry:write"],
+    "x-enrich-group": "cma"
+  },
+  "create_a_global_field": {
+    "name": "create_a_global_field",
+    "description": "Creates a new global field in the stack. Global fields are reusable field groups — such as an SEO block or an author reference — that can be embedded in multiple content types. Changes to a global field propagate automatically to every content type that uses it. Provide a uid, a display title, and a schema array defining the individual fields in the group.",
+    "mapper": {
+      "apiUrl": "/v3/global_fields",
+      "method": "POST",
+      "body": "global_field",
+      "headers": {
+        "branch": "branch"
+      }
+    },
+    "inputSchema": {
+      "type": "object",
+      "required": ["uid", "title", "schema"],
+      "properties": {
+        "branch": {
+          "type": "string",
+          "description": "Branch to create the global field in.",
+          "default": "main"
+        },
+        "uid": {
+          "type": "string",
+          "description": "Unique identifier for the global field in snake_case, e.g. seo_fields."
+        },
+        "title": {
+          "type": "string",
+          "description": "Human-readable display name for the global field group, e.g. SEO Fields."
+        },
+        "schema": {
+          "type": "array",
+          "description": "Array of field definition objects that make up this global field. Each object follows the Contentstack field schema format with data_type, display_name, uid, and any type-specific options.",
+          "items": {
+            "type": "object"
+          }
+        }
+      }
+    },
+    "group": "cma-extended",
+    "scopes": ["cm.global-fields.management:write"],
+    "x-enrich-group": "cma"
+  },
+  "update_a_global_field": {
+    "name": "update_a_global_field",
+    "description": "Updates the schema or title of an existing global field. Because global fields are shared, any schema change propagates to every content type that embeds this global field. Use get_all_global_fields and get_a_single_global_field to confirm the current state before updating.",
+    "mapper": {
+      "apiUrl": "/v3/global_fields/global_field_uid",
+      "method": "PUT",
+      "body": "global_field",
+      "params": {
+        "global_field_uid": "global_field_uid"
+      },
+      "headers": {
+        "branch": "branch"
+      }
+    },
+    "inputSchema": {
+      "type": "object",
+      "required": ["global_field_uid"],
+      "properties": {
+        "branch": {
+          "type": "string",
+          "description": "Branch the global field belongs to.",
+          "default": "main"
+        },
+        "global_field_uid": {
+          "type": "string",
+          "description": "UID of the global field to update."
+        },
+        "title": {
+          "type": "string",
+          "description": "Updated display name for the global field group."
+        },
+        "schema": {
+          "type": "array",
+          "description": "Updated array of field definition objects for the global field.",
+          "items": {
+            "type": "object"
+          }
+        }
+      }
+    },
+    "group": "cma-extended",
+    "scopes": ["cm.global-fields.management:write"],
+    "x-enrich-group": "cma"
+  },
+  "delete_a_global_field": {
+    "name": "delete_a_global_field",
+    "description": "Permanently deletes a global field from the stack. This removes the global field definition and its embedded occurrence from every content type that references it. This action cannot be undone. Use get_all_global_fields to confirm the UID and get_a_single_global_field to verify it is safe to delete before proceeding.",
+    "mapper": {
+      "apiUrl": "/v3/global_fields/global_field_uid",
+      "method": "DELETE",
+      "params": {
+        "global_field_uid": "global_field_uid"
+      },
+      "queryParams": {
+        "force": "force"
+      },
+      "headers": {
+        "branch": "branch"
+      }
+    },
+    "inputSchema": {
+      "type": "object",
+      "required": ["global_field_uid"],
+      "properties": {
+        "branch": {
+          "type": "string",
+          "description": "Branch the global field belongs to.",
+          "default": "main"
+        },
+        "global_field_uid": {
+          "type": "string",
+          "description": "UID of the global field to permanently delete."
+        },
+        "force": {
+          "type": "boolean",
+          "description": "When true, removes the global field even if content types still reference it.",
+          "default": true
+        }
+      }
+    },
+    "group": "cma-extended",
+    "scopes": ["cm.global-fields.management:write"],
+    "x-enrich-group": "cma"
+  },
+  "export_global_field": {
+    "name": "export_global_field",
+    "description": "Exports a global field definition as a JSON object. Use this to back up a global field schema before making changes, or to inspect the full field definition including nested properties before deciding whether to update or delete it.",
+    "mapper": {
+      "apiUrl": "/v3/global_fields/global_field_uid/export",
+      "method": "GET",
+      "params": {
+        "global_field_uid": "global_field_uid"
+      },
+      "headers": {
+        "branch": "branch"
+      }
+    },
+    "inputSchema": {
+      "type": "object",
+      "required": ["global_field_uid"],
+      "properties": {
+        "branch": {
+          "type": "string",
+          "description": "Branch the global field belongs to.",
+          "default": "main"
+        },
+        "global_field_uid": {
+          "type": "string",
+          "description": "UID of the global field to export."
+        }
+      }
+    },
+    "group": "cma-extended",
+    "scopes": ["cm.global-fields.management:read"],
+    "x-enrich-group": "cma"
+  },
+  "update_asset_details": {
+    "name": "update_asset_details",
+    "description": "Updates the metadata of an existing asset — such as its title, description, or tags — without replacing the underlying file. Use this to correct asset names, add searchable tags, or update descriptions after a bulk upload.",
+    "mapper": {
+      "apiUrl": "/v3/assets/asset_uid",
+      "method": "PUT",
+      "body": "asset",
+      "params": {
+        "asset_uid": "asset_uid"
+      }
+    },
+    "inputSchema": {
+      "type": "object",
+      "required": ["asset_uid"],
+      "properties": {
+        "asset_uid": {
+          "type": "string",
+          "description": "UID of the asset to update. Obtain from get_all_assets or get_a_single_asset."
+        },
+        "title": {
+          "type": "string",
+          "description": "New display title for the asset."
+        },
+        "description": {
+          "type": "string",
+          "description": "Updated description for the asset."
+        },
+        "tags": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "description": "Replacement tag list for the asset. This overwrites existing tags."
+        }
+      }
+    },
+    "group": "cma-extended",
+    "scopes": ["cm.asset:write"],
+    "x-enrich-group": "cma"
+  },
+  "get_assets_of_a_specific_folder": {
+    "name": "get_assets_of_a_specific_folder",
+    "description": "Retrieves assets contained in a specific folder by its UID. Use get_all_assets without a folder filter to browse the root level, then use this tool to inspect the contents of a particular folder. Optionally include sub-folder entries in the response.",
+    "mapper": {
+      "apiUrl": "/v3/assets",
+      "method": "GET",
+      "queryParams": {
+        "folder": "folder_uid",
+        "include_folders": "include_folders",
+        "environment": "environment",
+        "version": "version",
+        "include_publish_details": "include_publish_details",
+        "skip": "skip",
+        "limit": "limit"
+      }
+    },
+    "inputSchema": {
+      "type": "object",
+      "required": ["folder_uid"],
+      "properties": {
+        "folder_uid": {
+          "type": "string",
+          "description": "UID of the folder whose assets to retrieve."
+        },
+        "include_folders": {
+          "type": "boolean",
+          "description": "When true, sub-folder entries are included in the result alongside asset files."
+        },
+        "environment": {
+          "type": "string",
+          "description": "Filter assets by the environment they are published to."
+        },
+        "version": {
+          "type": "string",
+          "description": "Specific asset version to fetch for each asset. Versions start at 1; never pass 0. Omit this parameter entirely to fetch the latest."
+        },
+        "include_publish_details": {
+          "type": "boolean",
+          "description": "Include publish details for each asset in the response."
+        },
+        "skip": {
+          "type": "string",
+          "description": "Number of assets to skip for pagination."
+        },
+        "limit": {
+          "type": "string",
+          "description": "Number of assets to retrieve (max 100)."
+        }
+      }
+    },
+    "group": "cma-extended",
+    "scopes": ["cm.asset:read"],
+    "x-enrich-group": "cma"
+  },
+  "get_assets_and_subfolders_of_a_parent_folder": {
+    "name": "get_assets_and_subfolders_of_a_parent_folder",
+    "description": "Retrieves both asset files and sub-folder entries contained within a parent folder. Useful for traversing the asset hierarchy, building a folder tree, or confirming what is inside a folder before deleting it.",
+    "mapper": {
+      "apiUrl": "/v3/assets",
+      "method": "GET",
+      "queryParams": {
+        "folder": "folder_uid",
+        "include_folders": "include_folders",
+        "skip": "skip",
+        "limit": "limit"
+      }
+    },
+    "inputSchema": {
+      "type": "object",
+      "required": ["folder_uid"],
+      "properties": {
+        "folder_uid": {
+          "type": "string",
+          "description": "UID of the parent folder to list assets and sub-folders from."
+        },
+        "include_folders": {
+          "type": "boolean",
+          "description": "Set to true to include sub-folder entries alongside asset files.",
+          "default": true
+        },
+        "skip": {
+          "type": "string",
+          "description": "Number of items to skip for pagination."
+        },
+        "limit": {
+          "type": "string",
+          "description": "Number of items to retrieve (max 100)."
+        }
+      }
+    },
+    "group": "cma-extended",
+    "scopes": ["cm.asset:read"],
+    "x-enrich-group": "cma"
+  },
+  "create_asset_folder": {
+    "name": "create_asset_folder",
+    "description": "Creates a new folder in the asset library to help organise assets. Optionally nest it under an existing parent folder by supplying parent_uid. Use get_all_assets with include_folders to browse existing folder UIDs.",
+    "mapper": {
+      "apiUrl": "/v3/assets/folders",
+      "method": "POST",
+      "type": "complex",
+      "body": {
+        "type": "object",
+        "properties": {
+          "asset": {
+            "type": "object",
+            "properties": {
+              "name": {
+                "type": "string",
+                "x-mapFrom": "name"
+              },
+              "parent_uid": {
+                "type": "string",
+                "x-mapFrom": "parent_uid"
+              }
+            }
+          }
+        }
+      }
+    },
+    "inputSchema": {
+      "type": "object",
+      "required": ["name"],
+      "properties": {
+        "name": {
+          "type": "string",
+          "description": "Display name for the new asset folder."
+        },
+        "parent_uid": {
+          "type": "string",
+          "description": "UID of the parent folder to nest this folder under. Omit to create at the root level of the asset library."
+        }
+      }
+    },
+    "group": "cma-extended",
+    "scopes": ["cm.asset:write"],
+    "x-enrich-group": "cma"
+  },
+  "update_asset_folder": {
+    "name": "update_asset_folder",
+    "description": "Renames an existing asset folder. Only the folder name is updated; its contents and UID remain unchanged. Use get_assets_and_subfolders_of_a_parent_folder to confirm the folder_uid before renaming.",
+    "mapper": {
+      "apiUrl": "/v3/assets/folders/folder_uid",
+      "method": "PUT",
+      "type": "complex",
+      "params": {
+        "folder_uid": "folder_uid"
+      },
+      "body": {
+        "type": "object",
+        "properties": {
+          "asset": {
+            "type": "object",
+            "properties": {
+              "name": {
+                "type": "string",
+                "x-mapFrom": "name"
+              }
+            }
+          }
+        }
+      }
+    },
+    "inputSchema": {
+      "type": "object",
+      "required": ["folder_uid", "name"],
+      "properties": {
+        "folder_uid": {
+          "type": "string",
+          "description": "UID of the folder to rename."
+        },
+        "name": {
+          "type": "string",
+          "description": "New display name for the folder."
+        }
+      }
+    },
+    "group": "cma-extended",
+    "scopes": ["cm.asset:write"],
+    "x-enrich-group": "cma"
+  },
+  "delete_asset_folder": {
+    "name": "delete_asset_folder",
+    "description": "Permanently deletes an asset folder and all assets and sub-folders it contains. This action cannot be undone. Use get_assets_and_subfolders_of_a_parent_folder to confirm the folder contents before deleting.",
+    "mapper": {
+      "apiUrl": "/v3/assets/folders/folder_uid",
+      "method": "DELETE",
+      "params": {
+        "folder_uid": "folder_uid"
+      }
+    },
+    "inputSchema": {
+      "type": "object",
+      "required": ["folder_uid"],
+      "properties": {
+        "folder_uid": {
+          "type": "string",
+          "description": "UID of the folder to permanently delete."
+        }
+      }
+    },
+    "group": "cma-extended",
+    "scopes": ["cm.asset:write"],
+    "x-enrich-group": "cma"
+  },
+  "get_all_versions_of_an_asset": {
+    "name": "get_all_versions_of_an_asset",
+    "description": "Retrieves the full version history of a specific asset. Each file replacement creates a new version. Use this to identify which version is currently published, review the upload history, or determine the version number to restore.",
+    "mapper": {
+      "apiUrl": "/v3/assets/asset_uid/versions",
+      "method": "GET",
+      "params": {
+        "asset_uid": "asset_uid"
+      },
+      "queryParams": {
+        "skip": "skip",
+        "limit": "limit",
+        "count": "count",
+        "include_publish_details": "include_publish_details"
+      }
+    },
+    "inputSchema": {
+      "type": "object",
+      "required": ["asset_uid"],
+      "properties": {
+        "asset_uid": {
+          "type": "string",
+          "description": "UID of the asset whose version history to retrieve."
+        },
+        "skip": {
+          "type": "string",
+          "description": "Number of versions to skip for pagination."
+        },
+        "limit": {
+          "type": "string",
+          "description": "Number of versions to retrieve."
+        },
+        "count": {
+          "type": "boolean",
+          "description": "When true, returns only the total version count rather than the full list."
+        },
+        "include_publish_details": {
+          "type": "boolean",
+          "description": "Include publish details for each version in the response."
+        }
+      }
+    },
+    "group": "cma-extended",
+    "scopes": ["cm.asset:read"],
+    "x-enrich-group": "cma"
+  },
+  "set_asset_version_name": {
+    "name": "set_asset_version_name",
+    "description": "Assigns a human-readable name to a specific version of an asset, making it easy to identify meaningful states in the version history. Examples: 'Hero image — final approved', 'Pre-campaign artwork'. Named versions are visible in the Contentstack UI alongside the version number.",
+    "mapper": {
+      "apiUrl": "/v3/assets/asset_uid/versions/version_number/name",
+      "method": "POST",
+      "type": "complex",
+      "params": {
+        "asset_uid": "asset_uid",
+        "version_number": "version_number"
+      },
+      "body": {
+        "type": "object",
+        "properties": {
+          "version_name": {
+            "type": "object",
+            "properties": {
+              "name": {
+                "type": "string",
+                "x-mapFrom": "name"
+              }
+            }
+          }
+        }
+      }
+    },
+    "inputSchema": {
+      "type": "object",
+      "required": ["asset_uid", "version_number", "name"],
+      "properties": {
+        "asset_uid": {
+          "type": "string",
+          "description": "UID of the asset to label a version of."
+        },
+        "version_number": {
+          "type": "string",
+          "description": "Version number to assign the name to. Obtain from get_all_versions_of_an_asset."
+        },
+        "name": {
+          "type": "string",
+          "description": "Human-readable label for this asset version, e.g. 'Hero image — final approved'."
+        }
+      }
+    },
+    "group": "cma-extended",
+    "scopes": ["cm.asset:write"],
+    "x-enrich-group": "cma"
+  },
+  "delete_asset_version_name": {
+    "name": "delete_asset_version_name",
+    "description": "Removes the human-readable name previously assigned to a specific version of an asset. The version itself is not deleted — only its label is cleared.",
+    "mapper": {
+      "apiUrl": "/v3/assets/asset_uid/versions/version_number/name",
+      "method": "DELETE",
+      "params": {
+        "asset_uid": "asset_uid",
+        "version_number": "version_number"
+      }
+    },
+    "inputSchema": {
+      "type": "object",
+      "required": ["asset_uid", "version_number"],
+      "properties": {
+        "asset_uid": {
+          "type": "string",
+          "description": "UID of the asset whose version name to remove."
+        },
+        "version_number": {
+          "type": "string",
+          "description": "Version number whose name to remove."
+        }
+      }
+    },
+    "group": "cma-extended",
+    "scopes": ["cm.asset:write"],
+    "x-enrich-group": "cma"
+  },
+  "get_all_workflows": {
+    "name": "get_all_workflows",
+    "description": "Retrieves all workflows defined in the stack. Workflows control how entries move through editorial stages such as Draft, In Review, and Ready to Publish. Use this to understand the approval process before moving an entry through stages, or to identify which workflow applies to a given content type.",
+    "mapper": {
+      "apiUrl": "/v3/workflows",
+      "method": "GET",
+      "queryParams": {
+        "include_rules": "include_rules",
+        "include_permissions": "include_permissions",
+        "limit": "limit",
+        "skip": "skip"
+      }
+    },
+    "inputSchema": {
+      "type": "object",
+      "required": [],
+      "properties": {
+        "include_rules": {
+          "type": "boolean",
+          "description": "When true, includes the transition rules for each workflow stage in the response."
+        },
+        "include_permissions": {
+          "type": "boolean",
+          "description": "When true, includes the permission settings for each workflow stage in the response."
+        },
+        "limit": {
+          "type": "string",
+          "description": "Number of workflows to retrieve."
+        },
+        "skip": {
+          "type": "string",
+          "description": "Number of workflows to skip for pagination."
+        }
+      }
+    },
+    "group": "cma-extended",
+    "scopes": ["cm.workflows.management:read"],
+    "x-enrich-group": "cma"
+  },
+  "get_a_single_workflow": {
+    "name": "get_a_single_workflow",
+    "description": "Retrieves the complete definition of a single workflow by its UID, including all stages, transition rules, and role-based permissions. Use this to understand who can approve a transition or which stages an entry must pass through before it can be published.",
+    "mapper": {
+      "apiUrl": "/v3/workflows/workflow_uid",
+      "method": "GET",
+      "params": {
+        "workflow_uid": "workflow_uid"
+      }
+    },
+    "inputSchema": {
+      "type": "object",
+      "required": ["workflow_uid"],
+      "properties": {
+        "workflow_uid": {
+          "type": "string",
+          "description": "UID of the workflow to retrieve. Obtain from get_all_workflows."
+        }
+      }
+    },
+    "group": "cma-extended",
+    "scopes": ["cm.workflows.management:read"],
+    "x-enrich-group": "cma"
+  },
+  "get_publish_rules": {
+    "name": "get_publish_rules",
+    "description": "Retrieves publish rules configured for workflows in the stack. Publish rules define which workflow stages allow or block publishing, and which content types they apply to. Use this to verify whether an entry's current workflow stage permits it to be published before attempting a publish action.",
+    "mapper": {
+      "apiUrl": "/v3/workflows/publishing_rules",
+      "method": "GET",
+      "queryParams": {
+        "content_types": "content_types"
+      }
+    },
+    "inputSchema": {
+      "type": "object",
+      "required": [],
+      "properties": {
+        "content_types": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "description": "Filter publish rules by content type UIDs, e.g. ['blog_post', 'product']. Returns rules for all content types when omitted."
+        }
+      }
+    },
+    "group": "cma-extended",
+    "scopes": ["cm.workflows.publishing-rules:read"],
+    "x-enrich-group": "cma"
+  },
+  "get_publish_queue_activity": {
+    "name": "get_publish_queue_activity",
+    "description": "Retrieves a recent activity summary for the publish queue across the entire stack — covering publish, unpublish, and delete jobs for all entries and assets. Use this for monitoring overall publishing health or identifying whether recent bulk jobs completed successfully. For filtering by specific item, action, or environment, use get_publish_queue instead.",
+    "mapper": {
+      "apiUrl": "/v3/publish-queue/activity",
+      "method": "GET",
+      "queryParams": {
+        "skip": "skip",
+        "limit": "limit"
+      }
+    },
+    "inputSchema": {
+      "type": "object",
+      "required": [],
+      "properties": {
+        "skip": {
+          "type": "string",
+          "description": "Number of activity records to skip for pagination."
+        },
+        "limit": {
+          "type": "string",
+          "description": "Number of activity records to retrieve."
+        }
+      }
+    },
+    "group": "cma-extended",
+    "scopes": ["cm.publish-queue.management:read"],
+    "x-enrich-group": "cma"
+  }
+}

@@ -1,7 +1,7 @@
 openapi: 3.2.0
 info:
   title: Contentstack Personalize Management Geolocation API
-  description: The Contentstack Personalize Management API provides programmatic control over the resources in a Contentstack Personalize project, including Attributes, Audiences, Events, and Experiences. Developers can use this API to create and manage audience segments based on user attributes and behavioral events, and to configure personalized content experiences for those segments. It is a REST API that follows standard CRUD conventions and is intended for use in headless personalization workflows where content targeting logic needs to be managed programmatically or integrated with external data platforms.
+  description: The Contentstack Personalize Management API provides programmatic control over the resources in a Contentstack Personalize project, including Attributes, Audiences, Events, and Experiences.
   version: v1
   contact:
     name: Contentstack Support
@@ -80,14 +80,6 @@ paths:
         '401':
           $ref: '#/components/responses/Unauthorized'
 components:
-  parameters:
-    ProjectUid:
-      name: x-project-uid
-      in: header
-      required: true
-      description: The UID of the Contentstack Personalize project.
-      schema:
-        type: string
   responses:
     Unauthorized:
       description: Authentication credentials are missing or invalid.
@@ -96,6 +88,15 @@ components:
           schema:
             $ref: '#/components/schemas/Error'
   schemas:
+    GeoList:
+      type: object
+      description: A list of geographic locations for audience targeting.
+      properties:
+        data:
+          type: array
+          description: Array of geographic location objects.
+          items:
+            $ref: '#/components/schemas/GeoItem'
     GeoItem:
       type: object
       description: A geographic location item for audience targeting.
@@ -109,15 +110,6 @@ components:
         code:
           type: string
           description: ISO code for the location (country code, region code, etc.).
-    GeoList:
-      type: object
-      description: A list of geographic locations for audience targeting.
-      properties:
-        data:
-          type: array
-          description: Array of geographic location objects.
-          items:
-            $ref: '#/components/schemas/GeoItem'
     Error:
       type: object
       description: Standard error response.
@@ -128,6 +120,14 @@ components:
         status:
           type: integer
           description: HTTP status code.
+  parameters:
+    ProjectUid:
+      name: x-project-uid
+      in: header
+      required: true
+      description: The UID of the Contentstack Personalize project.
+      schema:
+        type: string
   securitySchemes:
     bearerAuth:
       type: http

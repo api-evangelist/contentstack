@@ -1,0 +1,47 @@
+specification: API Commons Lifecycle
+specificationVersion: '0.1'
+provider: Contentstack
+providerId: contentstack
+generated: '2026-09-17'
+method: searched
+source: https://www.contentstack.com/docs/developers/apis/content-management-api#api-conventions, https://www.contentstack.com/docs/changelog
+  and https://status.contentstack.com/
+description: Contentstack versions its APIs in the URL path (v3 for content management and delivery, v1/v2 for the
+  newer product APIs) and publishes a dated changelog, but no deprecation policy, no sunset schedule and no RFC
+  8594 Deprecation/Sunset headers. Breaking changes are announced in the changelog only.
+versioning:
+  scheme: url-path
+  current: v3
+  evidence: '"The API version (in our case, ''v3'') can be found in the URL, e.g. api.contentstack.io/v3/endpoint."
+    — https://www.contentstack.com/docs/developers/apis/content-management-api'
+  note: 'Not uniform across the estate: Content Management and Content Delivery are /v3, Launch Analytics is /v2,
+    Automation Hub and Personalize are /v1, and the SCIM, BrandKit and Personalize Edge surfaces are unversioned
+    in the path.'
+deprecation_policy:
+  published: false
+  evidence: No deprecation or sunset policy page exists; the strings "deprecat" and "sunset" appear nowhere in the
+    Content Management API reference except a note about the retired Postman Chrome extension.
+  headers:
+    deprecation: false
+    sunset: false
+    rfc8594: false
+  openapi_deprecated_operations: 0
+changelog:
+  url: https://www.contentstack.com/docs/changelog
+  status: 200
+  artifact: changelog/contentstack-changelog.yml
+status_page:
+  url: https://status.contentstack.com/
+  status: 200
+  provider: Atlassian Statuspage
+sla:
+  published: true
+  value: 99.5% uptime SLA, Enterprise plan only
+  evidence: https://www.contentstack.com/pricing — Enterprise tier lists a 99.5% uptime SLA; Free and Growth tiers
+    do not.
+breaking_change_observed:
+  date: '2026-09-11'
+  change: The limit query parameter now accepts positive integers only; limit=0 no longer returns all records.
+  source: https://www.contentstack.com/docs/changelog
+  note: Announced in the changelog with no deprecation window and no Sunset header — a silent behaviour change for
+    any client that passed limit=0.

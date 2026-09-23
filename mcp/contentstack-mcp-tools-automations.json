@@ -1,0 +1,349 @@
+{
+  "list_automation_projects": {
+    "name": "list_automation_projects",
+    "group": "automations",
+    "scopes": ["automationhub.projects.management:read"],
+    "description": "Lists all Automation Hub projects in the organization. Returns each project's uid, title, description, tags, and timestamps. Supports pagination, sorting, and an optional total count. Use the returned project uid with the automation and project-detail tools.",
+    "mapper": {
+      "apiUrl": "/v1/projects",
+      "method": "GET",
+      "queryParams": {
+        "limit": "limit",
+        "skip": "skip",
+        "asc": "asc",
+        "desc": "desc",
+        "include_count": "include_count"
+      }
+    },
+    "inputSchema": {
+      "type": "object",
+      "required": [],
+      "properties": {
+        "limit": {
+          "type": "number",
+          "description": "Number of projects to return (0-100). Defaults to 100 if omitted."
+        },
+        "skip": {
+          "type": "number",
+          "description": "Number of projects to skip for pagination."
+        },
+        "asc": {
+          "type": "string",
+          "description": "Sort ascending by a field: created_at, title, or updated_at.",
+          "enum": ["created_at", "title", "updated_at"]
+        },
+        "desc": {
+          "type": "string",
+          "description": "Sort descending by a field: created_at, title, or updated_at.",
+          "enum": ["created_at", "title", "updated_at"]
+        },
+        "include_count": {
+          "type": "boolean",
+          "description": "Set true to include the total number of projects in the response."
+        }
+      }
+    }
+  },
+  "get_automation_project": {
+    "name": "get_automation_project",
+    "group": "automations",
+    "scopes": ["automationhub.projects.management:read"],
+    "description": "Fetches a single Automation Hub project by its uid, returning its title, description, tags, and timestamps.",
+    "mapper": {
+      "apiUrl": "/v1/projects/project_uid",
+      "method": "GET",
+      "params": {
+        "project_uid": "project_uid"
+      }
+    },
+    "inputSchema": {
+      "type": "object",
+      "required": ["project_uid"],
+      "properties": {
+        "project_uid": {
+          "type": "string",
+          "description": "The Project UID (e.g. 60432136d4f843ada5fd84aaecf7497b)."
+        }
+      }
+    }
+  },
+  "create_automation_project": {
+    "name": "create_automation_project",
+    "group": "automations",
+    "scopes": ["automationhub.projects.management:write"],
+    "description": "Creates a new Automation Hub project in the organization. Requires a title; description and tags are optional.",
+    "mapper": {
+      "apiUrl": "/v1/projects",
+      "method": "POST",
+      "type": "complex",
+      "body": {
+        "type": "object",
+        "properties": {
+          "title": { "type": "string", "x-mapFrom": "title" },
+          "description": {
+            "type": "string",
+            "optional": true,
+            "x-mapFrom": "description"
+          },
+          "tags": { "type": "array", "optional": true, "x-mapFrom": "tags" }
+        }
+      }
+    },
+    "inputSchema": {
+      "type": "object",
+      "required": ["title"],
+      "properties": {
+        "title": {
+          "type": "string",
+          "description": "The name of the new project."
+        },
+        "description": {
+          "type": "string",
+          "description": "Optional description of the project."
+        },
+        "tags": {
+          "type": "array",
+          "items": { "type": "string" },
+          "description": "Optional list of tags for the project."
+        }
+      }
+    }
+  },
+  "update_automation_project": {
+    "name": "update_automation_project",
+    "group": "automations",
+    "scopes": ["automationhub.projects.management:write"],
+    "description": "Updates an existing Automation Hub project's title, description, and/or tags.",
+    "mapper": {
+      "apiUrl": "/v1/projects/project_uid",
+      "method": "PUT",
+      "type": "complex",
+      "params": {
+        "project_uid": "project_uid"
+      },
+      "body": {
+        "type": "object",
+        "properties": {
+          "title": { "type": "string", "optional": true, "x-mapFrom": "title" },
+          "description": {
+            "type": "string",
+            "optional": true,
+            "x-mapFrom": "description"
+          },
+          "tags": { "type": "array", "optional": true, "x-mapFrom": "tags" }
+        }
+      }
+    },
+    "inputSchema": {
+      "type": "object",
+      "required": ["project_uid"],
+      "properties": {
+        "project_uid": {
+          "type": "string",
+          "description": "The Project UID to update."
+        },
+        "title": {
+          "type": "string",
+          "description": "New title for the project."
+        },
+        "description": {
+          "type": "string",
+          "description": "New description for the project."
+        },
+        "tags": {
+          "type": "array",
+          "items": { "type": "string" },
+          "description": "New list of tags for the project."
+        }
+      }
+    }
+  },
+  "delete_automation_project": {
+    "name": "delete_automation_project",
+    "group": "automations",
+    "scopes": ["automationhub.projects.management:write"],
+    "description": "Permanently deletes an Automation Hub project by its uid. This action cannot be undone.",
+    "mapper": {
+      "apiUrl": "/v1/projects/project_uid",
+      "method": "DELETE",
+      "params": {
+        "project_uid": "project_uid"
+      }
+    },
+    "inputSchema": {
+      "type": "object",
+      "required": ["project_uid"],
+      "properties": {
+        "project_uid": {
+          "type": "string",
+          "description": "The Project UID to delete."
+        }
+      }
+    }
+  },
+  "list_automations": {
+    "name": "list_automations",
+    "group": "automations",
+    "scopes": ["automationhub.automations:read"],
+    "description": "Lists all automations (rules) in an Automation Hub project. Returns each automation's id, title, description, active state, and timestamps. Optionally include the configured steps and triggers, a total count, and sorting. Use the query parameter to filter, e.g. set query to {\"active\":\"true\"} to list only active automations.",
+    "mapper": {
+      "apiUrl": "/v1/projects/project_uid/automations",
+      "method": "GET",
+      "params": {
+        "project_uid": "project_uid"
+      },
+      "queryParams": {
+        "limit": "limit",
+        "skip": "skip",
+        "asc": "asc",
+        "desc": "desc",
+        "include_count": "include_count",
+        "show_steps": "show_steps",
+        "query": "query"
+      }
+    },
+    "inputSchema": {
+      "type": "object",
+      "required": ["project_uid"],
+      "properties": {
+        "project_uid": {
+          "type": "string",
+          "description": "The Project UID whose automations to list."
+        },
+        "limit": {
+          "type": "number",
+          "description": "Number of automations to return (0-100). Defaults to 100 if omitted."
+        },
+        "skip": {
+          "type": "number",
+          "description": "Number of automations to skip for pagination."
+        },
+        "asc": {
+          "type": "string",
+          "description": "Sort ascending by a field: created_at, title, or updated_at.",
+          "enum": ["created_at", "title", "updated_at"]
+        },
+        "desc": {
+          "type": "string",
+          "description": "Sort descending by a field: created_at, title, or updated_at.",
+          "enum": ["created_at", "title", "updated_at"]
+        },
+        "include_count": {
+          "type": "boolean",
+          "description": "Set true to include the total number of automations in the response."
+        },
+        "show_steps": {
+          "type": "boolean",
+          "description": "Set true to return the steps and triggers associated with each automation."
+        },
+        "query": {
+          "type": "string",
+          "description": "Optional filter as a JSON string, e.g. {\"active\":\"true\"} to list only active automations."
+        }
+      }
+    }
+  },
+  "get_automation": {
+    "name": "get_automation",
+    "group": "automations",
+    "scopes": ["automationhub.automations:read"],
+    "description": "Fetches a single automation (rule) from a project by its uid. Optionally include its configured steps and triggers.",
+    "mapper": {
+      "apiUrl": "/v1/projects/project_uid/automations/automation_uid",
+      "method": "GET",
+      "params": {
+        "project_uid": "project_uid",
+        "automation_uid": "automation_uid"
+      },
+      "queryParams": {
+        "show_steps": "show_steps"
+      }
+    },
+    "inputSchema": {
+      "type": "object",
+      "required": ["project_uid", "automation_uid"],
+      "properties": {
+        "project_uid": {
+          "type": "string",
+          "description": "The Project UID the automation belongs to."
+        },
+        "automation_uid": {
+          "type": "string",
+          "description": "The Automation UID to fetch."
+        },
+        "show_steps": {
+          "type": "boolean",
+          "description": "Set true to return the steps and triggers of the automation."
+        }
+      }
+    }
+  },
+  "trigger_automation": {
+    "name": "trigger_automation",
+    "group": "automations",
+    "scopes": ["automationhub.automations:write"],
+    "description": "Triggers (runs) an automation that has an HTTP Request trigger, by calling its webhook. Pass the trigger_id — this is the automation's `trigger.id` (visible from get_automation or list_automations with show_steps, on automations whose step_groups include \"http\"). Optionally pass an `input` object as the request payload. Returns whatever the automation's Response step returns. Only works for automations configured with an HTTP trigger.",
+    "mapper": {
+      "apiUrl": "/run/trigger_id",
+      "method": "POST",
+      "params": {
+        "trigger_id": "trigger_id"
+      },
+      "body": "input"
+    },
+    "inputSchema": {
+      "type": "object",
+      "required": ["trigger_id"],
+      "properties": {
+        "trigger_id": {
+          "type": "string",
+          "description": "The HTTP trigger id of the automation (its `trigger.id`, e.g. 61c09bc920e4420083899e72f6c7bfd5)."
+        },
+        "input": {
+          "type": "object",
+          "description": "Optional JSON payload sent to the automation's HTTP trigger.",
+          "additionalProperties": true
+        }
+      }
+    }
+  },
+  "set_automation_active": {
+    "name": "set_automation_active",
+    "group": "automations",
+    "scopes": ["automationhub.automations:write"],
+    "description": "Activates or deactivates an automation. Set active to true to activate or false to deactivate. The automation must have a trigger and an action configured before it can be activated.",
+    "mapper": {
+      "apiUrl": "/v1/projects/project_uid/automations/automation_uid",
+      "method": "PATCH",
+      "type": "complex",
+      "params": {
+        "project_uid": "project_uid",
+        "automation_uid": "automation_uid"
+      },
+      "body": {
+        "type": "object",
+        "properties": {
+          "active": { "type": "boolean", "x-mapFrom": "active" }
+        }
+      }
+    },
+    "inputSchema": {
+      "type": "object",
+      "required": ["project_uid", "automation_uid", "active"],
+      "properties": {
+        "project_uid": {
+          "type": "string",
+          "description": "The Project UID the automation belongs to."
+        },
+        "automation_uid": {
+          "type": "string",
+          "description": "The Automation UID to activate or deactivate."
+        },
+        "active": {
+          "type": "boolean",
+          "description": "true to activate the automation, false to deactivate it."
+        }
+      }
+    }
+  }
+}

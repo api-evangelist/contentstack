@@ -138,22 +138,6 @@ paths:
       description: AWS Australia Production Server
 components:
   parameters:
-    Limit:
-      name: limit
-      in: query
-      description: Maximum number of entries to return. Maximum allowed is 250.
-      schema:
-        type: integer
-        minimum: 1
-        maximum: 250
-        default: 100
-    ApiKey:
-      name: api_key
-      in: header
-      required: true
-      description: The API key for the Contentstack stack.
-      schema:
-        type: string
     AssetUid:
       name: asset_uid
       in: path
@@ -176,15 +160,29 @@ components:
       description: The delivery token for the stack environment.
       schema:
         type: string
-    Limit_2:
+    Limit:
       name: limit
       in: query
-      description: Maximum number of records to return.
+      description: Maximum number of entries to return. Maximum allowed is 250.
       schema:
         type: integer
         minimum: 1
         maximum: 250
         default: 100
+    ApiKey:
+      name: api_key
+      in: header
+      required: true
+      description: The API key for the Contentstack stack.
+      schema:
+        type: string
+    AuthToken:
+      name: authtoken
+      in: header
+      required: false
+      description: User session token for authentication. Required if not using management token.
+      schema:
+        type: string
     Skip_2:
       name: skip
       in: query
@@ -200,13 +198,15 @@ components:
       description: The API key identifying the Contentstack stack.
       schema:
         type: string
-    AuthToken:
-      name: authtoken
-      in: header
-      required: false
-      description: User session token for authentication. Required if not using management token.
+    Limit_2:
+      name: limit
+      in: query
+      description: Maximum number of records to return.
       schema:
-        type: string
+        type: integer
+        minimum: 1
+        maximum: 250
+        default: 100
   responses:
     Unauthorized:
       description: Authentication credentials are missing or invalid.
@@ -239,19 +239,6 @@ components:
         count:
           type: integer
           description: Total count of assets when include_count is true.
-    Error:
-      type: object
-      description: Standard error response returned by the API.
-      properties:
-        error_message:
-          type: string
-          description: Human-readable description of the error.
-        error_code:
-          type: integer
-          description: Numeric code identifying the error type.
-        errors:
-          type: object
-          description: Field-level validation errors when applicable.
     Asset:
       type: object
       description: A media asset stored in the Contentstack asset library.
@@ -283,6 +270,19 @@ components:
           type: string
           format: date-time
           description: ISO 8601 timestamp when the asset was last updated.
+    Error:
+      type: object
+      description: Standard error response returned by the API.
+      properties:
+        error_message:
+          type: string
+          description: Human-readable description of the error.
+        error_code:
+          type: integer
+          description: Numeric code identifying the error type.
+        errors:
+          type: object
+          description: Field-level validation errors when applicable.
     AssetList_2:
       type: object
       description: A paginated list of assets.
@@ -292,19 +292,6 @@ components:
           description: Array of asset objects.
           items:
             $ref: '#/components/schemas/Asset_2'
-    Error_2:
-      type: object
-      description: Standard error response.
-      properties:
-        error_message:
-          type: string
-          description: Human-readable description of the error.
-        error_code:
-          type: integer
-          description: Numeric error code.
-        errors:
-          type: object
-          description: Field-level validation errors.
     Asset_2:
       type: object
       description: A media asset stored in the stack.
@@ -332,6 +319,19 @@ components:
           type: string
           format: date-time
           description: ISO 8601 timestamp when the asset was created.
+    Error_2:
+      type: object
+      description: Standard error response.
+      properties:
+        error_message:
+          type: string
+          description: Human-readable description of the error.
+        error_code:
+          type: integer
+          description: Numeric error code.
+        errors:
+          type: object
+          description: Field-level validation errors.
   securitySchemes:
     apiKey:
       type: apiKey

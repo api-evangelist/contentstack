@@ -1,7 +1,7 @@
 openapi: 3.2.0
 info:
   title: Contentstack Content Management Users API
-  description: The Contentstack Content Management API (CMA) provides programmatic access to manage all aspects of a Contentstack stack, including content types, entries, assets, environments, workflows, and users. It supports full CRUD operations using standard HTTP verbs and authenticates via management tokens or user session tokens. Developers use this API to automate content operations, build editorial tooling, migrate content between environments, and integrate Contentstack with third-party systems. It is available at version v3 under the api.contentstack.io base URL for the North America region.
+  description: The Contentstack Content Management API (CMA) provides programmatic access to manage all aspects of a Contentstack stack, including content types, entries, assets, environments, workflows, and users.
   version: v3
   contact:
     name: Contentstack Support
@@ -65,7 +65,34 @@ paths:
         '401':
           $ref: '#/components/responses/Unauthorized'
 components:
+  responses:
+    BadRequest:
+      description: The request is malformed or contains invalid parameters.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    Unauthorized:
+      description: Authentication credentials are missing or invalid.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
   schemas:
+    UpdateUserRequest:
+      type: object
+      description: Fields to update on the user profile.
+      properties:
+        user:
+          type: object
+          description: User profile fields to update.
+          properties:
+            first_name:
+              type: string
+              description: Updated first name.
+            last_name:
+              type: string
+              description: Updated last name.
     User:
       type: object
       description: A Contentstack user account.
@@ -90,20 +117,6 @@ components:
           type: string
           format: date-time
           description: ISO 8601 timestamp when the user account was created.
-    UpdateUserRequest:
-      type: object
-      description: Fields to update on the user profile.
-      properties:
-        user:
-          type: object
-          description: User profile fields to update.
-          properties:
-            first_name:
-              type: string
-              description: Updated first name.
-            last_name:
-              type: string
-              description: Updated last name.
     Error:
       type: object
       description: Standard error response.
@@ -117,19 +130,6 @@ components:
         errors:
           type: object
           description: Field-level validation errors.
-  responses:
-    Unauthorized:
-      description: Authentication credentials are missing or invalid.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
-    BadRequest:
-      description: The request is malformed or contains invalid parameters.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
   securitySchemes:
     authtokenAuth:
       type: apiKey

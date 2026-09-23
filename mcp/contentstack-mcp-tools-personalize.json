@@ -1,0 +1,839 @@
+{
+  "create_attribute": {
+    "name": "create_attribute",
+    "description": "This tool creates a new custom attribute in a Personalize project, defining user characteristics for audience segmentation and content personalization targeting.",
+    "mapper": {
+      "apiUrl": "/attributes",
+      "method": "POST",
+      "type": "complex",
+      "body": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string",
+            "x-mapFrom": "name"
+          },
+          "key": {
+            "type": "string",
+            "x-mapFrom": "key"
+          },
+          "description": {
+            "type": "string",
+            "x-mapFrom": "description"
+          }
+        }
+      }
+    },
+    "inputSchema": {
+      "type": "object",
+      "required": ["name", "key"],
+      "properties": {
+        "name": {
+          "type": "string",
+          "description": "Name for the attribute (maximum 200 characters, must be unique)"
+        },
+        "key": {
+          "type": "string",
+          "description": "Literal key identifier for accessing the attribute value from user profiles"
+        },
+        "description": {
+          "type": "string",
+          "description": "Description explaining the purpose and usage of this attribute"
+        }
+      }
+    },
+    "group": "personalize",
+    "scopes": ["personalize:manage"],
+    "x-enrich-group": "personalize"
+  },
+  "get_all_attributes": {
+    "name": "get_all_attributes",
+    "description": "This tool retrieves all custom and preset attributes available in a Personalize project for user segmentation and targeting analysis.",
+    "mapper": {
+      "apiUrl": "/attributes",
+      "method": "GET"
+    },
+    "inputSchema": {
+      "type": "object",
+      "required": [],
+      "properties": {}
+    },
+    "group": "personalize",
+    "scopes": ["personalize:read"],
+    "x-enrich-group": "personalize"
+  },
+  "update_attribute": {
+    "name": "update_attribute",
+    "description": "This tool modifies an existing attribute's properties in a Personalize project, allowing updates to name, key, or description fields.",
+    "mapper": {
+      "apiUrl": "/attributes/attribute_uid",
+      "method": "PUT",
+      "type": "complex",
+      "body": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string",
+            "x-mapFrom": "name"
+          },
+          "key": {
+            "type": "string",
+            "x-mapFrom": "key"
+          },
+          "description": {
+            "type": "string",
+            "x-mapFrom": "description"
+          }
+        }
+      },
+      "params": {
+        "attribute_uid": "attribute_uid"
+      }
+    },
+    "inputSchema": {
+      "type": "object",
+      "required": ["attribute_uid", "name", "key"],
+      "properties": {
+        "attribute_uid": {
+          "type": "string",
+          "description": "Unique identifier of the attribute to be updated."
+        },
+        "name": {
+          "type": "string",
+          "description": "Name for the attribute (maximum 200 characters, must be unique)"
+        },
+        "key": {
+          "type": "string",
+          "description": "Literal key identifier for accessing the attribute value from user profiles"
+        },
+        "description": {
+          "type": "string",
+          "description": "Description explaining the purpose and usage of this attribute"
+        }
+      }
+    },
+    "group": "personalize",
+    "scopes": ["personalize:manage"],
+    "x-enrich-group": "personalize"
+  },
+  "delete_attribute": {
+    "name": "delete_attribute",
+    "description": "This tool permanently removes an attribute from a Personalize project, ensuring cleanup of unused user characteristics from segmentation.",
+    "mapper": {
+      "apiUrl": "/attributes/attribute_uid",
+      "method": "DELETE",
+      "params": {
+        "attribute_uid": "attribute_uid"
+      }
+    },
+    "inputSchema": {
+      "type": "object",
+      "required": ["attribute_uid"],
+      "properties": {
+        "attribute_uid": {
+          "type": "string",
+          "description": "Unique identifier of the attribute to be deleted."
+        }
+      }
+    },
+    "group": "personalize",
+    "scopes": ["personalize:manage"],
+    "x-enrich-group": "personalize"
+  },
+  "get_all_audiences": {
+    "name": "get_all_audiences",
+    "description": "This tool retrieves all audience segments from a Personalize project, with optional filtering by referenced attributes for targeted analysis.",
+    "mapper": {
+      "apiUrl": "/audiences",
+      "method": "GET",
+      "queryParams": {
+        "referredAttributes[]": "referredAttributes",
+        "includeLyticsAudiences": "includeLyticsAudiences"
+      }
+    },
+    "inputSchema": {
+      "type": "object",
+      "required": [],
+      "properties": {
+        "includeLyticsAudiences": {
+          "type": "boolean",
+          "description": "Optional flag to include Lytics audiences in the results",
+          "default": false
+        },
+        "referredAttributes": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "description": "Optional filter to return audiences referencing specific attribute UIDs"
+        }
+      }
+    },
+    "group": "personalize",
+    "scopes": ["personalize:read"],
+    "x-enrich-group": "personalize"
+  },
+  "delete_audience": {
+    "name": "delete_audience",
+    "description": "This tool permanently removes an audience segment from a Personalize project, cleaning up unused targeting definitions.",
+    "mapper": {
+      "apiUrl": "/audiences/audience_uid",
+      "method": "DELETE",
+      "params": {
+        "audience_uid": "audience_uid"
+      }
+    },
+    "inputSchema": {
+      "type": "object",
+      "required": ["audience_uid"],
+      "properties": {
+        "audience_uid": {
+          "type": "string",
+          "description": "Unique identifier of the audience to be deleted."
+        }
+      }
+    },
+    "group": "personalize",
+    "scopes": ["personalize:manage"],
+    "x-enrich-group": "personalize"
+  },
+  "create_experience": {
+    "name": "create_experience",
+    "description": "This tool creates a new personalization experience (Segmented or A/B Test) in a Personalize project, automatically generating a draft version for configuration.",
+    "mapper": {
+      "apiUrl": "/experiences",
+      "method": "POST",
+      "type": "complex",
+      "body": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string",
+            "x-mapFrom": "name"
+          },
+          "description": {
+            "type": "string",
+            "x-mapFrom": "description"
+          },
+          "__type": {
+            "type": "string",
+            "x-mapFrom": "__type"
+          }
+        }
+      }
+    },
+    "inputSchema": {
+      "type": "object",
+      "required": ["name", "__type"],
+      "properties": {
+        "name": {
+          "type": "string",
+          "description": "Name for the experience"
+        },
+        "description": {
+          "type": "string",
+          "description": "Description explaining the experience purpose and goals"
+        },
+        "__type": {
+          "type": "string",
+          "enum": ["SEGMENTED", "AB_TEST"],
+          "description": "Type of experience: SEGMENTED for audience-based content or AB_TEST for conversion optimization"
+        }
+      }
+    },
+    "group": "personalize",
+    "scopes": ["personalize:manage"],
+    "x-enrich-group": "personalize"
+  },
+  "get_all_experiences": {
+    "name": "get_all_experiences",
+    "description": "This tool retrieves all personalization experiences from a Personalize project, with optional filtering by referenced audiences or events for analysis.",
+    "mapper": {
+      "apiUrl": "/experiences",
+      "method": "GET",
+      "queryParams": {
+        "referredEvents[]": "referredEvents",
+        "referredAudiences[]": "referredAudiences"
+      }
+    },
+    "inputSchema": {
+      "type": "object",
+      "required": [],
+      "properties": {
+        "referredEvents": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "description": "Optional filter to return experiences referencing specific event UIDs as metrics"
+        },
+        "referredAudiences": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "description": "Optional filter to return experiences referencing specific audience UIDs in variants or targeting"
+        }
+      }
+    },
+    "group": "personalize",
+    "scopes": ["personalize:read"],
+    "x-enrich-group": "personalize"
+  },
+  "get_single_experience": {
+    "name": "get_single_experience",
+    "description": "This tool retrieves detailed information about a specific personalization experience from a Personalize project, including its current configuration and status.",
+    "mapper": {
+      "apiUrl": "/experiences/experience_uid",
+      "method": "GET",
+      "params": {
+        "experience_uid": "experience_uid"
+      }
+    },
+    "inputSchema": {
+      "type": "object",
+      "required": ["experience_uid"],
+      "properties": {
+        "experience_uid": {
+          "type": "string",
+          "description": "Unique identifier of the experience to retrieve."
+        }
+      }
+    },
+    "group": "personalize",
+    "scopes": ["personalize:read"],
+    "x-enrich-group": "personalize"
+  },
+  "update_experience": {
+    "name": "update_experience",
+    "description": "This tool modifies an existing experience's metadata in a Personalize project, allowing updates to name and description but not type conversion.",
+    "mapper": {
+      "apiUrl": "/experiences/experience_uid",
+      "method": "PUT",
+      "type": "complex",
+      "body": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string",
+            "x-mapFrom": "name"
+          },
+          "description": {
+            "type": "string",
+            "x-mapFrom": "description"
+          },
+          "__type": {
+            "type": "string",
+            "x-mapFrom": "__type"
+          }
+        }
+      },
+      "params": {
+        "experience_uid": "experience_uid"
+      }
+    },
+    "inputSchema": {
+      "type": "object",
+      "required": ["experience_uid", "name", "__type"],
+      "properties": {
+        "experience_uid": {
+          "type": "string",
+          "description": "Unique identifier of the experience to be updated."
+        },
+        "name": {
+          "type": "string",
+          "description": "Updated name for the experience"
+        },
+        "description": {
+          "type": "string",
+          "description": "Updated description for the experience"
+        },
+        "__type": {
+          "type": "string",
+          "enum": ["SEGMENTED", "AB_TEST"],
+          "description": "Experience type (cannot be changed after creation)"
+        }
+      }
+    },
+    "group": "personalize",
+    "scopes": ["personalize:manage"],
+    "x-enrich-group": "personalize"
+  },
+  "delete_experience": {
+    "name": "delete_experience",
+    "description": "This tool permanently removes a personalization experience from a Personalize project, including all associated versions and configurations.",
+    "mapper": {
+      "apiUrl": "/experiences/experience_uid",
+      "method": "DELETE",
+      "params": {
+        "experience_uid": "experience_uid"
+      }
+    },
+    "inputSchema": {
+      "type": "object",
+      "required": ["experience_uid"],
+      "properties": {
+        "experience_uid": {
+          "type": "string",
+          "description": "Unique identifier of the experience to be deleted."
+        }
+      }
+    },
+    "group": "personalize",
+    "scopes": ["personalize:manage"],
+    "x-enrich-group": "personalize"
+  },
+  "get_experience_versions": {
+    "name": "get_experience_versions",
+    "description": "This tool retrieves all versions of a specific experience from a Personalize project, sorted by creation date for version history analysis.",
+    "mapper": {
+      "apiUrl": "/experiences/experience_uid/versions",
+      "method": "GET",
+      "params": {
+        "experience_uid": "experience_uid"
+      }
+    },
+    "inputSchema": {
+      "type": "object",
+      "required": ["experience_uid"],
+      "properties": {
+        "experience_uid": {
+          "type": "string",
+          "description": "Unique identifier of the experience to fetch versions for."
+        }
+      }
+    },
+    "group": "personalize",
+    "scopes": ["personalize:read"],
+    "x-enrich-group": "personalize"
+  },
+  "delete_experience_version": {
+    "name": "delete_experience_version",
+    "description": "This tool discards a draft version of an experience in a Personalize project, deletion of active, paused, or archived versions is not allowed.",
+    "mapper": {
+      "apiUrl": "/experiences/experience_uid/versions/version_uid",
+      "method": "DELETE",
+      "params": {
+        "experience_uid": "experience_uid",
+        "version_uid": "version_uid"
+      }
+    },
+    "inputSchema": {
+      "type": "object",
+      "required": ["experience_uid", "version_uid"],
+      "properties": {
+        "experience_uid": {
+          "type": "string",
+          "description": "Unique identifier of the experience containing the version."
+        },
+        "version_uid": {
+          "type": "string",
+          "description": "Unique identifier of the draft version to be deleted."
+        }
+      }
+    },
+    "group": "personalize",
+    "scopes": ["personalize:manage"],
+    "x-enrich-group": "personalize"
+  },
+  "get_experiences_priority": {
+    "name": "get_experiences_priority",
+    "description": "This tool retrieves the priority order configuration for all experiences in a Personalize project, determining content display precedence.",
+    "mapper": {
+      "apiUrl": "/experiences-priority",
+      "method": "GET"
+    },
+    "inputSchema": {
+      "type": "object",
+      "required": [],
+      "properties": {}
+    },
+    "group": "personalize",
+    "scopes": ["personalize:read"],
+    "x-enrich-group": "personalize"
+  },
+  "update_experiences_priority": {
+    "name": "update_experiences_priority",
+    "description": "This tool modifies the priority order of experiences in a Personalize project, controlling which experience displays when multiple target the same content area.",
+    "mapper": {
+      "apiUrl": "/experiences-priority",
+      "method": "PUT",
+      "type": "complex",
+      "body": {
+        "type": "object",
+        "properties": {
+          "priorityOrder": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "x-mapFrom": "priorityOrder"
+          }
+        }
+      }
+    },
+    "inputSchema": {
+      "type": "object",
+      "required": ["priorityOrder"],
+      "properties": {
+        "priorityOrder": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "description": "Array of experience UIDs in descending priority order (highest priority first)"
+        }
+      }
+    },
+    "group": "personalize",
+    "scopes": ["personalize:manage"],
+    "x-enrich-group": "personalize"
+  },
+  "create_event": {
+    "name": "create_event",
+    "description": "This tool creates a new event definition in a Personalize project for tracking user interactions and measuring experience performance metrics.",
+    "mapper": {
+      "apiUrl": "/events",
+      "method": "POST",
+      "type": "complex",
+      "body": {
+        "type": "object",
+        "properties": {
+          "key": {
+            "type": "string",
+            "x-mapFrom": "key"
+          },
+          "description": {
+            "type": "string",
+            "x-mapFrom": "description"
+          }
+        }
+      }
+    },
+    "inputSchema": {
+      "type": "object",
+      "required": ["key"],
+      "properties": {
+        "key": {
+          "type": "string",
+          "description": "Unique key identifier for the event (used in API calls and SDK)"
+        },
+        "description": {
+          "type": "string",
+          "description": "Description explaining the event purpose and when it should be triggered"
+        }
+      }
+    },
+    "group": "personalize",
+    "scopes": ["personalize:manage"],
+    "x-enrich-group": "personalize"
+  },
+  "get_all_events": {
+    "name": "get_all_events",
+    "description": "This tool retrieves all event definitions from a Personalize project for tracking and analytics configuration review.",
+    "mapper": {
+      "apiUrl": "/events",
+      "method": "GET"
+    },
+    "inputSchema": {
+      "type": "object",
+      "required": [],
+      "properties": {}
+    },
+    "group": "personalize",
+    "scopes": ["personalize:read"],
+    "x-enrich-group": "personalize"
+  },
+  "update_event": {
+    "name": "update_event",
+    "description": "This tool modifies an existing event definition in a Personalize project, allowing updates to the key identifier and description.",
+    "mapper": {
+      "apiUrl": "/events/event_uid",
+      "method": "PUT",
+      "type": "complex",
+      "body": {
+        "type": "object",
+        "properties": {
+          "key": {
+            "type": "string",
+            "x-mapFrom": "key"
+          },
+          "description": {
+            "type": "string",
+            "x-mapFrom": "description"
+          }
+        }
+      },
+      "params": {
+        "event_uid": "event_uid"
+      }
+    },
+    "inputSchema": {
+      "type": "object",
+      "required": ["event_uid", "key"],
+      "properties": {
+        "event_uid": {
+          "type": "string",
+          "description": "Unique identifier of the event to be updated."
+        },
+        "key": {
+          "type": "string",
+          "description": "Updated key identifier for the event"
+        },
+        "description": {
+          "type": "string",
+          "description": "Updated description for the event"
+        }
+      }
+    },
+    "group": "personalize",
+    "scopes": ["personalize:manage"],
+    "x-enrich-group": "personalize"
+  },
+  "delete_event": {
+    "name": "delete_event",
+    "description": "This tool permanently removes an event definition from a Personalize project, cleaning up unused tracking configurations.",
+    "mapper": {
+      "apiUrl": "/events/event_uid",
+      "method": "DELETE",
+      "params": {
+        "event_uid": "event_uid"
+      }
+    },
+    "inputSchema": {
+      "type": "object",
+      "required": ["event_uid"],
+      "properties": {
+        "event_uid": {
+          "type": "string",
+          "description": "Unique identifier of the event to be deleted."
+        }
+      }
+    },
+    "group": "personalize",
+    "scopes": ["personalize:manage"],
+    "x-enrich-group": "personalize"
+  },
+  "get_analytics_summary": {
+    "name": "get_analytics_summary",
+    "description": "This tool retrieves performance analytics summary for a specific experience version, including impressions, conversions, and probability-to-be-best calculations for optimization insights.",
+    "mapper": {
+      "apiUrl": "/experiences/experience_uid/analytics/summary",
+      "method": "GET",
+      "params": {
+        "experience_uid": "experience_uid"
+      },
+      "queryParams": {
+        "version": "version_uid",
+        "from": "from_date",
+        "to": "to_date"
+      }
+    },
+    "inputSchema": {
+      "type": "object",
+      "required": ["experience_uid", "version_uid"],
+      "properties": {
+        "experience_uid": {
+          "type": "string",
+          "description": "Unique identifier of the experience to fetch analytics for."
+        },
+        "version_uid": {
+          "type": "string",
+          "description": "Required version UID to filter analytics to a specific experience version."
+        },
+        "from_date": {
+          "type": "string",
+          "description": "Optional start date for analytics summary in ISO-8601 format (defaults to experiment beginning). Example: 2024-04-08T00:00:00Z"
+        },
+        "to_date": {
+          "type": "string",
+          "description": "Optional end date for analytics summary in ISO-8601 format (defaults to present date). Example: 2024-05-30T23:59:59Z"
+        }
+      }
+    },
+    "group": "personalize",
+    "scopes": ["personalize:read"],
+    "x-enrich-group": "personalize"
+  },
+  "get_analytics_timeseries": {
+    "name": "get_analytics_timeseries",
+    "description": "This tool retrieves hourly time-series analytics data for a specific experience version, providing detailed performance trends over time for optimization analysis.",
+    "mapper": {
+      "apiUrl": "/experiences/experience_uid/analytics/time-series",
+      "method": "GET",
+      "params": {
+        "experience_uid": "experience_uid"
+      },
+      "queryParams": {
+        "version": "version_uid",
+        "from": "from_date",
+        "to": "to_date",
+        "metric": "metric_key"
+      }
+    },
+    "inputSchema": {
+      "type": "object",
+      "required": ["experience_uid", "version_uid"],
+      "properties": {
+        "experience_uid": {
+          "type": "string",
+          "description": "Unique identifier of the experience to fetch analytics for."
+        },
+        "version_uid": {
+          "type": "string",
+          "description": "Required version UID to filter analytics to a specific experience version."
+        },
+        "from_date": {
+          "type": "string",
+          "description": "Optional start date for analytics data in ISO-8601 format (defaults to experiment beginning). Example: 2024-04-08T00:00:00Z"
+        },
+        "to_date": {
+          "type": "string",
+          "description": "Optional end date for analytics data in ISO-8601 format (defaults to present date). Example: 2024-05-30T23:59:59Z"
+        },
+        "metric_key": {
+          "type": "string",
+          "description": "Optional metric filter for A/B test analytics, showing data for a specific event metric"
+        }
+      }
+    },
+    "group": "personalize",
+    "scopes": ["personalize:read"],
+    "x-enrich-group": "personalize"
+  },
+  "get_countries": {
+    "name": "get_countries",
+    "description": "This tool retrieves country information based on ISO 3166-1 standard for geographic targeting in Personalize audience definitions and segmentation.",
+    "mapper": {
+      "apiUrl": "/geolocation/countries",
+      "method": "GET",
+      "queryParams": {
+        "skip": "skip",
+        "limit": "limit",
+        "code[]": "country_codes",
+        "name": "country_name"
+      }
+    },
+    "inputSchema": {
+      "type": "object",
+      "required": [],
+      "properties": {
+        "skip": {
+          "type": "number",
+          "minimum": 0,
+          "description": "Number of countries to skip for pagination (works with limit parameter)"
+        },
+        "limit": {
+          "type": "number",
+          "minimum": 1,
+          "maximum": 1000,
+          "description": "Maximum number of countries to return (1-1000, default is 10)"
+        },
+        "country_codes": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "description": "Filter by country codes based on ISO 3166-1 standard (case sensitive)"
+        },
+        "country_name": {
+          "type": "string",
+          "description": "Filter countries by name matching the provided value"
+        }
+      }
+    },
+    "group": "personalize",
+    "scopes": ["personalize:read"],
+    "x-enrich-group": "personalize"
+  },
+  "get_regions": {
+    "name": "get_regions",
+    "description": "This tool retrieves region information based on ISO 3166-2 standard for geographic targeting in Personalize audience definitions and state-level segmentation.",
+    "mapper": {
+      "apiUrl": "/geolocation/regions",
+      "method": "GET",
+      "queryParams": {
+        "skip": "skip",
+        "limit": "limit",
+        "code[]": "region_codes",
+        "name": "region_name"
+      }
+    },
+    "inputSchema": {
+      "type": "object",
+      "required": [],
+      "properties": {
+        "skip": {
+          "type": "number",
+          "minimum": 0,
+          "description": "Number of regions to skip for pagination (works with limit parameter)"
+        },
+        "limit": {
+          "type": "number",
+          "minimum": 1,
+          "maximum": 1000,
+          "description": "Maximum number of regions to return (1-1000, default is 10)"
+        },
+        "region_codes": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "description": "Filter by region codes based on ISO 3166-2 standard (case sensitive)"
+        },
+        "region_name": {
+          "type": "string",
+          "description": "Filter regions by name matching the provided value"
+        }
+      }
+    },
+    "group": "personalize",
+    "scopes": ["personalize:read"],
+    "x-enrich-group": "personalize"
+  },
+  "get_cities": {
+    "name": "get_cities",
+    "description": "This tool retrieves city information for geographic targeting in Personalize audience definitions and local-level content personalization.",
+    "mapper": {
+      "apiUrl": "/geolocation/cities",
+      "method": "GET",
+      "queryParams": {
+        "skip": "skip",
+        "limit": "limit",
+        "code[]": "city_codes",
+        "name": "city_name"
+      }
+    },
+    "inputSchema": {
+      "type": "object",
+      "required": [],
+      "properties": {
+        "skip": {
+          "type": "number",
+          "minimum": 0,
+          "description": "Number of cities to skip for pagination (works with limit parameter)"
+        },
+        "limit": {
+          "type": "number",
+          "minimum": 1,
+          "maximum": 1000,
+          "description": "Maximum number of cities to return (1-1000, default is 10)"
+        },
+        "city_codes": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "description": "Filter by city codes (case sensitive)"
+        },
+        "city_name": {
+          "type": "string",
+          "description": "Filter cities by name matching the provided value"
+        }
+      }
+    },
+    "group": "personalize",
+    "scopes": ["personalize:read"],
+    "x-enrich-group": "personalize"
+  }
+}
