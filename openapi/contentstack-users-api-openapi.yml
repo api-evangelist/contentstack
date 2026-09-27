@@ -65,34 +65,20 @@ paths:
         '401':
           $ref: '#/components/responses/Unauthorized'
 components:
-  responses:
-    BadRequest:
-      description: The request is malformed or contains invalid parameters.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
-    Unauthorized:
-      description: Authentication credentials are missing or invalid.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
   schemas:
-    UpdateUserRequest:
+    Error:
       type: object
-      description: Fields to update on the user profile.
+      description: Standard error response.
       properties:
-        user:
+        error_message:
+          type: string
+          description: Human-readable description of the error.
+        error_code:
+          type: integer
+          description: Numeric error code.
+        errors:
           type: object
-          description: User profile fields to update.
-          properties:
-            first_name:
-              type: string
-              description: Updated first name.
-            last_name:
-              type: string
-              description: Updated last name.
+          description: Field-level validation errors.
     User:
       type: object
       description: A Contentstack user account.
@@ -117,19 +103,33 @@ components:
           type: string
           format: date-time
           description: ISO 8601 timestamp when the user account was created.
-    Error:
+    UpdateUserRequest:
       type: object
-      description: Standard error response.
+      description: Fields to update on the user profile.
       properties:
-        error_message:
-          type: string
-          description: Human-readable description of the error.
-        error_code:
-          type: integer
-          description: Numeric error code.
-        errors:
+        user:
           type: object
-          description: Field-level validation errors.
+          description: User profile fields to update.
+          properties:
+            first_name:
+              type: string
+              description: Updated first name.
+            last_name:
+              type: string
+              description: Updated last name.
+  responses:
+    BadRequest:
+      description: The request is malformed or contains invalid parameters.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    Unauthorized:
+      description: Authentication credentials are missing or invalid.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
   securitySchemes:
     authtokenAuth:
       type: apiKey

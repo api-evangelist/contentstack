@@ -68,40 +68,7 @@ paths:
         '403':
           $ref: '#/components/responses/Forbidden'
 components:
-  responses:
-    BadRequest:
-      description: The request is malformed or contains invalid parameters.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
-    Forbidden:
-      description: The request is not authorized for this project.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
-  parameters:
-    ProjectUid:
-      name: x-project-uid
-      in: header
-      required: true
-      description: The UID of the Contentstack Personalize project.
-      schema:
-        type: string
-    PersonalizeUserUid:
-      name: x-cs-personalize-user-uid
-      in: header
-      required: false
-      description: The unique identifier for the end user. If not provided, a new anonymous user will be created and the UID returned in the response headers.
-      schema:
-        type: string
   schemas:
-    UserAttributesRequest:
-      type: object
-      description: Key-value pairs of user attribute values to set or update. Keys must correspond to attribute keys defined in the Personalize Management API.
-      additionalProperties:
-        description: Attribute value. Type must match the attribute's defined data type.
     MergeUserAttributesRequest:
       type: object
       description: Parameters for merging two user identity records.
@@ -125,6 +92,39 @@ components:
         status:
           type: integer
           description: HTTP status code.
+    UserAttributesRequest:
+      type: object
+      description: Key-value pairs of user attribute values to set or update. Keys must correspond to attribute keys defined in the Personalize Management API.
+      additionalProperties:
+        description: Attribute value. Type must match the attribute's defined data type.
+  responses:
+    BadRequest:
+      description: The request is malformed or contains invalid parameters.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    Forbidden:
+      description: The request is not authorized for this project.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+  parameters:
+    PersonalizeUserUid:
+      name: x-cs-personalize-user-uid
+      in: header
+      required: false
+      description: The unique identifier for the end user. If not provided, a new anonymous user will be created and the UID returned in the response headers.
+      schema:
+        type: string
+    ProjectUid:
+      name: x-project-uid
+      in: header
+      required: true
+      description: The UID of the Contentstack Personalize project.
+      schema:
+        type: string
 externalDocs:
   description: Contentstack Personalize Edge API Documentation
   url: https://www.contentstack.com/docs/developers/apis/personalize-edge-api

@@ -41,13 +41,6 @@ paths:
         '401':
           $ref: '#/components/responses/Unauthorized'
 components:
-  responses:
-    Unauthorized:
-      description: Authentication credentials are missing or invalid.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
   parameters:
     OrganizationUid:
       name: organization_uid
@@ -64,15 +57,16 @@ components:
       schema:
         type: string
   schemas:
-    AuditLogList:
+    Error:
       type: object
-      description: A list of audit log entries.
+      description: Standard error response.
       properties:
-        data:
-          type: array
-          description: Array of audit log objects.
-          items:
-            $ref: '#/components/schemas/AuditLog'
+        message:
+          type: string
+          description: Human-readable description of the error.
+        error_code:
+          type: integer
+          description: Numeric error code.
     AuditLog:
       type: object
       description: An audit log entry recording an administrative action.
@@ -90,16 +84,22 @@ components:
           type: string
           format: date-time
           description: ISO 8601 timestamp when the action was performed.
-    Error:
+    AuditLogList:
       type: object
-      description: Standard error response.
+      description: A list of audit log entries.
       properties:
-        message:
-          type: string
-          description: Human-readable description of the error.
-        error_code:
-          type: integer
-          description: Numeric error code.
+        data:
+          type: array
+          description: Array of audit log objects.
+          items:
+            $ref: '#/components/schemas/AuditLog'
+  responses:
+    Unauthorized:
+      description: Authentication credentials are missing or invalid.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
   securitySchemes:
     bearerAuth:
       type: http

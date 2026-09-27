@@ -69,36 +69,7 @@ paths:
         '403':
           $ref: '#/components/responses/Forbidden'
 components:
-  responses:
-    BadRequest:
-      description: The request is malformed or contains invalid parameters.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
-    Forbidden:
-      description: The request is not authorized for this project.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
   schemas:
-    ManifestExperience:
-      type: object
-      description: An active experience entry in the manifest with variant assignment.
-      properties:
-        experience_uid:
-          type: string
-          description: Unique identifier of the experience.
-        experience_short_uid:
-          type: string
-          description: Short identifier of the experience for use in content querying.
-        variant_uid:
-          type: string
-          description: Unique identifier of the variant assigned to this user.
-        variant_short_uid:
-          type: string
-          description: Short identifier of the variant for use in content querying.
     Manifest:
       type: object
       description: The personalization manifest containing active experiences and their variant assignments for the current user.
@@ -118,19 +89,48 @@ components:
         status:
           type: integer
           description: HTTP status code.
+    ManifestExperience:
+      type: object
+      description: An active experience entry in the manifest with variant assignment.
+      properties:
+        experience_uid:
+          type: string
+          description: Unique identifier of the experience.
+        experience_short_uid:
+          type: string
+          description: Short identifier of the experience for use in content querying.
+        variant_uid:
+          type: string
+          description: Unique identifier of the variant assigned to this user.
+        variant_short_uid:
+          type: string
+          description: Short identifier of the variant for use in content querying.
+  responses:
+    BadRequest:
+      description: The request is malformed or contains invalid parameters.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    Forbidden:
+      description: The request is not authorized for this project.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
   parameters:
-    ProjectUid:
-      name: x-project-uid
-      in: header
-      required: true
-      description: The UID of the Contentstack Personalize project.
-      schema:
-        type: string
     PersonalizeUserUid:
       name: x-cs-personalize-user-uid
       in: header
       required: false
       description: The unique identifier for the end user. If not provided, a new anonymous user will be created and the UID returned in the response headers.
+      schema:
+        type: string
+    ProjectUid:
+      name: x-project-uid
+      in: header
+      required: true
+      description: The UID of the Contentstack Personalize project.
       schema:
         type: string
 externalDocs:

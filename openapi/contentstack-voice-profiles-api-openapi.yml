@@ -141,38 +141,19 @@ paths:
         '404':
           $ref: '#/components/responses/NotFound'
 components:
-  responses:
-    BadRequest:
-      description: The request is malformed or contains invalid parameters.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
-    Unauthorized:
-      description: Authentication credentials are missing or invalid.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
-    NotFound:
-      description: The requested resource was not found.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
   parameters:
-    ProfileUid:
-      name: profile_uid
-      in: path
-      required: true
-      description: The unique identifier of the Voice Profile.
-      schema:
-        type: string
     OrganizationUid:
       name: organization_uid
       in: header
       required: true
       description: The unique identifier of the organization.
+      schema:
+        type: string
+    ProfileUid:
+      name: profile_uid
+      in: path
+      required: true
+      description: The unique identifier of the Voice Profile.
       schema:
         type: string
     BrandKitUid:
@@ -183,6 +164,42 @@ components:
       schema:
         type: string
   schemas:
+    Error:
+      type: object
+      description: Standard error response.
+      properties:
+        message:
+          type: string
+          description: Human-readable description of the error.
+        error_code:
+          type: integer
+          description: Numeric error code.
+    VoiceProfile:
+      type: object
+      description: A Voice Profile defining writing style and tone for AI content generation.
+      properties:
+        uid:
+          type: string
+          description: Unique identifier of the Voice Profile.
+        name:
+          type: string
+          description: Display name of the Voice Profile.
+        description:
+          type: string
+          description: Description of the voice profile's intended use case.
+        tone:
+          type: string
+          description: The tonal characteristics of the voice profile such as formal, conversational, or authoritative.
+        style_guidelines:
+          type: string
+          description: Writing style guidelines that define how content should be structured.
+        brand_kit_uid:
+          type: string
+          description: UID of the Brand Kit this Voice Profile belongs to.
+        created_at:
+          type: string
+          format: date-time
+          description: ISO 8601 timestamp when the Voice Profile was created.
     VoiceProfileList:
       type: object
       description: A list of Voice Profiles for a Brand Kit.
@@ -210,42 +227,25 @@ components:
         style_guidelines:
           type: string
           description: Writing style guidelines for AI content generation.
-    VoiceProfile:
-      type: object
-      description: A Voice Profile defining writing style and tone for AI content generation.
-      properties:
-        uid:
-          type: string
-          description: Unique identifier of the Voice Profile.
-        name:
-          type: string
-          description: Display name of the Voice Profile.
-        description:
-          type: string
-          description: Description of the voice profile's intended use case.
-        tone:
-          type: string
-          description: The tonal characteristics of the voice profile such as formal, conversational, or authoritative.
-        style_guidelines:
-          type: string
-          description: Writing style guidelines that define how content should be structured.
-        brand_kit_uid:
-          type: string
-          description: UID of the Brand Kit this Voice Profile belongs to.
-        created_at:
-          type: string
-          format: date-time
-          description: ISO 8601 timestamp when the Voice Profile was created.
-    Error:
-      type: object
-      description: Standard error response.
-      properties:
-        message:
-          type: string
-          description: Human-readable description of the error.
-        error_code:
-          type: integer
-          description: Numeric error code.
+  responses:
+    BadRequest:
+      description: The request is malformed or contains invalid parameters.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    NotFound:
+      description: The requested resource was not found.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    Unauthorized:
+      description: Authentication credentials are missing or invalid.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
   securitySchemes:
     bearerAuth:
       type: http

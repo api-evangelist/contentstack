@@ -80,7 +80,46 @@ paths:
         '401':
           $ref: '#/components/responses/Unauthorized'
 components:
+  parameters:
+    OrganizationUid:
+      name: organization_uid
+      in: path
+      required: true
+      description: The unique identifier of the organization.
+      schema:
+        type: string
   schemas:
+    OrganizationList:
+      type: object
+      description: A list of organizations.
+      properties:
+        organizations:
+          type: array
+          description: Array of organization objects.
+          items:
+            $ref: '#/components/schemas/Organization'
+    Error:
+      type: object
+      description: Standard error response.
+      properties:
+        error_message:
+          type: string
+          description: Human-readable description of the error.
+        error_code:
+          type: integer
+          description: Numeric error code.
+        errors:
+          type: object
+          description: Field-level validation errors.
+    StackList:
+      type: object
+      description: A list of stacks.
+      properties:
+        stacks:
+          type: array
+          description: Array of stack objects.
+          items:
+            $ref: '#/components/schemas/Stack'
     Stack:
       type: object
       description: A Contentstack stack, which is an independent content repository.
@@ -111,15 +150,6 @@ components:
           type: string
           format: date-time
           description: ISO 8601 timestamp when the stack was last updated.
-    StackList:
-      type: object
-      description: A list of stacks.
-      properties:
-        stacks:
-          type: array
-          description: Array of stack objects.
-          items:
-            $ref: '#/components/schemas/Stack'
     Organization:
       type: object
       description: A Contentstack organization that groups stacks and users.
@@ -137,49 +167,19 @@ components:
           type: string
           format: date-time
           description: ISO 8601 timestamp when the organization was created.
-    OrganizationList:
-      type: object
-      description: A list of organizations.
-      properties:
-        organizations:
-          type: array
-          description: Array of organization objects.
-          items:
-            $ref: '#/components/schemas/Organization'
-    Error:
-      type: object
-      description: Standard error response.
-      properties:
-        error_message:
-          type: string
-          description: Human-readable description of the error.
-        error_code:
-          type: integer
-          description: Numeric error code.
-        errors:
-          type: object
-          description: Field-level validation errors.
   responses:
-    Unauthorized:
-      description: Authentication credentials are missing or invalid.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
     NotFound:
       description: The requested resource was not found.
       content:
         application/json:
           schema:
             $ref: '#/components/schemas/Error'
-  parameters:
-    OrganizationUid:
-      name: organization_uid
-      in: path
-      required: true
-      description: The unique identifier of the organization.
-      schema:
-        type: string
+    Unauthorized:
+      description: Authentication credentials are missing or invalid.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
   securitySchemes:
     authtokenAuth:
       type: apiKey

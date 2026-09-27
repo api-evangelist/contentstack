@@ -80,23 +80,7 @@ paths:
         '401':
           $ref: '#/components/responses/Unauthorized'
 components:
-  responses:
-    Unauthorized:
-      description: Authentication credentials are missing or invalid.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
   schemas:
-    GeoList:
-      type: object
-      description: A list of geographic locations for audience targeting.
-      properties:
-        data:
-          type: array
-          description: Array of geographic location objects.
-          items:
-            $ref: '#/components/schemas/GeoItem'
     GeoItem:
       type: object
       description: A geographic location item for audience targeting.
@@ -120,6 +104,15 @@ components:
         status:
           type: integer
           description: HTTP status code.
+    GeoList:
+      type: object
+      description: A list of geographic locations for audience targeting.
+      properties:
+        data:
+          type: array
+          description: Array of geographic location objects.
+          items:
+            $ref: '#/components/schemas/GeoItem'
   parameters:
     ProjectUid:
       name: x-project-uid
@@ -128,6 +121,13 @@ components:
       description: The UID of the Contentstack Personalize project.
       schema:
         type: string
+  responses:
+    Unauthorized:
+      description: Authentication credentials are missing or invalid.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
   securitySchemes:
     bearerAuth:
       type: http

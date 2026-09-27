@@ -166,26 +166,51 @@ paths:
         '404':
           $ref: '#/components/responses/NotFound'
 components:
-  responses:
-    BadRequest:
-      description: The SCIM request is malformed or contains invalid attribute values.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/ScimError'
-    Unauthorized:
-      description: The SCIM bearer token is missing or invalid.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/ScimError'
-    NotFound:
-      description: The requested SCIM resource was not found.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/ScimError'
+  parameters:
+    OrganizationUid:
+      name: organization_uid
+      in: path
+      required: true
+      description: The unique identifier of the Contentstack organization.
+      schema:
+        type: string
+    GroupId:
+      name: group_id
+      in: path
+      required: true
+      description: The SCIM group ID of the group within the organization.
+      schema:
+        type: string
   schemas:
+    ScimGroup:
+      type: object
+      description: A SCIM 2.0 Group resource representing a Contentstack user group.
+      properties:
+        schemas:
+          type: array
+          description: SCIM schema URNs for this resource.
+          items:
+            type: string
+          example:
+          - urn:ietf:params:scim:schemas:core:2.0:Group
+        id:
+          type: string
+          description: SCIM-assigned unique identifier for the group.
+        displayName:
+          type: string
+          description: The display name of the group.
+        members:
+          type: array
+          description: List of user members in the group.
+          items:
+            type: object
+            properties:
+              value:
+                type: string
+                description: The SCIM user ID of the group member.
+              display:
+                type: string
+                description: The display name of the group member.
     ScimListResponse:
       type: object
       description: A SCIM 2.0 ListResponse container for multi-resource responses.
@@ -228,35 +253,22 @@ components:
         detail:
           type: string
           description: Human-readable description of the error.
-    ScimGroup:
+    ScimPatchRequest:
       type: object
-      description: A SCIM 2.0 Group resource representing a Contentstack user group.
+      description: A SCIM 2.0 PatchOp request for partial resource updates.
       properties:
         schemas:
           type: array
-          description: SCIM schema URNs for this resource.
+          description: SCIM schema URN identifying this as a PatchOp request.
           items:
             type: string
           example:
-          - urn:ietf:params:scim:schemas:core:2.0:Group
-        id:
-          type: string
-          description: SCIM-assigned unique identifier for the group.
-        displayName:
-          type: string
-          description: The display name of the group.
-        members:
+          - urn:ietf:params:scim:api:messages:2.0:PatchOp
+        Operations:
           type: array
-          description: List of user members in the group.
+          description: List of PATCH operations to perform.
           items:
-            type: object
-            properties:
-              value:
-                type: string
-                description: The SCIM user ID of the group member.
-              display:
-                type: string
-                description: The display name of the group member.
+            $ref: '#/components/schemas/ScimPatchOperation'
     ScimPatchOperation:
       type: object
       description: A single SCIM PATCH operation.
@@ -275,37 +287,25 @@ components:
           description: The attribute path to target for the operation.
         value:
           description: The value to apply for add or replace operations.
-    ScimPatchRequest:
-      type: object
-      description: A SCIM 2.0 PatchOp request for partial resource updates.
-      properties:
-        schemas:
-          type: array
-          description: SCIM schema URN identifying this as a PatchOp request.
-          items:
-            type: string
-          example:
-          - urn:ietf:params:scim:api:messages:2.0:PatchOp
-        Operations:
-          type: array
-          description: List of PATCH operations to perform.
-          items:
-            $ref: '#/components/schemas/ScimPatchOperation'
-  parameters:
-    GroupId:
-      name: group_id
-      in: path
-      required: true
-      description: The SCIM group ID of the group within the organization.
-      schema:
-        type: string
-    OrganizationUid:
-      name: organization_uid
-      in: path
-      required: true
-      description: The unique identifier of the Contentstack organization.
-      schema:
-        type: string
+  responses:
+    BadRequest:
+      description: The SCIM request is malformed or contains invalid attribute values.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ScimError'
+    NotFound:
+      description: The requested SCIM resource was not found.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ScimError'
+    Unauthorized:
+      description: The SCIM bearer token is missing or invalid.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ScimError'
   securitySchemes:
     bearerAuth:
       type: http

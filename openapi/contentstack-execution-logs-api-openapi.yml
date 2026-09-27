@@ -63,27 +63,7 @@ paths:
         '404':
           $ref: '#/components/responses/NotFound'
 components:
-  responses:
-    Unauthorized:
-      description: Authentication credentials are missing or invalid.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
-    NotFound:
-      description: The requested resource was not found.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
   parameters:
-    ExecutionUid:
-      name: execution_uid
-      in: path
-      required: true
-      description: The unique identifier of the execution log entry.
-      schema:
-        type: string
     OrganizationUid:
       name: organization_uid
       in: path
@@ -98,7 +78,33 @@ components:
       description: The unique identifier of the automation project.
       schema:
         type: string
+    ExecutionUid:
+      name: execution_uid
+      in: path
+      required: true
+      description: The unique identifier of the execution log entry.
+      schema:
+        type: string
   schemas:
+    ExecutionLogList:
+      type: object
+      description: A list of automation execution log entries.
+      properties:
+        data:
+          type: array
+          description: Array of execution log objects.
+          items:
+            $ref: '#/components/schemas/ExecutionLog'
+    Error:
+      type: object
+      description: Standard error response.
+      properties:
+        message:
+          type: string
+          description: Human-readable description of the error.
+        error_code:
+          type: integer
+          description: Numeric error code.
     ExecutionLog:
       type: object
       description: A record of a single automation execution run.
@@ -129,25 +135,19 @@ components:
           description: Step-by-step execution results.
           items:
             type: object
-    ExecutionLogList:
-      type: object
-      description: A list of automation execution log entries.
-      properties:
-        data:
-          type: array
-          description: Array of execution log objects.
-          items:
-            $ref: '#/components/schemas/ExecutionLog'
-    Error:
-      type: object
-      description: Standard error response.
-      properties:
-        message:
-          type: string
-          description: Human-readable description of the error.
-        error_code:
-          type: integer
-          description: Numeric error code.
+  responses:
+    NotFound:
+      description: The requested resource was not found.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    Unauthorized:
+      description: Authentication credentials are missing or invalid.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
   securitySchemes:
     bearerAuth:
       type: http

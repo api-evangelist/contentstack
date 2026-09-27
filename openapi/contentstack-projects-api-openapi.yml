@@ -153,7 +153,7 @@ paths:
       description: AWS Australia Production Server
   /projects:
     get:
-      operationId: getAllProjects
+      operationId: getProjects
       summary: Get all projects
       description: Retrieves all Launch projects accessible to the authenticated user or organization. Returns project metadata including names, creation dates, and environment counts.
       tags:
@@ -167,8 +167,10 @@ paths:
                 $ref: '#/components/schemas/ProjectList_2'
         '401':
           $ref: '#/components/responses/Unauthorized'
+      x-operation-id-source: normalized
+      x-operation-id-original: getAllProjects
     post:
-      operationId: createProject
+      operationId: postProjects
       summary: Create a project
       description: Creates a new Launch project for deploying a web application. Projects serve as the top-level container for environments and deployments.
       tags:
@@ -190,6 +192,8 @@ paths:
           $ref: '#/components/responses/BadRequest'
         '401':
           $ref: '#/components/responses/Unauthorized'
+      x-operation-id-source: normalized
+      x-operation-id-original: createProject
     servers:
     - url: https://launch-api.contentstack.com
       description: AWS North America Production Server
@@ -203,7 +207,7 @@ paths:
       description: Azure Europe Production Server
   /projects/{project_uid}:
     get:
-      operationId: getProject
+      operationId: getProjectsByProjectUid
       summary: Get a project
       description: Retrieves the details of a specific Launch project including its configuration, current status, and linked Contentstack stack.
       tags:
@@ -221,8 +225,10 @@ paths:
           $ref: '#/components/responses/Unauthorized'
         '404':
           $ref: '#/components/responses/NotFound'
+      x-operation-id-source: normalized
+      x-operation-id-original: getProject
     put:
-      operationId: updateProject
+      operationId: putProjectsByProjectUid
       summary: Update a project
       description: Updates the configuration of an existing Launch project such as its name, description, or framework settings.
       tags:
@@ -246,8 +252,10 @@ paths:
           $ref: '#/components/responses/BadRequest'
         '401':
           $ref: '#/components/responses/Unauthorized'
+      x-operation-id-source: normalized
+      x-operation-id-original: updateProject
     delete:
-      operationId: deleteProject
+      operationId: deleteProjectsByProjectUid
       summary: Delete a project
       description: Permanently deletes a Launch project and all its environments and deployment history. This action is irreversible.
       tags:
@@ -261,6 +269,8 @@ paths:
           $ref: '#/components/responses/Unauthorized'
         '404':
           $ref: '#/components/responses/NotFound'
+      x-operation-id-source: normalized
+      x-operation-id-original: deleteProject
     servers:
     - url: https://launch-api.contentstack.com
       description: AWS North America Production Server
@@ -273,35 +283,39 @@ paths:
     - url: https://azure-eu-launch-api.contentstack.com
       description: Azure Europe Production Server
 components:
-  responses:
-    BadRequest:
-      description: The request is malformed or contains invalid parameters.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
-    Unauthorized:
-      description: Authentication credentials are missing or invalid.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
-    NotFound:
-      description: The requested resource was not found.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
+  parameters:
+    OrganizationUid:
+      name: organization_uid
+      in: path
+      required: true
+      description: The unique identifier of the organization.
+      schema:
+        type: string
+    ProjectUid:
+      name: project_uid
+      in: path
+      required: true
+      description: The unique identifier of the automation project.
+      schema:
+        type: string
+    ProjectUid_2:
+      name: project_uid
+      in: path
+      required: true
+      description: The unique identifier of the Launch project.
+      schema:
+        type: string
   schemas:
-    ProjectList:
+    Error:
       type: object
-      description: A list of automation projects.
+      description: Standard error response.
       properties:
-        data:
-          type: array
-          description: Array of project objects.
-          items:
-            $ref: '#/components/schemas/Project'
+        message:
+          type: string
+          description: Human-readable description of the error.
+        error_code:
+          type: integer
+          description: Numeric error code.
     Project:
       type: object
       description: An automation project within a Contentstack organization.
@@ -338,25 +352,15 @@ components:
         description:
           type: string
           description: Description of the project's purpose.
-    Error:
+    ProjectList:
       type: object
-      description: Standard error response.
-      properties:
-        message:
-          type: string
-          description: Human-readable description of the error.
-        error_code:
-          type: integer
-          description: Numeric error code.
-    ProjectList_2:
-      type: object
-      description: A list of Launch projects.
+      description: A list of automation projects.
       properties:
         data:
           type: array
-          description: Array of Launch project objects.
+          description: Array of project objects.
           items:
-            $ref: '#/components/schemas/Project_2'
+            $ref: '#/components/schemas/Project'
     Project_2:
       type: object
       description: A Contentstack Launch project for web application deployment.
@@ -396,28 +400,34 @@ components:
         framework:
           type: string
           description: The web framework for the project.
-  parameters:
-    OrganizationUid:
-      name: organization_uid
-      in: path
-      required: true
-      description: The unique identifier of the organization.
-      schema:
-        type: string
-    ProjectUid:
-      name: project_uid
-      in: path
-      required: true
-      description: The unique identifier of the automation project.
-      schema:
-        type: string
-    ProjectUid_2:
-      name: project_uid
-      in: path
-      required: true
-      description: The unique identifier of the Launch project.
-      schema:
-        type: string
+    ProjectList_2:
+      type: object
+      description: A list of Launch projects.
+      properties:
+        data:
+          type: array
+          description: Array of Launch project objects.
+          items:
+            $ref: '#/components/schemas/Project_2'
+  responses:
+    BadRequest:
+      description: The request is malformed or contains invalid parameters.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    NotFound:
+      description: The requested resource was not found.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    Unauthorized:
+      description: Authentication credentials are missing or invalid.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
   securitySchemes:
     bearerAuth:
       type: http

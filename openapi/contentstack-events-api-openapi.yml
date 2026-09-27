@@ -84,26 +84,32 @@ paths:
     - url: https://azure-eu-personalize-edge.contentstack.com
       description: Azure Europe Production Server
 components:
-  responses:
-    BadRequest:
-      description: The request is malformed or contains invalid parameters.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
-    Forbidden:
-      description: The request is not authorized for this project.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
-    Unauthorized:
-      description: Authentication credentials are missing or invalid.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
+  parameters:
+    PersonalizeUserUidRequired:
+      name: x-cs-personalize-user-uid
+      in: header
+      required: true
+      description: The unique identifier for the end user whose events are being tracked.
+      schema:
+        type: string
+    ProjectUid:
+      name: x-project-uid
+      in: header
+      required: true
+      description: The UID of the Contentstack Personalize project.
+      schema:
+        type: string
   schemas:
+    Error:
+      type: object
+      description: Standard error response.
+      properties:
+        message:
+          type: string
+          description: Human-readable description of the error.
+        status:
+          type: integer
+          description: HTTP status code.
     TrackEventsRequest:
       type: array
       description: Array of event objects to track.
@@ -124,16 +130,23 @@ components:
         variant_uid:
           type: string
           description: The UID of the variant shown to the user. Required for impression events.
-    Error:
+    PersonalizeEvent:
       type: object
-      description: Standard error response.
+      description: A custom event definition for tracking user actions.
       properties:
-        message:
+        uid:
           type: string
-          description: Human-readable description of the error.
-        status:
-          type: integer
-          description: HTTP status code.
+          description: Unique identifier of the event.
+        name:
+          type: string
+          description: Display name of the event.
+        key:
+          type: string
+          description: Machine-readable event key used in SDK tracking calls.
+        created_at:
+          type: string
+          format: date-time
+          description: ISO 8601 timestamp when the event was created.
     EventList:
       type: object
       description: A list of custom event definitions.
@@ -156,38 +169,25 @@ components:
         key:
           type: string
           description: Machine-readable key for SDK tracking calls.
-    PersonalizeEvent:
-      type: object
-      description: A custom event definition for tracking user actions.
-      properties:
-        uid:
-          type: string
-          description: Unique identifier of the event.
-        name:
-          type: string
-          description: Display name of the event.
-        key:
-          type: string
-          description: Machine-readable event key used in SDK tracking calls.
-        created_at:
-          type: string
-          format: date-time
-          description: ISO 8601 timestamp when the event was created.
-  parameters:
-    PersonalizeUserUidRequired:
-      name: x-cs-personalize-user-uid
-      in: header
-      required: true
-      description: The unique identifier for the end user whose events are being tracked.
-      schema:
-        type: string
-    ProjectUid:
-      name: x-project-uid
-      in: header
-      required: true
-      description: The UID of the Contentstack Personalize project.
-      schema:
-        type: string
+  responses:
+    BadRequest:
+      description: The request is malformed or contains invalid parameters.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    Forbidden:
+      description: The request is not authorized for this project.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    Unauthorized:
+      description: Authentication credentials are missing or invalid.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
   securitySchemes:
     bearerAuth:
       type: http

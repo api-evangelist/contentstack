@@ -114,50 +114,22 @@ paths:
         '404':
           $ref: '#/components/responses/NotFound'
 components:
-  responses:
-    BadRequest:
-      description: The request is malformed or contains invalid parameters.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
-    Unauthorized:
-      description: Authentication credentials are missing or invalid.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
-    NotFound:
-      description: The requested resource was not found.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
+  parameters:
+    AudienceId:
+      name: id
+      in: path
+      required: true
+      description: The unique identifier of the audience.
+      schema:
+        type: string
+    ProjectUid:
+      name: x-project-uid
+      in: header
+      required: true
+      description: The UID of the Contentstack Personalize project.
+      schema:
+        type: string
   schemas:
-    AudienceList:
-      type: object
-      description: A list of audience segment definitions.
-      properties:
-        data:
-          type: array
-          description: Array of audience objects.
-          items:
-            $ref: '#/components/schemas/Audience'
-    CreateAudienceRequest:
-      type: object
-      description: Parameters for creating or updating an audience.
-      required:
-      - name
-      properties:
-        name:
-          type: string
-          description: Display name for the audience.
-        description:
-          type: string
-          description: Description of the audience targeting criteria.
-        rules:
-          type: object
-          description: Logical conditions for audience membership.
     Audience:
       type: object
       description: An audience segment based on attribute rules and user behaviors.
@@ -188,21 +160,49 @@ components:
         status:
           type: integer
           description: HTTP status code.
-  parameters:
-    ProjectUid:
-      name: x-project-uid
-      in: header
-      required: true
-      description: The UID of the Contentstack Personalize project.
-      schema:
-        type: string
-    AudienceId:
-      name: id
-      in: path
-      required: true
-      description: The unique identifier of the audience.
-      schema:
-        type: string
+    AudienceList:
+      type: object
+      description: A list of audience segment definitions.
+      properties:
+        data:
+          type: array
+          description: Array of audience objects.
+          items:
+            $ref: '#/components/schemas/Audience'
+    CreateAudienceRequest:
+      type: object
+      description: Parameters for creating or updating an audience.
+      required:
+      - name
+      properties:
+        name:
+          type: string
+          description: Display name for the audience.
+        description:
+          type: string
+          description: Description of the audience targeting criteria.
+        rules:
+          type: object
+          description: Logical conditions for audience membership.
+  responses:
+    BadRequest:
+      description: The request is malformed or contains invalid parameters.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    NotFound:
+      description: The requested resource was not found.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    Unauthorized:
+      description: Authentication credentials are missing or invalid.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
   securitySchemes:
     bearerAuth:
       type: http

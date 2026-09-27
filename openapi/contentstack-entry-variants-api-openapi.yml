@@ -69,27 +69,7 @@ paths:
         '404':
           $ref: '#/components/responses/NotFound'
 components:
-  responses:
-    Unauthorized:
-      description: Authentication credentials are missing or invalid.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
-    NotFound:
-      description: The requested resource was not found.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
   parameters:
-    AccessToken:
-      name: access_token
-      in: header
-      required: true
-      description: The delivery token for the stack environment.
-      schema:
-        type: string
     EntryUid:
       name: entry_uid
       in: path
@@ -104,11 +84,11 @@ components:
       description: The unique identifier (UID) of the content type.
       schema:
         type: string
-    VariantUid:
-      name: variant_uid
-      in: path
+    AccessToken:
+      name: access_token
+      in: header
       required: true
-      description: The unique identifier (UID) of the entry variant.
+      description: The delivery token for the stack environment.
       schema:
         type: string
     ApiKey:
@@ -118,7 +98,27 @@ components:
       description: The API key for the Contentstack stack.
       schema:
         type: string
+    VariantUid:
+      name: variant_uid
+      in: path
+      required: true
+      description: The unique identifier (UID) of the entry variant.
+      schema:
+        type: string
   schemas:
+    Error:
+      type: object
+      description: Standard error response returned by the API.
+      properties:
+        error_message:
+          type: string
+          description: Human-readable description of the error.
+        error_code:
+          type: integer
+          description: Numeric code identifying the error type.
+        errors:
+          type: object
+          description: Field-level validation errors when applicable.
     EntryVariant:
       type: object
       description: A personalization variant of a content entry.
@@ -141,19 +141,19 @@ components:
           description: Array of entry variant objects.
           items:
             $ref: '#/components/schemas/EntryVariant'
-    Error:
-      type: object
-      description: Standard error response returned by the API.
-      properties:
-        error_message:
-          type: string
-          description: Human-readable description of the error.
-        error_code:
-          type: integer
-          description: Numeric code identifying the error type.
-        errors:
-          type: object
-          description: Field-level validation errors when applicable.
+  responses:
+    NotFound:
+      description: The requested resource was not found.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    Unauthorized:
+      description: Authentication credentials are missing or invalid.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
   securitySchemes:
     apiKey:
       type: apiKey

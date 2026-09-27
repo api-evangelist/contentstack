@@ -64,6 +64,28 @@ paths:
           $ref: '#/components/responses/NotFound'
 components:
   schemas:
+    Error:
+      type: object
+      description: Standard error response returned by the API.
+      properties:
+        error_message:
+          type: string
+          description: Human-readable description of the error.
+        error_code:
+          type: integer
+          description: Numeric code identifying the error type.
+        errors:
+          type: object
+          description: Field-level validation errors when applicable.
+    GlobalFieldList:
+      type: object
+      description: A list of global field definitions in the stack.
+      properties:
+        global_fields:
+          type: array
+          description: Array of global field objects.
+          items:
+            $ref: '#/components/schemas/GlobalField'
     Field:
       type: object
       description: A field definition within a content type schema.
@@ -106,54 +128,19 @@ components:
           type: string
           format: date-time
           description: ISO 8601 timestamp when the global field was last updated.
-    GlobalFieldList:
-      type: object
-      description: A list of global field definitions in the stack.
-      properties:
-        global_fields:
-          type: array
-          description: Array of global field objects.
-          items:
-            $ref: '#/components/schemas/GlobalField'
-    Error:
-      type: object
-      description: Standard error response returned by the API.
-      properties:
-        error_message:
-          type: string
-          description: Human-readable description of the error.
-        error_code:
-          type: integer
-          description: Numeric code identifying the error type.
-        errors:
-          type: object
-          description: Field-level validation errors when applicable.
-  responses:
-    Unauthorized:
-      description: Authentication credentials are missing or invalid.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
-    NotFound:
-      description: The requested resource was not found.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
   parameters:
-    AccessToken:
-      name: access_token
-      in: header
-      required: true
-      description: The delivery token for the stack environment.
-      schema:
-        type: string
     GlobalFieldUid:
       name: global_field_uid
       in: path
       required: true
       description: The unique identifier (UID) of the global field.
+      schema:
+        type: string
+    AccessToken:
+      name: access_token
+      in: header
+      required: true
+      description: The delivery token for the stack environment.
       schema:
         type: string
     ApiKey:
@@ -163,6 +150,19 @@ components:
       description: The API key for the Contentstack stack.
       schema:
         type: string
+  responses:
+    NotFound:
+      description: The requested resource was not found.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    Unauthorized:
+      description: Authentication credentials are missing or invalid.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
   securitySchemes:
     apiKey:
       type: apiKey

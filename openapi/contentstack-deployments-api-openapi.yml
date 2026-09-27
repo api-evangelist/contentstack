@@ -137,26 +137,17 @@ paths:
         '404':
           $ref: '#/components/responses/NotFound'
 components:
-  responses:
-    BadRequest:
-      description: The request is malformed or contains invalid parameters.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
-    Unauthorized:
-      description: Authentication credentials are missing or invalid.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
-    NotFound:
-      description: The requested resource was not found.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
   schemas:
+    Error:
+      type: object
+      description: Standard error response.
+      properties:
+        message:
+          type: string
+          description: Human-readable description of the error.
+        error_code:
+          type: integer
+          description: Numeric error code.
     DeploymentList:
       type: object
       description: A list of deployments.
@@ -166,15 +157,6 @@ components:
           description: Array of deployment objects.
           items:
             $ref: '#/components/schemas/Deployment'
-    LogResponse:
-      type: object
-      description: Log output from a deployment or server.
-      properties:
-        logs:
-          type: array
-          description: Array of log line entries.
-          items:
-            $ref: '#/components/schemas/LogEntry'
     Deployment:
       type: object
       description: A deployment operation to a Launch environment.
@@ -210,6 +192,15 @@ components:
         branch:
           type: string
           description: The git branch to deploy from when using repository-linked deployments.
+    LogResponse:
+      type: object
+      description: Log output from a deployment or server.
+      properties:
+        logs:
+          type: array
+          description: Array of log line entries.
+          items:
+            $ref: '#/components/schemas/LogEntry'
     LogEntry:
       type: object
       description: A single log line entry.
@@ -229,16 +220,25 @@ components:
         message:
           type: string
           description: The log message content.
-    Error:
-      type: object
-      description: Standard error response.
-      properties:
-        message:
-          type: string
-          description: Human-readable description of the error.
-        error_code:
-          type: integer
-          description: Numeric error code.
+  responses:
+    BadRequest:
+      description: The request is malformed or contains invalid parameters.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    NotFound:
+      description: The requested resource was not found.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    Unauthorized:
+      description: Authentication credentials are missing or invalid.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
   parameters:
     EnvUid:
       name: env_uid
@@ -247,18 +247,18 @@ components:
       description: The unique identifier of the deployment environment.
       schema:
         type: string
-    ProjectUid:
-      name: project_uid
-      in: path
-      required: true
-      description: The unique identifier of the Launch project.
-      schema:
-        type: string
     DeployUid:
       name: deploy_uid
       in: path
       required: true
       description: The unique identifier of the deployment.
+      schema:
+        type: string
+    ProjectUid:
+      name: project_uid
+      in: path
+      required: true
+      description: The unique identifier of the Launch project.
       schema:
         type: string
   securitySchemes:

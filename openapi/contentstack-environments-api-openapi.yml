@@ -67,7 +67,7 @@ paths:
       description: Azure Europe Production Server
   /projects/{project_uid}/environments:
     get:
-      operationId: getAllEnvironments
+      operationId: getProjectsByProjectUidEnvironments
       summary: Get all environments
       description: Retrieves all deployment environments configured for a Launch project, including their domain configurations and current deployment status.
       tags:
@@ -86,6 +86,8 @@ paths:
       security:
       - bearerAuth: []
       - authtokenAuth: []
+      x-operation-id-source: normalized
+      x-operation-id-original: getAllEnvironments
     post:
       operationId: createEnvironment
       summary: Create an environment
@@ -251,55 +253,29 @@ paths:
     - url: https://azure-eu-launch-api.contentstack.com
       description: Azure Europe Production Server
 components:
-  parameters:
-    AuthToken:
-      name: authtoken
-      in: header
-      required: false
-      description: User session token for authentication. Required if not using management token.
-      schema:
-        type: string
-    StackApiKey:
-      name: api_key
-      in: header
-      required: true
-      description: The API key identifying the Contentstack stack.
-      schema:
-        type: string
-    EnvUid:
-      name: env_uid
-      in: path
-      required: true
-      description: The unique identifier of the deployment environment.
-      schema:
-        type: string
-    ProjectUid:
-      name: project_uid
-      in: path
-      required: true
-      description: The unique identifier of the Launch project.
-      schema:
-        type: string
-  responses:
-    Unauthorized:
-      description: Authentication credentials are missing or invalid.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
-    BadRequest:
-      description: The request is malformed or contains invalid parameters.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error_2'
-    NotFound:
-      description: The requested resource was not found.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error_2'
   schemas:
+    Error:
+      type: object
+      description: Standard error response.
+      properties:
+        error_message:
+          type: string
+          description: Human-readable description of the error.
+        error_code:
+          type: integer
+          description: Numeric error code.
+        errors:
+          type: object
+          description: Field-level validation errors.
+    EnvironmentList:
+      type: object
+      description: A list of deployment environments.
+      properties:
+        environments:
+          type: array
+          description: Array of environment objects.
+          items:
+            $ref: '#/components/schemas/Environment'
     Environment:
       type: object
       description: A deployment environment for publishing content.
@@ -327,28 +303,16 @@ components:
           type: string
           format: date-time
           description: ISO 8601 timestamp when the environment was created.
-    EnvironmentList:
-      type: object
-      description: A list of deployment environments.
-      properties:
-        environments:
-          type: array
-          description: Array of environment objects.
-          items:
-            $ref: '#/components/schemas/Environment'
-    Error:
+    Error_2:
       type: object
       description: Standard error response.
       properties:
-        error_message:
+        message:
           type: string
           description: Human-readable description of the error.
         error_code:
           type: integer
           description: Numeric error code.
-        errors:
-          type: object
-          description: Field-level validation errors.
     EnvironmentList_2:
       type: object
       description: A list of deployment environments.
@@ -394,16 +358,54 @@ components:
           type: string
           format: date-time
           description: ISO 8601 timestamp when the environment was created.
-    Error_2:
-      type: object
-      description: Standard error response.
-      properties:
-        message:
-          type: string
-          description: Human-readable description of the error.
-        error_code:
-          type: integer
-          description: Numeric error code.
+  parameters:
+    StackApiKey:
+      name: api_key
+      in: header
+      required: true
+      description: The API key identifying the Contentstack stack.
+      schema:
+        type: string
+    AuthToken:
+      name: authtoken
+      in: header
+      required: false
+      description: User session token for authentication. Required if not using management token.
+      schema:
+        type: string
+    EnvUid:
+      name: env_uid
+      in: path
+      required: true
+      description: The unique identifier of the deployment environment.
+      schema:
+        type: string
+    ProjectUid:
+      name: project_uid
+      in: path
+      required: true
+      description: The unique identifier of the Launch project.
+      schema:
+        type: string
+  responses:
+    Unauthorized:
+      description: Authentication credentials are missing or invalid.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    BadRequest:
+      description: The request is malformed or contains invalid parameters.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error_2'
+    NotFound:
+      description: The requested resource was not found.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error_2'
   securitySchemes:
     authtokenAuth:
       type: apiKey
