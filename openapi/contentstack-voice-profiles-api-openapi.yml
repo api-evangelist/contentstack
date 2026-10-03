@@ -141,39 +141,7 @@ paths:
         '404':
           $ref: '#/components/responses/NotFound'
 components:
-  parameters:
-    OrganizationUid:
-      name: organization_uid
-      in: header
-      required: true
-      description: The unique identifier of the organization.
-      schema:
-        type: string
-    ProfileUid:
-      name: profile_uid
-      in: path
-      required: true
-      description: The unique identifier of the Voice Profile.
-      schema:
-        type: string
-    BrandKitUid:
-      name: brand_kit_uid
-      in: path
-      required: true
-      description: The unique identifier of the Brand Kit.
-      schema:
-        type: string
   schemas:
-    Error:
-      type: object
-      description: Standard error response.
-      properties:
-        message:
-          type: string
-          description: Human-readable description of the error.
-        error_code:
-          type: integer
-          description: Numeric error code.
     VoiceProfile:
       type: object
       description: A Voice Profile defining writing style and tone for AI content generation.
@@ -200,15 +168,6 @@ components:
           type: string
           format: date-time
           description: ISO 8601 timestamp when the Voice Profile was created.
-    VoiceProfileList:
-      type: object
-      description: A list of Voice Profiles for a Brand Kit.
-      properties:
-        data:
-          type: array
-          description: Array of Voice Profile objects.
-          items:
-            $ref: '#/components/schemas/VoiceProfile'
     CreateVoiceProfileRequest:
       type: object
       description: Parameters for creating or updating a Voice Profile.
@@ -227,15 +186,34 @@ components:
         style_guidelines:
           type: string
           description: Writing style guidelines for AI content generation.
+    Error:
+      type: object
+      description: Standard error response.
+      properties:
+        message:
+          type: string
+          description: Human-readable description of the error.
+        error_code:
+          type: integer
+          description: Numeric error code.
+    VoiceProfileList:
+      type: object
+      description: A list of Voice Profiles for a Brand Kit.
+      properties:
+        data:
+          type: array
+          description: Array of Voice Profile objects.
+          items:
+            $ref: '#/components/schemas/VoiceProfile'
   responses:
-    BadRequest:
-      description: The request is malformed or contains invalid parameters.
+    NotFound:
+      description: The requested resource was not found.
       content:
         application/json:
           schema:
             $ref: '#/components/schemas/Error'
-    NotFound:
-      description: The requested resource was not found.
+    BadRequest:
+      description: The request is malformed or contains invalid parameters.
       content:
         application/json:
           schema:
@@ -246,6 +224,28 @@ components:
         application/json:
           schema:
             $ref: '#/components/schemas/Error'
+  parameters:
+    ProfileUid:
+      name: profile_uid
+      in: path
+      required: true
+      description: The unique identifier of the Voice Profile.
+      schema:
+        type: string
+    OrganizationUid:
+      name: organization_uid
+      in: header
+      required: true
+      description: The unique identifier of the organization.
+      schema:
+        type: string
+    BrandKitUid:
+      name: brand_kit_uid
+      in: path
+      required: true
+      description: The unique identifier of the Brand Kit.
+      schema:
+        type: string
   securitySchemes:
     bearerAuth:
       type: http

@@ -106,13 +106,6 @@ paths:
           $ref: '#/components/responses/Unauthorized'
 components:
   parameters:
-    OrganizationUid:
-      name: organization_uid
-      in: path
-      required: true
-      description: The unique identifier of the organization.
-      schema:
-        type: string
     ProjectUid:
       name: project_uid
       in: path
@@ -127,26 +120,14 @@ components:
       description: The unique identifier of the automation.
       schema:
         type: string
+    OrganizationUid:
+      name: organization_uid
+      in: path
+      required: true
+      description: The unique identifier of the organization.
+      schema:
+        type: string
   schemas:
-    Error:
-      type: object
-      description: Standard error response.
-      properties:
-        message:
-          type: string
-          description: Human-readable description of the error.
-        error_code:
-          type: integer
-          description: Numeric error code.
-    AutomationList:
-      type: object
-      description: A list of automations in a project.
-      properties:
-        data:
-          type: array
-          description: Array of automation objects.
-          items:
-            $ref: '#/components/schemas/Automation'
     Automation:
       type: object
       description: An automation workflow that connects a trigger to one or more actions.
@@ -180,6 +161,25 @@ components:
           type: string
           format: date-time
           description: ISO 8601 timestamp when the automation was last updated.
+    Error:
+      type: object
+      description: Standard error response.
+      properties:
+        message:
+          type: string
+          description: Human-readable description of the error.
+        error_code:
+          type: integer
+          description: Numeric error code.
+    AutomationList:
+      type: object
+      description: A list of automations in a project.
+      properties:
+        data:
+          type: array
+          description: Array of automation objects.
+          items:
+            $ref: '#/components/schemas/Automation'
   responses:
     BadRequest:
       description: The request is malformed or contains invalid parameters.

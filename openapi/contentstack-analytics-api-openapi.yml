@@ -43,6 +43,16 @@ paths:
           $ref: '#/components/responses/Unauthorized'
 components:
   schemas:
+    Error:
+      type: object
+      description: Standard error response.
+      properties:
+        message:
+          type: string
+          description: Human-readable description of the error.
+        error_code:
+          type: integer
+          description: Numeric error code.
     CacheUsage:
       type: object
       description: Cache revalidation usage metrics for the organization.
@@ -61,16 +71,6 @@ components:
           type: string
           format: date-time
           description: End of the current usage period.
-    Error:
-      type: object
-      description: Standard error response.
-      properties:
-        message:
-          type: string
-          description: Human-readable description of the error.
-        error_code:
-          type: integer
-          description: Numeric error code.
   responses:
     Unauthorized:
       description: Authentication credentials are missing or invalid.

@@ -80,37 +80,20 @@ paths:
         '401':
           $ref: '#/components/responses/Unauthorized'
 components:
-  parameters:
-    OrganizationUid:
-      name: organization_uid
-      in: path
-      required: true
-      description: The unique identifier of the organization.
-      schema:
-        type: string
+  responses:
+    NotFound:
+      description: The requested resource was not found.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    Unauthorized:
+      description: Authentication credentials are missing or invalid.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
   schemas:
-    OrganizationList:
-      type: object
-      description: A list of organizations.
-      properties:
-        organizations:
-          type: array
-          description: Array of organization objects.
-          items:
-            $ref: '#/components/schemas/Organization'
-    Error:
-      type: object
-      description: Standard error response.
-      properties:
-        error_message:
-          type: string
-          description: Human-readable description of the error.
-        error_code:
-          type: integer
-          description: Numeric error code.
-        errors:
-          type: object
-          description: Field-level validation errors.
     StackList:
       type: object
       description: A list of stacks.
@@ -167,19 +150,36 @@ components:
           type: string
           format: date-time
           description: ISO 8601 timestamp when the organization was created.
-  responses:
-    NotFound:
-      description: The requested resource was not found.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
-    Unauthorized:
-      description: Authentication credentials are missing or invalid.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
+    Error:
+      type: object
+      description: Standard error response.
+      properties:
+        error_message:
+          type: string
+          description: Human-readable description of the error.
+        error_code:
+          type: integer
+          description: Numeric error code.
+        errors:
+          type: object
+          description: Field-level validation errors.
+    OrganizationList:
+      type: object
+      description: A list of organizations.
+      properties:
+        organizations:
+          type: array
+          description: Array of organization objects.
+          items:
+            $ref: '#/components/schemas/Organization'
+  parameters:
+    OrganizationUid:
+      name: organization_uid
+      in: path
+      required: true
+      description: The unique identifier of the organization.
+      schema:
+        type: string
   securitySchemes:
     authtokenAuth:
       type: apiKey

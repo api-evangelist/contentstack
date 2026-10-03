@@ -76,43 +76,6 @@ paths:
           $ref: '#/components/responses/Unauthorized'
 components:
   schemas:
-    Error:
-      type: object
-      description: Standard error response returned by the API.
-      properties:
-        error_message:
-          type: string
-          description: Human-readable description of the error.
-        error_code:
-          type: integer
-          description: Numeric code identifying the error type.
-        errors:
-          type: object
-          description: Field-level validation errors when applicable.
-    SyncItem:
-      type: object
-      description: A single item in a sync response representing a content change event.
-      properties:
-        type:
-          type: string
-          description: 'The type of sync event. Possible values: entry_published, entry_unpublished, entry_deleted, asset_published, asset_unpublished, asset_deleted, content_type_deleted.'
-          enum:
-          - entry_published
-          - entry_unpublished
-          - entry_deleted
-          - asset_published
-          - asset_unpublished
-          - asset_deleted
-          - content_type_deleted
-        data:
-          type: object
-          description: The content data associated with this sync event.
-        content_type_uid:
-          type: string
-          description: The UID of the content type for entry-related events.
-        locale:
-          type: string
-          description: The locale of the content for locale-specific events.
     SyncResponse:
       type: object
       description: The response from a content sync operation, containing the synced items and tokens for subsequent sync requests.
@@ -137,28 +100,43 @@ components:
         skip:
           type: integer
           description: Number of items skipped in this response.
-  parameters:
-    AccessToken:
-      name: access_token
-      in: header
-      required: true
-      description: The delivery token for the stack environment.
-      schema:
-        type: string
-    ApiKey:
-      name: api_key
-      in: header
-      required: true
-      description: The API key for the Contentstack stack.
-      schema:
-        type: string
-    Locale:
-      name: locale
-      in: query
-      description: The locale code to retrieve localized content. Defaults to the default locale of the stack if not specified.
-      schema:
-        type: string
-        example: en-us
+    SyncItem:
+      type: object
+      description: A single item in a sync response representing a content change event.
+      properties:
+        type:
+          type: string
+          description: 'The type of sync event. Possible values: entry_published, entry_unpublished, entry_deleted, asset_published, asset_unpublished, asset_deleted, content_type_deleted.'
+          enum:
+          - entry_published
+          - entry_unpublished
+          - entry_deleted
+          - asset_published
+          - asset_unpublished
+          - asset_deleted
+          - content_type_deleted
+        data:
+          type: object
+          description: The content data associated with this sync event.
+        content_type_uid:
+          type: string
+          description: The UID of the content type for entry-related events.
+        locale:
+          type: string
+          description: The locale of the content for locale-specific events.
+    Error:
+      type: object
+      description: Standard error response returned by the API.
+      properties:
+        error_message:
+          type: string
+          description: Human-readable description of the error.
+        error_code:
+          type: integer
+          description: Numeric code identifying the error type.
+        errors:
+          type: object
+          description: Field-level validation errors when applicable.
   responses:
     Unauthorized:
       description: Authentication credentials are missing or invalid.
@@ -166,6 +144,28 @@ components:
         application/json:
           schema:
             $ref: '#/components/schemas/Error'
+  parameters:
+    Locale:
+      name: locale
+      in: query
+      description: The locale code to retrieve localized content. Defaults to the default locale of the stack if not specified.
+      schema:
+        type: string
+        example: en-us
+    ApiKey:
+      name: api_key
+      in: header
+      required: true
+      description: The API key for the Contentstack stack.
+      schema:
+        type: string
+    AccessToken:
+      name: access_token
+      in: header
+      required: true
+      description: The delivery token for the stack environment.
+      schema:
+        type: string
   securitySchemes:
     apiKey:
       type: apiKey

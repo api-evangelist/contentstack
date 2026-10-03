@@ -137,26 +137,29 @@ paths:
         '404':
           $ref: '#/components/responses/NotFound'
 components:
+  parameters:
+    ProjectUid:
+      name: project_uid
+      in: path
+      required: true
+      description: The unique identifier of the Launch project.
+      schema:
+        type: string
+    DeployUid:
+      name: deploy_uid
+      in: path
+      required: true
+      description: The unique identifier of the deployment.
+      schema:
+        type: string
+    EnvUid:
+      name: env_uid
+      in: path
+      required: true
+      description: The unique identifier of the deployment environment.
+      schema:
+        type: string
   schemas:
-    Error:
-      type: object
-      description: Standard error response.
-      properties:
-        message:
-          type: string
-          description: Human-readable description of the error.
-        error_code:
-          type: integer
-          description: Numeric error code.
-    DeploymentList:
-      type: object
-      description: A list of deployments.
-      properties:
-        data:
-          type: array
-          description: Array of deployment objects.
-          items:
-            $ref: '#/components/schemas/Deployment'
     Deployment:
       type: object
       description: A deployment operation to a Launch environment.
@@ -182,25 +185,6 @@ components:
           type: string
           format: date-time
           description: ISO 8601 timestamp when the deployment completed.
-    CreateDeploymentRequest:
-      type: object
-      description: Parameters for triggering a new deployment.
-      properties:
-        upload_uid:
-          type: string
-          description: The UID or reference to the previously uploaded build artifact.
-        branch:
-          type: string
-          description: The git branch to deploy from when using repository-linked deployments.
-    LogResponse:
-      type: object
-      description: Log output from a deployment or server.
-      properties:
-        logs:
-          type: array
-          description: Array of log line entries.
-          items:
-            $ref: '#/components/schemas/LogEntry'
     LogEntry:
       type: object
       description: A single log line entry.
@@ -220,15 +204,53 @@ components:
         message:
           type: string
           description: The log message content.
+    DeploymentList:
+      type: object
+      description: A list of deployments.
+      properties:
+        data:
+          type: array
+          description: Array of deployment objects.
+          items:
+            $ref: '#/components/schemas/Deployment'
+    CreateDeploymentRequest:
+      type: object
+      description: Parameters for triggering a new deployment.
+      properties:
+        upload_uid:
+          type: string
+          description: The UID or reference to the previously uploaded build artifact.
+        branch:
+          type: string
+          description: The git branch to deploy from when using repository-linked deployments.
+    Error:
+      type: object
+      description: Standard error response.
+      properties:
+        message:
+          type: string
+          description: Human-readable description of the error.
+        error_code:
+          type: integer
+          description: Numeric error code.
+    LogResponse:
+      type: object
+      description: Log output from a deployment or server.
+      properties:
+        logs:
+          type: array
+          description: Array of log line entries.
+          items:
+            $ref: '#/components/schemas/LogEntry'
   responses:
-    BadRequest:
-      description: The request is malformed or contains invalid parameters.
+    NotFound:
+      description: The requested resource was not found.
       content:
         application/json:
           schema:
             $ref: '#/components/schemas/Error'
-    NotFound:
-      description: The requested resource was not found.
+    BadRequest:
+      description: The request is malformed or contains invalid parameters.
       content:
         application/json:
           schema:
@@ -239,28 +261,6 @@ components:
         application/json:
           schema:
             $ref: '#/components/schemas/Error'
-  parameters:
-    EnvUid:
-      name: env_uid
-      in: path
-      required: true
-      description: The unique identifier of the deployment environment.
-      schema:
-        type: string
-    DeployUid:
-      name: deploy_uid
-      in: path
-      required: true
-      description: The unique identifier of the deployment.
-      schema:
-        type: string
-    ProjectUid:
-      name: project_uid
-      in: path
-      required: true
-      description: The unique identifier of the Launch project.
-      schema:
-        type: string
   securitySchemes:
     bearerAuth:
       type: http

@@ -64,19 +64,6 @@ paths:
           $ref: '#/components/responses/NotFound'
 components:
   schemas:
-    Error:
-      type: object
-      description: Standard error response returned by the API.
-      properties:
-        error_message:
-          type: string
-          description: Human-readable description of the error.
-        error_code:
-          type: integer
-          description: Numeric code identifying the error type.
-        errors:
-          type: object
-          description: Field-level validation errors when applicable.
     GlobalFieldList:
       type: object
       description: A list of global field definitions in the stack.
@@ -105,6 +92,19 @@ components:
         unique:
           type: boolean
           description: Indicates whether field values must be unique across entries.
+    Error:
+      type: object
+      description: Standard error response returned by the API.
+      properties:
+        error_message:
+          type: string
+          description: Human-readable description of the error.
+        error_code:
+          type: integer
+          description: Numeric code identifying the error type.
+        errors:
+          type: object
+          description: Field-level validation errors when applicable.
     GlobalField:
       type: object
       description: A reusable global field definition that can be embedded in content types.
@@ -128,28 +128,6 @@ components:
           type: string
           format: date-time
           description: ISO 8601 timestamp when the global field was last updated.
-  parameters:
-    GlobalFieldUid:
-      name: global_field_uid
-      in: path
-      required: true
-      description: The unique identifier (UID) of the global field.
-      schema:
-        type: string
-    AccessToken:
-      name: access_token
-      in: header
-      required: true
-      description: The delivery token for the stack environment.
-      schema:
-        type: string
-    ApiKey:
-      name: api_key
-      in: header
-      required: true
-      description: The API key for the Contentstack stack.
-      schema:
-        type: string
   responses:
     NotFound:
       description: The requested resource was not found.
@@ -163,6 +141,28 @@ components:
         application/json:
           schema:
             $ref: '#/components/schemas/Error'
+  parameters:
+    GlobalFieldUid:
+      name: global_field_uid
+      in: path
+      required: true
+      description: The unique identifier (UID) of the global field.
+      schema:
+        type: string
+    ApiKey:
+      name: api_key
+      in: header
+      required: true
+      description: The API key for the Contentstack stack.
+      schema:
+        type: string
+    AccessToken:
+      name: access_token
+      in: header
+      required: true
+      description: The delivery token for the stack environment.
+      schema:
+        type: string
   securitySchemes:
     apiKey:
       type: apiKey

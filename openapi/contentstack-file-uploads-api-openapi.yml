@@ -43,6 +43,16 @@ paths:
           $ref: '#/components/responses/Unauthorized'
 components:
   schemas:
+    Error:
+      type: object
+      description: Standard error response.
+      properties:
+        message:
+          type: string
+          description: Human-readable description of the error.
+        error_code:
+          type: integer
+          description: Numeric error code.
     UploadUrlResponse:
       type: object
       description: A pre-signed URL for uploading build artifacts.
@@ -58,16 +68,6 @@ components:
           type: string
           format: date-time
           description: ISO 8601 timestamp when the pre-signed URL expires (10 minutes).
-    Error:
-      type: object
-      description: Standard error response.
-      properties:
-        message:
-          type: string
-          description: Human-readable description of the error.
-        error_code:
-          type: integer
-          description: Numeric error code.
   responses:
     Unauthorized:
       description: Authentication credentials are missing or invalid.

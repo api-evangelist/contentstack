@@ -80,39 +80,6 @@ paths:
         '401':
           $ref: '#/components/responses/Unauthorized'
 components:
-  schemas:
-    GeoItem:
-      type: object
-      description: A geographic location item for audience targeting.
-      properties:
-        uid:
-          type: string
-          description: Unique identifier of the geographic location.
-        name:
-          type: string
-          description: Display name of the location.
-        code:
-          type: string
-          description: ISO code for the location (country code, region code, etc.).
-    Error:
-      type: object
-      description: Standard error response.
-      properties:
-        message:
-          type: string
-          description: Human-readable description of the error.
-        status:
-          type: integer
-          description: HTTP status code.
-    GeoList:
-      type: object
-      description: A list of geographic locations for audience targeting.
-      properties:
-        data:
-          type: array
-          description: Array of geographic location objects.
-          items:
-            $ref: '#/components/schemas/GeoItem'
   parameters:
     ProjectUid:
       name: x-project-uid
@@ -128,6 +95,39 @@ components:
         application/json:
           schema:
             $ref: '#/components/schemas/Error'
+  schemas:
+    Error:
+      type: object
+      description: Standard error response.
+      properties:
+        message:
+          type: string
+          description: Human-readable description of the error.
+        status:
+          type: integer
+          description: HTTP status code.
+    GeoItem:
+      type: object
+      description: A geographic location item for audience targeting.
+      properties:
+        uid:
+          type: string
+          description: Unique identifier of the geographic location.
+        name:
+          type: string
+          description: Display name of the location.
+        code:
+          type: string
+          description: ISO code for the location (country code, region code, etc.).
+    GeoList:
+      type: object
+      description: A list of geographic locations for audience targeting.
+      properties:
+        data:
+          type: array
+          description: Array of geographic location objects.
+          items:
+            $ref: '#/components/schemas/GeoItem'
   securitySchemes:
     bearerAuth:
       type: http

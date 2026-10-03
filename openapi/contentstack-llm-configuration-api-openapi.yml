@@ -75,32 +75,7 @@ paths:
         '401':
           $ref: '#/components/responses/Unauthorized'
 components:
-  parameters:
-    OrganizationUid:
-      name: organization_uid
-      in: header
-      required: true
-      description: The unique identifier of the organization.
-      schema:
-        type: string
-    BrandKitUid:
-      name: brand_kit_uid
-      in: path
-      required: true
-      description: The unique identifier of the Brand Kit.
-      schema:
-        type: string
   schemas:
-    Error:
-      type: object
-      description: Standard error response.
-      properties:
-        message:
-          type: string
-          description: Human-readable description of the error.
-        error_code:
-          type: integer
-          description: Numeric error code.
     LlmConfig:
       type: object
       description: Custom LLM provider configuration for a Brand Kit.
@@ -142,6 +117,16 @@ components:
           type: string
           format: uri
           description: Custom endpoint URL for Azure OpenAI or self-hosted deployments.
+    Error:
+      type: object
+      description: Standard error response.
+      properties:
+        message:
+          type: string
+          description: Human-readable description of the error.
+        error_code:
+          type: integer
+          description: Numeric error code.
   responses:
     BadRequest:
       description: The request is malformed or contains invalid parameters.
@@ -155,6 +140,21 @@ components:
         application/json:
           schema:
             $ref: '#/components/schemas/Error'
+  parameters:
+    OrganizationUid:
+      name: organization_uid
+      in: header
+      required: true
+      description: The unique identifier of the organization.
+      schema:
+        type: string
+    BrandKitUid:
+      name: brand_kit_uid
+      in: path
+      required: true
+      description: The unique identifier of the Brand Kit.
+      schema:
+        type: string
   securitySchemes:
     bearerAuth:
       type: http

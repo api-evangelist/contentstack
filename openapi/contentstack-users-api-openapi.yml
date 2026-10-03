@@ -65,20 +65,20 @@ paths:
         '401':
           $ref: '#/components/responses/Unauthorized'
 components:
+  responses:
+    BadRequest:
+      description: The request is malformed or contains invalid parameters.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    Unauthorized:
+      description: Authentication credentials are missing or invalid.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
   schemas:
-    Error:
-      type: object
-      description: Standard error response.
-      properties:
-        error_message:
-          type: string
-          description: Human-readable description of the error.
-        error_code:
-          type: integer
-          description: Numeric error code.
-        errors:
-          type: object
-          description: Field-level validation errors.
     User:
       type: object
       description: A Contentstack user account.
@@ -103,6 +103,19 @@ components:
           type: string
           format: date-time
           description: ISO 8601 timestamp when the user account was created.
+    Error:
+      type: object
+      description: Standard error response.
+      properties:
+        error_message:
+          type: string
+          description: Human-readable description of the error.
+        error_code:
+          type: integer
+          description: Numeric error code.
+        errors:
+          type: object
+          description: Field-level validation errors.
     UpdateUserRequest:
       type: object
       description: Fields to update on the user profile.
@@ -117,19 +130,6 @@ components:
             last_name:
               type: string
               description: Updated last name.
-  responses:
-    BadRequest:
-      description: The request is malformed or contains invalid parameters.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
-    Unauthorized:
-      description: Authentication credentials are missing or invalid.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
   securitySchemes:
     authtokenAuth:
       type: apiKey

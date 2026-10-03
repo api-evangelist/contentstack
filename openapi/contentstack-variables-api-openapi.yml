@@ -68,18 +68,18 @@ paths:
           $ref: '#/components/responses/Unauthorized'
 components:
   parameters:
-    OrganizationUid:
-      name: organization_uid
-      in: path
-      required: true
-      description: The unique identifier of the organization.
-      schema:
-        type: string
     ProjectUid:
       name: project_uid
       in: path
       required: true
       description: The unique identifier of the automation project.
+      schema:
+        type: string
+    OrganizationUid:
+      name: organization_uid
+      in: path
+      required: true
+      description: The unique identifier of the organization.
       schema:
         type: string
   schemas:
@@ -104,16 +104,15 @@ components:
           type: boolean
           description: Set to true to mark the variable as a secret.
           default: false
-    Error:
+    VariableList:
       type: object
-      description: Standard error response.
+      description: A list of project variables.
       properties:
-        message:
-          type: string
-          description: Human-readable description of the error.
-        error_code:
-          type: integer
-          description: Numeric error code.
+        data:
+          type: array
+          description: Array of variable objects.
+          items:
+            $ref: '#/components/schemas/Variable'
     Variable:
       type: object
       description: A reusable configuration variable for use across automations.
@@ -133,15 +132,16 @@ components:
         is_secret:
           type: boolean
           description: Indicates whether the variable value is treated as a secret.
-    VariableList:
+    Error:
       type: object
-      description: A list of project variables.
+      description: Standard error response.
       properties:
-        data:
-          type: array
-          description: Array of variable objects.
-          items:
-            $ref: '#/components/schemas/Variable'
+        message:
+          type: string
+          description: Human-readable description of the error.
+        error_code:
+          type: integer
+          description: Numeric error code.
   responses:
     BadRequest:
       description: The request is malformed or contains invalid parameters.

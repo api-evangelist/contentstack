@@ -63,28 +63,6 @@ paths:
         '404':
           $ref: '#/components/responses/NotFound'
 components:
-  parameters:
-    OrganizationUid:
-      name: organization_uid
-      in: path
-      required: true
-      description: The unique identifier of the organization.
-      schema:
-        type: string
-    ProjectUid:
-      name: project_uid
-      in: path
-      required: true
-      description: The unique identifier of the automation project.
-      schema:
-        type: string
-    ExecutionUid:
-      name: execution_uid
-      in: path
-      required: true
-      description: The unique identifier of the execution log entry.
-      schema:
-        type: string
   schemas:
     ExecutionLogList:
       type: object
@@ -135,6 +113,28 @@ components:
           description: Step-by-step execution results.
           items:
             type: object
+  parameters:
+    ProjectUid:
+      name: project_uid
+      in: path
+      required: true
+      description: The unique identifier of the automation project.
+      schema:
+        type: string
+    ExecutionUid:
+      name: execution_uid
+      in: path
+      required: true
+      description: The unique identifier of the execution log entry.
+      schema:
+        type: string
+    OrganizationUid:
+      name: organization_uid
+      in: path
+      required: true
+      description: The unique identifier of the organization.
+      schema:
+        type: string
   responses:
     NotFound:
       description: The requested resource was not found.

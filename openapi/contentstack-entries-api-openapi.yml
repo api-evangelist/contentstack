@@ -311,13 +311,6 @@ paths:
       description: Azure Europe Production Server
 components:
   parameters:
-    EntryUid:
-      name: entry_uid
-      in: path
-      required: true
-      description: The unique identifier (UID) of the entry.
-      schema:
-        type: string
     Limit:
       name: limit
       in: query
@@ -327,33 +320,11 @@ components:
         minimum: 1
         maximum: 250
         default: 100
-    Skip:
-      name: skip
-      in: query
-      description: Number of entries to skip for pagination.
-      schema:
-        type: integer
-        minimum: 0
-        default: 0
     ContentTypeUid:
       name: content_type_uid
       in: path
       required: true
       description: The unique identifier (UID) of the content type.
-      schema:
-        type: string
-    AccessToken:
-      name: access_token
-      in: header
-      required: true
-      description: The delivery token for the stack environment.
-      schema:
-        type: string
-    ApiKey:
-      name: api_key
-      in: header
-      required: true
-      description: The API key for the Contentstack stack.
       schema:
         type: string
     Locale:
@@ -363,6 +334,42 @@ components:
       schema:
         type: string
         example: en-us
+    Skip:
+      name: skip
+      in: query
+      description: Number of entries to skip for pagination.
+      schema:
+        type: integer
+        minimum: 0
+        default: 0
+    EntryUid:
+      name: entry_uid
+      in: path
+      required: true
+      description: The unique identifier (UID) of the entry.
+      schema:
+        type: string
+    ApiKey:
+      name: api_key
+      in: header
+      required: true
+      description: The API key for the Contentstack stack.
+      schema:
+        type: string
+    AccessToken:
+      name: access_token
+      in: header
+      required: true
+      description: The delivery token for the stack environment.
+      schema:
+        type: string
+    StackApiKey:
+      name: api_key
+      in: header
+      required: true
+      description: The API key identifying the Contentstack stack.
+      schema:
+        type: string
     Limit_2:
       name: limit
       in: query
@@ -372,6 +379,13 @@ components:
         minimum: 1
         maximum: 250
         default: 100
+    Locale_2:
+      name: locale
+      in: query
+      description: The locale code for localized content operations.
+      schema:
+        type: string
+        example: en-us
     Skip_2:
       name: skip
       in: query
@@ -380,20 +394,6 @@ components:
         type: integer
         minimum: 0
         default: 0
-    StackApiKey:
-      name: api_key
-      in: header
-      required: true
-      description: The API key identifying the Contentstack stack.
-      schema:
-        type: string
-    Locale_2:
-      name: locale
-      in: query
-      description: The locale code for localized content operations.
-      schema:
-        type: string
-        example: en-us
     AuthToken:
       name: authtoken
       in: header
@@ -401,20 +401,38 @@ components:
       description: User session token for authentication. Required if not using management token.
       schema:
         type: string
+  responses:
+    NotFound:
+      description: The requested resource was not found.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    Unauthorized:
+      description: Authentication credentials are missing or invalid.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    BadRequest:
+      description: The request is malformed or contains invalid parameters.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error_2'
   schemas:
-    Error:
+    EntryList:
       type: object
-      description: Standard error response returned by the API.
+      description: A paginated list of published entries.
       properties:
-        error_message:
-          type: string
-          description: Human-readable description of the error.
-        error_code:
+        entries:
+          type: array
+          description: Array of entry objects.
+          items:
+            $ref: '#/components/schemas/Entry'
+        count:
           type: integer
-          description: Numeric code identifying the error type.
-        errors:
-          type: object
-          description: Field-level validation errors when applicable.
+          description: Total count of matching entries when include_count is true.
     Entry:
       type: object
       description: A published content entry with all its field values.
@@ -440,40 +458,58 @@ components:
           type: string
           format: date-time
           description: ISO 8601 timestamp when the entry was last published.
-    EntryList:
+    Error:
       type: object
-      description: A paginated list of published entries.
-      properties:
-        entries:
-          type: array
-          description: Array of entry objects.
-          items:
-            $ref: '#/components/schemas/Entry'
-        count:
-          type: integer
-          description: Total count of matching entries when include_count is true.
-    CreateEntryRequest:
-      type: object
-      description: Parameters for creating a new entry.
-      required:
-      - entry
-      properties:
-        entry:
-          type: object
-          description: Entry field values conforming to the content type schema.
-    Error_2:
-      type: object
-      description: Standard error response.
+      description: Standard error response returned by the API.
       properties:
         error_message:
           type: string
           description: Human-readable description of the error.
         error_code:
           type: integer
-          description: Numeric error code.
+          description: Numeric code identifying the error type.
         errors:
           type: object
-          description: Field-level validation errors.
+          description: Field-level validation errors when applicable.
+    PublishRequest:
+      type: object
+      description: Parameters for publishing or unpublishing an entry or asset.
+      properties:
+        entry:
+          type: object
+          description: Publish configuration.
+          properties:
+            environments:
+              type: array
+              description: List of environment names to publish to.
+              items:
+                type: string
+            locales:
+              type: array
+              description: List of locale codes to publish.
+              items:
+                type: string
+    EntryList_2:
+      type: object
+      description: A paginated list of entries.
+      properties:
+        entries:
+          type: array
+          description: Array of entry objects.
+          items:
+            $ref: '#/components/schemas/Entry_2'
+        count:
+          type: integer
+          description: Total number of entries.
+    UpdateEntryRequest:
+      type: object
+      description: Parameters for updating an entry.
+      required:
+      - entry
+      properties:
+        entry:
+          type: object
+          description: Updated field values for the entry.
     Entry_2:
       type: object
       description: A content entry with field values and system metadata.
@@ -498,64 +534,28 @@ components:
           type: string
           format: date-time
           description: ISO 8601 timestamp when the entry was last updated.
-    PublishRequest:
+    Error_2:
       type: object
-      description: Parameters for publishing or unpublishing an entry or asset.
+      description: Standard error response.
       properties:
-        entry:
+        error_message:
+          type: string
+          description: Human-readable description of the error.
+        error_code:
+          type: integer
+          description: Numeric error code.
+        errors:
           type: object
-          description: Publish configuration.
-          properties:
-            environments:
-              type: array
-              description: List of environment names to publish to.
-              items:
-                type: string
-            locales:
-              type: array
-              description: List of locale codes to publish.
-              items:
-                type: string
-    UpdateEntryRequest:
+          description: Field-level validation errors.
+    CreateEntryRequest:
       type: object
-      description: Parameters for updating an entry.
+      description: Parameters for creating a new entry.
       required:
       - entry
       properties:
         entry:
           type: object
-          description: Updated field values for the entry.
-    EntryList_2:
-      type: object
-      description: A paginated list of entries.
-      properties:
-        entries:
-          type: array
-          description: Array of entry objects.
-          items:
-            $ref: '#/components/schemas/Entry_2'
-        count:
-          type: integer
-          description: Total number of entries.
-  responses:
-    NotFound:
-      description: The requested resource was not found.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
-    Unauthorized:
-      description: Authentication credentials are missing or invalid.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
-    BadRequest:
-      description: The request is malformed or contains invalid parameters.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error_2'
+          description: Entry field values conforming to the content type schema.
   securitySchemes:
     apiKey:
       type: apiKey
