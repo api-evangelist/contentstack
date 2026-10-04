@@ -80,14 +80,6 @@ paths:
         '401':
           $ref: '#/components/responses/Unauthorized'
 components:
-  parameters:
-    ProjectUid:
-      name: x-project-uid
-      in: header
-      required: true
-      description: The UID of the Contentstack Personalize project.
-      schema:
-        type: string
   responses:
     Unauthorized:
       description: Authentication credentials are missing or invalid.
@@ -96,16 +88,15 @@ components:
           schema:
             $ref: '#/components/schemas/Error'
   schemas:
-    Error:
+    GeoList:
       type: object
-      description: Standard error response.
+      description: A list of geographic locations for audience targeting.
       properties:
-        message:
-          type: string
-          description: Human-readable description of the error.
-        status:
-          type: integer
-          description: HTTP status code.
+        data:
+          type: array
+          description: Array of geographic location objects.
+          items:
+            $ref: '#/components/schemas/GeoItem'
     GeoItem:
       type: object
       description: A geographic location item for audience targeting.
@@ -119,15 +110,24 @@ components:
         code:
           type: string
           description: ISO code for the location (country code, region code, etc.).
-    GeoList:
+    Error:
       type: object
-      description: A list of geographic locations for audience targeting.
+      description: Standard error response.
       properties:
-        data:
-          type: array
-          description: Array of geographic location objects.
-          items:
-            $ref: '#/components/schemas/GeoItem'
+        message:
+          type: string
+          description: Human-readable description of the error.
+        status:
+          type: integer
+          description: HTTP status code.
+  parameters:
+    ProjectUid:
+      name: x-project-uid
+      in: header
+      required: true
+      description: The UID of the Contentstack Personalize project.
+      schema:
+        type: string
   securitySchemes:
     bearerAuth:
       type: http

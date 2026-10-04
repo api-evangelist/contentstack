@@ -282,6 +282,25 @@ components:
       description: The unique identifier of the deployment environment.
       schema:
         type: string
+  responses:
+    Unauthorized:
+      description: Authentication credentials are missing or invalid.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    BadRequest:
+      description: The request is malformed or contains invalid parameters.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error_2'
+    NotFound:
+      description: The requested resource was not found.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error_2'
   schemas:
     EnvironmentList:
       type: object
@@ -292,6 +311,19 @@ components:
           description: Array of environment objects.
           items:
             $ref: '#/components/schemas/Environment'
+    Error:
+      type: object
+      description: Standard error response.
+      properties:
+        error_message:
+          type: string
+          description: Human-readable description of the error.
+        error_code:
+          type: integer
+          description: Numeric error code.
+        errors:
+          type: object
+          description: Field-level validation errors.
     Environment:
       type: object
       description: A deployment environment for publishing content.
@@ -319,19 +351,18 @@ components:
           type: string
           format: date-time
           description: ISO 8601 timestamp when the environment was created.
-    Error:
+    CreateEnvironmentRequest:
       type: object
-      description: Standard error response.
+      description: Parameters for creating or updating an environment.
+      required:
+      - name
       properties:
-        error_message:
+        name:
           type: string
-          description: Human-readable description of the error.
-        error_code:
-          type: integer
-          description: Numeric error code.
-        errors:
-          type: object
-          description: Field-level validation errors.
+          description: Display name for the environment.
+        domain:
+          type: string
+          description: Custom domain for the environment.
     EnvironmentList_2:
       type: object
       description: A list of deployment environments.
@@ -341,6 +372,16 @@ components:
           description: Array of environment objects.
           items:
             $ref: '#/components/schemas/Environment_2'
+    Error_2:
+      type: object
+      description: Standard error response.
+      properties:
+        message:
+          type: string
+          description: Human-readable description of the error.
+        error_code:
+          type: integer
+          description: Numeric error code.
     Environment_2:
       type: object
       description: A deployment environment within a Launch project.
@@ -365,47 +406,6 @@ components:
           type: string
           format: date-time
           description: ISO 8601 timestamp when the environment was created.
-    CreateEnvironmentRequest:
-      type: object
-      description: Parameters for creating or updating an environment.
-      required:
-      - name
-      properties:
-        name:
-          type: string
-          description: Display name for the environment.
-        domain:
-          type: string
-          description: Custom domain for the environment.
-    Error_2:
-      type: object
-      description: Standard error response.
-      properties:
-        message:
-          type: string
-          description: Human-readable description of the error.
-        error_code:
-          type: integer
-          description: Numeric error code.
-  responses:
-    Unauthorized:
-      description: Authentication credentials are missing or invalid.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
-    NotFound:
-      description: The requested resource was not found.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error_2'
-    BadRequest:
-      description: The request is malformed or contains invalid parameters.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error_2'
   securitySchemes:
     authtokenAuth:
       type: apiKey

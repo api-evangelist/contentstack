@@ -115,13 +115,6 @@ paths:
           $ref: '#/components/responses/NotFound'
 components:
   parameters:
-    ProjectUid:
-      name: x-project-uid
-      in: header
-      required: true
-      description: The UID of the Contentstack Personalize project.
-      schema:
-        type: string
     AttributeId:
       name: id
       in: path
@@ -129,25 +122,13 @@ components:
       description: The unique identifier of the attribute.
       schema:
         type: string
-  responses:
-    NotFound:
-      description: The requested resource was not found.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
-    BadRequest:
-      description: The request is malformed or contains invalid parameters.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
-    Unauthorized:
-      description: Authentication credentials are missing or invalid.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
+    ProjectUid:
+      name: x-project-uid
+      in: header
+      required: true
+      description: The UID of the Contentstack Personalize project.
+      schema:
+        type: string
   schemas:
     AttributeList:
       type: object
@@ -158,38 +139,6 @@ components:
           description: Array of attribute objects.
           items:
             $ref: '#/components/schemas/Attribute'
-    Error:
-      type: object
-      description: Standard error response.
-      properties:
-        message:
-          type: string
-          description: Human-readable description of the error.
-        status:
-          type: integer
-          description: HTTP status code.
-    CreateAttributeRequest:
-      type: object
-      description: Parameters for creating or updating an attribute.
-      required:
-      - name
-      - key
-      - data_type
-      properties:
-        name:
-          type: string
-          description: Display name for the attribute.
-        key:
-          type: string
-          description: Machine-readable key for the attribute.
-        data_type:
-          type: string
-          description: Data type of the attribute.
-          enum:
-          - string
-          - number
-          - boolean
-          - date
     Attribute:
       type: object
       description: A user attribute definition used in audience segment rules.
@@ -215,6 +164,57 @@ components:
           type: string
           format: date-time
           description: ISO 8601 timestamp when the attribute was created.
+    CreateAttributeRequest:
+      type: object
+      description: Parameters for creating or updating an attribute.
+      required:
+      - name
+      - key
+      - data_type
+      properties:
+        name:
+          type: string
+          description: Display name for the attribute.
+        key:
+          type: string
+          description: Machine-readable key for the attribute.
+        data_type:
+          type: string
+          description: Data type of the attribute.
+          enum:
+          - string
+          - number
+          - boolean
+          - date
+    Error:
+      type: object
+      description: Standard error response.
+      properties:
+        message:
+          type: string
+          description: Human-readable description of the error.
+        status:
+          type: integer
+          description: HTTP status code.
+  responses:
+    Unauthorized:
+      description: Authentication credentials are missing or invalid.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    BadRequest:
+      description: The request is malformed or contains invalid parameters.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    NotFound:
+      description: The requested resource was not found.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
   securitySchemes:
     bearerAuth:
       type: http

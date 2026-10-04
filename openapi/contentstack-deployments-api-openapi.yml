@@ -137,28 +137,6 @@ paths:
         '404':
           $ref: '#/components/responses/NotFound'
 components:
-  parameters:
-    ProjectUid:
-      name: project_uid
-      in: path
-      required: true
-      description: The unique identifier of the Launch project.
-      schema:
-        type: string
-    DeployUid:
-      name: deploy_uid
-      in: path
-      required: true
-      description: The unique identifier of the deployment.
-      schema:
-        type: string
-    EnvUid:
-      name: env_uid
-      in: path
-      required: true
-      description: The unique identifier of the deployment environment.
-      schema:
-        type: string
   schemas:
     Deployment:
       type: object
@@ -204,15 +182,6 @@ components:
         message:
           type: string
           description: The log message content.
-    DeploymentList:
-      type: object
-      description: A list of deployments.
-      properties:
-        data:
-          type: array
-          description: Array of deployment objects.
-          items:
-            $ref: '#/components/schemas/Deployment'
     CreateDeploymentRequest:
       type: object
       description: Parameters for triggering a new deployment.
@@ -223,6 +192,15 @@ components:
         branch:
           type: string
           description: The git branch to deploy from when using repository-linked deployments.
+    LogResponse:
+      type: object
+      description: Log output from a deployment or server.
+      properties:
+        logs:
+          type: array
+          description: Array of log line entries.
+          items:
+            $ref: '#/components/schemas/LogEntry'
     Error:
       type: object
       description: Standard error response.
@@ -233,18 +211,18 @@ components:
         error_code:
           type: integer
           description: Numeric error code.
-    LogResponse:
+    DeploymentList:
       type: object
-      description: Log output from a deployment or server.
+      description: A list of deployments.
       properties:
-        logs:
+        data:
           type: array
-          description: Array of log line entries.
+          description: Array of deployment objects.
           items:
-            $ref: '#/components/schemas/LogEntry'
+            $ref: '#/components/schemas/Deployment'
   responses:
-    NotFound:
-      description: The requested resource was not found.
+    Unauthorized:
+      description: Authentication credentials are missing or invalid.
       content:
         application/json:
           schema:
@@ -255,12 +233,34 @@ components:
         application/json:
           schema:
             $ref: '#/components/schemas/Error'
-    Unauthorized:
-      description: Authentication credentials are missing or invalid.
+    NotFound:
+      description: The requested resource was not found.
       content:
         application/json:
           schema:
             $ref: '#/components/schemas/Error'
+  parameters:
+    ProjectUid:
+      name: project_uid
+      in: path
+      required: true
+      description: The unique identifier of the Launch project.
+      schema:
+        type: string
+    EnvUid:
+      name: env_uid
+      in: path
+      required: true
+      description: The unique identifier of the deployment environment.
+      schema:
+        type: string
+    DeployUid:
+      name: deploy_uid
+      in: path
+      required: true
+      description: The unique identifier of the deployment.
+      schema:
+        type: string
   securitySchemes:
     bearerAuth:
       type: http

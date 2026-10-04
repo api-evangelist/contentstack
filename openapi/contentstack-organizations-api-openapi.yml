@@ -80,29 +80,37 @@ paths:
         '401':
           $ref: '#/components/responses/Unauthorized'
 components:
+  parameters:
+    OrganizationUid:
+      name: organization_uid
+      in: path
+      required: true
+      description: The unique identifier of the organization.
+      schema:
+        type: string
   responses:
-    NotFound:
-      description: The requested resource was not found.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
     Unauthorized:
       description: Authentication credentials are missing or invalid.
       content:
         application/json:
           schema:
             $ref: '#/components/schemas/Error'
+    NotFound:
+      description: The requested resource was not found.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
   schemas:
-    StackList:
+    OrganizationList:
       type: object
-      description: A list of stacks.
+      description: A list of organizations.
       properties:
-        stacks:
+        organizations:
           type: array
-          description: Array of stack objects.
+          description: Array of organization objects.
           items:
-            $ref: '#/components/schemas/Stack'
+            $ref: '#/components/schemas/Organization'
     Stack:
       type: object
       description: A Contentstack stack, which is an independent content repository.
@@ -163,23 +171,15 @@ components:
         errors:
           type: object
           description: Field-level validation errors.
-    OrganizationList:
+    StackList:
       type: object
-      description: A list of organizations.
+      description: A list of stacks.
       properties:
-        organizations:
+        stacks:
           type: array
-          description: Array of organization objects.
+          description: Array of stack objects.
           items:
-            $ref: '#/components/schemas/Organization'
-  parameters:
-    OrganizationUid:
-      name: organization_uid
-      in: path
-      required: true
-      description: The unique identifier of the organization.
-      schema:
-        type: string
+            $ref: '#/components/schemas/Stack'
   securitySchemes:
     authtokenAuth:
       type: apiKey

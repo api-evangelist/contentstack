@@ -167,6 +167,24 @@ paths:
           $ref: '#/components/responses/NotFound'
 components:
   schemas:
+    ScimPatchOperation:
+      type: object
+      description: A single SCIM PATCH operation.
+      required:
+      - op
+      properties:
+        op:
+          type: string
+          description: The operation type.
+          enum:
+          - add
+          - remove
+          - replace
+        path:
+          type: string
+          description: The attribute path to target for the operation.
+        value:
+          description: The value to apply for add or replace operations.
     ScimError:
       type: object
       description: A SCIM 2.0 error response.
@@ -200,24 +218,6 @@ components:
           description: List of PATCH operations to perform.
           items:
             $ref: '#/components/schemas/ScimPatchOperation'
-    ScimPatchOperation:
-      type: object
-      description: A single SCIM PATCH operation.
-      required:
-      - op
-      properties:
-        op:
-          type: string
-          description: The operation type.
-          enum:
-          - add
-          - remove
-          - replace
-        path:
-          type: string
-          description: The attribute path to target for the operation.
-        value:
-          description: The value to apply for add or replace operations.
     ScimGroup:
       type: object
       description: A SCIM 2.0 Group resource representing a Contentstack user group.
@@ -273,13 +273,6 @@ components:
           items:
             type: object
   parameters:
-    GroupId:
-      name: group_id
-      in: path
-      required: true
-      description: The SCIM group ID of the group within the organization.
-      schema:
-        type: string
     OrganizationUid:
       name: organization_uid
       in: path
@@ -287,9 +280,16 @@ components:
       description: The unique identifier of the Contentstack organization.
       schema:
         type: string
+    GroupId:
+      name: group_id
+      in: path
+      required: true
+      description: The SCIM group ID of the group within the organization.
+      schema:
+        type: string
   responses:
-    NotFound:
-      description: The requested SCIM resource was not found.
+    Unauthorized:
+      description: The SCIM bearer token is missing or invalid.
       content:
         application/json:
           schema:
@@ -300,8 +300,8 @@ components:
         application/json:
           schema:
             $ref: '#/components/schemas/ScimError'
-    Unauthorized:
-      description: The SCIM bearer token is missing or invalid.
+    NotFound:
+      description: The requested SCIM resource was not found.
       content:
         application/json:
           schema:

@@ -138,6 +138,38 @@ paths:
         '404':
           $ref: '#/components/responses/NotFound'
 components:
+  parameters:
+    OrganizationUid:
+      name: organization_uid
+      in: header
+      required: true
+      description: The unique identifier of the organization.
+      schema:
+        type: string
+    BrandKitUid:
+      name: brand_kit_uid
+      in: path
+      required: true
+      description: The unique identifier of the Brand Kit.
+      schema:
+        type: string
+    Limit:
+      name: limit
+      in: query
+      description: Maximum number of records to return.
+      schema:
+        type: integer
+        minimum: 1
+        maximum: 100
+        default: 25
+    Skip:
+      name: skip
+      in: query
+      description: Number of records to skip for pagination.
+      schema:
+        type: integer
+        minimum: 0
+        default: 0
   schemas:
     BrandKit:
       type: object
@@ -163,6 +195,18 @@ components:
           type: string
           format: date-time
           description: ISO 8601 timestamp when the Brand Kit was last updated.
+    CreateBrandKitRequest:
+      type: object
+      description: Parameters for creating or updating a Brand Kit.
+      required:
+      - name
+      properties:
+        name:
+          type: string
+          description: Display name for the Brand Kit.
+        description:
+          type: string
+          description: Description of the Brand Kit's purpose.
     BrandKitList:
       type: object
       description: A paginated list of Brand Kits.
@@ -185,53 +229,9 @@ components:
         error_code:
           type: integer
           description: Numeric error code.
-    CreateBrandKitRequest:
-      type: object
-      description: Parameters for creating or updating a Brand Kit.
-      required:
-      - name
-      properties:
-        name:
-          type: string
-          description: Display name for the Brand Kit.
-        description:
-          type: string
-          description: Description of the Brand Kit's purpose.
-  parameters:
-    Limit:
-      name: limit
-      in: query
-      description: Maximum number of records to return.
-      schema:
-        type: integer
-        minimum: 1
-        maximum: 100
-        default: 25
-    Skip:
-      name: skip
-      in: query
-      description: Number of records to skip for pagination.
-      schema:
-        type: integer
-        minimum: 0
-        default: 0
-    OrganizationUid:
-      name: organization_uid
-      in: header
-      required: true
-      description: The unique identifier of the organization.
-      schema:
-        type: string
-    BrandKitUid:
-      name: brand_kit_uid
-      in: path
-      required: true
-      description: The unique identifier of the Brand Kit.
-      schema:
-        type: string
   responses:
-    NotFound:
-      description: The requested resource was not found.
+    Unauthorized:
+      description: Authentication credentials are missing or invalid.
       content:
         application/json:
           schema:
@@ -242,8 +242,8 @@ components:
         application/json:
           schema:
             $ref: '#/components/schemas/Error'
-    Unauthorized:
-      description: Authentication credentials are missing or invalid.
+    NotFound:
+      description: The requested resource was not found.
       content:
         application/json:
           schema:

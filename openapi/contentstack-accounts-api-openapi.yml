@@ -41,28 +41,6 @@ paths:
         '401':
           $ref: '#/components/responses/Unauthorized'
 components:
-  parameters:
-    ProjectUid:
-      name: project_uid
-      in: path
-      required: true
-      description: The unique identifier of the automation project.
-      schema:
-        type: string
-    OrganizationUid:
-      name: organization_uid
-      in: path
-      required: true
-      description: The unique identifier of the organization.
-      schema:
-        type: string
-  responses:
-    Unauthorized:
-      description: Authentication credentials are missing or invalid.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
   schemas:
     AccountList:
       type: object
@@ -73,16 +51,6 @@ components:
           description: Array of account connection objects.
           items:
             $ref: '#/components/schemas/Account'
-    Error:
-      type: object
-      description: Standard error response.
-      properties:
-        message:
-          type: string
-          description: Human-readable description of the error.
-        error_code:
-          type: integer
-          description: Numeric error code.
     Account:
       type: object
       description: An authenticated connection to an external service for use in automations.
@@ -100,6 +68,38 @@ components:
           type: string
           format: date-time
           description: ISO 8601 timestamp when the account connection was created.
+    Error:
+      type: object
+      description: Standard error response.
+      properties:
+        message:
+          type: string
+          description: Human-readable description of the error.
+        error_code:
+          type: integer
+          description: Numeric error code.
+  parameters:
+    OrganizationUid:
+      name: organization_uid
+      in: path
+      required: true
+      description: The unique identifier of the organization.
+      schema:
+        type: string
+    ProjectUid:
+      name: project_uid
+      in: path
+      required: true
+      description: The unique identifier of the automation project.
+      schema:
+        type: string
+  responses:
+    Unauthorized:
+      description: Authentication credentials are missing or invalid.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
   securitySchemes:
     bearerAuth:
       type: http

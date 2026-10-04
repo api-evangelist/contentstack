@@ -106,6 +106,13 @@ paths:
           $ref: '#/components/responses/Unauthorized'
 components:
   parameters:
+    OrganizationUid:
+      name: organization_uid
+      in: path
+      required: true
+      description: The unique identifier of the organization.
+      schema:
+        type: string
     ProjectUid:
       name: project_uid
       in: path
@@ -120,13 +127,25 @@ components:
       description: The unique identifier of the automation.
       schema:
         type: string
-    OrganizationUid:
-      name: organization_uid
-      in: path
-      required: true
-      description: The unique identifier of the organization.
-      schema:
-        type: string
+  responses:
+    Unauthorized:
+      description: Authentication credentials are missing or invalid.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    BadRequest:
+      description: The request is malformed or contains invalid parameters.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    NotFound:
+      description: The requested resource was not found.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
   schemas:
     Automation:
       type: object
@@ -180,25 +199,6 @@ components:
           description: Array of automation objects.
           items:
             $ref: '#/components/schemas/Automation'
-  responses:
-    BadRequest:
-      description: The request is malformed or contains invalid parameters.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
-    NotFound:
-      description: The requested resource was not found.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
-    Unauthorized:
-      description: Authentication credentials are missing or invalid.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
   securitySchemes:
     bearerAuth:
       type: http

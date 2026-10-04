@@ -73,6 +73,29 @@ components:
           description: Array of global field objects.
           items:
             $ref: '#/components/schemas/GlobalField'
+    GlobalField:
+      type: object
+      description: A reusable global field definition that can be embedded in content types.
+      properties:
+        uid:
+          type: string
+          description: Unique identifier of the global field.
+        title:
+          type: string
+          description: Display name of the global field.
+        schema:
+          type: array
+          description: Array of field definitions within the global field group.
+          items:
+            $ref: '#/components/schemas/Field'
+        created_at:
+          type: string
+          format: date-time
+          description: ISO 8601 timestamp when the global field was created.
+        updated_at:
+          type: string
+          format: date-time
+          description: ISO 8601 timestamp when the global field was last updated.
     Field:
       type: object
       description: A field definition within a content type schema.
@@ -105,42 +128,6 @@ components:
         errors:
           type: object
           description: Field-level validation errors when applicable.
-    GlobalField:
-      type: object
-      description: A reusable global field definition that can be embedded in content types.
-      properties:
-        uid:
-          type: string
-          description: Unique identifier of the global field.
-        title:
-          type: string
-          description: Display name of the global field.
-        schema:
-          type: array
-          description: Array of field definitions within the global field group.
-          items:
-            $ref: '#/components/schemas/Field'
-        created_at:
-          type: string
-          format: date-time
-          description: ISO 8601 timestamp when the global field was created.
-        updated_at:
-          type: string
-          format: date-time
-          description: ISO 8601 timestamp when the global field was last updated.
-  responses:
-    NotFound:
-      description: The requested resource was not found.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
-    Unauthorized:
-      description: Authentication credentials are missing or invalid.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
   parameters:
     GlobalFieldUid:
       name: global_field_uid
@@ -163,6 +150,19 @@ components:
       description: The delivery token for the stack environment.
       schema:
         type: string
+  responses:
+    Unauthorized:
+      description: Authentication credentials are missing or invalid.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    NotFound:
+      description: The requested resource was not found.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
   securitySchemes:
     apiKey:
       type: apiKey

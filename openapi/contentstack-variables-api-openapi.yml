@@ -68,13 +68,6 @@ paths:
           $ref: '#/components/responses/Unauthorized'
 components:
   parameters:
-    ProjectUid:
-      name: project_uid
-      in: path
-      required: true
-      description: The unique identifier of the automation project.
-      schema:
-        type: string
     OrganizationUid:
       name: organization_uid
       in: path
@@ -82,7 +75,52 @@ components:
       description: The unique identifier of the organization.
       schema:
         type: string
+    ProjectUid:
+      name: project_uid
+      in: path
+      required: true
+      description: The unique identifier of the automation project.
+      schema:
+        type: string
   schemas:
+    Variable:
+      type: object
+      description: A reusable configuration variable for use across automations.
+      properties:
+        uid:
+          type: string
+          description: Unique identifier of the variable.
+        name:
+          type: string
+          description: Display name of the variable.
+        key:
+          type: string
+          description: Machine-readable key for referencing the variable in automations.
+        value:
+          type: string
+          description: The value stored in the variable. Sensitive values may be masked.
+        is_secret:
+          type: boolean
+          description: Indicates whether the variable value is treated as a secret.
+    VariableList:
+      type: object
+      description: A list of project variables.
+      properties:
+        data:
+          type: array
+          description: Array of variable objects.
+          items:
+            $ref: '#/components/schemas/Variable'
+    Error:
+      type: object
+      description: Standard error response.
+      properties:
+        message:
+          type: string
+          description: Human-readable description of the error.
+        error_code:
+          type: integer
+          description: Numeric error code.
     CreateVariableRequest:
       type: object
       description: Parameters for creating a project variable.
@@ -104,53 +142,15 @@ components:
           type: boolean
           description: Set to true to mark the variable as a secret.
           default: false
-    VariableList:
-      type: object
-      description: A list of project variables.
-      properties:
-        data:
-          type: array
-          description: Array of variable objects.
-          items:
-            $ref: '#/components/schemas/Variable'
-    Variable:
-      type: object
-      description: A reusable configuration variable for use across automations.
-      properties:
-        uid:
-          type: string
-          description: Unique identifier of the variable.
-        name:
-          type: string
-          description: Display name of the variable.
-        key:
-          type: string
-          description: Machine-readable key for referencing the variable in automations.
-        value:
-          type: string
-          description: The value stored in the variable. Sensitive values may be masked.
-        is_secret:
-          type: boolean
-          description: Indicates whether the variable value is treated as a secret.
-    Error:
-      type: object
-      description: Standard error response.
-      properties:
-        message:
-          type: string
-          description: Human-readable description of the error.
-        error_code:
-          type: integer
-          description: Numeric error code.
   responses:
-    BadRequest:
-      description: The request is malformed or contains invalid parameters.
+    Unauthorized:
+      description: Authentication credentials are missing or invalid.
       content:
         application/json:
           schema:
             $ref: '#/components/schemas/Error'
-    Unauthorized:
-      description: Authentication credentials are missing or invalid.
+    BadRequest:
+      description: The request is malformed or contains invalid parameters.
       content:
         application/json:
           schema:

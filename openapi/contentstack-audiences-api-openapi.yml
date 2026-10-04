@@ -114,31 +114,27 @@ paths:
         '404':
           $ref: '#/components/responses/NotFound'
 components:
-  parameters:
-    ProjectUid:
-      name: x-project-uid
-      in: header
-      required: true
-      description: The UID of the Contentstack Personalize project.
-      schema:
-        type: string
-    AudienceId:
-      name: id
-      in: path
-      required: true
-      description: The unique identifier of the audience.
-      schema:
-        type: string
   schemas:
-    AudienceList:
+    Audience:
       type: object
-      description: A list of audience segment definitions.
+      description: An audience segment based on attribute rules and user behaviors.
       properties:
-        data:
-          type: array
-          description: Array of audience objects.
-          items:
-            $ref: '#/components/schemas/Audience'
+        uid:
+          type: string
+          description: Unique identifier of the audience.
+        name:
+          type: string
+          description: Display name of the audience.
+        description:
+          type: string
+          description: Description of the audience and its targeting criteria.
+        rules:
+          type: object
+          description: Logical conditions that determine audience membership.
+        created_at:
+          type: string
+          format: date-time
+          description: ISO 8601 timestamp when the audience was created.
     CreateAudienceRequest:
       type: object
       description: Parameters for creating or updating an audience.
@@ -164,29 +160,18 @@ components:
         status:
           type: integer
           description: HTTP status code.
-    Audience:
+    AudienceList:
       type: object
-      description: An audience segment based on attribute rules and user behaviors.
+      description: A list of audience segment definitions.
       properties:
-        uid:
-          type: string
-          description: Unique identifier of the audience.
-        name:
-          type: string
-          description: Display name of the audience.
-        description:
-          type: string
-          description: Description of the audience and its targeting criteria.
-        rules:
-          type: object
-          description: Logical conditions that determine audience membership.
-        created_at:
-          type: string
-          format: date-time
-          description: ISO 8601 timestamp when the audience was created.
+        data:
+          type: array
+          description: Array of audience objects.
+          items:
+            $ref: '#/components/schemas/Audience'
   responses:
-    NotFound:
-      description: The requested resource was not found.
+    Unauthorized:
+      description: Authentication credentials are missing or invalid.
       content:
         application/json:
           schema:
@@ -197,12 +182,27 @@ components:
         application/json:
           schema:
             $ref: '#/components/schemas/Error'
-    Unauthorized:
-      description: Authentication credentials are missing or invalid.
+    NotFound:
+      description: The requested resource was not found.
       content:
         application/json:
           schema:
             $ref: '#/components/schemas/Error'
+  parameters:
+    AudienceId:
+      name: id
+      in: path
+      required: true
+      description: The unique identifier of the audience.
+      schema:
+        type: string
+    ProjectUid:
+      name: x-project-uid
+      in: header
+      required: true
+      description: The UID of the Contentstack Personalize project.
+      schema:
+        type: string
   securitySchemes:
     bearerAuth:
       type: http

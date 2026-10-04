@@ -75,6 +75,35 @@ paths:
         '401':
           $ref: '#/components/responses/Unauthorized'
 components:
+  responses:
+    Unauthorized:
+      description: Authentication credentials are missing or invalid.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+  parameters:
+    ApiKey:
+      name: api_key
+      in: header
+      required: true
+      description: The API key for the Contentstack stack.
+      schema:
+        type: string
+    Locale:
+      name: locale
+      in: query
+      description: The locale code to retrieve localized content. Defaults to the default locale of the stack if not specified.
+      schema:
+        type: string
+        example: en-us
+    AccessToken:
+      name: access_token
+      in: header
+      required: true
+      description: The delivery token for the stack environment.
+      schema:
+        type: string
   schemas:
     SyncResponse:
       type: object
@@ -100,6 +129,19 @@ components:
         skip:
           type: integer
           description: Number of items skipped in this response.
+    Error:
+      type: object
+      description: Standard error response returned by the API.
+      properties:
+        error_message:
+          type: string
+          description: Human-readable description of the error.
+        error_code:
+          type: integer
+          description: Numeric code identifying the error type.
+        errors:
+          type: object
+          description: Field-level validation errors when applicable.
     SyncItem:
       type: object
       description: A single item in a sync response representing a content change event.
@@ -124,48 +166,6 @@ components:
         locale:
           type: string
           description: The locale of the content for locale-specific events.
-    Error:
-      type: object
-      description: Standard error response returned by the API.
-      properties:
-        error_message:
-          type: string
-          description: Human-readable description of the error.
-        error_code:
-          type: integer
-          description: Numeric code identifying the error type.
-        errors:
-          type: object
-          description: Field-level validation errors when applicable.
-  responses:
-    Unauthorized:
-      description: Authentication credentials are missing or invalid.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
-  parameters:
-    Locale:
-      name: locale
-      in: query
-      description: The locale code to retrieve localized content. Defaults to the default locale of the stack if not specified.
-      schema:
-        type: string
-        example: en-us
-    ApiKey:
-      name: api_key
-      in: header
-      required: true
-      description: The API key for the Contentstack stack.
-      schema:
-        type: string
-    AccessToken:
-      name: access_token
-      in: header
-      required: true
-      description: The delivery token for the stack environment.
-      schema:
-        type: string
   securitySchemes:
     apiKey:
       type: apiKey

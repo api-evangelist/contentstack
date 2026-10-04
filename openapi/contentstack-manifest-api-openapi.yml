@@ -69,6 +69,19 @@ paths:
         '403':
           $ref: '#/components/responses/Forbidden'
 components:
+  responses:
+    Forbidden:
+      description: The request is not authorized for this project.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    BadRequest:
+      description: The request is malformed or contains invalid parameters.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
   parameters:
     ProjectUid:
       name: x-project-uid
@@ -84,30 +97,7 @@ components:
       description: The unique identifier for the end user. If not provided, a new anonymous user will be created and the UID returned in the response headers.
       schema:
         type: string
-  responses:
-    BadRequest:
-      description: The request is malformed or contains invalid parameters.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
-    Forbidden:
-      description: The request is not authorized for this project.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
   schemas:
-    Error:
-      type: object
-      description: Standard error response.
-      properties:
-        message:
-          type: string
-          description: Human-readable description of the error.
-        status:
-          type: integer
-          description: HTTP status code.
     ManifestExperience:
       type: object
       description: An active experience entry in the manifest with variant assignment.
@@ -133,6 +123,16 @@ components:
           description: List of active experience objects with assigned variants.
           items:
             $ref: '#/components/schemas/ManifestExperience'
+    Error:
+      type: object
+      description: Standard error response.
+      properties:
+        message:
+          type: string
+          description: Human-readable description of the error.
+        status:
+          type: integer
+          description: HTTP status code.
 externalDocs:
   description: Contentstack Personalize Edge API Documentation
   url: https://www.contentstack.com/docs/developers/apis/personalize-edge-api

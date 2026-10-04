@@ -68,45 +68,20 @@ paths:
         '403':
           $ref: '#/components/responses/Forbidden'
 components:
-  parameters:
-    ProjectUid:
-      name: x-project-uid
-      in: header
-      required: true
-      description: The UID of the Contentstack Personalize project.
-      schema:
-        type: string
-    PersonalizeUserUid:
-      name: x-cs-personalize-user-uid
-      in: header
-      required: false
-      description: The unique identifier for the end user. If not provided, a new anonymous user will be created and the UID returned in the response headers.
-      schema:
-        type: string
   responses:
-    BadRequest:
-      description: The request is malformed or contains invalid parameters.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
     Forbidden:
       description: The request is not authorized for this project.
       content:
         application/json:
           schema:
             $ref: '#/components/schemas/Error'
+    BadRequest:
+      description: The request is malformed or contains invalid parameters.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
   schemas:
-    Error:
-      type: object
-      description: Standard error response.
-      properties:
-        message:
-          type: string
-          description: Human-readable description of the error.
-        status:
-          type: integer
-          description: HTTP status code.
     UserAttributesRequest:
       type: object
       description: Key-value pairs of user attribute values to set or update. Keys must correspond to attribute keys defined in the Personalize Management API.
@@ -125,6 +100,31 @@ components:
         targetUserUid:
           type: string
           description: The UID of the target user who will receive the merged attributes. Typically the authenticated user UID.
+    Error:
+      type: object
+      description: Standard error response.
+      properties:
+        message:
+          type: string
+          description: Human-readable description of the error.
+        status:
+          type: integer
+          description: HTTP status code.
+  parameters:
+    ProjectUid:
+      name: x-project-uid
+      in: header
+      required: true
+      description: The UID of the Contentstack Personalize project.
+      schema:
+        type: string
+    PersonalizeUserUid:
+      name: x-cs-personalize-user-uid
+      in: header
+      required: false
+      description: The unique identifier for the end user. If not provided, a new anonymous user will be created and the UID returned in the response headers.
+      schema:
+        type: string
 externalDocs:
   description: Contentstack Personalize Edge API Documentation
   url: https://www.contentstack.com/docs/developers/apis/personalize-edge-api

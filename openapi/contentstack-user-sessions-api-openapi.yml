@@ -63,14 +63,14 @@ paths:
           $ref: '#/components/responses/Unauthorized'
 components:
   responses:
-    BadRequest:
-      description: The request is malformed or contains invalid parameters.
+    Unauthorized:
+      description: Authentication credentials are missing or invalid.
       content:
         application/json:
           schema:
             $ref: '#/components/schemas/Error'
-    Unauthorized:
-      description: Authentication credentials are missing or invalid.
+    BadRequest:
+      description: The request is malformed or contains invalid parameters.
       content:
         application/json:
           schema:
@@ -100,19 +100,6 @@ components:
           type: string
           format: date-time
           description: ISO 8601 timestamp when the user account was created.
-    Error:
-      type: object
-      description: Standard error response.
-      properties:
-        error_message:
-          type: string
-          description: Human-readable description of the error.
-        error_code:
-          type: integer
-          description: Numeric error code.
-        errors:
-          type: object
-          description: Field-level validation errors.
     LoginRequest:
       type: object
       description: Credentials for user authentication.
@@ -134,6 +121,19 @@ components:
               type: string
               format: password
               description: The user's account password.
+    Error:
+      type: object
+      description: Standard error response.
+      properties:
+        error_message:
+          type: string
+          description: Human-readable description of the error.
+        error_code:
+          type: integer
+          description: Numeric error code.
+        errors:
+          type: object
+          description: Field-level validation errors.
     LoginResponse:
       type: object
       description: Authentication response containing the user's authtoken.
