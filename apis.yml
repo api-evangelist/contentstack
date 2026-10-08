@@ -526,6 +526,8 @@ apis:
   - type: Documentation
     url: https://www.contentstack.com/docs/developers/apis/brand-kit-management-api
 common:
+- type: FinOps
+  url: finops/contentstack-finops.yml
 - type: Website
   url: https://contentstack.com
 - type: AgenticAccess
