@@ -3,6 +3,8 @@ method: searched
 checked:
 - https://aws.amazon.com/marketplace/
 - https://azuremarketplace.microsoft.com/
+- https://hightouch.com/docs/destinations/contentstack
+- https://www.twilio.com/docs/segment/connections/destinations/catalog/actions-contentstack
 marketplace_apps: []
 edges:
 - partner_name: AWS Marketplace
@@ -35,3 +37,57 @@ edges:
   seller_name: Contentstack Inc
   detected_by: sweep-cloud-marketplaces.py
   detected: '2026-10-13'
+- partner_name: Twilio Segment
+  partner: segment
+  partner_match: aggregator
+  marketplace: coverage
+  channel: partner-built
+  direction: partner-built
+  type: coverage
+  relationship: connector-coverage
+  evidence: https://www.twilio.com/docs/segment/connections/destinations/catalog/actions-contentstack
+  coverage_role:
+  - destination
+  cdp_signals:
+    destination:
+      catalog_entries:
+      - actions-contentstack
+      - contentstack-web
+      status: PUBLIC_BETA
+      partner_owned: true
+      connection_modes:
+      - cloud:server
+      - cloud:web
+      accepted_methods:
+      - Alias
+      - Group
+      - Identify
+      - Page
+      - Track
+  detected_by: sweep-cdp.py
+  first_seen: '2026-10-14'
+- partner_name: Hightouch
+  partner: hightouch
+  partner_match: aggregator
+  marketplace: coverage
+  channel: partner-built
+  direction: partner-built
+  type: coverage
+  relationship: connector-coverage
+  evidence: https://hightouch.com/docs/destinations/contentstack
+  coverage_role:
+  - destination
+  cdp_signals:
+    destination:
+      catalog_entries:
+      - contentstack
+      status: released
+      sync_types:
+      - Users
+      sync_modes:
+      - update
+  detected_by: sweep-cdp.py
+  first_seen: '2026-10-14'
+source:
+- https://hightouch.com/docs/destinations/contentstack
+- https://www.twilio.com/docs/segment/connections/destinations/catalog/actions-contentstack
