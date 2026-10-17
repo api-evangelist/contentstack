@@ -114,31 +114,7 @@ paths:
         '404':
           $ref: '#/components/responses/NotFound'
 components:
-  parameters:
-    AttributeId:
-      name: id
-      in: path
-      required: true
-      description: The unique identifier of the attribute.
-      schema:
-        type: string
-    ProjectUid:
-      name: x-project-uid
-      in: header
-      required: true
-      description: The UID of the Contentstack Personalize project.
-      schema:
-        type: string
   schemas:
-    AttributeList:
-      type: object
-      description: A list of user attribute definitions.
-      properties:
-        data:
-          type: array
-          description: Array of attribute objects.
-          items:
-            $ref: '#/components/schemas/Attribute'
     Attribute:
       type: object
       description: A user attribute definition used in audience segment rules.
@@ -196,15 +172,39 @@ components:
         status:
           type: integer
           description: HTTP status code.
+    AttributeList:
+      type: object
+      description: A list of user attribute definitions.
+      properties:
+        data:
+          type: array
+          description: Array of attribute objects.
+          items:
+            $ref: '#/components/schemas/Attribute'
+  parameters:
+    AttributeId:
+      name: id
+      in: path
+      required: true
+      description: The unique identifier of the attribute.
+      schema:
+        type: string
+    ProjectUid:
+      name: x-project-uid
+      in: header
+      required: true
+      description: The UID of the Contentstack Personalize project.
+      schema:
+        type: string
   responses:
-    Unauthorized:
-      description: Authentication credentials are missing or invalid.
+    BadRequest:
+      description: The request is malformed or contains invalid parameters.
       content:
         application/json:
           schema:
             $ref: '#/components/schemas/Error'
-    BadRequest:
-      description: The request is malformed or contains invalid parameters.
+    Unauthorized:
+      description: Authentication credentials are missing or invalid.
       content:
         application/json:
           schema:

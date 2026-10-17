@@ -141,28 +141,6 @@ paths:
         '404':
           $ref: '#/components/responses/NotFound'
 components:
-  parameters:
-    OrganizationUid:
-      name: organization_uid
-      in: header
-      required: true
-      description: The unique identifier of the organization.
-      schema:
-        type: string
-    BrandKitUid:
-      name: brand_kit_uid
-      in: path
-      required: true
-      description: The unique identifier of the Brand Kit.
-      schema:
-        type: string
-    ProfileUid:
-      name: profile_uid
-      in: path
-      required: true
-      description: The unique identifier of the Voice Profile.
-      schema:
-        type: string
   schemas:
     CreateVoiceProfileRequest:
       type: object
@@ -182,16 +160,6 @@ components:
         style_guidelines:
           type: string
           description: Writing style guidelines for AI content generation.
-    Error:
-      type: object
-      description: Standard error response.
-      properties:
-        message:
-          type: string
-          description: Human-readable description of the error.
-        error_code:
-          type: integer
-          description: Numeric error code.
     VoiceProfile:
       type: object
       description: A Voice Profile defining writing style and tone for AI content generation.
@@ -218,6 +186,16 @@ components:
           type: string
           format: date-time
           description: ISO 8601 timestamp when the Voice Profile was created.
+    Error:
+      type: object
+      description: Standard error response.
+      properties:
+        message:
+          type: string
+          description: Human-readable description of the error.
+        error_code:
+          type: integer
+          description: Numeric error code.
     VoiceProfileList:
       type: object
       description: A list of Voice Profiles for a Brand Kit.
@@ -228,14 +206,14 @@ components:
           items:
             $ref: '#/components/schemas/VoiceProfile'
   responses:
-    Unauthorized:
-      description: Authentication credentials are missing or invalid.
+    BadRequest:
+      description: The request is malformed or contains invalid parameters.
       content:
         application/json:
           schema:
             $ref: '#/components/schemas/Error'
-    BadRequest:
-      description: The request is malformed or contains invalid parameters.
+    Unauthorized:
+      description: Authentication credentials are missing or invalid.
       content:
         application/json:
           schema:
@@ -246,6 +224,28 @@ components:
         application/json:
           schema:
             $ref: '#/components/schemas/Error'
+  parameters:
+    ProfileUid:
+      name: profile_uid
+      in: path
+      required: true
+      description: The unique identifier of the Voice Profile.
+      schema:
+        type: string
+    OrganizationUid:
+      name: organization_uid
+      in: header
+      required: true
+      description: The unique identifier of the organization.
+      schema:
+        type: string
+    BrandKitUid:
+      name: brand_kit_uid
+      in: path
+      required: true
+      description: The unique identifier of the Brand Kit.
+      schema:
+        type: string
   securitySchemes:
     bearerAuth:
       type: http

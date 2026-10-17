@@ -283,29 +283,16 @@ paths:
     - url: https://azure-eu-launch-api.contentstack.com
       description: Azure Europe Production Server
 components:
-  parameters:
-    OrganizationUid:
-      name: organization_uid
-      in: path
-      required: true
-      description: The unique identifier of the organization.
-      schema:
-        type: string
-    ProjectUid:
-      name: project_uid
-      in: path
-      required: true
-      description: The unique identifier of the automation project.
-      schema:
-        type: string
-    ProjectUid_2:
-      name: project_uid
-      in: path
-      required: true
-      description: The unique identifier of the Launch project.
-      schema:
-        type: string
   schemas:
+    ProjectList:
+      type: object
+      description: A list of automation projects.
+      properties:
+        data:
+          type: array
+          description: Array of project objects.
+          items:
+            $ref: '#/components/schemas/Project'
     Project:
       type: object
       description: An automation project within a Contentstack organization.
@@ -352,15 +339,15 @@ components:
         error_code:
           type: integer
           description: Numeric error code.
-    ProjectList:
+    ProjectList_2:
       type: object
-      description: A list of automation projects.
+      description: A list of Launch projects.
       properties:
         data:
           type: array
-          description: Array of project objects.
+          description: Array of Launch project objects.
           items:
-            $ref: '#/components/schemas/Project'
+            $ref: '#/components/schemas/Project_2'
     Project_2:
       type: object
       description: A Contentstack Launch project for web application deployment.
@@ -400,18 +387,31 @@ components:
         framework:
           type: string
           description: The web framework for the project.
-    ProjectList_2:
-      type: object
-      description: A list of Launch projects.
-      properties:
-        data:
-          type: array
-          description: Array of Launch project objects.
-          items:
-            $ref: '#/components/schemas/Project_2'
+  parameters:
+    OrganizationUid:
+      name: organization_uid
+      in: path
+      required: true
+      description: The unique identifier of the organization.
+      schema:
+        type: string
+    ProjectUid:
+      name: project_uid
+      in: path
+      required: true
+      description: The unique identifier of the automation project.
+      schema:
+        type: string
+    ProjectUid_2:
+      name: project_uid
+      in: path
+      required: true
+      description: The unique identifier of the Launch project.
+      schema:
+        type: string
   responses:
-    Unauthorized:
-      description: Authentication credentials are missing or invalid.
+    NotFound:
+      description: The requested resource was not found.
       content:
         application/json:
           schema:
@@ -422,8 +422,8 @@ components:
         application/json:
           schema:
             $ref: '#/components/schemas/Error'
-    NotFound:
-      description: The requested resource was not found.
+    Unauthorized:
+      description: Authentication credentials are missing or invalid.
       content:
         application/json:
           schema:

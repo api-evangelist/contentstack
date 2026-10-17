@@ -70,6 +70,13 @@ paths:
           $ref: '#/components/responses/NotFound'
 components:
   parameters:
+    EntryUid:
+      name: entry_uid
+      in: path
+      required: true
+      description: The unique identifier (UID) of the entry.
+      schema:
+        type: string
     ContentTypeUid:
       name: content_type_uid
       in: path
@@ -98,27 +105,16 @@ components:
       description: The delivery token for the stack environment.
       schema:
         type: string
-    EntryUid:
-      name: entry_uid
-      in: path
-      required: true
-      description: The unique identifier (UID) of the entry.
-      schema:
-        type: string
-  responses:
-    Unauthorized:
-      description: Authentication credentials are missing or invalid.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
-    NotFound:
-      description: The requested resource was not found.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
   schemas:
+    EntryVariantList:
+      type: object
+      description: A list of personalization variants for an entry.
+      properties:
+        entries:
+          type: array
+          description: Array of entry variant objects.
+          items:
+            $ref: '#/components/schemas/EntryVariant'
     Error:
       type: object
       description: Standard error response returned by the API.
@@ -145,15 +141,19 @@ components:
         locale:
           type: string
           description: The locale code of the entry variant.
-    EntryVariantList:
-      type: object
-      description: A list of personalization variants for an entry.
-      properties:
-        entries:
-          type: array
-          description: Array of entry variant objects.
-          items:
-            $ref: '#/components/schemas/EntryVariant'
+  responses:
+    NotFound:
+      description: The requested resource was not found.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    Unauthorized:
+      description: Authentication credentials are missing or invalid.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
   securitySchemes:
     apiKey:
       type: apiKey

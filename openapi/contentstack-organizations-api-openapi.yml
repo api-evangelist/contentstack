@@ -80,37 +80,7 @@ paths:
         '401':
           $ref: '#/components/responses/Unauthorized'
 components:
-  parameters:
-    OrganizationUid:
-      name: organization_uid
-      in: path
-      required: true
-      description: The unique identifier of the organization.
-      schema:
-        type: string
-  responses:
-    Unauthorized:
-      description: Authentication credentials are missing or invalid.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
-    NotFound:
-      description: The requested resource was not found.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
   schemas:
-    OrganizationList:
-      type: object
-      description: A list of organizations.
-      properties:
-        organizations:
-          type: array
-          description: Array of organization objects.
-          items:
-            $ref: '#/components/schemas/Organization'
     Stack:
       type: object
       description: A Contentstack stack, which is an independent content repository.
@@ -158,6 +128,24 @@ components:
           type: string
           format: date-time
           description: ISO 8601 timestamp when the organization was created.
+    OrganizationList:
+      type: object
+      description: A list of organizations.
+      properties:
+        organizations:
+          type: array
+          description: Array of organization objects.
+          items:
+            $ref: '#/components/schemas/Organization'
+    StackList:
+      type: object
+      description: A list of stacks.
+      properties:
+        stacks:
+          type: array
+          description: Array of stack objects.
+          items:
+            $ref: '#/components/schemas/Stack'
     Error:
       type: object
       description: Standard error response.
@@ -171,15 +159,27 @@ components:
         errors:
           type: object
           description: Field-level validation errors.
-    StackList:
-      type: object
-      description: A list of stacks.
-      properties:
-        stacks:
-          type: array
-          description: Array of stack objects.
-          items:
-            $ref: '#/components/schemas/Stack'
+  parameters:
+    OrganizationUid:
+      name: organization_uid
+      in: path
+      required: true
+      description: The unique identifier of the organization.
+      schema:
+        type: string
+  responses:
+    NotFound:
+      description: The requested resource was not found.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    Unauthorized:
+      description: Authentication credentials are missing or invalid.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
   securitySchemes:
     authtokenAuth:
       type: apiKey

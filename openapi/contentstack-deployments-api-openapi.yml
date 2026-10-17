@@ -138,6 +138,34 @@ paths:
           $ref: '#/components/responses/NotFound'
 components:
   schemas:
+    LogEntry:
+      type: object
+      description: A single log line entry.
+      properties:
+        timestamp:
+          type: string
+          format: date-time
+          description: ISO 8601 timestamp of the log entry.
+        level:
+          type: string
+          description: Log level.
+          enum:
+          - info
+          - warn
+          - error
+          - debug
+        message:
+          type: string
+          description: The log message content.
+    DeploymentList:
+      type: object
+      description: A list of deployments.
+      properties:
+        data:
+          type: array
+          description: Array of deployment objects.
+          items:
+            $ref: '#/components/schemas/Deployment'
     Deployment:
       type: object
       description: A deployment operation to a Launch environment.
@@ -163,25 +191,16 @@ components:
           type: string
           format: date-time
           description: ISO 8601 timestamp when the deployment completed.
-    LogEntry:
+    Error:
       type: object
-      description: A single log line entry.
+      description: Standard error response.
       properties:
-        timestamp:
-          type: string
-          format: date-time
-          description: ISO 8601 timestamp of the log entry.
-        level:
-          type: string
-          description: Log level.
-          enum:
-          - info
-          - warn
-          - error
-          - debug
         message:
           type: string
-          description: The log message content.
+          description: Human-readable description of the error.
+        error_code:
+          type: integer
+          description: Numeric error code.
     CreateDeploymentRequest:
       type: object
       description: Parameters for triggering a new deployment.
@@ -201,52 +220,7 @@ components:
           description: Array of log line entries.
           items:
             $ref: '#/components/schemas/LogEntry'
-    Error:
-      type: object
-      description: Standard error response.
-      properties:
-        message:
-          type: string
-          description: Human-readable description of the error.
-        error_code:
-          type: integer
-          description: Numeric error code.
-    DeploymentList:
-      type: object
-      description: A list of deployments.
-      properties:
-        data:
-          type: array
-          description: Array of deployment objects.
-          items:
-            $ref: '#/components/schemas/Deployment'
-  responses:
-    Unauthorized:
-      description: Authentication credentials are missing or invalid.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
-    BadRequest:
-      description: The request is malformed or contains invalid parameters.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
-    NotFound:
-      description: The requested resource was not found.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
   parameters:
-    ProjectUid:
-      name: project_uid
-      in: path
-      required: true
-      description: The unique identifier of the Launch project.
-      schema:
-        type: string
     EnvUid:
       name: env_uid
       in: path
@@ -261,6 +235,32 @@ components:
       description: The unique identifier of the deployment.
       schema:
         type: string
+    ProjectUid:
+      name: project_uid
+      in: path
+      required: true
+      description: The unique identifier of the Launch project.
+      schema:
+        type: string
+  responses:
+    Unauthorized:
+      description: Authentication credentials are missing or invalid.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    NotFound:
+      description: The requested resource was not found.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    BadRequest:
+      description: The request is malformed or contains invalid parameters.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
   securitySchemes:
     bearerAuth:
       type: http

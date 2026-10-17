@@ -139,20 +139,6 @@ paths:
           $ref: '#/components/responses/NotFound'
 components:
   parameters:
-    OrganizationUid:
-      name: organization_uid
-      in: header
-      required: true
-      description: The unique identifier of the organization.
-      schema:
-        type: string
-    BrandKitUid:
-      name: brand_kit_uid
-      in: path
-      required: true
-      description: The unique identifier of the Brand Kit.
-      schema:
-        type: string
     Limit:
       name: limit
       in: query
@@ -170,31 +156,21 @@ components:
         type: integer
         minimum: 0
         default: 0
+    BrandKitUid:
+      name: brand_kit_uid
+      in: path
+      required: true
+      description: The unique identifier of the Brand Kit.
+      schema:
+        type: string
+    OrganizationUid:
+      name: organization_uid
+      in: header
+      required: true
+      description: The unique identifier of the organization.
+      schema:
+        type: string
   schemas:
-    BrandKit:
-      type: object
-      description: A Brand Kit containing centralized brand identity assets and AI configuration.
-      properties:
-        uid:
-          type: string
-          description: Unique identifier of the Brand Kit.
-        name:
-          type: string
-          description: Display name of the Brand Kit.
-        description:
-          type: string
-          description: Description of the Brand Kit's purpose and scope.
-        organization_uid:
-          type: string
-          description: UID of the organization that owns the Brand Kit.
-        created_at:
-          type: string
-          format: date-time
-          description: ISO 8601 timestamp when the Brand Kit was created.
-        updated_at:
-          type: string
-          format: date-time
-          description: ISO 8601 timestamp when the Brand Kit was last updated.
     CreateBrandKitRequest:
       type: object
       description: Parameters for creating or updating a Brand Kit.
@@ -219,6 +195,30 @@ components:
         total:
           type: integer
           description: Total count of Brand Kits in the organization.
+    BrandKit:
+      type: object
+      description: A Brand Kit containing centralized brand identity assets and AI configuration.
+      properties:
+        uid:
+          type: string
+          description: Unique identifier of the Brand Kit.
+        name:
+          type: string
+          description: Display name of the Brand Kit.
+        description:
+          type: string
+          description: Description of the Brand Kit's purpose and scope.
+        organization_uid:
+          type: string
+          description: UID of the organization that owns the Brand Kit.
+        created_at:
+          type: string
+          format: date-time
+          description: ISO 8601 timestamp when the Brand Kit was created.
+        updated_at:
+          type: string
+          format: date-time
+          description: ISO 8601 timestamp when the Brand Kit was last updated.
     Error:
       type: object
       description: Standard error response.
@@ -230,8 +230,8 @@ components:
           type: integer
           description: Numeric error code.
   responses:
-    Unauthorized:
-      description: Authentication credentials are missing or invalid.
+    NotFound:
+      description: The requested resource was not found.
       content:
         application/json:
           schema:
@@ -242,8 +242,8 @@ components:
         application/json:
           schema:
             $ref: '#/components/schemas/Error'
-    NotFound:
-      description: The requested resource was not found.
+    Unauthorized:
+      description: Authentication credentials are missing or invalid.
       content:
         application/json:
           schema:

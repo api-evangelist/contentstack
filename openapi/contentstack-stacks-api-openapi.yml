@@ -127,62 +127,7 @@ paths:
         '404':
           $ref: '#/components/responses/NotFound'
 components:
-  parameters:
-    OrganizationUidHeader:
-      name: organization_uid
-      in: header
-      required: true
-      description: The UID of the organization in which to create the stack.
-      schema:
-        type: string
-    StackApiKey:
-      name: api_key
-      in: header
-      required: true
-      description: The API key identifying the Contentstack stack.
-      schema:
-        type: string
-  responses:
-    Unauthorized:
-      description: Authentication credentials are missing or invalid.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
-    BadRequest:
-      description: The request is malformed or contains invalid parameters.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
-    NotFound:
-      description: The requested resource was not found.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
   schemas:
-    CreateStackRequest:
-      type: object
-      description: Parameters for creating a new stack.
-      required:
-      - stack
-      properties:
-        stack:
-          type: object
-          required:
-          - name
-          - master_locale
-          properties:
-            name:
-              type: string
-              description: Display name for the new stack.
-            master_locale:
-              type: string
-              description: Default locale code for the stack (e.g., en-us).
-            description:
-              type: string
-              description: Description of the stack's purpose.
     Stack:
       type: object
       description: A Contentstack stack, which is an independent content repository.
@@ -213,6 +158,15 @@ components:
           type: string
           format: date-time
           description: ISO 8601 timestamp when the stack was last updated.
+    StackList:
+      type: object
+      description: A list of stacks.
+      properties:
+        stacks:
+          type: array
+          description: Array of stack objects.
+          items:
+            $ref: '#/components/schemas/Stack'
     UpdateStackRequest:
       type: object
       description: Fields to update on the stack.
@@ -239,15 +193,61 @@ components:
         errors:
           type: object
           description: Field-level validation errors.
-    StackList:
+    CreateStackRequest:
       type: object
-      description: A list of stacks.
+      description: Parameters for creating a new stack.
+      required:
+      - stack
       properties:
-        stacks:
-          type: array
-          description: Array of stack objects.
-          items:
-            $ref: '#/components/schemas/Stack'
+        stack:
+          type: object
+          required:
+          - name
+          - master_locale
+          properties:
+            name:
+              type: string
+              description: Display name for the new stack.
+            master_locale:
+              type: string
+              description: Default locale code for the stack (e.g., en-us).
+            description:
+              type: string
+              description: Description of the stack's purpose.
+  parameters:
+    StackApiKey:
+      name: api_key
+      in: header
+      required: true
+      description: The API key identifying the Contentstack stack.
+      schema:
+        type: string
+    OrganizationUidHeader:
+      name: organization_uid
+      in: header
+      required: true
+      description: The UID of the organization in which to create the stack.
+      schema:
+        type: string
+  responses:
+    BadRequest:
+      description: The request is malformed or contains invalid parameters.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    Unauthorized:
+      description: Authentication credentials are missing or invalid.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    NotFound:
+      description: The requested resource was not found.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
   securitySchemes:
     authtokenAuth:
       type: apiKey

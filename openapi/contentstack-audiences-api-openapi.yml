@@ -114,6 +114,21 @@ paths:
         '404':
           $ref: '#/components/responses/NotFound'
 components:
+  parameters:
+    AudienceId:
+      name: id
+      in: path
+      required: true
+      description: The unique identifier of the audience.
+      schema:
+        type: string
+    ProjectUid:
+      name: x-project-uid
+      in: header
+      required: true
+      description: The UID of the Contentstack Personalize project.
+      schema:
+        type: string
   schemas:
     Audience:
       type: object
@@ -170,14 +185,14 @@ components:
           items:
             $ref: '#/components/schemas/Audience'
   responses:
-    Unauthorized:
-      description: Authentication credentials are missing or invalid.
+    BadRequest:
+      description: The request is malformed or contains invalid parameters.
       content:
         application/json:
           schema:
             $ref: '#/components/schemas/Error'
-    BadRequest:
-      description: The request is malformed or contains invalid parameters.
+    Unauthorized:
+      description: Authentication credentials are missing or invalid.
       content:
         application/json:
           schema:
@@ -188,21 +203,6 @@ components:
         application/json:
           schema:
             $ref: '#/components/schemas/Error'
-  parameters:
-    AudienceId:
-      name: id
-      in: path
-      required: true
-      description: The unique identifier of the audience.
-      schema:
-        type: string
-    ProjectUid:
-      name: x-project-uid
-      in: header
-      required: true
-      description: The UID of the Contentstack Personalize project.
-      schema:
-        type: string
   securitySchemes:
     bearerAuth:
       type: http

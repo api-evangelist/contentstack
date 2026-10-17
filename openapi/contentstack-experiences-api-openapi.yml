@@ -174,24 +174,6 @@ paths:
           $ref: '#/components/responses/Unauthorized'
 components:
   schemas:
-    ExperienceVariant:
-      type: object
-      description: A content variant within a personalization experience.
-      properties:
-        uid:
-          type: string
-          description: Unique identifier of the variant.
-        name:
-          type: string
-          description: Display name of the variant.
-        audience_uid:
-          type: string
-          description: UID of the audience this variant targets (for SEGMENTED experiences).
-        traffic_percentage:
-          type: number
-          description: Percentage of traffic assigned to this variant (for AB_TEST experiences).
-          minimum: 0
-          maximum: 100
     Experience:
       type: object
       description: A personalization experience with variant and audience configuration.
@@ -225,15 +207,6 @@ components:
           type: string
           format: date-time
           description: ISO 8601 timestamp when the experience was created.
-    ExperiencePriority:
-      type: object
-      description: Priority ordering of experiences for conflict resolution.
-      properties:
-        priority:
-          type: array
-          description: Ordered list of experience UIDs from highest to lowest priority.
-          items:
-            type: string
     CreateExperienceRequest:
       type: object
       description: Parameters for creating or updating an experience.
@@ -255,6 +228,42 @@ components:
           description: Variant definitions for the experience.
           items:
             $ref: '#/components/schemas/ExperienceVariant'
+    ExperienceList:
+      type: object
+      description: A list of personalization experiences.
+      properties:
+        data:
+          type: array
+          description: Array of experience objects.
+          items:
+            $ref: '#/components/schemas/Experience'
+    ExperiencePriority:
+      type: object
+      description: Priority ordering of experiences for conflict resolution.
+      properties:
+        priority:
+          type: array
+          description: Ordered list of experience UIDs from highest to lowest priority.
+          items:
+            type: string
+    ExperienceVariant:
+      type: object
+      description: A content variant within a personalization experience.
+      properties:
+        uid:
+          type: string
+          description: Unique identifier of the variant.
+        name:
+          type: string
+          description: Display name of the variant.
+        audience_uid:
+          type: string
+          description: UID of the audience this variant targets (for SEGMENTED experiences).
+        traffic_percentage:
+          type: number
+          description: Percentage of traffic assigned to this variant (for AB_TEST experiences).
+          minimum: 0
+          maximum: 100
     Error:
       type: object
       description: Standard error response.
@@ -265,23 +274,7 @@ components:
         status:
           type: integer
           description: HTTP status code.
-    ExperienceList:
-      type: object
-      description: A list of personalization experiences.
-      properties:
-        data:
-          type: array
-          description: Array of experience objects.
-          items:
-            $ref: '#/components/schemas/Experience'
   parameters:
-    ExperienceId:
-      name: id
-      in: path
-      required: true
-      description: The unique identifier of the experience.
-      schema:
-        type: string
     ProjectUid:
       name: x-project-uid
       in: header
@@ -289,9 +282,16 @@ components:
       description: The UID of the Contentstack Personalize project.
       schema:
         type: string
+    ExperienceId:
+      name: id
+      in: path
+      required: true
+      description: The unique identifier of the experience.
+      schema:
+        type: string
   responses:
-    Unauthorized:
-      description: Authentication credentials are missing or invalid.
+    NotFound:
+      description: The requested resource was not found.
       content:
         application/json:
           schema:
@@ -302,8 +302,8 @@ components:
         application/json:
           schema:
             $ref: '#/components/schemas/Error'
-    NotFound:
-      description: The requested resource was not found.
+    Unauthorized:
+      description: Authentication credentials are missing or invalid.
       content:
         application/json:
           schema:

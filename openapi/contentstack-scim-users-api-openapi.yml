@@ -161,57 +161,6 @@ paths:
           $ref: '#/components/responses/NotFound'
 components:
   schemas:
-    ScimPatchOperation:
-      type: object
-      description: A single SCIM PATCH operation.
-      required:
-      - op
-      properties:
-        op:
-          type: string
-          description: The operation type.
-          enum:
-          - add
-          - remove
-          - replace
-        path:
-          type: string
-          description: The attribute path to target for the operation.
-        value:
-          description: The value to apply for add or replace operations.
-    ScimError:
-      type: object
-      description: A SCIM 2.0 error response.
-      properties:
-        schemas:
-          type: array
-          description: SCIM schema URN for error responses.
-          items:
-            type: string
-          example:
-          - urn:ietf:params:scim:api:messages:2.0:Error
-        status:
-          type: string
-          description: HTTP status code as a string.
-        detail:
-          type: string
-          description: Human-readable description of the error.
-    ScimPatchRequest:
-      type: object
-      description: A SCIM 2.0 PatchOp request for partial resource updates.
-      properties:
-        schemas:
-          type: array
-          description: SCIM schema URN identifying this as a PatchOp request.
-          items:
-            type: string
-          example:
-          - urn:ietf:params:scim:api:messages:2.0:PatchOp
-        Operations:
-          type: array
-          description: List of PATCH operations to perform.
-          items:
-            $ref: '#/components/schemas/ScimPatchOperation'
     ScimUser:
       type: object
       description: A SCIM 2.0 User resource representing a Contentstack user account.
@@ -256,6 +205,57 @@ components:
         active:
           type: boolean
           description: Indicates whether the user account is active. Set to false to deprovision (deactivate) the user in Contentstack.
+    ScimError:
+      type: object
+      description: A SCIM 2.0 error response.
+      properties:
+        schemas:
+          type: array
+          description: SCIM schema URN for error responses.
+          items:
+            type: string
+          example:
+          - urn:ietf:params:scim:api:messages:2.0:Error
+        status:
+          type: string
+          description: HTTP status code as a string.
+        detail:
+          type: string
+          description: Human-readable description of the error.
+    ScimPatchOperation:
+      type: object
+      description: A single SCIM PATCH operation.
+      required:
+      - op
+      properties:
+        op:
+          type: string
+          description: The operation type.
+          enum:
+          - add
+          - remove
+          - replace
+        path:
+          type: string
+          description: The attribute path to target for the operation.
+        value:
+          description: The value to apply for add or replace operations.
+    ScimPatchRequest:
+      type: object
+      description: A SCIM 2.0 PatchOp request for partial resource updates.
+      properties:
+        schemas:
+          type: array
+          description: SCIM schema URN identifying this as a PatchOp request.
+          items:
+            type: string
+          example:
+          - urn:ietf:params:scim:api:messages:2.0:PatchOp
+        Operations:
+          type: array
+          description: List of PATCH operations to perform.
+          items:
+            $ref: '#/components/schemas/ScimPatchOperation'
     ScimListResponse:
       type: object
       description: A SCIM 2.0 ListResponse container for multi-resource responses.
@@ -281,6 +281,25 @@ components:
           description: Array of SCIM resource objects (Users or Groups).
           items:
             type: object
+  responses:
+    BadRequest:
+      description: The SCIM request is malformed or contains invalid attribute values.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ScimError'
+    NotFound:
+      description: The requested SCIM resource was not found.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ScimError'
+    Unauthorized:
+      description: The SCIM bearer token is missing or invalid.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ScimError'
   parameters:
     OrganizationUid:
       name: organization_uid
@@ -296,25 +315,6 @@ components:
       description: The SCIM user ID of the user within the organization.
       schema:
         type: string
-  responses:
-    Unauthorized:
-      description: The SCIM bearer token is missing or invalid.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/ScimError'
-    BadRequest:
-      description: The SCIM request is malformed or contains invalid attribute values.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/ScimError'
-    NotFound:
-      description: The requested SCIM resource was not found.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/ScimError'
   securitySchemes:
     bearerAuth:
       type: http

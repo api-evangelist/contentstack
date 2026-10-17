@@ -42,15 +42,6 @@ paths:
           $ref: '#/components/responses/Unauthorized'
 components:
   schemas:
-    AccountList:
-      type: object
-      description: A list of external service account connections.
-      properties:
-        data:
-          type: array
-          description: Array of account connection objects.
-          items:
-            $ref: '#/components/schemas/Account'
     Account:
       type: object
       description: An authenticated connection to an external service for use in automations.
@@ -68,6 +59,15 @@ components:
           type: string
           format: date-time
           description: ISO 8601 timestamp when the account connection was created.
+    AccountList:
+      type: object
+      description: A list of external service account connections.
+      properties:
+        data:
+          type: array
+          description: Array of account connection objects.
+          items:
+            $ref: '#/components/schemas/Account'
     Error:
       type: object
       description: Standard error response.

@@ -62,20 +62,28 @@ paths:
         '401':
           $ref: '#/components/responses/Unauthorized'
 components:
-  responses:
-    Unauthorized:
-      description: Authentication credentials are missing or invalid.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
-    BadRequest:
-      description: The request is malformed or contains invalid parameters.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
   schemas:
+    LoginRequest:
+      type: object
+      description: Credentials for user authentication.
+      required:
+      - user
+      properties:
+        user:
+          type: object
+          description: User credential object.
+          required:
+          - email
+          - password
+          properties:
+            email:
+              type: string
+              format: email
+              description: The user's email address.
+            password:
+              type: string
+              format: password
+              description: The user's account password.
     User:
       type: object
       description: A Contentstack user account.
@@ -100,27 +108,6 @@ components:
           type: string
           format: date-time
           description: ISO 8601 timestamp when the user account was created.
-    LoginRequest:
-      type: object
-      description: Credentials for user authentication.
-      required:
-      - user
-      properties:
-        user:
-          type: object
-          description: User credential object.
-          required:
-          - email
-          - password
-          properties:
-            email:
-              type: string
-              format: email
-              description: The user's email address.
-            password:
-              type: string
-              format: password
-              description: The user's account password.
     Error:
       type: object
       description: Standard error response.
@@ -140,6 +127,19 @@ components:
       properties:
         user:
           $ref: '#/components/schemas/User'
+  responses:
+    BadRequest:
+      description: The request is malformed or contains invalid parameters.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    Unauthorized:
+      description: Authentication credentials are missing or invalid.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
   securitySchemes:
     authtokenAuth:
       type: apiKey

@@ -105,47 +105,6 @@ paths:
         '401':
           $ref: '#/components/responses/Unauthorized'
 components:
-  parameters:
-    OrganizationUid:
-      name: organization_uid
-      in: path
-      required: true
-      description: The unique identifier of the organization.
-      schema:
-        type: string
-    ProjectUid:
-      name: project_uid
-      in: path
-      required: true
-      description: The unique identifier of the automation project.
-      schema:
-        type: string
-    AutomationUid:
-      name: automation_uid
-      in: path
-      required: true
-      description: The unique identifier of the automation.
-      schema:
-        type: string
-  responses:
-    Unauthorized:
-      description: Authentication credentials are missing or invalid.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
-    BadRequest:
-      description: The request is malformed or contains invalid parameters.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
-    NotFound:
-      description: The requested resource was not found.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
   schemas:
     Automation:
       type: object
@@ -180,6 +139,15 @@ components:
           type: string
           format: date-time
           description: ISO 8601 timestamp when the automation was last updated.
+    AutomationList:
+      type: object
+      description: A list of automations in a project.
+      properties:
+        data:
+          type: array
+          description: Array of automation objects.
+          items:
+            $ref: '#/components/schemas/Automation'
     Error:
       type: object
       description: Standard error response.
@@ -190,15 +158,47 @@ components:
         error_code:
           type: integer
           description: Numeric error code.
-    AutomationList:
-      type: object
-      description: A list of automations in a project.
-      properties:
-        data:
-          type: array
-          description: Array of automation objects.
-          items:
-            $ref: '#/components/schemas/Automation'
+  parameters:
+    AutomationUid:
+      name: automation_uid
+      in: path
+      required: true
+      description: The unique identifier of the automation.
+      schema:
+        type: string
+    OrganizationUid:
+      name: organization_uid
+      in: path
+      required: true
+      description: The unique identifier of the organization.
+      schema:
+        type: string
+    ProjectUid:
+      name: project_uid
+      in: path
+      required: true
+      description: The unique identifier of the automation project.
+      schema:
+        type: string
+  responses:
+    NotFound:
+      description: The requested resource was not found.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    BadRequest:
+      description: The request is malformed or contains invalid parameters.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    Unauthorized:
+      description: Authentication credentials are missing or invalid.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
   securitySchemes:
     bearerAuth:
       type: http

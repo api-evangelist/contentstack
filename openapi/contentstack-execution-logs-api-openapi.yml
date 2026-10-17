@@ -64,6 +64,15 @@ paths:
           $ref: '#/components/responses/NotFound'
 components:
   schemas:
+    ExecutionLogList:
+      type: object
+      description: A list of automation execution log entries.
+      properties:
+        data:
+          type: array
+          description: Array of execution log objects.
+          items:
+            $ref: '#/components/schemas/ExecutionLog'
     ExecutionLog:
       type: object
       description: A record of a single automation execution run.
@@ -94,15 +103,6 @@ components:
           description: Step-by-step execution results.
           items:
             type: object
-    ExecutionLogList:
-      type: object
-      description: A list of automation execution log entries.
-      properties:
-        data:
-          type: array
-          description: Array of execution log objects.
-          items:
-            $ref: '#/components/schemas/ExecutionLog'
     Error:
       type: object
       description: Standard error response.
@@ -136,14 +136,14 @@ components:
       schema:
         type: string
   responses:
-    Unauthorized:
-      description: Authentication credentials are missing or invalid.
+    NotFound:
+      description: The requested resource was not found.
       content:
         application/json:
           schema:
             $ref: '#/components/schemas/Error'
-    NotFound:
-      description: The requested resource was not found.
+    Unauthorized:
+      description: Authentication credentials are missing or invalid.
       content:
         application/json:
           schema:
