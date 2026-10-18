@@ -425,7 +425,7 @@ apis:
   humanURL: https://www.contentstack.com/docs/developers/apis/scim-api
   baseURL: https://auth-api.contentstack.com
   tags:
-  - (Scim) Users
+  - SCIM Users
   tags_raw:
   - SCIM Users
   properties:
