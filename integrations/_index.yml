@@ -115,3 +115,275 @@
     builder: Pipedream repo (component)
   status: not-a-workflow
   arazzo: null
+- slug: contentstack-maven-central
+  label: Maven Central
+  partner: maven-central
+  partner_name: Maven Central
+  category: official SDK (Java/JVM)
+  type: register
+  channel: package-registry
+  evidence: https://central.sonatype.com/artifact/com.contentstack.sdk/android
+  source: edge
+  relationship: distribution-channel
+  contract_reference:
+    register: Maven Central (public registry JSON)
+    spec_file: null
+    language: Java/JVM
+    packages:
+    - name: com.contentstack.sdk:android
+      version: 4.4.0
+      released: '2026-07-20'
+      released_field: lastUpdated
+      lapsed: false
+      page: https://central.sonatype.com/artifact/com.contentstack.sdk/android
+      repo_leg: github-org:contentstack
+      publisher_leg: groupId:contentstack.com
+      matched_by: domain
+    - name: com.contentstack.sdk:cms
+      version: 1.14.1
+      released: '2026-09-02'
+      released_field: lastUpdated
+      lapsed: false
+      page: https://central.sonatype.com/artifact/com.contentstack.sdk/cms
+      repo_leg: github-org:contentstack
+      publisher_leg: groupId:contentstack.com
+      matched_by: domain
+    - name: com.contentstack.sdk:java
+      version: 2.8.2
+      released: '2026-09-02'
+      released_field: lastUpdated
+      lapsed: false
+      page: https://central.sonatype.com/artifact/com.contentstack.sdk/java
+      repo_leg: github-org:contentstack
+      publisher_leg: groupId:contentstack.com
+      matched_by: domain
+    - name: com.contentstack.sdk:marketplace
+      version: 1.0.4-beta
+      released: '2025-10-23'
+      released_field: lastUpdated
+      lapsed: false
+      page: https://central.sonatype.com/artifact/com.contentstack.sdk/marketplace
+      repo_leg: github-org:contentstack
+      publisher_leg: groupId:contentstack.com
+      matched_by: domain
+    - name: com.contentstack.sdk:utils
+      version: 1.6.2
+      released: '2026-09-02'
+      released_field: lastUpdated
+      lapsed: false
+      page: https://central.sonatype.com/artifact/com.contentstack.sdk/utils
+      repo_leg: domain:contentstack.com
+      publisher_leg: groupId:contentstack.com
+      matched_by: domain
+    current: true
+    signal_note: 'an official package on the registry: distribution, not an integration; lapsed = no release in
+      24 months'
+    detected_by: sweep-official-sdks.py
+    detected: '2026-10-18'
+  status: not-a-workflow
+  arazzo: null
+- slug: contentstack-npm-registry
+  label: npm registry
+  partner: npm
+  partner_name: npm registry
+  category: official SDK (JavaScript/TypeScript)
+  type: register
+  channel: package-registry
+  evidence: https://www.npmjs.com/package/@contentstack/app-sdk
+  source: edge
+  relationship: distribution-channel
+  contract_reference:
+    register: npm registry (public registry JSON)
+    spec_file: null
+    language: JavaScript/TypeScript
+    packages:
+    - name: '@contentstack/app-sdk'
+      version: 2.4.1
+      released: '2026-06-18'
+      released_field: modified
+      lapsed: false
+      page: https://www.npmjs.com/package/@contentstack/app-sdk
+      repo_leg: github-org:contentstack
+      publisher_leg: email:contentstack.com
+      matched_by: domain
+    - name: '@contentstack/cli'
+      version: 2.0.2
+      released: '2026-10-06'
+      released_field: modified
+      lapsed: false
+      page: https://www.npmjs.com/package/@contentstack/cli
+      repo_leg: github-org:contentstack
+      publisher_leg: email:contentstack.com
+      matched_by: domain
+    - name: '@contentstack/core'
+      version: 1.5.3
+      released: '2026-10-05'
+      released_field: modified
+      lapsed: false
+      page: https://www.npmjs.com/package/@contentstack/core
+      repo_leg: github-org:contentstack
+      publisher_leg: email:contentstack.com
+      matched_by: domain
+    - name: '@contentstack/delivery-sdk'
+      version: 5.6.1
+      released: '2026-10-06'
+      released_field: modified
+      lapsed: false
+      page: https://www.npmjs.com/package/@contentstack/delivery-sdk
+      repo_leg: github-org:contentstack
+      publisher_leg: email:contentstack.com
+      matched_by: domain
+    - name: '@contentstack/json-rte-serializer'
+      version: 3.1.0
+      released: '2026-05-18'
+      released_field: modified
+      lapsed: false
+      page: https://www.npmjs.com/package/@contentstack/json-rte-serializer
+      repo_leg: github-org:contentstack
+      publisher_leg: email:contentstack.com
+      matched_by: domain
+    - name: '@contentstack/management'
+      version: 1.31.2
+      released: '2026-10-06'
+      released_field: modified
+      lapsed: false
+      page: https://www.npmjs.com/package/@contentstack/management
+      repo_leg: domain:contentstack.com
+      publisher_leg: email:contentstack.com
+      matched_by: domain
+    - name: '@contentstack/marketplace-sdk'
+      version: 1.5.4
+      released: '2026-06-29'
+      released_field: modified
+      lapsed: false
+      page: https://www.npmjs.com/package/@contentstack/marketplace-sdk
+      repo_leg: domain:contentstack.com
+      publisher_leg: email:contentstack.com
+      matched_by: domain
+    - name: '@contentstack/venus-components'
+      version: 3.0.6
+      released: '2026-10-12'
+      released_field: modified
+      lapsed: false
+      page: https://www.npmjs.com/package/@contentstack/venus-components
+      repo_leg: github-org:contentstack
+      publisher_leg: email:contentstack.com
+      matched_by: domain
+    - name: contentstack
+      version: 3.27.1
+      released: '2026-07-20'
+      released_field: modified
+      lapsed: false
+      page: https://www.npmjs.com/package/contentstack
+      repo_leg: domain:contentstack.com
+      publisher_leg: email:contentstack.com
+      matched_by: domain
+    current: true
+    signal_note: 'an official package on the registry: distribution, not an integration; lapsed = no release in
+      24 months'
+    detected_by: sweep-official-sdks.py
+    detected: '2026-10-18'
+  status: not-a-workflow
+  arazzo: null
+- slug: contentstack-nuget-gallery
+  label: NuGet Gallery
+  partner: nuget
+  partner_name: NuGet Gallery
+  category: official SDK (.NET)
+  type: register
+  channel: package-registry
+  evidence: https://www.nuget.org/packages/contentstack.csharp
+  source: edge
+  relationship: distribution-channel
+  contract_reference:
+    register: NuGet Gallery (public registry JSON)
+    spec_file: null
+    language: .NET
+    packages:
+    - name: contentstack.csharp
+      version: 3.2.0
+      released: '2026-08-03'
+      released_field: published
+      lapsed: false
+      page: https://www.nuget.org/packages/contentstack.csharp
+      repo_leg: github-org:contentstack
+      publisher_leg: org:contentstack
+      matched_by: github-org
+    current: true
+    signal_note: 'an official package on the registry: distribution, not an integration; lapsed = no release in
+      24 months'
+    detected_by: sweep-official-sdks.py
+    detected: '2026-10-18'
+  status: not-a-workflow
+  arazzo: null
+- slug: contentstack-pypi
+  label: PyPI
+  partner: pypi
+  partner_name: PyPI
+  category: official SDK (Python)
+  type: register
+  channel: package-registry
+  evidence: https://pypi.org/project/contentstack/
+  source: edge
+  relationship: distribution-channel
+  contract_reference:
+    register: PyPI (public registry JSON)
+    spec_file: null
+    language: Python
+    packages:
+    - name: contentstack
+      version: 2.8.0
+      released: '2026-08-03'
+      released_field: upload_time
+      lapsed: false
+      page: https://pypi.org/project/contentstack/
+      repo_leg: github-org:contentstack
+      publisher_leg: email:contentstack.com
+      matched_by: domain
+    - name: contentstack-management
+      version: 1.11.2
+      released: '2026-08-12'
+      released_field: upload_time
+      lapsed: false
+      page: https://pypi.org/project/contentstack-management/
+      repo_leg: github-org:contentstack
+      publisher_leg: email:contentstack.com
+      matched_by: domain
+    current: true
+    signal_note: 'an official package on the registry: distribution, not an integration; lapsed = no release in
+      24 months'
+    detected_by: sweep-official-sdks.py
+    detected: '2026-10-18'
+  status: not-a-workflow
+  arazzo: null
+- slug: contentstack-rubygems
+  label: RubyGems
+  partner: rubygems
+  partner_name: RubyGems
+  category: official SDK (Ruby)
+  type: register
+  channel: package-registry
+  evidence: https://rubygems.org/gems/contentstack
+  source: edge
+  relationship: distribution-channel
+  contract_reference:
+    register: RubyGems (public registry JSON)
+    spec_file: null
+    language: Ruby
+    packages:
+    - name: contentstack
+      version: 0.10.1
+      released: '2026-08-17'
+      released_field: version_created_at
+      lapsed: false
+      page: https://rubygems.org/gems/contentstack
+      repo_leg: github-org:contentstack
+      publisher_leg: org:contentstack
+      matched_by: github-org
+    current: true
+    signal_note: 'an official package on the registry: distribution, not an integration; lapsed = no release in
+      24 months'
+    detected_by: sweep-official-sdks.py
+    detected: '2026-10-18'
+  status: not-a-workflow
+  arazzo: null
