@@ -27,19 +27,6 @@
   relationship: distribution-channel
   status: not-a-workflow
   arazzo: null
-- slug: contentstack-okta-own
-  label: Okta (own)
-  partner: okta
-  partner_name: Okta (own)
-  category: Single Sign-On
-  type: marketplace
-  marketplace: own
-  channel: partner-built
-  evidence: https://www.okta.com/integrations/contentstack/
-  source: edge
-  relationship: platform-app
-  status: not-a-workflow
-  arazzo: null
 - slug: contentstack-maven-central
   label: Maven Central
   partner: maven-central
@@ -385,5 +372,78 @@
     actions: true
     sources: true
     builder: Pipedream repo (component)
+  status: not-a-workflow
+  arazzo: null
+- slug: contentstack-mach-alliance
+  label: MACH Alliance
+  partner_name: MACH Alliance
+  category: composable (MACH) commerce alliance membership
+  type: register
+  channel: standard-directory
+  evidence: https://machalliance.org/members/contentstack
+  source: edge
+  relationship: standard-participant
+  contract_reference:
+    register: MACH Alliance members directory (machalliance.org/members)
+    standard: MACH Alliance (Microservices, API-first, Cloud-native SaaS, Headless)
+    spec_file: null
+    role: mach-certified-vendor
+    registered_name: Contentstack
+    register_id: contentstack
+    register_category: MACH Certified ISVs
+    register_country: US
+    matched_domain: contentstack.com
+    matched_by: domain
+    signal_note: certified_products = ONE entry for the vendor's MACH certification (the Alliance certifies the
+      vendor against the MACH criteria; no per-product list); awards and self-listed partnerships are context, never
+      counted
+    detected_by: sweep-mach-headless-commerce.py
+    detected: '2026-10-20'
+    certified_products:
+    - product: MACH certified ISV
+      product_type: MACH certified ISV
+      certifier: MACH Alliance
+      lapsed: false
+    awards_context:
+    - Agent Ready Award 2026
+  status: not-a-workflow
+  arazzo: null
+- slug: contentstack-okta-own
+  label: Okta (own)
+  partner: okta
+  partner_name: Okta (own)
+  category: Single Sign-On
+  type: marketplace
+  marketplace: own
+  channel: partner-built
+  evidence: https://www.okta.com/integrations/contentstack/
+  source: edge
+  relationship: platform-app
+  status: not-a-workflow
+  arazzo: null
+- slug: contentstack-bigcommerce-own
+  label: BigCommerce (own)
+  partner: bigcommerce
+  partner_name: BigCommerce (own)
+  category: CMS & Hosting, Content Management (CMS)
+  type: marketplace
+  marketplace: own
+  channel: partner-built
+  evidence: https://www.bigcommerce.com/apps/contentstack/
+  source: edge
+  relationship: platform-app
+  status: not-a-workflow
+  arazzo: null
+- slug: contentstack-salesforce-commerce-cloud-own
+  label: Salesforce Commerce Cloud (own)
+  partner: salesforce-commerce-cloud
+  partner_name: Salesforce Commerce Cloud (own)
+  category: eCommerce, marketing, contentManagementSystem
+  type: marketplace
+  marketplace: own
+  channel: partner-built
+  evidence: https://appexchange.salesforce.com/appxListingDetail?listingId=7b89bce6-65d8-4ccf-9c47-e3ff95a8cf3b
+  source: edge
+  relationship: platform-app
   status: not-a-workflow
   arazzo: null
