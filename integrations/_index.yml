@@ -447,3 +447,29 @@
   relationship: platform-app
   status: not-a-workflow
   arazzo: null
+- slug: contentstack-netlify-own
+  label: Netlify (own)
+  partner: netlify
+  partner_name: Netlify (own)
+  category: CMS
+  type: marketplace
+  marketplace: own
+  channel: partner-built
+  evidence: https://www.netlify.com/integrations/contentstack/
+  source: edge
+  relationship: platform-app
+  status: not-a-workflow
+  arazzo: null
+- slug: contentstack-vercel-own
+  label: Vercel (own)
+  partner: vercel
+  partner_name: Vercel (own)
+  category: Vercel Marketplace
+  type: marketplace
+  marketplace: own
+  channel: partner-built
+  evidence: https://vercel.com/marketplace/contentstack
+  source: edge
+  relationship: platform-app
+  status: not-a-workflow
+  arazzo: null

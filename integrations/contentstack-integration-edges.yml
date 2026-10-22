@@ -30,6 +30,8 @@ checked:
 - https://www.printful.com/integrations
 - bigcommerce/integrations/bigcommerce-integration-edges.yml
 - salesforce-commerce-cloud/integrations/salesforce-commerce-cloud-integration-edges.yml
+- netlify/integrations/netlify-integration-edges.yml
+- vercel/integrations/vercel-integration-edges.yml
 marketplace_apps: []
 edges:
 - partner_name: AWS Marketplace
@@ -554,6 +556,43 @@ edges:
   detected: '2026-10-20'
   detected_by: mirror-platform-listings.py
   category: eCommerce, marketing, contentManagementSystem
+- partner_name: Netlify (own)
+  partner: netlify
+  partner_match: mirror
+  mirror_match: domain
+  type: marketplace
+  relationship: platform-app
+  direction: third-party
+  channel: partner-built
+  marketplace: own
+  evidence: https://www.netlify.com/integrations/contentstack/
+  mirror_of: netlify/integrations/netlify-integration-edges.yml
+  apps:
+  - Contentstack
+  - Contentstack Automation Hub Connector for Netlify
+  listing_count: 1
+  detected: '2026-10-22'
+  detected_by: mirror-platform-listings.py
+  category: CMS
+  partner_tier: listing
+- partner_name: Vercel (own)
+  partner: vercel
+  partner_match: mirror
+  mirror_match: domain
+  type: marketplace
+  relationship: platform-app
+  direction: third-party
+  channel: partner-built
+  marketplace: own
+  evidence: https://vercel.com/marketplace/contentstack
+  mirror_of: vercel/integrations/vercel-integration-edges.yml
+  apps:
+  - Contentstack
+  listing_count: 1
+  detected: '2026-10-22'
+  detected_by: mirror-platform-listings.py
+  category: Vercel Marketplace
+  partner_tier: connectable-account
 source:
 - https://hightouch.com/docs/destinations/contentstack
 - https://www.twilio.com/docs/segment/connections/destinations/catalog/actions-contentstack
