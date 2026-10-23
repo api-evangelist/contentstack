@@ -351,6 +351,12 @@ artifacts:
   graphql/contentstack-graphql.md:
     method: unknown
     evidence: no authorship recorded
+  integrations/_index.yml:
+    method: generated
+    evidence: carries an API Evangelist house phrase
+  integrations/contentstack-integration-edges.yml:
+    method: searched
+    evidence: declared in the artifact
   json-ld/contentstack-context.jsonld:
     method: unknown
     evidence: no authorship recorded
@@ -654,127 +660,7 @@ artifacts:
   json-structure/contentstack-structure.json:
     method: unknown
     evidence: no authorship recorded
-  kin/checks-2026-09-24T161608.yml:
-    method: generated
-    evidence: Kin Score snapshot written by score.rb
-  kin/score-2026-08-25T125852.yml:
-    method: generated
-    evidence: Kin Score snapshot written by score.rb
-  kin/score-2026-08-25T133943.yml:
-    method: generated
-    evidence: Kin Score snapshot written by score.rb
-  kin/score-2026-08-25T143147.yml:
-    method: generated
-    evidence: Kin Score snapshot written by score.rb
-  kin/score-2026-08-25T154045.yml:
-    method: generated
-    evidence: Kin Score snapshot written by score.rb
-  kin/score-2026-08-26T215308.yml:
-    method: generated
-    evidence: Kin Score snapshot written by score.rb
-  kin/score-2026-08-27T094438.yml:
-    method: generated
-    evidence: Kin Score snapshot written by score.rb
-  kin/score-2026-08-27T103455.yml:
-    method: generated
-    evidence: Kin Score snapshot written by score.rb
-  kin/score-2026-08-27T123021.yml:
-    method: generated
-    evidence: Kin Score snapshot written by score.rb
-  kin/score-2026-08-27T132314.yml:
-    method: generated
-    evidence: Kin Score snapshot written by score.rb
-  kin/score-2026-08-27T140727.yml:
-    method: generated
-    evidence: Kin Score snapshot written by score.rb
-  kin/score-2026-08-28T221322.yml:
-    method: generated
-    evidence: Kin Score snapshot written by score.rb
-  kin/score-2026-08-29T213958.yml:
-    method: generated
-    evidence: Kin Score snapshot written by score.rb
-  kin/score-2026-08-29T230545.yml:
-    method: generated
-    evidence: Kin Score snapshot written by score.rb
-  kin/score-2026-08-30T203505.yml:
-    method: generated
-    evidence: Kin Score snapshot written by score.rb
-  kin/score-2026-08-30T220315.yml:
-    method: generated
-    evidence: Kin Score snapshot written by score.rb
-  kin/score-2026-08-31T223420.yml:
-    method: generated
-    evidence: Kin Score snapshot written by score.rb
-  kin/score-2026-09-01T063623.yml:
-    method: generated
-    evidence: Kin Score snapshot written by score.rb
-  kin/score-2026-09-01T210448.yml:
-    method: generated
-    evidence: Kin Score snapshot written by score.rb
-  kin/score-2026-09-01T222808.yml:
-    method: generated
-    evidence: Kin Score snapshot written by score.rb
-  kin/score-2026-09-02T211804.yml:
-    method: generated
-    evidence: Kin Score snapshot written by score.rb
-  kin/score-2026-09-02T224043.yml:
-    method: generated
-    evidence: Kin Score snapshot written by score.rb
-  kin/score-2026-09-03T161828.yml:
-    method: generated
-    evidence: Kin Score snapshot written by score.rb
-  kin/score-2026-09-03T174231.yml:
-    method: generated
-    evidence: Kin Score snapshot written by score.rb
-  kin/score-2026-09-04T062714.yml:
-    method: generated
-    evidence: Kin Score snapshot written by score.rb
-  kin/score-2026-09-04T212454.yml:
-    method: generated
-    evidence: Kin Score snapshot written by score.rb
-  kin/score-2026-09-04T224856.yml:
-    method: generated
-    evidence: Kin Score snapshot written by score.rb
-  kin/score-2026-09-05T055819.yml:
-    method: generated
-    evidence: Kin Score snapshot written by score.rb
-  kin/score-2026-09-05T072335.yml:
-    method: generated
-    evidence: Kin Score snapshot written by score.rb
-  kin/score-2026-09-05T144739.yml:
-    method: generated
-    evidence: Kin Score snapshot written by score.rb
-  kin/score-2026-09-05T195450.yml:
-    method: generated
-    evidence: Kin Score snapshot written by score.rb
-  kin/score-2026-09-05T211839.yml:
-    method: generated
-    evidence: Kin Score snapshot written by score.rb
-  kin/score-2026-09-06T011047.yml:
-    method: generated
-    evidence: Kin Score snapshot written by score.rb
-  kin/score-2026-09-06T211804.yml:
-    method: generated
-    evidence: Kin Score snapshot written by score.rb
-  kin/score-2026-09-06T224210.yml:
-    method: generated
-    evidence: Kin Score snapshot written by score.rb
-  kin/score-2026-09-07T200636.yml:
-    method: generated
-    evidence: Kin Score snapshot written by score.rb
-  kin/score-2026-09-07T213054.yml:
-    method: generated
-    evidence: Kin Score snapshot written by score.rb
-  kin/score-2026-09-08T214843.yml:
-    method: generated
-    evidence: Kin Score snapshot written by score.rb
-  kin/score-2026-09-08T232836.yml:
-    method: generated
-    evidence: Kin Score snapshot written by score.rb
-  kin/score-2026-09-10T204815.yml:
-    method: generated
-    evidence: Kin Score snapshot written by score.rb
-  kin/score-2026-09-10T222408.yml:
+  kin/checks-2026-10-11T110117.yml:
     method: generated
     evidence: Kin Score snapshot written by score.rb
   kin/score-2026-09-12T062655.yml:
@@ -856,6 +742,21 @@ artifacts:
     method: generated
     evidence: Kin Score snapshot written by score.rb
   kin/score-2026-09-24T161608.yml:
+    method: generated
+    evidence: Kin Score snapshot written by score.rb
+  kin/score-2026-09-25T210408.yml:
+    method: generated
+    evidence: Kin Score snapshot written by score.rb
+  kin/score-2026-09-25T232841.yml:
+    method: generated
+    evidence: Kin Score snapshot written by score.rb
+  kin/score-2026-10-03T000835.yml:
+    method: generated
+    evidence: Kin Score snapshot written by score.rb
+  kin/score-2026-10-03T024842.yml:
+    method: generated
+    evidence: Kin Score snapshot written by score.rb
+  kin/score-2026-10-11T110117.yml:
     method: generated
     evidence: Kin Score snapshot written by score.rb
   lifecycle/contentstack-lifecycle.yml:
@@ -1034,100 +935,199 @@ artifacts:
   overlays/contentstack-accounts-api-overlay.yaml:
     method: generated
     evidence: declared in the artifact
+  overlays/contentstack-accounts-api-phrasing-overlay.yaml:
+    method: generated
+    evidence: declared in the artifact
   overlays/contentstack-analytics-api-overlay.yaml:
+    method: generated
+    evidence: declared in the artifact
+  overlays/contentstack-analytics-api-phrasing-overlay.yaml:
     method: generated
     evidence: declared in the artifact
   overlays/contentstack-assets-api-overlay.yaml:
     method: generated
     evidence: declared in the artifact
+  overlays/contentstack-assets-api-phrasing-overlay.yaml:
+    method: generated
+    evidence: declared in the artifact
   overlays/contentstack-attributes-api-overlay.yaml:
+    method: generated
+    evidence: declared in the artifact
+  overlays/contentstack-attributes-api-phrasing-overlay.yaml:
     method: generated
     evidence: declared in the artifact
   overlays/contentstack-audiences-api-overlay.yaml:
     method: generated
     evidence: declared in the artifact
+  overlays/contentstack-audiences-api-phrasing-overlay.yaml:
+    method: generated
+    evidence: declared in the artifact
   overlays/contentstack-audit-logs-api-overlay.yaml:
+    method: generated
+    evidence: declared in the artifact
+  overlays/contentstack-audit-logs-api-phrasing-overlay.yaml:
     method: generated
     evidence: declared in the artifact
   overlays/contentstack-automations-api-overlay.yaml:
     method: generated
     evidence: declared in the artifact
+  overlays/contentstack-automations-api-phrasing-overlay.yaml:
+    method: generated
+    evidence: declared in the artifact
   overlays/contentstack-brand-kits-api-overlay.yaml:
+    method: generated
+    evidence: declared in the artifact
+  overlays/contentstack-brand-kits-api-phrasing-overlay.yaml:
     method: generated
     evidence: declared in the artifact
   overlays/contentstack-content-types-api-overlay.yaml:
     method: generated
     evidence: declared in the artifact
+  overlays/contentstack-content-types-api-phrasing-overlay.yaml:
+    method: generated
+    evidence: declared in the artifact
   overlays/contentstack-deployments-api-overlay.yaml:
+    method: generated
+    evidence: declared in the artifact
+  overlays/contentstack-deployments-api-phrasing-overlay.yaml:
     method: generated
     evidence: declared in the artifact
   overlays/contentstack-entries-api-overlay.yaml:
     method: generated
     evidence: declared in the artifact
+  overlays/contentstack-entries-api-phrasing-overlay.yaml:
+    method: generated
+    evidence: declared in the artifact
   overlays/contentstack-entry-variants-api-overlay.yaml:
+    method: generated
+    evidence: declared in the artifact
+  overlays/contentstack-entry-variants-api-phrasing-overlay.yaml:
     method: generated
     evidence: declared in the artifact
   overlays/contentstack-environments-api-overlay.yaml:
     method: generated
     evidence: declared in the artifact
+  overlays/contentstack-environments-api-phrasing-overlay.yaml:
+    method: generated
+    evidence: declared in the artifact
   overlays/contentstack-events-api-overlay.yaml:
+    method: generated
+    evidence: declared in the artifact
+  overlays/contentstack-events-api-phrasing-overlay.yaml:
     method: generated
     evidence: declared in the artifact
   overlays/contentstack-execution-logs-api-overlay.yaml:
     method: generated
     evidence: declared in the artifact
+  overlays/contentstack-execution-logs-api-phrasing-overlay.yaml:
+    method: generated
+    evidence: declared in the artifact
   overlays/contentstack-experiences-api-overlay.yaml:
+    method: generated
+    evidence: declared in the artifact
+  overlays/contentstack-experiences-api-phrasing-overlay.yaml:
     method: generated
     evidence: declared in the artifact
   overlays/contentstack-file-uploads-api-overlay.yaml:
     method: generated
     evidence: declared in the artifact
+  overlays/contentstack-file-uploads-api-phrasing-overlay.yaml:
+    method: generated
+    evidence: declared in the artifact
   overlays/contentstack-geolocation-api-overlay.yaml:
+    method: generated
+    evidence: declared in the artifact
+  overlays/contentstack-geolocation-api-phrasing-overlay.yaml:
     method: generated
     evidence: declared in the artifact
   overlays/contentstack-global-fields-api-overlay.yaml:
     method: generated
     evidence: declared in the artifact
+  overlays/contentstack-global-fields-api-phrasing-overlay.yaml:
+    method: generated
+    evidence: declared in the artifact
   overlays/contentstack-llm-configuration-api-overlay.yaml:
+    method: generated
+    evidence: declared in the artifact
+  overlays/contentstack-llm-configuration-api-phrasing-overlay.yaml:
     method: generated
     evidence: declared in the artifact
   overlays/contentstack-manifest-api-overlay.yaml:
     method: generated
     evidence: declared in the artifact
+  overlays/contentstack-manifest-api-phrasing-overlay.yaml:
+    method: generated
+    evidence: declared in the artifact
   overlays/contentstack-organizations-api-overlay.yaml:
+    method: generated
+    evidence: declared in the artifact
+  overlays/contentstack-organizations-api-phrasing-overlay.yaml:
     method: generated
     evidence: declared in the artifact
   overlays/contentstack-projects-api-overlay.yaml:
     method: generated
     evidence: declared in the artifact
+  overlays/contentstack-projects-api-phrasing-overlay.yaml:
+    method: generated
+    evidence: declared in the artifact
   overlays/contentstack-scim-groups-api-overlay.yaml:
+    method: generated
+    evidence: declared in the artifact
+  overlays/contentstack-scim-groups-api-phrasing-overlay.yaml:
     method: generated
     evidence: declared in the artifact
   overlays/contentstack-scim-schema-discovery-api-overlay.yaml:
     method: generated
     evidence: declared in the artifact
+  overlays/contentstack-scim-schema-discovery-api-phrasing-overlay.yaml:
+    method: generated
+    evidence: declared in the artifact
   overlays/contentstack-scim-users-api-overlay.yaml:
+    method: generated
+    evidence: declared in the artifact
+  overlays/contentstack-scim-users-api-phrasing-overlay.yaml:
     method: generated
     evidence: declared in the artifact
   overlays/contentstack-stacks-api-overlay.yaml:
     method: generated
     evidence: declared in the artifact
+  overlays/contentstack-stacks-api-phrasing-overlay.yaml:
+    method: generated
+    evidence: declared in the artifact
   overlays/contentstack-synchronization-api-overlay.yaml:
+    method: generated
+    evidence: declared in the artifact
+  overlays/contentstack-synchronization-api-phrasing-overlay.yaml:
     method: generated
     evidence: declared in the artifact
   overlays/contentstack-user-attributes-api-overlay.yaml:
     method: generated
     evidence: declared in the artifact
+  overlays/contentstack-user-attributes-api-phrasing-overlay.yaml:
+    method: generated
+    evidence: declared in the artifact
   overlays/contentstack-user-sessions-api-overlay.yaml:
+    method: generated
+    evidence: declared in the artifact
+  overlays/contentstack-user-sessions-api-phrasing-overlay.yaml:
     method: generated
     evidence: declared in the artifact
   overlays/contentstack-users-api-overlay.yaml:
     method: generated
     evidence: declared in the artifact
+  overlays/contentstack-users-api-phrasing-overlay.yaml:
+    method: generated
+    evidence: declared in the artifact
   overlays/contentstack-variables-api-overlay.yaml:
     method: generated
     evidence: declared in the artifact
+  overlays/contentstack-variables-api-phrasing-overlay.yaml:
+    method: generated
+    evidence: declared in the artifact
   overlays/contentstack-voice-profiles-api-overlay.yaml:
+    method: generated
+    evidence: declared in the artifact
+  overlays/contentstack-voice-profiles-api-phrasing-overlay.yaml:
     method: generated
     evidence: declared in the artifact
   packages/contentstack-packages.yml:
