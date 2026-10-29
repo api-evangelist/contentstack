@@ -1,4 +1,4 @@
-# contentstack (contentstack)
+# Contentstack
 
 <!-- API-EVANGELIST-PROVENANCE:BEGIN -->
 > ### About this repository
@@ -64,342 +64,305 @@
 > Full detail: **[Where this data comes from](https://apievangelist.com/about/where-our-data-comes-from)**
 <!-- API-EVANGELIST-PROVENANCE:END -->
 
-This document is a detailed reference to Contentstack’s Content Delivery API. Retrieve content from your account and deliver it to web and mobile properties.
+Contentstack is a composable, API-first content platform — an Agentic Experience Platform built around a headless CMS, a real-time customer data layer and an agent runtime. Developers reach it through a read-only Content Delivery API on a global CDN, a write-side Content Management API, a read-only GraphQL delivery surface, an on-the-fly Image Delivery API, and product APIs for Launch (front-end hosting), Automation Hub, Personalize, BrandKit AI and SCIM 2.0 user provisioning. Contentstack publishes a 95-scope OAuth 2.0 reference, an llms.txt, markdown twins of its API reference pages, and a first-party Model Context Protocol server exposing 206 tools whose definitions — including the REST call each one makes — it serves anonymously as JSON.
+
+**Areas:** Headless CMS · Content Management · Content Delivery · Digital Experience · Personalization · GraphQL · MCP · SCIM · Composable Commerce · AI Agents · Webhook · Image Delivery
+
+## Contentstack on APIs.io
+
+Everything profiled for Contentstack is published on APIs.io rather than in this repository. Start at the provider page — **[apis.io/providers/contentstack/](https://apis.io/providers/contentstack/)** — or go straight to one of the APIs or properties below.
+
+### APIs (35)
+
+- [Contentstack GraphQL Content Delivery API](https://apis.io/apis/contentstack/graphql-content-delivery-api/) — The Contentstack GraphQL Content Delivery API enables developers to query content from their Contentstack stack using GraphQL syntax, allowing precise…
+- [Contentstack Image Delivery API](https://apis.io/apis/contentstack/image-delivery-api/) — The Contentstack Image Delivery API allows developers to retrieve and transform images stored as assets in their Contentstack stacks. It supports on-the-fly…
+- [Contentstack Analytics API](https://apis.io/apis/contentstack/analytics-api/) — The Contentstack Analytics API provides access to usage and performance metrics for CMS, Launch, and Automate products within a Contentstack organization.…
+- [contentstack Accounts API](https://apis.io/apis/contentstack/contentstack-accounts-api/) — Accounts represent authenticated connections to external services and third-party platforms used by automations as action targets.
+- [contentstack Assets API](https://apis.io/apis/contentstack/contentstack-assets-api/) — Assets are media files such as images, videos, and documents stored in the Contentstack asset library.
+- [contentstack Attributes API](https://apis.io/apis/contentstack/contentstack-attributes-api/) — Attributes represent individual user data characteristics such as age, location, or browsing history used to define audience segments.
+- [contentstack Audiences API](https://apis.io/apis/contentstack/contentstack-audiences-api/) — Audiences are defined segments of users grouped by demographic, behavioral, or other attribute-based criteria for targeted content experiences.
+- [contentstack Audit Logs API](https://apis.io/apis/contentstack/contentstack-audit-logs-api/) — Audit logs track all administrative actions taken within an automation project, providing a history of configuration changes.
+- [contentstack Automations API](https://apis.io/apis/contentstack/contentstack-automations-api/) — Automations are individual workflow definitions that connect triggers (such as Contentstack content events) to actions (such as sending notifications or…
+- [contentstack Brand Kits API](https://apis.io/apis/contentstack/contentstack-brand-kits-api/) — Brand Kits are centralized repositories for an organization's brand identity assets, guidelines, and AI configuration. They are used to ensure consistent…
+- [contentstack Content Types API](https://apis.io/apis/contentstack/contentstack-content-types-api/) — Content types define the structure of content entries in a Contentstack stack. They specify the fields and their data types that entries must conform to.
+- [contentstack Deployments API](https://apis.io/apis/contentstack/contentstack-deployments-api/) — Deployments represent individual build and publish operations to a Launch environment. Each deployment has associated build logs, server logs, and status…
+- [contentstack Entries API](https://apis.io/apis/contentstack/contentstack-entries-api/) — Entries are instances of content types that hold the actual content data. They can be filtered, sorted, paginated, and localized.
+- [contentstack Entry Variants API](https://apis.io/apis/contentstack/contentstack-entry-variants-api/) — Entry variants are customized versions of an entry created for personalization or A/B testing purposes.
+- [contentstack Environments API](https://apis.io/apis/contentstack/contentstack-environments-api/) — Endpoints for managing deployment environments (e.g., production, staging) within a stack.
+- [contentstack Events API](https://apis.io/apis/contentstack/contentstack-events-api/) — The events endpoint allows applications to track user actions and behavioral events for experience analytics and audience rule evaluation.
+- [contentstack Execution Logs API](https://apis.io/apis/contentstack/contentstack-execution-logs-api/) — Execution logs record each time an automation runs, including the trigger context, steps executed, and success or failure status.
+- [contentstack Experiences API](https://apis.io/apis/contentstack/contentstack-experiences-api/) — Experiences define personalized content variations delivered to specific audience segments, supporting both segmented and A/B test configurations.
+- [contentstack File Uploads API](https://apis.io/apis/contentstack/contentstack-file-uploads-api/) — File upload endpoints provide pre-signed URLs for securely uploading build artifacts to Contentstack Launch infrastructure before triggering a deployment.
+- [contentstack Geolocation API](https://apis.io/apis/contentstack/contentstack-geolocation-api/) — Geolocation endpoints provide geographic datasets including regions, countries, and cities for location-based audience targeting.
+- [contentstack Global Fields API](https://apis.io/apis/contentstack/contentstack-global-fields-api/) — Global fields are reusable field groups that can be referenced across multiple content types within a Contentstack stack.
+- [contentstack LLM Configuration API](https://apis.io/apis/contentstack/contentstack-llm-configuration-api/) — LLM Configuration endpoints allow organizations to register custom API credentials for large language model providers, enabling content generation through…
+- [contentstack Manifest API](https://apis.io/apis/contentstack/contentstack-manifest-api/) — The manifest endpoint returns a list of all active experiences and their corresponding variants that are activated for the current user based on their…
+- [contentstack Organizations API](https://apis.io/apis/contentstack/contentstack-organizations-api/) — Endpoints for managing Contentstack organizations, including user invitations, roles, stacks, and audit logs at the organization level.
+- [contentstack Projects API](https://apis.io/apis/contentstack/contentstack-projects-api/) — Automation projects are containers for automations within a Contentstack organization. Each project groups related automations and can have its own…
+- [contentstack SCIM Groups API](https://apis.io/apis/contentstack/contentstack-scim-groups-api/) — SCIM group endpoints allow Identity Providers to manage group memberships in Contentstack, which map to role-based access control within the CMS.
+- [contentstack SCIM Schema Discovery API](https://apis.io/apis/contentstack/contentstack-scim-schema-discovery-api/) — Schema discovery endpoints implement the SCIM 2.0 service provider configuration, returning supported schemas and resource types for IdP compatibility…
+- [contentstack SCIM Users API](https://apis.io/apis/contentstack/contentstack-scim-users-api/) — SCIM user endpoints enable Identity Providers to provision, update, and deprovision user accounts within a Contentstack organization following the SCIM 2.0…
+- [contentstack Stacks API](https://apis.io/apis/contentstack/contentstack-stacks-api/) — Endpoints for creating and managing Contentstack stacks, including settings, users, sharing, and ownership transfer.
+- [contentstack Synchronization API](https://apis.io/apis/contentstack/contentstack-synchronization-api/) — The synchronization endpoints allow developers to sync published content incrementally, enabling efficient local caching and offline-first patterns.
+- [contentstack User Attributes API](https://apis.io/apis/contentstack/contentstack-user-attributes-api/) — Endpoints for setting, updating, and merging user attribute data used to determine audience membership and personalized content targeting.
+- [contentstack User Sessions API](https://apis.io/apis/contentstack/contentstack-user-sessions-api/) — Endpoints for authenticating users and managing session tokens within Contentstack.
+- [contentstack Users API](https://apis.io/apis/contentstack/contentstack-users-api/) — Endpoints for managing Contentstack user accounts including profile updates, password resets, and account activation.
+- [contentstack Variables API](https://apis.io/apis/contentstack/contentstack-variables-api/) — Project variables are reusable key-value pairs that can be referenced across multiple automations within a project.
+- [contentstack Voice Profiles API](https://apis.io/apis/contentstack/contentstack-voice-profiles-api/) — Voice Profiles define the writing style, tone, and persona characteristics for AI content generation within a Brand Kit. Multiple voice profiles can be…
 
-**APIs.json:** [https://raw.githubusercontent.com/api-evangelist/contentstack/refs/heads/main/apis.yml](https://raw.githubusercontent.com/api-evangelist/contentstack/refs/heads/main/apis.yml)
+### Published properties
 
-## Timestamps
+Each property below is a page on APIs.io carrying the machine-readable artifact and what it says.
+
+#### AsyncAPI (1)
+
+Event-driven and webhook contracts.
+
+- [Contentstack Webhooks](https://apis.io/asyncapis/contentstack/contentstack-webhooks-asyncapi/)
+
+#### Event channels (1)
+
+Individual events and webhooks the provider emits.
+
+- [/webhook](https://apis.io/channels/contentstack/webhook/)
+
+#### GraphQL (1)
+
+GraphQL schemas.
+
+- [contentstack GraphQL API](https://apis.io/graphqls/contentstack/contentstack-graphql/)
+
+#### MCP servers (1)
+
+Model Context Protocol servers that expose the API to agents.
+
+- [Contentstack MCP Server](https://apis.io/servers/contentstack/contentstack-mcp-server/)
+
+#### Agentic access (1)
+
+Which operations an agent can call, which act, and which need a human in the loop.
+
+- [Contentstack Agentic Access](https://apis.io/agentic-access/contentstack/contentstack-agentic-access/)
+
+#### JSON Schema (99)
+
+The data models the API reads and writes.
+
+- [Account](https://apis.io/schemas/contentstack/contentstack-account/)
+- [AccountList](https://apis.io/schemas/contentstack/contentstack-accountlist/)
+- [AnalyticsRequest](https://apis.io/schemas/contentstack/contentstack-analyticsrequest/)
+- [Asset](https://apis.io/schemas/contentstack/contentstack-asset/)
+- [AssetList](https://apis.io/schemas/contentstack/contentstack-assetlist/)
+- [Attribute](https://apis.io/schemas/contentstack/contentstack-attribute/)
+- [AttributeList](https://apis.io/schemas/contentstack/contentstack-attributelist/)
+- [Audience](https://apis.io/schemas/contentstack/contentstack-audience/)
+- [AudienceList](https://apis.io/schemas/contentstack/contentstack-audiencelist/)
+- [AuditLog](https://apis.io/schemas/contentstack/contentstack-auditlog/)
+- [AuditLogList](https://apis.io/schemas/contentstack/contentstack-auditloglist/)
+- [Automation](https://apis.io/schemas/contentstack/contentstack-automation/)
+- [AutomationList](https://apis.io/schemas/contentstack/contentstack-automationlist/)
+- [BrandKit](https://apis.io/schemas/contentstack/contentstack-brandkit/)
+- [BrandKitList](https://apis.io/schemas/contentstack/contentstack-brandkitlist/)
+- [CacheUsage](https://apis.io/schemas/contentstack/contentstack-cacheusage/)
+- [ContentType](https://apis.io/schemas/contentstack/contentstack-contenttype/)
+- [ContentTypeList](https://apis.io/schemas/contentstack/contentstack-contenttypelist/)
+- [CreateAttributeRequest](https://apis.io/schemas/contentstack/contentstack-createattributerequest/)
+- [CreateAudienceRequest](https://apis.io/schemas/contentstack/contentstack-createaudiencerequest/)
+- [CreateBrandKitRequest](https://apis.io/schemas/contentstack/contentstack-createbrandkitrequest/)
+- [CreateContentTypeRequest](https://apis.io/schemas/contentstack/contentstack-createcontenttyperequest/)
+- [CreateDeploymentRequest](https://apis.io/schemas/contentstack/contentstack-createdeploymentrequest/)
+- [CreateEntryRequest](https://apis.io/schemas/contentstack/contentstack-createentryrequest/)
+- [CreateEnvironmentRequest](https://apis.io/schemas/contentstack/contentstack-createenvironmentrequest/)
+- …and 74 more published on APIs.io
+
+#### JSON Structure (1)
+
+Data models expressed in JSON Structure.
+
+- [Contentstack Structure](https://apis.io/json-structure/contentstack/contentstack-structure/)
+
+#### JSON-LD (1)
+
+Linked-data contexts for the provider's vocabulary.
+
+- [Contentstack Context](https://apis.io/jsonld/contentstack/contentstack-context/)
+
+#### Vocabulary (1)
+
+The provider's domain terms, defined.
+
+- [Contentstack Headless CMS Vocabulary](https://apis.io/vocabularies/contentstack/contentstack-vocabulary/)
 
-- **Modified:** 2026-05-19
+#### Collections (51)
 
-## APIs
+Postman and Open Collection request collections.
 
-### Contentstack Content Delivery API
+- [Contentstack Analytics Accounts API](https://apis.io/collections/contentstack/open-contentstack-accounts-api/)
+- [Contentstack Accounts Analytics API](https://apis.io/collections/contentstack/open-contentstack-analytics-api/)
+- [Contentstack Analytics Accounts Assets API](https://apis.io/collections/contentstack/open-contentstack-assets-api/)
+- [Contentstack Analytics Accounts Attributes API](https://apis.io/collections/contentstack/open-contentstack-attributes-api/)
+- [Contentstack Analytics Accounts Audiences API](https://apis.io/collections/contentstack/open-contentstack-audiences-api/)
+- [Contentstack Analytics Accounts Audit Logs API](https://apis.io/collections/contentstack/open-contentstack-audit-logs-api/)
+- [Contentstack Automate Management API](https://apis.io/collections/contentstack/open-contentstack-automate-management-api/)
+- [Contentstack Analytics Accounts Automations API](https://apis.io/collections/contentstack/open-contentstack-automations-api/)
+- [Contentstack Brand Kit Management API](https://apis.io/collections/contentstack/open-contentstack-brand-kit-management-api/)
+- [Contentstack Analytics Accounts Brand Kits API](https://apis.io/collections/contentstack/open-contentstack-brand-kits-api/)
+- [Contentstack Analytics Accounts Cache Analytics API](https://apis.io/collections/contentstack/open-contentstack-cache-analytics-api/)
+- [Contentstack Content Delivery API](https://apis.io/collections/contentstack/open-contentstack-content-delivery-api/)
+- [Contentstack Content Management API](https://apis.io/collections/contentstack/open-contentstack-content-management-api/)
+- [Contentstack Analytics Accounts Content Types API](https://apis.io/collections/contentstack/open-contentstack-content-types-api/)
+- [Contentstack Analytics Accounts Deployments API](https://apis.io/collections/contentstack/open-contentstack-deployments-api/)
+- [Contentstack Analytics Accounts Device Usage API](https://apis.io/collections/contentstack/open-contentstack-device-usage-api/)
+- [Contentstack Analytics Accounts Entries API](https://apis.io/collections/contentstack/open-contentstack-entries-api/)
+- [Contentstack Analytics Accounts Entry Variants API](https://apis.io/collections/contentstack/open-contentstack-entry-variants-api/)
+- [Contentstack Analytics Accounts Environments API](https://apis.io/collections/contentstack/open-contentstack-environments-api/)
+- [Contentstack Analytics Accounts Events API](https://apis.io/collections/contentstack/open-contentstack-events-api/)
+- [Contentstack Analytics Accounts Execution Logs API](https://apis.io/collections/contentstack/open-contentstack-execution-logs-api/)
+- [Contentstack Analytics Accounts Experiences API](https://apis.io/collections/contentstack/open-contentstack-experiences-api/)
+- [Contentstack Analytics Accounts File Uploads API](https://apis.io/collections/contentstack/open-contentstack-file-uploads-api/)
+- [Contentstack Analytics Accounts Generative AI API](https://apis.io/collections/contentstack/open-contentstack-generative-ai-api/)
+- [Contentstack Analytics Accounts Geolocation API](https://apis.io/collections/contentstack/open-contentstack-geolocation-api/)
+- …and 26 more published on APIs.io
+
+#### Overlays (66)
+
+OpenAPI overlays, including conversational phrasing for each operation.
 
-The Contentstack Content Delivery API (CDA) allows developers to retrieve published content from their Contentstack stacks and deliver it to web or mobile applications. It supports fetching entries, assets, and content types through REST endpoints using stack API keys and delivery tokens for authentication. The API is read-only and optimized for high-performance content retrieval at scale.
-
-- **Human URL:** [https://www.contentstack.com/docs/developers/apis/content-delivery-api](https://www.contentstack.com/docs/developers/apis/content-delivery-api)
-- **Base URL:** `https://cdn.contentstack.io`
-
-#### Tags
-
-- Content Delivery
-- Content Management
-- Headless CMS
-- REST
-
-#### Properties
-
-- [Documentation](https://www.contentstack.com/docs/developers/apis/content-delivery-api)
-- [OpenAPI](openapi/contentstack-content-delivery-api-openapi.yml) — [OpenAPI Specification](https://spec.openapis.org/oas/latest.html)
-- [Postman Collection](collections/contentstack-content-delivery-api.postman_collection.json) — [Postman Collection 2.1](https://schema.getpostman.com/json/collection/v2.1.0/collection.json)
-- [Open Collection](collections/contentstack-content-delivery-api.opencollection.json) — [Open Collection 1.0](https://schema.opencollection.com/opencollection/v1.0.0.json)
-
-### Contentstack Content Management API
-
-The Contentstack Content Management API (CMA) provides programmatic access to manage all aspects of a Contentstack stack, including content types, entries, assets, environments, workflows, and users. It supports full CRUD operations using standard HTTP verbs (GET, POST, PUT, DELETE) and authenticates via management tokens or user session tokens.
-
-- **Human URL:** [https://www.contentstack.com/docs/developers/apis/content-management-api](https://www.contentstack.com/docs/developers/apis/content-management-api)
-- **Base URL:** `https://api.contentstack.io`
-
-#### Tags
-
-- Content Management
-- CRUD
-- Headless CMS
-- REST
-
-#### Properties
-
-- [Documentation](https://www.contentstack.com/docs/developers/apis/content-management-api)
-- [OpenAPI](openapi/contentstack-content-management-api-openapi.yml) — [OpenAPI Specification](https://spec.openapis.org/oas/latest.html)
-- [Postman Collection](collections/contentstack-content-management-api.postman_collection.json) — [Postman Collection 2.1](https://schema.getpostman.com/json/collection/v2.1.0/collection.json)
-- [Open Collection](collections/contentstack-content-management-api.opencollection.json) — [Open Collection 1.0](https://schema.opencollection.com/opencollection/v1.0.0.json)
-
-### Contentstack GraphQL Content Delivery API
-
-The Contentstack GraphQL Content Delivery API enables developers to query content from their Contentstack stack using GraphQL syntax, allowing precise retrieval of only the fields and relationships needed in a single request. It is built on top of the Content Delivery API and supports querying entries, assets, and nested references across content types. The GraphQL API does not support mutations or subscriptions; it is strictly read-only and intended for front-end and application data fetching.
-
-- **Human URL:** [https://www.contentstack.com/docs/developers/apis/graphql-content-delivery-api](https://www.contentstack.com/docs/developers/apis/graphql-content-delivery-api)
-- **Base URL:** `https://graphql.contentstack.com`
-
-#### Tags
-
-- Content Delivery
-- GraphQL
-- Headless CMS
-- Query Language
-
-#### Properties
-
-- [Documentation](https://www.contentstack.com/docs/developers/apis/graphql-content-delivery-api)
-- [Postman Collection](collections/contentstack-analytics-api.postman_collection.json) — [Postman Collection 2.1](https://schema.getpostman.com/json/collection/v2.1.0/collection.json)
-- [Open Collection](collections/contentstack-analytics-api.opencollection.json) — [Open Collection 1.0](https://schema.opencollection.com/opencollection/v1.0.0.json)
-- [Postman Collection](collections/contentstack-automate-management-api.postman_collection.json) — [Postman Collection 2.1](https://schema.getpostman.com/json/collection/v2.1.0/collection.json)
-- [Open Collection](collections/contentstack-automate-management-api.opencollection.json) — [Open Collection 1.0](https://schema.opencollection.com/opencollection/v1.0.0.json)
-- [Postman Collection](collections/contentstack-brand-kit-management-api.postman_collection.json) — [Postman Collection 2.1](https://schema.getpostman.com/json/collection/v2.1.0/collection.json)
-- [Open Collection](collections/contentstack-brand-kit-management-api.opencollection.json) — [Open Collection 1.0](https://schema.opencollection.com/opencollection/v1.0.0.json)
-- [Postman Collection](collections/contentstack-content-delivery-api.postman_collection.json) — [Postman Collection 2.1](https://schema.getpostman.com/json/collection/v2.1.0/collection.json)
-- [Open Collection](collections/contentstack-content-delivery-api.opencollection.json) — [Open Collection 1.0](https://schema.opencollection.com/opencollection/v1.0.0.json)
-- [Postman Collection](collections/contentstack-content-management-api.postman_collection.json) — [Postman Collection 2.1](https://schema.getpostman.com/json/collection/v2.1.0/collection.json)
-- [Open Collection](collections/contentstack-content-management-api.opencollection.json) — [Open Collection 1.0](https://schema.opencollection.com/opencollection/v1.0.0.json)
-- [Postman Collection](collections/contentstack-generative-ai-api.postman_collection.json) — [Postman Collection 2.1](https://schema.getpostman.com/json/collection/v2.1.0/collection.json)
-- [Open Collection](collections/contentstack-generative-ai-api.opencollection.json) — [Open Collection 1.0](https://schema.opencollection.com/opencollection/v1.0.0.json)
-- [Postman Collection](collections/contentstack-knowledge-vault-api.postman_collection.json) — [Postman Collection 2.1](https://schema.getpostman.com/json/collection/v2.1.0/collection.json)
-- [Open Collection](collections/contentstack-knowledge-vault-api.opencollection.json) — [Open Collection 1.0](https://schema.opencollection.com/opencollection/v1.0.0.json)
-- [Postman Collection](collections/contentstack-launch-api.postman_collection.json) — [Postman Collection 2.1](https://schema.getpostman.com/json/collection/v2.1.0/collection.json)
-- [Open Collection](collections/contentstack-launch-api.opencollection.json) — [Open Collection 1.0](https://schema.opencollection.com/opencollection/v1.0.0.json)
-- [Postman Collection](collections/contentstack-personalize-edge-api.postman_collection.json) — [Postman Collection 2.1](https://schema.getpostman.com/json/collection/v2.1.0/collection.json)
-- [Open Collection](collections/contentstack-personalize-edge-api.opencollection.json) — [Open Collection 1.0](https://schema.opencollection.com/opencollection/v1.0.0.json)
-- [Postman Collection](collections/contentstack-personalize-management-api.postman_collection.json) — [Postman Collection 2.1](https://schema.getpostman.com/json/collection/v2.1.0/collection.json)
-- [Open Collection](collections/contentstack-personalize-management-api.opencollection.json) — [Open Collection 1.0](https://schema.opencollection.com/opencollection/v1.0.0.json)
-- [Postman Collection](collections/contentstack-scim-api.postman_collection.json) — [Postman Collection 2.1](https://schema.getpostman.com/json/collection/v2.1.0/collection.json)
-- [Open Collection](collections/contentstack-scim-api.opencollection.json) — [Open Collection 1.0](https://schema.opencollection.com/opencollection/v1.0.0.json)
-
-### Contentstack Image Delivery API
-
-The Contentstack Image Delivery API allows developers to retrieve and transform images stored as assets in their Contentstack stacks. It supports on-the-fly image manipulation operations including resizing, cropping, format conversion, quality adjustment, and overlay compositing via URL query parameters. Images are served from a CDN for fast delivery, and transformations are applied at request time without creating additional stored copies.
-
-- **Human URL:** [https://www.contentstack.com/docs/developers/apis/image-delivery-api](https://www.contentstack.com/docs/developers/apis/image-delivery-api)
-- **Base URL:** `https://images.contentstack.io`
-
-#### Tags
-
-- Asset Delivery
-- Images
-- Media
-- Transformation
-
-#### Properties
-
-- [Documentation](https://www.contentstack.com/docs/developers/apis/image-delivery-api)
-- [Postman Collection](collections/contentstack-analytics-api.postman_collection.json) — [Postman Collection 2.1](https://schema.getpostman.com/json/collection/v2.1.0/collection.json)
-- [Open Collection](collections/contentstack-analytics-api.opencollection.json) — [Open Collection 1.0](https://schema.opencollection.com/opencollection/v1.0.0.json)
-- [Postman Collection](collections/contentstack-automate-management-api.postman_collection.json) — [Postman Collection 2.1](https://schema.getpostman.com/json/collection/v2.1.0/collection.json)
-- [Open Collection](collections/contentstack-automate-management-api.opencollection.json) — [Open Collection 1.0](https://schema.opencollection.com/opencollection/v1.0.0.json)
-- [Postman Collection](collections/contentstack-brand-kit-management-api.postman_collection.json) — [Postman Collection 2.1](https://schema.getpostman.com/json/collection/v2.1.0/collection.json)
-- [Open Collection](collections/contentstack-brand-kit-management-api.opencollection.json) — [Open Collection 1.0](https://schema.opencollection.com/opencollection/v1.0.0.json)
-- [Postman Collection](collections/contentstack-content-delivery-api.postman_collection.json) — [Postman Collection 2.1](https://schema.getpostman.com/json/collection/v2.1.0/collection.json)
-- [Open Collection](collections/contentstack-content-delivery-api.opencollection.json) — [Open Collection 1.0](https://schema.opencollection.com/opencollection/v1.0.0.json)
-- [Postman Collection](collections/contentstack-content-management-api.postman_collection.json) — [Postman Collection 2.1](https://schema.getpostman.com/json/collection/v2.1.0/collection.json)
-- [Open Collection](collections/contentstack-content-management-api.opencollection.json) — [Open Collection 1.0](https://schema.opencollection.com/opencollection/v1.0.0.json)
-- [Postman Collection](collections/contentstack-generative-ai-api.postman_collection.json) — [Postman Collection 2.1](https://schema.getpostman.com/json/collection/v2.1.0/collection.json)
-- [Open Collection](collections/contentstack-generative-ai-api.opencollection.json) — [Open Collection 1.0](https://schema.opencollection.com/opencollection/v1.0.0.json)
-- [Postman Collection](collections/contentstack-knowledge-vault-api.postman_collection.json) — [Postman Collection 2.1](https://schema.getpostman.com/json/collection/v2.1.0/collection.json)
-- [Open Collection](collections/contentstack-knowledge-vault-api.opencollection.json) — [Open Collection 1.0](https://schema.opencollection.com/opencollection/v1.0.0.json)
-- [Postman Collection](collections/contentstack-launch-api.postman_collection.json) — [Postman Collection 2.1](https://schema.getpostman.com/json/collection/v2.1.0/collection.json)
-- [Open Collection](collections/contentstack-launch-api.opencollection.json) — [Open Collection 1.0](https://schema.opencollection.com/opencollection/v1.0.0.json)
-- [Postman Collection](collections/contentstack-personalize-edge-api.postman_collection.json) — [Postman Collection 2.1](https://schema.getpostman.com/json/collection/v2.1.0/collection.json)
-- [Open Collection](collections/contentstack-personalize-edge-api.opencollection.json) — [Open Collection 1.0](https://schema.opencollection.com/opencollection/v1.0.0.json)
-- [Postman Collection](collections/contentstack-personalize-management-api.postman_collection.json) — [Postman Collection 2.1](https://schema.getpostman.com/json/collection/v2.1.0/collection.json)
-- [Open Collection](collections/contentstack-personalize-management-api.opencollection.json) — [Open Collection 1.0](https://schema.opencollection.com/opencollection/v1.0.0.json)
-- [Postman Collection](collections/contentstack-scim-api.postman_collection.json) — [Postman Collection 2.1](https://schema.getpostman.com/json/collection/v2.1.0/collection.json)
-- [Open Collection](collections/contentstack-scim-api.opencollection.json) — [Open Collection 1.0](https://schema.opencollection.com/opencollection/v1.0.0.json)
-
-### Contentstack Personalize Management API
-
-The Contentstack Personalize Management API provides programmatic control over the resources in a Contentstack Personalize project, including Attributes, Audiences, Events, and Experiences. Developers can use this API to create and manage audience segments based on user attributes and behavioral events, and to configure personalized content experiences for those segments.
-
-- **Human URL:** [https://www.contentstack.com/docs/developers/apis/personalize-management-api](https://www.contentstack.com/docs/developers/apis/personalize-management-api)
-- **Base URL:** `https://personalize-api.contentstack.com`
-
-#### Tags
-
-- Audiences
-- Content Management
-- Experiences
-- Personalization
-
-#### Properties
-
-- [Documentation](https://www.contentstack.com/docs/developers/apis/personalize-management-api)
-- [OpenAPI](openapi/contentstack-personalize-management-api-openapi.yml) — [OpenAPI Specification](https://spec.openapis.org/oas/latest.html)
-- [Postman Collection](collections/contentstack-personalize-management-api.postman_collection.json) — [Postman Collection 2.1](https://schema.getpostman.com/json/collection/v2.1.0/collection.json)
-- [Open Collection](collections/contentstack-personalize-management-api.opencollection.json) — [Open Collection 1.0](https://schema.opencollection.com/opencollection/v1.0.0.json)
-
-### Contentstack Personalize Edge API
-
-The Contentstack Personalize Edge API enables real-time, dynamic personalization interactions using edge computing to retrieve personalized content experiences. It allows applications to retrieve personalization manifests of active experiences, set and update user attributes for audience matching, merge user identity records, and track behavioral events.
-
-- **Human URL:** [https://www.contentstack.com/docs/developers/apis/personalize-edge-api](https://www.contentstack.com/docs/developers/apis/personalize-edge-api)
-- **Base URL:** `https://personalize-edge.contentstack.com`
-
-#### Tags
-
-- Edge Computing
-- Events
-- Personalization
-- User Attributes
-
-#### Properties
-
-- [Documentation](https://www.contentstack.com/docs/developers/apis/personalize-edge-api)
-- [OpenAPI](openapi/contentstack-personalize-edge-api-openapi.yml) — [OpenAPI Specification](https://spec.openapis.org/oas/latest.html)
-- [Postman Collection](collections/contentstack-personalize-edge-api.postman_collection.json) — [Postman Collection 2.1](https://schema.getpostman.com/json/collection/v2.1.0/collection.json)
-- [Open Collection](collections/contentstack-personalize-edge-api.opencollection.json) — [Open Collection 1.0](https://schema.opencollection.com/opencollection/v1.0.0.json)
-
-### Contentstack Automate Management API
-
-The Contentstack Automate Management API allows developers to programmatically manage automation projects and workflows within a Contentstack organization. It supports creating, updating, retrieving, and deleting automations that connect Contentstack content events to third-party services and internal processes. This API is part of the Contentstack Automate (formerly Automation Hub) product, which provides a no-code/low-code automation layer built on top of the CMS.
-
-- **Human URL:** [https://www.contentstack.com/docs/developers/apis/automation-hub-management-api](https://www.contentstack.com/docs/developers/apis/automation-hub-management-api)
-- **Base URL:** `https://automations-api.contentstack.com`
-
-#### Tags
-
-- Automation
-- Content Management
-- Integration
-- Workflows
-
-#### Properties
-
-- [Documentation](https://www.contentstack.com/docs/developers/apis/automation-hub-management-api)
-- [OpenAPI](openapi/contentstack-automate-management-api-openapi.yml) — [OpenAPI Specification](https://spec.openapis.org/oas/latest.html)
-- [Postman Collection](collections/contentstack-automate-management-api.postman_collection.json) — [Postman Collection 2.1](https://schema.getpostman.com/json/collection/v2.1.0/collection.json)
-- [Open Collection](collections/contentstack-automate-management-api.opencollection.json) — [Open Collection 1.0](https://schema.opencollection.com/opencollection/v1.0.0.json)
-
-### Contentstack Analytics API
-
-The Contentstack Analytics API provides access to usage and performance metrics for CMS, Launch, and Automate products within a Contentstack organization. Developers can retrieve analytics data programmatically to build custom dashboards, monitor content delivery performance, and track platform usage against plan limits.
-
-- **Human URL:** [https://www.contentstack.com/docs/developers/apis/analytics-api](https://www.contentstack.com/docs/developers/apis/analytics-api)
-- **Base URL:** `https://api.contentstack.io`
-
-#### Tags
-
-- Analytics
-- Metrics
-- Monitoring
-- Reporting
-
-#### Properties
-
-- [Documentation](https://www.contentstack.com/docs/developers/apis/analytics-api)
-- [OpenAPI](openapi/contentstack-analytics-api-openapi.yml) — [OpenAPI Specification](https://spec.openapis.org/oas/latest.html)
-- [Postman Collection](collections/contentstack-analytics-api.postman_collection.json) — [Postman Collection 2.1](https://schema.getpostman.com/json/collection/v2.1.0/collection.json)
-- [Open Collection](collections/contentstack-analytics-api.opencollection.json) — [Open Collection 1.0](https://schema.opencollection.com/opencollection/v1.0.0.json)
-
-### Contentstack SCIM API
-
-The Contentstack SCIM API implements the System for Cross-domain Identity Management (SCIM 2.0) standard to enable automated user lifecycle management within a Contentstack organization. It allows Identity Providers (IdPs) to provision and deprovision users, manage group memberships, and synchronize user attributes between the IdP and Contentstack.
-
-- **Human URL:** [https://www.contentstack.com/docs/developers/apis/scim-api](https://www.contentstack.com/docs/developers/apis/scim-api)
-- **Base URL:** `https://auth-api.contentstack.com`
-
-#### Tags
-
-- Identity Management
-- SCIM
-- Security
-- User Provisioning
-
-#### Properties
-
-- [Documentation](https://www.contentstack.com/docs/developers/apis/scim-api)
-- [OpenAPI](openapi/contentstack-scim-api-openapi.yml) — [OpenAPI Specification](https://spec.openapis.org/oas/latest.html)
-- [Postman Collection](collections/contentstack-scim-api.postman_collection.json) — [Postman Collection 2.1](https://schema.getpostman.com/json/collection/v2.1.0/collection.json)
-- [Open Collection](collections/contentstack-scim-api.opencollection.json) — [Open Collection 1.0](https://schema.opencollection.com/opencollection/v1.0.0.json)
-
-### Contentstack Brand Kit Management API
-
-The Contentstack Brand Kit Management API provides programmatic control over Brand Kit resources within a Contentstack organization. Brand Kits serve as centralized hubs for an organization's brand identity, encompassing detailed brand information, writing guidelines, and persona configurations.
-
-- **Human URL:** [https://www.contentstack.com/docs/developers/apis/brand-kit-management-api](https://www.contentstack.com/docs/developers/apis/brand-kit-management-api)
-- **Base URL:** `https://brand-kits-api.contentstack.com`
-
-#### Tags
-
-- AI
-- Brand Management
-- Content Generation
-- Voice Profiles
-
-#### Properties
-
-- [Documentation](https://www.contentstack.com/docs/developers/apis/brand-kit-management-api)
-- [OpenAPI](openapi/contentstack-brand-kit-management-api-openapi.yml) — [OpenAPI Specification](https://spec.openapis.org/oas/latest.html)
-- [Postman Collection](collections/contentstack-brand-kit-management-api.postman_collection.json) — [Postman Collection 2.1](https://schema.getpostman.com/json/collection/v2.1.0/collection.json)
-- [Open Collection](collections/contentstack-brand-kit-management-api.opencollection.json) — [Open Collection 1.0](https://schema.opencollection.com/opencollection/v1.0.0.json)
-
-### Contentstack Knowledge Vault API
-
-The Contentstack Knowledge Vault API provides endpoints for ingesting, updating, and deleting content items stored in a Brand Kit's Knowledge Vault. The Knowledge Vault is a vector database that stores brand-specific knowledge content which is retrieved during AI content generation to provide accurate, brand-aligned responses. Content ingested via this API is vectorized and made available to the Generative AI API for retrieval augmented generation (RAG) workflows.
-
-- **Human URL:** [https://www.contentstack.com/docs/developers/apis/knowledge-vault-api](https://www.contentstack.com/docs/developers/apis/knowledge-vault-api)
-- **Base URL:** `https://ai.contentstack.com`
-
-#### Tags
-
-- AI
-- Knowledge Management
-- RAG
-- Vector Database
-
-#### Properties
-
-- [Documentation](https://www.contentstack.com/docs/developers/apis/knowledge-vault-api)
-- [OpenAPI](openapi/contentstack-knowledge-vault-api-openapi.yml) — [OpenAPI Specification](https://spec.openapis.org/oas/latest.html)
-- [Postman Collection](collections/contentstack-knowledge-vault-api.postman_collection.json) — [Postman Collection 2.1](https://schema.getpostman.com/json/collection/v2.1.0/collection.json)
-- [Open Collection](collections/contentstack-knowledge-vault-api.opencollection.json) — [Open Collection 1.0](https://schema.opencollection.com/opencollection/v1.0.0.json)
-
-### Contentstack Generative AI API
-
-The Contentstack Generative AI API provides an endpoint for generating AI-powered content using a Brand Kit's knowledge vault and voice profiles. It acts as a communication channel between the vector database and large language models, processing prompts with retrieval augmented generation (RAG) to produce brand-aligned content.
-
-- **Human URL:** [https://www.contentstack.com/docs/developers/apis/generative-ai-api](https://www.contentstack.com/docs/developers/apis/generative-ai-api)
-- **Base URL:** `https://ai.contentstack.com/brand-kits`
-
-#### Tags
-
-- AI
-- Brand Kit
-- Content Generation
-- Generative AI
-
-#### Properties
-
-- [Documentation](https://www.contentstack.com/docs/developers/apis/generative-ai-api)
-- [OpenAPI](openapi/contentstack-generative-ai-api-openapi.yml) — [OpenAPI Specification](https://spec.openapis.org/oas/latest.html)
-- [Postman Collection](collections/contentstack-generative-ai-api.postman_collection.json) — [Postman Collection 2.1](https://schema.getpostman.com/json/collection/v2.1.0/collection.json)
-- [Open Collection](collections/contentstack-generative-ai-api.opencollection.json) — [Open Collection 1.0](https://schema.opencollection.com/opencollection/v1.0.0.json)
-
-### Contentstack Launch API
-
-The Contentstack Launch API allows developers to programmatically manage web application deployments within Contentstack Launch. It supports full lifecycle management of Launch projects, environments, and deployments, including creating deployments from uploaded build artifacts, monitoring deployment logs, revalidating CDN caches, and retrieving signed upload URLs for build file transfers.
-
-- **Human URL:** [https://www.contentstack.com/docs/developers/apis/launch-api](https://www.contentstack.com/docs/developers/apis/launch-api)
-- **Base URL:** `https://launch-api.contentstack.com`
-
-#### Tags
-
-- CI/CD
-- Deployment
-- Frontend
-- Hosting
-
-#### Properties
-
-- [Documentation](https://www.contentstack.com/docs/developers/apis/launch-api)
-- [OpenAPI](openapi/contentstack-launch-api-openapi.yml) — [OpenAPI Specification](https://spec.openapis.org/oas/latest.html)
-- [Postman Collection](collections/contentstack-launch-api.postman_collection.json) — [Postman Collection 2.1](https://schema.getpostman.com/json/collection/v2.1.0/collection.json)
-- [Open Collection](collections/contentstack-launch-api.opencollection.json) — [Open Collection 1.0](https://schema.opencollection.com/opencollection/v1.0.0.json)
-
-## Common Properties
-
-- [GitHub Organization](https://github.com/contentstack)
-- [LinkedIn](https://www.linkedin.com/company/contentstack)
-- [AsyncAPI](asyncapi/contentstack-webhooks-asyncapi.yml) — [AsyncAPI Specification](https://www.asyncapi.com/docs/reference/specification/latest)
-- [JSON Schema](json-schema/contentstack-entry-schema.json) — [JSON Schema](https://json-schema.org/specification)
-- [JSON Schema](json-schema/contentstack-stack-schema.json) — [JSON Schema](https://json-schema.org/specification)
-- [JSON Schema](json-schema/contentstack-webhook-payload-schema.json) — [JSON Schema](https://json-schema.org/specification)
-- [JSON-LD](json-ld/contentstack-context.jsonld) — [JSON-LD](https://www.w3.org/TR/json-ld11/)
-- [Vocabulary](vocabulary/contentstack-vocabulary.yml)
-- [Spectral Rules](rules/contentstack-rules.yml)
-- [Capability](capabilities/deliver-headless-content.yml)
-- [Capability](capabilities/manage-stack-content.yml)
-- [Capability](capabilities/personalize-experiences.yml)
-- [Capability](capabilities/automate-content-workflows.yml)
-- [Capability](capabilities/generate-brand-aligned-ai-content.yml)
-- [Capability](capabilities/deploy-launch-frontends.yml)
-- [Capability](capabilities/provision-users-via-scim.yml)
+- [Contentstack Accounts Api Overlay](https://apis.io/overlays/contentstack/contentstack-accounts-api-overlay/)
+- [Contentstack Accounts Api Phrasing Overlay](https://apis.io/overlays/contentstack/contentstack-accounts-api-phrasing-overlay/)
+- [Contentstack Analytics Api Overlay](https://apis.io/overlays/contentstack/contentstack-analytics-api-overlay/)
+- [Contentstack Analytics Api Phrasing Overlay](https://apis.io/overlays/contentstack/contentstack-analytics-api-phrasing-overlay/)
+- [Contentstack Assets Api Overlay](https://apis.io/overlays/contentstack/contentstack-assets-api-overlay/)
+- [Contentstack Assets Api Phrasing Overlay](https://apis.io/overlays/contentstack/contentstack-assets-api-phrasing-overlay/)
+- [Contentstack Attributes Api Overlay](https://apis.io/overlays/contentstack/contentstack-attributes-api-overlay/)
+- [Contentstack Attributes Api Phrasing Overlay](https://apis.io/overlays/contentstack/contentstack-attributes-api-phrasing-overlay/)
+- [Contentstack Audiences Api Overlay](https://apis.io/overlays/contentstack/contentstack-audiences-api-overlay/)
+- [Contentstack Audiences Api Phrasing Overlay](https://apis.io/overlays/contentstack/contentstack-audiences-api-phrasing-overlay/)
+- [Contentstack Audit Logs Api Overlay](https://apis.io/overlays/contentstack/contentstack-audit-logs-api-overlay/)
+- [Contentstack Audit Logs Api Phrasing Overlay](https://apis.io/overlays/contentstack/contentstack-audit-logs-api-phrasing-overlay/)
+- [Contentstack Automations Api Overlay](https://apis.io/overlays/contentstack/contentstack-automations-api-overlay/)
+- [Contentstack Automations Api Phrasing Overlay](https://apis.io/overlays/contentstack/contentstack-automations-api-phrasing-overlay/)
+- [Contentstack Brand Kits Api Overlay](https://apis.io/overlays/contentstack/contentstack-brand-kits-api-overlay/)
+- [Contentstack Brand Kits Api Phrasing Overlay](https://apis.io/overlays/contentstack/contentstack-brand-kits-api-phrasing-overlay/)
+- [Contentstack Content Types Api Overlay](https://apis.io/overlays/contentstack/contentstack-content-types-api-overlay/)
+- [Contentstack Content Types Api Phrasing Overlay](https://apis.io/overlays/contentstack/contentstack-content-types-api-phrasing-overlay/)
+- [Contentstack Deployments Api Overlay](https://apis.io/overlays/contentstack/contentstack-deployments-api-overlay/)
+- [Contentstack Deployments Api Phrasing Overlay](https://apis.io/overlays/contentstack/contentstack-deployments-api-phrasing-overlay/)
+- [Contentstack Entries Api Overlay](https://apis.io/overlays/contentstack/contentstack-entries-api-overlay/)
+- [Contentstack Entries Api Phrasing Overlay](https://apis.io/overlays/contentstack/contentstack-entries-api-phrasing-overlay/)
+- [Contentstack Entry Variants Api Overlay](https://apis.io/overlays/contentstack/contentstack-entry-variants-api-overlay/)
+- [Contentstack Entry Variants Api Phrasing Overlay](https://apis.io/overlays/contentstack/contentstack-entry-variants-api-phrasing-overlay/)
+- [Contentstack Environments Api Overlay](https://apis.io/overlays/contentstack/contentstack-environments-api-overlay/)
+- …and 41 more published on APIs.io
+
+#### Governance rules (3)
+
+Spectral rulesets for the provider's contracts.
+
+- [Contentstack — asyncapi rules](https://apis.io/rules/contentstack/contentstack-asyncapi-spectral-rules/)
+- [Contentstack — jsonschema rules](https://apis.io/rules/contentstack/contentstack-jsonschema-spectral-rules/)
+- [Contentstack API Rules](https://apis.io/rules/contentstack/contentstack-rules/)
+
+#### Security (3)
+
+Authentication, trust centre, and vulnerability disclosure.
+
+- [Contentstack Authentication](https://apis.io/security/contentstack/contentstack-authentication/)
+- [Contentstack Domain Security](https://apis.io/security/contentstack/contentstack-domain-security/)
+- [Contentstack Trust Center](https://apis.io/security/contentstack/contentstack-trust-center/)
+
+#### OAuth scopes (1)
+
+The permissions the API asks for.
+
+- [Contentstack Scopes](https://apis.io/scopes/contentstack/contentstack-scopes/)
+
+#### Plans and pricing (1)
+
+Published plans, tiers and prices.
+
+- [Contentstack Plans Pricing](https://apis.io/plans/contentstack/contentstack-plans-pricing/)
+
+#### Rate limits (1)
+
+Published request limits.
+
+- [Contentstack Rate Limits](https://apis.io/rate-limits/contentstack/contentstack-rate-limits/)
+
+#### FinOps (1)
+
+What the API costs to run, by operation.
+
+- [Contentstack Finops](https://apis.io/finops/contentstack/contentstack-finops/)
+
+## Where to find this API
+
+Links to the company's own pages. This repository publishes no copy of their specifications — the canonical document is theirs and lives at the URLs below.
+
+- [Website](https://contentstack.com)
+- [Documentation](https://www.contentstack.com/docs)
+- [API reference](https://www.contentstack.com/docs/developers/apis)
+- [Pricing](https://www.contentstack.com/pricing)
+- [Sign up](https://www.contentstack.com/login)
+- [Support](https://www.contentstack.com/support)
+- [Blog](https://www.contentstack.com/blog)
+- [Security](https://www.contentstack.com/docs/developers/security)
+- [Terms of service](https://www.contentstack.com/legal/terms-of-service)
+- [Privacy policy](https://www.contentstack.com/legal/privacy)
+- [GitHub](https://github.com/contentstack)
+- [Status](https://status.contentstack.com/)
+
+## API Evangelist rating
+
+**Kin Score 73.6** — exemplar · rubric 0.25.0 · scored 2026-10-23
+
+| Facet | Score |
+|---|---|
+| Discoverability | 76.7 |
+| Contract quality | 70.5 |
+| Contract governance | 27.3 |
+| Operational transparency | 84.2 |
+| Developer ergonomics | 63.7 |
+| Access clarity | 92.1 |
+
+**Agent readiness 26.6** — agent-aware
+
+| Agent-readiness dimension | Result |
+|---|---|
+| Spec Presence | yes |
+| Agentic Access | derived (partial credit) |
+| Reversibility Documented | — |
+| MCP Server | documented (partial credit) |
+| Auth Clarity | bearer (partial credit) |
+| Idempotency | — |
+| Error Semantics | documented (partial credit) |
+| OpenAPI Examples | — |
+| Rate Limit Signal | documented (partial credit) |
+| Event Surface Described | derived (partial credit) |
+| Agent Skills | derived (partial credit) |
+| Well Known Catalog | — |
+| Consent Identity | — |
+| Agent Card | — |
+| Dry Run Mode | — |
+| Delegated Identity | — |
+| Protected Resource Metadata | — |
+| Dynamic Client Registration | — |
+| Agentic Commerce | — |
+| Pagination Ratio | — |
+| Operation Distinctiveness | — |
+
+**Regulatory alignment 39.2** — Horizontal (data, software, accessibility, platform)
+
+The rubric is published at [github.com/api-evangelist/kin-score](https://github.com/api-evangelist/kin-score). The per-check breakdown behind these numbers — which checks were earned, partial or missed — along with score history and how this provider compares to its peers, is available at [apis.io/providers/contentstack/](https://apis.io/providers/contentstack/).
+
+## How this profile is made
+
+API Evangelist profiles a company's public API surface the way a developer would find it: the website, developer portal and documentation, the specifications it publishes, its public repositories, and its pricing, status and changelog pages. From that it derives the properties above — contracts split per API, workflows, schemas, collections, governance rules, plans and rate limits — and scores them against the published [Kin Score rubric](https://github.com/api-evangelist/kin-score).
+
+The artifacts are published on [APIs.io](https://apis.io), not in this repository. This repository is the public record for Contentstack: the place to say something is wrong, missing or out of date, and to ask for a re-score or a removal.
+
+## Open an issue
+
+- **Something about this listing** — a wrong description, a missing API, a stale artifact or a question about the rating: [open an issue on this repository](https://github.com/api-evangelist/contentstack/issues/new).
+- **A new API, or one that is not in the catalog yet** — [submit it on APIs.io](https://apis.io/add/).
+- **Anything else** — [the APIs.io inbox](https://github.com/api-search/inbox/issues/new) or [info@apievangelist.com](mailto:info@apievangelist.com).
