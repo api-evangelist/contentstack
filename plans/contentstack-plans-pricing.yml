@@ -1,0 +1,89 @@
+# Pricing transcribed from the provider's own page — see provenance. Numbers are quoted, not derived.
+generated: '2026-10-28'
+method: searched
+source: https://www.contentstack.com/pricing
+sources:
+- https://www.contentstack.com/pricing
+provenance:
+  tool: engine/economics/harvest_pricing.py
+  run: 20261028T120612
+  grounding: every price_text was found verbatim in the fetched page text
+audience: business-product
+pricing_basis: tiered-subscription
+delivery:
+  delivery: managed
+  method: page
+  read: '2026-10-28'
+  managed_tier: Build
+published: true
+note: Four-tier SaaS pricing page; Enterprise is custom. Additional users listed at $25/user/mo on Growth.
+plan_count: 4
+currency: USD
+plans:
+- name: Free
+  price_text: $0 / month, forever
+  price: 0
+  currency: USD
+  period: month
+  included_quota: 3 users, 100K API calls/month, 100 GB bandwidth, 10 content types, 1K entries, 1K assets,
+    500K AI credits/month
+  overage: Pay-as-you-go overages – Not included
+- name: Build
+  price_text: $29 / month
+  price: 29
+  currency: USD
+  period: month
+  included_quota: 3 users, 250K API calls/month, 250 GB bandwidth, 20 content types, 2.5K entries, 2.5K
+    assets, 1 custom domain, 1M AI credits/month
+  overage: Pay-as-you-go overages
+- name: Growth
+  price_text: $299 / month
+  price: 299
+  currency: USD
+  period: month
+  included_quota: 10 users, 1M API calls/month, 1 TB bandwidth, 20K entries, 10K assets, 2M AI credits/month,
+    24/5 email support
+  overage: Additional users $25/user/mo
+- name: Enterprise
+  price_text: Custom price
+  period: none
+  included_quota: 50+ users, 6M+ API calls/month, 5 TB+ bandwidth, 150K+ entries, 500K assets, 10M+ AI
+    credits/month, 99.5% uptime SLA
+rate_limit_statements:
+- API calls / month 100K 250K 1M 6M+
+x-canonical:
+  generated: '2026-11-01'
+  vocabulary: engine/economics/plans-canonical.yml
+  models:
+  - hybrid
+  - metered
+  units: []
+  plans:
+  - name: Free
+    access: other
+    model: metered
+    model_how: derived
+    units: []
+    periods:
+    - month
+  - name: Build
+    access: other
+    model: hybrid
+    model_how: derived
+    units: []
+    periods:
+    - month
+  - name: Growth
+    access: other
+    model: hybrid
+    model_how: derived
+    units: []
+    periods:
+    - month
+  - name: Enterprise
+    access: other
+    model: unstated
+    model_how: derived
+    units: []
+    periods:
+    - none
