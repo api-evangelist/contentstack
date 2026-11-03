@@ -52,7 +52,7 @@ plans:
 rate_limit_statements:
 - API calls / month 100K 250K 1M 6M+
 x-canonical:
-  generated: '2026-11-01'
+  generated: '2026-11-02'
   vocabulary: engine/economics/plans-canonical.yml
   models:
   - hybrid
